@@ -33,8 +33,8 @@ namespace PetsWebsite.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=61.216.13.147,18349;Initial Catalog=PetsDB;Persist Security Info=True;User ID=TGM101Pets;Password=Tgm#3791");
+                IConfigurationRoot configurationRoot = new ConfigurationBuilder().SetBasePath(AppDomain.CurrentDomain.BaseDirectory).AddJsonFile("appsettings.json").Build();
+                optionsBuilder.UseSqlServer(configurationRoot.GetConnectionString("PetsDb"));
             }
         }
 
@@ -200,7 +200,7 @@ namespace PetsWebsite.Models
 
             modelBuilder.Entity<Restaurant>(entity =>
             {
-                entity.Property(e => e.RestaurantId).HasColumnName("RestaurantID");
+                entity.Property(e => e.Restaurantid).HasColumnName("RestaurantID");
 
                 entity.Property(e => e.Address).HasMaxLength(20);
 

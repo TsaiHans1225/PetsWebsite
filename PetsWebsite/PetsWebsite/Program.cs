@@ -1,4 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using PetsWebsite.Models;
+
 var builder = WebApplication.CreateBuilder(args);
+
+var PetsDbConnectionString = builder.Configuration.GetConnectionString("PetsDb");
+builder.Services.AddDbContext<PetsDBContext>(opt =>
+{
+    opt.UseSqlServer(PetsDbConnectionString);
+});
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
