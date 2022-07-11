@@ -1,0 +1,123 @@
+﻿@{
+    ViewData["Title"] = "Restautant";
+}
+
+        <!-- 旋轉木馬 -->
+        <div class="container">
+            <div class="row">
+                <h1 id="titleH1" class="text-danger mt-5">寵物友善餐廳</h1>
+            </div>
+            <div class="row">
+                <div class="m-0 p-2 col-12">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                                class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                                aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                                aria-label="Slide 3"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="https://picsum.photos/id/1060/600/400" class="d-block w-100" alt="">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://picsum.photos/id/1025/600/400" class="d-block w-100" alt="">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://picsum.photos/id/237/600/400" class="d-block w-100" alt="">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 依...搜尋... -->
+        <div class="container">
+            <div class="row row-cols-1 ">
+
+                <div class="d-flex justify-content-end">
+                    <select class="me-2">
+                        <option>--請選擇城市--</option>
+                    </select>
+                    <select class="me-2">
+                        <option>--請選擇地區--</option>
+                    </select>
+                    <button class="btn btn-primary ">查詢</button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 自製Card -->
+        <div class="container">
+            <!-- 第一張 -->
+            <div class="row">
+                <div id="divBorder" class="col-12 h-50 border-10 bg-light text-dark p-3 m-3">
+                    <div class="row">
+                        <img id="cardImage" src="https://picsum.photos/id/1025/600/400" alt="" class="w-50 p-3 col-6">
+                        <div id="itemBorder" class="col-6 list-group mt-1 mb-1">
+                            <a href="#" class="list-group-item bg-white h-100" aria-current="true">
+                                <div class="d-flex w-100 justify-content-between text-info">
+                                    <h5 class="mb-3">List group item heading</h5>
+                                    <small>3 days ago</small>
+                                </div>
+                                <p class="mb-1">Some placeholder content in a paragraph.</p>
+                                <small>And some small print.</small>
+                            </a>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <!-- 第二張 -->
+            <div class="row">
+                <div id="divBorder" class="col-12 h-50 border-10 bg-light text-dark p-3 m-3">
+                    <div class="row">
+                        <img id="cardImage" src="https://picsum.photos/id/237/600/400" alt="" class="w-50 p-3 col-6">
+                        <div id="itemBorder" class="col-6 list-group mt-1 mb-1">
+                            <a href="#" class="list-group-item bg-white h-100" aria-current="true">
+                                <div class="d-flex w-100 justify-content-between text-info">
+                                    <h5 class="mb-3">List group item heading</h5>
+                                    <small>3 days ago</small>
+                                </div>
+                                <p class="mb-1">Some placeholder content in a paragraph.</p>
+                                <small>And some small print.</small>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- 第三張 -->
+            <div class="row">
+                <div id="divBorder" class="col-12 h-50 border-10 bg-light text-dark p-3 m-3">
+                    <div class="row">
+                        <img id="cardImage" src="https://picsum.photos/id/1020/600/400" alt="" class="w-50 p-3 col-6">
+                        <div id="itemBorder" class="col-6 list-group mt-1 mb-1">
+                            <a href="#" class="list-group-item bg-white h-100" aria-current="true">
+                                <div class="d-flex w-100 justify-content-between text-info">
+                                    <h5 class="mb-3">List group item heading</h5>
+                                    <small>3 days ago</small>
+                                </div>
+                                <p class="mb-1">Some placeholder content in a paragraph.</p>
+                                <small>And some small print.</small>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
