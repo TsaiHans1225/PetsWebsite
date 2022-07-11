@@ -1,7 +1,11 @@
-﻿@{
+﻿@model List<Restaurant>
+@{
     ViewData["Title"] = "Restautant";
 }
-
+@section Styles{
+    <link rel="stylesheet" href="~/css/AaronCSS/index.css" />
+}
+<div id="Rest">
         <!-- 旋轉木馬 -->
         <div class="container">
             <div class="row">
@@ -63,14 +67,14 @@
         <!-- 自製Card -->
         <div class="container">
             <!-- 第一張 -->
-            <div class="row">
+            <div class="row" v-for="item in restaurantList">
                 <div id="divBorder" class="col-12 h-50 border-10 bg-light text-dark p-3 m-3">
-                    <div class="row">
-                        <img id="cardImage" src="https://picsum.photos/id/1025/600/400" alt="" class="w-50 p-3 col-6">
+                    <div class="row" >
+                        <img id="cardImage" v-bind:src="item.photo" alt="" class="w-50 p-3 col-6">
                         <div id="itemBorder" class="col-6 list-group mt-1 mb-1">
-                            <a href="#" class="list-group-item bg-white h-100" aria-current="true">
+                            <a  class="list-group-item bg-white h-100" aria-current="true" asp-controller="Restaurants" asp-action="RestaurantDetails">
                                 <div class="d-flex w-100 justify-content-between text-info">
-                                    <h5 class="mb-3">List group item heading</h5>
+                                    <h5 class="mb-3">{{item.restaurantname}}</h5>
                                     <small>3 days ago</small>
                                 </div>
                                 <p class="mb-1">Some placeholder content in a paragraph.</p>
@@ -82,42 +86,32 @@
 
                 </div>
 
-            </div>
-            <!-- 第二張 -->
-            <div class="row">
-                <div id="divBorder" class="col-12 h-50 border-10 bg-light text-dark p-3 m-3">
-                    <div class="row">
-                        <img id="cardImage" src="https://picsum.photos/id/237/600/400" alt="" class="w-50 p-3 col-6">
-                        <div id="itemBorder" class="col-6 list-group mt-1 mb-1">
-                            <a href="#" class="list-group-item bg-white h-100" aria-current="true">
-                                <div class="d-flex w-100 justify-content-between text-info">
-                                    <h5 class="mb-3">List group item heading</h5>
-                                    <small>3 days ago</small>
-                                </div>
-                                <p class="mb-1">Some placeholder content in a paragraph.</p>
-                                <small>And some small print.</small>
-                            </a>
-                        </div>
-                    </div>
-                </div>
 
-            </div>
-            <!-- 第三張 -->
-            <div class="row">
-                <div id="divBorder" class="col-12 h-50 border-10 bg-light text-dark p-3 m-3">
-                    <div class="row">
-                        <img id="cardImage" src="https://picsum.photos/id/1020/600/400" alt="" class="w-50 p-3 col-6">
-                        <div id="itemBorder" class="col-6 list-group mt-1 mb-1">
-                            <a href="#" class="list-group-item bg-white h-100" aria-current="true">
-                                <div class="d-flex w-100 justify-content-between text-info">
-                                    <h5 class="mb-3">List group item heading</h5>
-                                    <small>3 days ago</small>
-                                </div>
-                                <p class="mb-1">Some placeholder content in a paragraph.</p>
-                                <small>And some small print.</small>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+</div>
+
+
+
+@section Scripts{
+     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+var app = new Vue({
+    el:'#Rest',
+    data: {
+        restaurantList:[]
+    },
+    mounted: function () {
+        let self = this;
+        //ajax => es fetch
+        fetch('/api/Restaurants/Restaurant')
+            .then(function (result) {
+            return result.json();
+        }).then(function (d) {
+            console.log("已拿到資料", d);
+            console.log(this);
+            self.restaurantList = d;
+        })
+    }
+});
+
+    </script>
+}
