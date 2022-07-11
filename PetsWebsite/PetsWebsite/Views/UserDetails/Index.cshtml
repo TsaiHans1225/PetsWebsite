@@ -1,0 +1,223 @@
+﻿<!-- 會員資訊內容頁 -->
+<div>
+    <div class="row g-5" style="padding: 50px 100px 10px 200px;">
+        <div class="col-md-8 col-lg-8 px-3">
+            <div class="d-flex align-items-center mb-2">
+                <h4 class="mb-0 d-inline-block">會員資訊</h4>
+                <a class="btn btn-lg rounded-3 btn-primary mx-3" style="font-size: 15px;" type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save"
+                         viewBox="0 0 16 16">
+                        <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+                    </svg>
+                    儲存
+                </a>
+            </div>
+            <form class="needs-validation" novalidate="">
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <label for="firstName" class="form-label">First name</label>
+                        <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+                        <div class="invalid-feedback">
+                            Valid first name is required.
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="lastName" class="form-label">Last name</label>
+                        <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+                        <div class="invalid-feedback">
+                            Valid last name is required.
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="Phone" class="form-label">Phone</label>
+                        <input type="text" class="form-control" id="Phone" placeholder="" value="" required="">
+                        <div class="invalid-feedback">
+                            Valid Phone is required.
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="birthday" class="form-label">Birthday</label>
+                        <input type="text" class="form-control" id="birthday" placeholder="" value="" required="">
+                        <div class="invalid-feedback">
+                            Valid birthday is required.
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <label for="email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
+                        <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                        <div class="invalid-feedback">
+                            Please enter a valid email address for shipping updates.
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="city" class="form-label">City</label>
+                        <select class="form-select" id="city" required="">
+                            <option value="">Choose...</option>
+                            <option>台北市</option>
+                            <option>新北市</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select a valid city.
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="region" class="form-label">Region</label>
+                        <select class="form-select" id="region" required="">
+                            <option value="">Choose...</option>
+                            <option>XXX</option>
+                            <option>XXX</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please provide a valid region.
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
+                        <div class="invalid-feedback">
+                            Please enter your shipping address.
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="address2" class="form-label">
+                            Address 2 <span class="text-muted">(Optional)</span>
+                        </label>
+                        <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4 col-lg-4 order-md-last d-flex justify-content-center">
+            <div class="card" style="width: 18rem;">
+                <img class="img-thumbnail" src="/images/UserDetails/thumbnail.jpg" alt="">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">An item</li>
+                    <li class="list-group-item">A second item</li>
+                    <li class="list-group-item">A third item</li>
+                </ul>
+                <div class="card-body">
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <img src="/images/UserDetails/petsIcon.png" class="rounded float-start position-relative" style="left: 20%;" alt="...">
+    <div class="row g-5 justify-content-center" style="padding: 10px 100px 10px 200px;">
+        <div class="col-md-7 col-lg-8 px-3">
+            <div class="d-flex align-items-center mb-2">
+                <h4 class="mb-0 d-inline-block">愛寵資訊</h4>
+                <a class="btn btn-lg rounded-3 btn-primary mx-3" style="font-size: 15px;" type="submit">
+                    新增
+                </a>
+            </div>
+            <form class="needs-validation" novalidate="">
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <label for="Name" class="form-label">名字</label>
+                        <input type="text" class="form-control" id="Name" placeholder="" value="" required="">
+                        <div class="invalid-feedback">
+                            Valid first name is required.
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="species" class="form-label">物種</label>
+                        <input type="text" class="form-control" id="species" placeholder="" value="" required="">
+                        <div class="invalid-feedback">
+                            Valid 物種 is required.
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="variety" class="form-label">品種</label>
+                        <input type="text" class="form-control" id="variety" placeholder="" value="" required="">
+                        <div class="invalid-feedback">
+                            Valid variety is required.
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="birthday" class="form-label">Birthday</label>
+                        <input type="text" class="form-control" id="birthday" placeholder="" value="" required="">
+                        <div class="invalid-feedback">
+                            Valid birthday is required.
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr>
+    <div class="row row-cols-2 d-flex justify-content-evenly" style="padding: 10px 100px 10px 200px;">
+        <div class="card mb-3 col col-12 h-auto" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4 d-flex align-content-center">
+                    <img src="/images/UserDetails/black-dog-.jpeg" class="img-fluid rounded" alt="">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">小黑</h5>
+                        <p class="card-text">巴哥犬</p>
+                        <p class="card-text"><small class="text-muted">3歲</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-3 col col-12 h-auto" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4 d-flex align-content-center">
+                    <img src="/images/UserDetails/cat.webp" class="img-fluid rounded" alt="">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">小黑</h5>
+                        <p class="card-text">巴哥犬</p>
+                        <p class="card-text"><small class="text-muted">3歲</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-3 col col-12 h-auto" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4 d-flex align-content-center">
+                    <img src="/images/UserDetails/rabbit.jpg" class="img-fluid rounded" alt="">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">小黑</h5>
+                        <p class="card-text">巴哥犬</p>
+                        <p class="card-text"><small class="text-muted">3歲</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-3 col col-12 h-auto" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4 d-flex align-content-center">
+                    <img src="/images/UserDetails/lizard.webp" class="img-fluid rounded" alt="">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">小黑</h5>
+                        <p class="card-text">巴哥犬</p>
+                        <p class="card-text"><small class="text-muted">3歲</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
