@@ -1,0 +1,694 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+
+    @*Required meta tags*@
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+
+    @*Bootstrap CSS v5.2.0-beta1*@
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="">
+        <nav class="navbar navbar-expand-xl bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand text-light" href="#">
+                    <img class="d-inline-block" src="/apple.svg" alt=""
+                         style="width: 25px; height: 25px; padding-bottom: 5px;">
+                    EveryPets
+                </a>
+                <button class="navbar-toggler bg-warning" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown ms-2 me-2">
+                            <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                醫療資訊
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">一般醫療</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item text-bg-danger" href="#">24小時急診!!</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown ms-2 me-2">
+                            <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                購物專區
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">犬貓專區</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">非犬貓專區</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item ms-2 me-2">
+                            <a class="nav-link text-light">
+                                寵物餐廳
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown ms-2 me-2">
+                            <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                領養專區
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">犬貓專區</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">非犬貓專區</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <a class="pt-2 me-3 text-light text-decoration-none" type="button"
+                       data-bs-toggle="offcanvas" data-bs-target="#shoppingCart" aria-controls="shoppingCart">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-cart" viewBox="0 0 16 16">
+                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                        </svg>
+                        購物車
+                    </a>
+                    <div class="dropdown">
+                        <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            登入
+                        </a>
+                        <div style="position: relative; right: 80%">
+                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                <li>
+                                    <a class="dropdown-item" data-bs-toggle="modal"
+                                       data-bs-target="#modalUserSignin" href="#">使用者</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" data-bs-toggle="modal"
+                                       data-bs-target="#modalOwnerSignin" href="#">廠商</a>
+                                </li>
+                                <li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            歡迎XXX User
+                        </a>
+                        <div style="position: relative; right: -5%">
+                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                <li><a class="dropdown-item" asp-controller="UserDetails" asp-action="Index">會員資訊</a></li>
+                                <li><a class="dropdown-item" asp-controller="UserCollection" asp-action="Index">我的最愛</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">登出</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            歡迎XXX Owner
+                        </a>
+                        <div style="position: relative; right: -5%">
+                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                <li><a class="dropdown-item" href="#">管理商品</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">登出</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 ps-3 pe-3 border-top">
+        <p class="col-md-4 mb-0 text-muted">© 2022 Company, Inc</p>
+
+        <a href="/"
+           class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32">
+                <use xlink:href="#bootstrap"></use>
+            </svg>
+        </a>
+
+        <ul class="nav col-md-4 justify-content-end">
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+        </ul>
+    </footer>
+
+    @*UserSignin彈出視窗*@
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalUserSignin">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-header p-5 pb-4 border-bottom-0">
+                    <h2 class="fw-bold mb-0">歡迎回來</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body p-5 pt-0">
+                    <form class="">
+                        <div class="form-floating mb-3 rounded-pill">
+                            <input type="email" class="form-control rounded-3" id="floatingInput"
+                                   placeholder="name@example.com">
+                            <label for="floatingInput">電子郵件</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control rounded-3" id="floatingPassword"
+                                   placeholder="Password">
+                            <label for="floatingPassword">密碼</label>
+                        </div>
+                        <a class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;"
+                           type="submit">登入</a>
+                        <div class="row row-cols-2 text-center">
+                            <a class="col text-decoration-none" data-bs-toggle="modal"
+                               data-bs-target="#modalUserForgotPassword" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-shield-lock" viewBox="0 0 16 16">
+                                    <path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.775 11.775 0 0 1-2.517 2.453 7.159 7.159 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7.158 7.158 0 0 1-1.048-.625 11.777 11.777 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 62.456 62.456 0 0 1 5.072.56z" />
+                                    <path d="M9.5 6.5a1.5 1.5 0 0 1-1 1.415l.385 1.99a.5.5 0 0 1-.491.595h-.788a.5.5 0 0 1-.49-.595l.384-1.99a1.5 1.5 0 1 1 2-1.415z" />
+                                </svg>
+                                <small class="text-muted">忘記密碼 ??</small>
+                            </a>
+                            <a class="col text-decoration-none" data-bs-toggle="modal" data-bs-target="#modalUserSignUp"
+                               href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-door-open-fill" viewBox="0 0 16 16">
+                                    <path d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2h.5a.5.5 0 0 1 .5.5V15h-1V2zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z" />
+                                </svg>
+                                <small class="text-muted">註冊帳號</small>
+                            </a>
+                        </div>
+                        <hr class="my-4">
+                        <div class="d-flex justify-content-center">
+                            <p class="mb-3 align-items-center text-secondary" style="font-size: 15px;">透過第三方帳號登入</p>
+                        </div>
+                        <a class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3 rounded-pill" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-google" viewBox="0 0 16 16">
+                                <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
+                            </svg>
+                            透過Google登入
+                        </a>
+                        <a class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3 rounded-pill" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-facebook" viewBox="0 0 16 16">
+                                <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+                            </svg>
+                            透過Facebook登入
+                        </a>
+                        <a class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3 rounded-pill" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-line" viewBox="0 0 16 16">
+                                <path d="M8 0c4.411 0 8 2.912 8 6.492 0 1.433-.555 2.723-1.715 3.994-1.678 1.932-5.431 4.285-6.285 4.645-.83.35-.734-.197-.696-.413l.003-.018.114-.685c.027-.204.055-.521-.026-.723-.09-.223-.444-.339-.704-.395C2.846 12.39 0 9.701 0 6.492 0 2.912 3.59 0 8 0ZM5.022 7.686H3.497V4.918a.156.156 0 0 0-.155-.156H2.78a.156.156 0 0 0-.156.156v3.486c0 .041.017.08.044.107v.001l.002.002.002.002a.154.154 0 0 0 .108.043h2.242c.086 0 .155-.07.155-.156v-.56a.156.156 0 0 0-.155-.157Zm.791-2.924a.156.156 0 0 0-.156.156v3.486c0 .086.07.155.156.155h.562c.086 0 .155-.07.155-.155V4.918a.156.156 0 0 0-.155-.156h-.562Zm3.863 0a.156.156 0 0 0-.156.156v2.07L7.923 4.832a.17.17 0 0 0-.013-.015v-.001a.139.139 0 0 0-.01-.01l-.003-.003a.092.092 0 0 0-.011-.009h-.001L7.88 4.79l-.003-.002a.029.029 0 0 0-.005-.003l-.008-.005h-.002l-.003-.002-.01-.004-.004-.002a.093.093 0 0 0-.01-.003h-.002l-.003-.001-.009-.002h-.006l-.003-.001h-.004l-.002-.001h-.574a.156.156 0 0 0-.156.155v3.486c0 .086.07.155.156.155h.56c.087 0 .157-.07.157-.155v-2.07l1.6 2.16a.154.154 0 0 0 .039.038l.001.001.01.006.004.002a.066.066 0 0 0 .008.004l.007.003.005.002a.168.168 0 0 0 .01.003h.003a.155.155 0 0 0 .04.006h.56c.087 0 .157-.07.157-.155V4.918a.156.156 0 0 0-.156-.156h-.561Zm3.815.717v-.56a.156.156 0 0 0-.155-.157h-2.242a.155.155 0 0 0-.108.044h-.001l-.001.002-.002.003a.155.155 0 0 0-.044.107v3.486c0 .041.017.08.044.107l.002.003.002.002a.155.155 0 0 0 .108.043h2.242c.086 0 .155-.07.155-.156v-.56a.156.156 0 0 0-.155-.157H11.81v-.589h1.525c.086 0 .155-.07.155-.156v-.56a.156.156 0 0 0-.155-.157H11.81v-.589h1.525c.086 0 .155-.07.155-.156Z" />
+                            </svg>
+                            透過LINE登入
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*UserSignUp彈出視窗*@
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalUserSignUp">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-header p-5 pb-4 border-bottom-0">
+                    <h2 class="fw-bold mb-0">歡迎註冊</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body p-5 pt-0">
+                    <form class="">
+                        <div class="row row-cols-2">
+                            <div class="form-floating mb-3 col">
+                                <input type="email" class="form-control rounded-3" id="floatingInput"
+                                       placeholder="name@example.com">
+                                <label for="floatingInput" style="margin-left: 12px;">姓</label>
+                            </div>
+                            <div class="form-floating mb-3 col">
+                                <input type="email" class="form-control rounded-3" id="floatingInput"
+                                       placeholder="name@example.com">
+                                <label for="floatingInput" style="margin-left: 12px;"> 名</label>
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control rounded-3" id="floatingInput"
+                                   placeholder="name@example.com">
+                            <label for="floatingInput">電子郵件</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control rounded-3" id="floatingPassword"
+                                   placeholder="Password">
+                            <label for="floatingPassword">密碼</label>
+                        </div>
+                        <a class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;"
+                           type="submit">註冊</a>
+                        <div class="row row-cols-1 text-center">
+                            <a class="col text-decoration-none" data-bs-toggle="modal" data-bs-target="#modalUserSignin"
+                               href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z" />
+                                    <path fill-rule="evenodd"
+                                          d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                                </svg>
+                                <small class="text-muted">返回登入畫面</small>
+                            </a>
+                        </div>
+                        <hr class="my-4">
+                        <h2 class="fs-5 fw-bold mb-3 align-items-center">透過第三方帳號註冊</h2>
+                        <a class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3 rounded-pill" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-google" viewBox="0 0 16 16">
+                                <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
+                            </svg>
+                            透過Google帳號註冊
+                        </a>
+                        <a class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3 rounded-pill" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-facebook" viewBox="0 0 16 16">
+                                <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+                            </svg>
+                            透過Facebook帳號註冊
+                        </a>
+                        <a class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3 rounded-pill" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-line" viewBox="0 0 16 16">
+                                <path d="M8 0c4.411 0 8 2.912 8 6.492 0 1.433-.555 2.723-1.715 3.994-1.678 1.932-5.431 4.285-6.285 4.645-.83.35-.734-.197-.696-.413l.003-.018.114-.685c.027-.204.055-.521-.026-.723-.09-.223-.444-.339-.704-.395C2.846 12.39 0 9.701 0 6.492 0 2.912 3.59 0 8 0ZM5.022 7.686H3.497V4.918a.156.156 0 0 0-.155-.156H2.78a.156.156 0 0 0-.156.156v3.486c0 .041.017.08.044.107v.001l.002.002.002.002a.154.154 0 0 0 .108.043h2.242c.086 0 .155-.07.155-.156v-.56a.156.156 0 0 0-.155-.157Zm.791-2.924a.156.156 0 0 0-.156.156v3.486c0 .086.07.155.156.155h.562c.086 0 .155-.07.155-.155V4.918a.156.156 0 0 0-.155-.156h-.562Zm3.863 0a.156.156 0 0 0-.156.156v2.07L7.923 4.832a.17.17 0 0 0-.013-.015v-.001a.139.139 0 0 0-.01-.01l-.003-.003a.092.092 0 0 0-.011-.009h-.001L7.88 4.79l-.003-.002a.029.029 0 0 0-.005-.003l-.008-.005h-.002l-.003-.002-.01-.004-.004-.002a.093.093 0 0 0-.01-.003h-.002l-.003-.001-.009-.002h-.006l-.003-.001h-.004l-.002-.001h-.574a.156.156 0 0 0-.156.155v3.486c0 .086.07.155.156.155h.56c.087 0 .157-.07.157-.155v-2.07l1.6 2.16a.154.154 0 0 0 .039.038l.001.001.01.006.004.002a.066.066 0 0 0 .008.004l.007.003.005.002a.168.168 0 0 0 .01.003h.003a.155.155 0 0 0 .04.006h.56c.087 0 .157-.07.157-.155V4.918a.156.156 0 0 0-.156-.156h-.561Zm3.815.717v-.56a.156.156 0 0 0-.155-.157h-2.242a.155.155 0 0 0-.108.044h-.001l-.001.002-.002.003a.155.155 0 0 0-.044.107v3.486c0 .041.017.08.044.107l.002.003.002.002a.155.155 0 0 0 .108.043h2.242c.086 0 .155-.07.155-.156v-.56a.156.156 0 0 0-.155-.157H11.81v-.589h1.525c.086 0 .155-.07.155-.156v-.56a.156.156 0 0 0-.155-.157H11.81v-.589h1.525c.086 0 .155-.07.155-.156Z" />
+                            </svg>
+                            透過LINE帳號註冊
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*OwnerSignin彈出視窗*@
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalOwnerSignin">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-header p-5 pb-4 border-bottom-0">
+                    <h2 class="fw-bold mb-0">歡迎回來</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body p-5 pt-0">
+                    <form class="">
+                        <div class="form-floating mb-3 rounded-pill">
+                            <input type="email" class="form-control rounded-3" id="floatingInput"
+                                   placeholder="name@example.com">
+                            <label for="floatingInput">電子郵件</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control rounded-3" id="floatingPassword"
+                                   placeholder="Password">
+                            <label for="floatingPassword">密碼</label>
+                        </div>
+                        <a class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;"
+                           type="submit">登入</a>
+                        <div class="row row-cols-2 text-center">
+                            <a class="col text-decoration-none" data-bs-toggle="modal"
+                               data-bs-target="#modalOwnerForgotPassword" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-shield-lock" viewBox="0 0 16 16">
+                                    <path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.775 11.775 0 0 1-2.517 2.453 7.159 7.159 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7.158 7.158 0 0 1-1.048-.625 11.777 11.777 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 62.456 62.456 0 0 1 5.072.56z" />
+                                    <path d="M9.5 6.5a1.5 1.5 0 0 1-1 1.415l.385 1.99a.5.5 0 0 1-.491.595h-.788a.5.5 0 0 1-.49-.595l.384-1.99a1.5 1.5 0 1 1 2-1.415z" />
+                                </svg>
+                                <small class="text-muted">忘記密碼 ??</small>
+                            </a>
+                            <a class="col text-decoration-none" data-bs-toggle="modal"
+                               data-bs-target="#modalOwnerSignUp" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-door-open-fill" viewBox="0 0 16 16">
+                                    <path d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2h.5a.5.5 0 0 1 .5.5V15h-1V2zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z" />
+                                </svg>
+                                <small class="text-muted">註冊帳號</small>
+                            </a>
+                        </div>
+                        <hr class="my-4">
+                        <div class="d-flex justify-content-center">
+                            <p class="mb-3 align-items-center text-secondary" style="font-size: 15px;">透過第三方帳號登入</p>
+                        </div>
+                        <a class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3 rounded-pill" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-google" viewBox="0 0 16 16">
+                                <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
+                            </svg>
+                            透過Google登入
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*OwnerSignUp彈出視窗*@
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalOwnerSignUp">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-header p-5 pb-4 border-bottom-0">
+                    <h2 class="fw-bold mb-0">歡迎註冊</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body p-5 pt-0">
+                    <form class="">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control rounded-3" id="floatingInput"
+                                   placeholder="name@example.com">
+                            <label for="floatingInput">公司名稱</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control rounded-3" id="floatingInput"
+                                   placeholder="name@example.com">
+                            <label for="floatingInput">統一編號</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control rounded-3" id="floatingInput"
+                                   placeholder="name@example.com">
+                            <label for="floatingInput">電子郵件</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control rounded-3" id="floatingPassword"
+                                   placeholder="Password">
+                            <label for="floatingPassword">密碼</label>
+                        </div>
+                        <a class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;"
+                           type="submit">註冊</a>
+                        <div class="row row-cols-1 text-center">
+                            <a class="col text-decoration-none" data-bs-toggle="modal"
+                               data-bs-target="#modalOwnerSignin" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z" />
+                                    <path fill-rule="evenodd"
+                                          d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                                </svg>
+                                <small class="text-muted">返回登入畫面</small>
+                            </a>
+                        </div>
+                        <hr class="my-4">
+                        <div class="d-flex justify-content-center">
+                            <p class="mb-3 align-items-center text-secondary" style="font-size: 15px;">透過第三方帳號登入</p>
+                        </div>
+                        <a class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3 rounded-pill" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-google" viewBox="0 0 16 16">
+                                <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
+                            </svg>
+                            透過Google註冊
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*User忘記密碼彈出視窗*@
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalUserForgotPassword">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-header p-5 pb-4 border-bottom-0">
+                    <h2 class="fw-bold mb-0">忘記密碼</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body p-5 pt-0">
+                    <form class="">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control rounded-3" id="floatingInput"
+                                   placeholder="name@example.com">
+                            <label for="floatingInput">電子郵件</label>
+                        </div>
+                        <a class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;"
+                           type="submit">寄送驗證信</a>
+                        <small class="text-danger">請輸入電子郵件信箱，我們將為您傳送驗證信，謝謝。</small>
+                        <a class="col d-block text-decoration-none" data-bs-toggle="modal"
+                           data-bs-target="#modalUserSignin" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z" />
+                                <path fill-rule="evenodd"
+                                      d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                            </svg>
+                            <small class="text-muted">返回登入畫面</small>
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Owner忘記密碼彈出視窗*@
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalOwnerForgotPassword">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-header p-5 pb-4 border-bottom-0">
+                    <h2 class="fw-bold mb-0">忘記密碼</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body p-5 pt-0">
+                    <form class="">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control rounded-3" id="floatingInput"
+                                   placeholder="name@example.com">
+                            <label for="floatingInput">電子郵件</label>
+                        </div>
+                        <a class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;"
+                           type="submit">寄送驗證信</a>
+                        <small class="text-danger">請輸入電子郵件信箱，我們將為您傳送驗證信，謝謝。</small>
+                        <a class="col d-block text-decoration-none" data-bs-toggle="modal"
+                           data-bs-target="#modalOwnerSignin" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z" />
+                                <path fill-rule="evenodd"
+                                      d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                            </svg>
+                            <small class="text-muted">返回登入畫面</small>
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*購物車*@
+    <div class="offcanvas offcanvas-end" style="width: 700px;" tabindex="-1" id="shoppingCart"
+         aria-labelledby="shoppingCartLabel">
+        <div class="offcanvas-header pb-0">
+            <h5 class="offcanvas-title" id="shoppingCartLabel">購物清單</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white"
+                 style="width: 680px; height: 80px;">
+                <div class="list-group list-group-flush border-bottom scrollarea">
+                    <div class="row">
+                        <div class="col-4">
+                            商品
+                        </div>
+                        <div class="col-2">
+                            單價
+                        </div>
+                        <div class="col-2">
+                            數量
+                        </div>
+                        <div class="col-2">
+                            總價
+                        </div>
+                        <div class="col-2">
+                            移除
+                        </div>
+                    </div>
+                    <div class="row border-top border-bottom pt-1 pb-1 d-flex align-items-center" style="height: 80px;">
+                        <div class="col-2">
+                            <img src="https://picsum.photos/id/684/600/400" class="card-img-top" alt="...">
+                        </div>
+                        <div class="col-2">
+                            內容
+                        </div>
+                        <div class="col-2">
+                            $120
+                        </div>
+                        <div class="col-2">
+                            <a name="" id="" class="text-decoration-none" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
+                                     class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </a>
+                            <input type="text" value="1" style="width: 30px; font-size: 5px;">
+                            <a name="" id="" class="text-decoration-none" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
+                                     class="bi bi-chevron-up" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="col-2">
+                            $120
+                        </div>
+                        <div class="col-2">
+                            <a class="btn btn-lg rounded-3 btn-danger" style="font-size: 15px;" type="submit">移除</a>
+                        </div>
+                    </div>
+                    <div class="row border-top border-bottom pt-1 pb-1 d-flex align-items-center" style="height: 80px;">
+                        <div class="col-2">
+                            <img src="https://picsum.photos/id/684/600/400" class="card-img-top" alt="...">
+                        </div>
+                        <div class="col-2">
+                            內容
+                        </div>
+                        <div class="col-2">
+                            $120
+                        </div>
+                        <div class="col-2">
+                            <a name="" id="" class="text-decoration-none" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
+                                     class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </a>
+                            <input type="text" value="1" style="width: 30px; font-size: 5px;">
+                            <a name="" id="" class="text-decoration-none" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
+                                     class="bi bi-chevron-up" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                                </svg>
+                        </div>
+                        <div class="col-2">
+                            $120
+                        </div>
+                        <div class="col-2">
+                            <a class="btn btn-lg rounded-3 btn-danger" style="font-size: 15px;" type="submit">移除</a>
+                        </div>
+                    </div>
+                    <div class="row border-top border-bottom pt-1 pb-1 d-flex align-items-center" style="height: 80px;">
+                        <div class="col-2">
+                            <img src="https://picsum.photos/id/684/600/400" class="card-img-top" alt="...">
+                        </div>
+                        <div class="col-2">
+                            內容
+                        </div>
+                        <div class="col-2">
+                            $120
+                        </div>
+                        <div class="col-2">
+                            <a name="" id="" class="text-decoration-none" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
+                                     class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </a>
+                            <input type="text" value="1" style="width: 30px; font-size: 5px;">
+                            <a name="" id="" class="text-decoration-none" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
+                                     class="bi bi-chevron-up" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="col-2">
+                            $120
+                        </div>
+                        <div class="col-2">
+                            <a class="btn btn-lg rounded-3 btn-danger" style="font-size: 15px;" type="submit">移除</a>
+                        </div>
+                    </div>
+                    <div class="row border-top border-bottom pt-1 pb-1 d-flex align-items-center" style="height: 80px;">
+                        <div class="col-2">
+                            <img src="https://picsum.photos/id/684/600/400" class="card-img-top" alt="...">
+                        </div>
+                        <div class="col-2">
+                            內容
+                        </div>
+                        <div class="col-2">
+                            $120
+                        </div>
+                        <div class="col-2">
+                            <a name="" id="" class="text-decoration-none" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
+                                     class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </a>
+                            <input type="text" value="1" style="width: 30px; font-size: 5px;">
+                            <a name="" id="" class="text-decoration-none" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
+                                     class="bi bi-chevron-up" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="col-2">
+                            $120
+                        </div>
+                        <div class="col-2">
+                            <a class="btn btn-lg rounded-3 btn-danger" style="font-size: 15px;" type="submit">移除</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>*@
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+
+@*Bootstrap JavaScript Libraries*@
+<script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.11.5/dist/umd/popper.min.js"
+    integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+    crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+    integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+    crossorigin="anonymous"></script>
+</html>
