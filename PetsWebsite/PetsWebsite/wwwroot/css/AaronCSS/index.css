@@ -1,0 +1,53 @@
+div>.carousel-item {
+    border-radius: 30px 30px 30px 30px;
+    height: 360px;
+}
+
+div>.carousel-item>img {
+    border-radius: 30px 30px 30px 30px;
+    height: 300px;
+}
+
+#cardImage{
+    border-radius: 45px 45px;
+    vertical-align:text-top;
+}
+
+#divBorder{
+    
+    border-radius: 35px 35px;
+}
+
+#itemBorder{
+    border-radius: 30px 30px 30px 30px;
+    
+}
+
+#titleH1{
+    text-align: center;
+    background-color: beige;
+    border-radius: 30px 30px 30px 30px;
+}
+
+body{
+    background-color: rgba(246, 235, 220, 0.63);
+}
+
+#btnSave{
+    border-radius: 30px 30px 30px 30px;
+    margin-top: 0px;
+    width: 70px;
+    height: 50px;
+    padding: 12px;
+}
+
+#map{
+    border-radius: 30px 30px 30px 30px;
+    width: 100%;
+    height: 320px;
+}
+
+#h2Text{
+    background-color: beige;
+    border-radius: 30px 30px 30px 30px;
+}
