@@ -2,13 +2,13 @@
 
 namespace PetsWebsite.Controllers
 {
-    public class MedicalController : Controller
+    public class ClinicController : Controller
     {
-        public IActionResult Medical()
+        public IActionResult Clinic()
         {
             return View();
         }
-        public IActionResult MedicalInfo()
+        public IActionResult ClinicInfo()
         {
             return View();
         }
