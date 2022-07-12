@@ -5,7 +5,7 @@ namespace PetsWebsite.Models
 {
     public partial class Restaurant
     {
-        public int Restaurantid { get; set; }
+        public int RestaurantId { get; set; }
         public string RestaurantName { get; set; } = null!;
         public string Phone { get; set; } = null!;
         public string Address { get; set; } = null!;
