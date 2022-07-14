@@ -12,6 +12,9 @@
     @*Bootstrap CSS v5.2.0-beta1*@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
     integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    @*Vue2 development version*@
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
     @await RenderSectionAsync("Styles", required: false)
 </head>
 
@@ -19,7 +22,7 @@
     <div class="">
         <nav class="navbar navbar-expand-xl bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand text-light" href="#">
+                <a class="navbar-brand text-light" href="/home/Index">
                     <img class="d-inline-block" src="/apple.svg" alt=""
                          style="width: 25px; height: 25px; padding-bottom: 5px;">
                     EveryPets
@@ -37,11 +40,11 @@
                                 醫療資訊
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">一般醫療</a></li>
+                                <li><a class="dropdown-item" href="/Clinic/Clinic">一般醫療</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item text-bg-danger" href="#">24小時急診!!</a></li>
+                                <li><a class="dropdown-item text-bg-danger" href="/Clinic/Clinic">24小時急診!!</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown ms-2 me-2">
@@ -164,7 +167,7 @@
         </ul>
     </footer>
 
-    @*UserSignin彈出視窗*@
+    @*UserSignin彈出視窗*@ @*會員登入*@
     <div class="modal fade" tabindex="-1" role="dialog" id="modalUserSignin">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content rounded-4 shadow">
@@ -172,21 +175,20 @@
                     <h2 class="fw-bold mb-0">歡迎回來</h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-
+               
                 <div class="modal-body p-5 pt-0">
-                    <form class="">
+                    <div class="">
                         <div class="form-floating mb-3 rounded-pill">
                             <input type="email" class="form-control rounded-3" id="floatingInput"
-                                   placeholder="name@example.com">
+                                   placeholder="name@example.com" v-model="Account">
                             <label for="floatingInput">電子郵件</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="password" class="form-control rounded-3" id="floatingPassword"
-                                   placeholder="Password">
+                                   placeholder="Password" v-model="Password">
                             <label for="floatingPassword">密碼</label>
                         </div>
-                        <a class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;"
-                           type="submit">登入</a>
+                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;" v-on:click="SubmitHandle">登入</button>
                         <div class="row row-cols-2 text-center">
                             <a class="col text-decoration-none" data-bs-toggle="modal"
                                data-bs-target="#modalUserForgotPassword" href="#">
@@ -231,13 +233,13 @@
                             </svg>
                             透過LINE登入
                         </a>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    @*UserSignUp彈出視窗*@
+    @*UserSignUp彈出視窗*@ @*會員註冊*@
     <div class="modal fade" tabindex="-1" role="dialog" id="modalUserSignUp">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content rounded-4 shadow">
@@ -247,31 +249,31 @@
                 </div>
 
                 <div class="modal-body p-5 pt-0">
-                    <form class="">
+                    <form class="" method="post" action="/Members/Register">
                         <div class="row row-cols-2">
                             <div class="form-floating mb-3 col">
-                                <input type="email" class="form-control rounded-3" id="floatingInput"
-                                       placeholder="name@example.com">
+                                <input type="text" class="form-control rounded-3" id="floatingInput"
+                                       placeholder="name@example.com" name="LastName">
                                 <label for="floatingInput" style="margin-left: 12px;">姓</label>
                             </div>
                             <div class="form-floating mb-3 col">
-                                <input type="email" class="form-control rounded-3" id="floatingInput"
-                                       placeholder="name@example.com">
+                                <input type="text" class="form-control rounded-3" id="floatingInput"
+                                       placeholder="name@example.com" name="FirstName">
                                 <label for="floatingInput" style="margin-left: 12px;"> 名</label>
                             </div>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control rounded-3" id="floatingInput"
-                                   placeholder="name@example.com">
+                                   placeholder="name@example.com" name="Account">
                             <label for="floatingInput">電子郵件</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="password" class="form-control rounded-3" id="floatingPassword"
-                                   placeholder="Password">
+                                   placeholder="Password" name="Password">
                             <label for="floatingPassword">密碼</label>
                         </div>
-                        <a class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;"
-                           type="submit">註冊</a>
+                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;"
+                           type="submit">註冊</button>
                         <div class="row row-cols-1 text-center">
                             <a class="col text-decoration-none" data-bs-toggle="modal" data-bs-target="#modalUserSignin"
                                href="#">
@@ -314,7 +316,7 @@
         </div>
     </div>
 
-    @*OwnerSignin彈出視窗*@
+    @*OwnerSignin彈出視窗*@ @*產商登入*@
     <div class="modal fade" tabindex="-1" role="dialog" id="modalOwnerSignin">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content rounded-4 shadow">
@@ -373,7 +375,7 @@
         </div>
     </div>
 
-    @*OwnerSignUp彈出視窗*@
+    @*OwnerSignUp彈出視窗*@@*產商註冊*@
     <div class="modal fade" tabindex="-1" role="dialog" id="modalOwnerSignUp">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content rounded-4 shadow">
@@ -692,4 +694,30 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
     integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
     crossorigin="anonymous"></script>
+    <script>
+var MLogin =new Vue({
+     data: {
+                Account: '',
+                Password: ''
+            },
+            methods: {
+                SubmitHandle: function() {
+                    var Ldata = {
+                        Account: this.Account,
+                        Password: this.Password
+                    }; console.log(Ldata);
+                    fetch("/api/UserOpt/UserLogin", {
+                        method: 'POST', // or 'PUT'
+                        body: JSON.stringify(Ldata), // data can be `string` or {object}!
+                        headers: new Headers({
+                            'Content-Type': 'application/json'
+                        })
+                    })
+                        .then(res => res.json())
+                        .catch(error => console.error('Error:', error))
+                        .then(response => console.log('Success:', response));
+                            }
+                            }
+}).$mount("#modalUserSignin")
+    </script>
 </html>

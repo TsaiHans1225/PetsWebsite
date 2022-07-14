@@ -7,6 +7,7 @@ namespace PetsWebsite.Models
     {
         public Product()
         {
+            Comments = new HashSet<Comment>();
             OrderDetails = new HashSet<OrderDetail>();
         }
 
@@ -19,6 +20,7 @@ namespace PetsWebsite.Models
         public bool? Discontinued { get; set; }
 
         public virtual Category? Category { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

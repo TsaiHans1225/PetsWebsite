@@ -28,13 +28,16 @@ namespace PetsWebsite.Models
         public virtual DbSet<Restaurant> Restaurants { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
+        public virtual DbSet<UserAccount> UserAccounts { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                IConfigurationRoot configurationRoot = new ConfigurationBuilder().SetBasePath(AppDomain.CurrentDomain.BaseDirectory).AddJsonFile("appsettings.json").Build();
-                optionsBuilder.UseSqlServer(configurationRoot.GetConnectionString("PetsDb"));
+                IConfigurationRoot Configuration = new ConfigurationBuilder()
+                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                    .AddJsonFile("appsettings.json").Build();
+                optionsBuilder.UseSqlServer(Configuration.GetConnectionString("PetsDb"));
             }
         }
 
@@ -66,19 +69,37 @@ namespace PetsWebsite.Models
 
             modelBuilder.Entity<Comment>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => new { e.CommentId, e.ProductId, e.UserId });
 
                 entity.ToTable("Comment");
 
                 entity.Property(e => e.CommentId).HasColumnName("CommentID");
 
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.Property(e => e.UserId).HasColumnName("UserID");
+
                 entity.Property(e => e.Content).HasMaxLength(100);
+
+                entity.Property(e => e.PublicDate)
+                    .HasColumnType("datetime")
+                    .HasComputedColumnSql("(getdate())", false);
 
                 entity.Property(e => e.SubmitTime).HasColumnType("datetime");
 
                 entity.Property(e => e.Title).HasMaxLength(20);
 
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.Comments)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Comment_Products");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Comments)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Comment_Users");
             });
 
             modelBuilder.Entity<Company>(entity =>
@@ -200,7 +221,7 @@ namespace PetsWebsite.Models
 
             modelBuilder.Entity<Restaurant>(entity =>
             {
-                entity.Property(e => e.Restaurantid).HasColumnName("RestaurantID");
+                entity.Property(e => e.RestaurantId).HasColumnName("RestaurantID");
 
                 entity.Property(e => e.Address).HasMaxLength(20);
 
@@ -226,11 +247,9 @@ namespace PetsWebsite.Models
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.Property(e => e.UserId).HasColumnName("UserID");
-
-                entity.Property(e => e.Account)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                entity.Property(e => e.UserId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("UserID");
 
                 entity.Property(e => e.Address).HasMaxLength(30);
 
@@ -240,18 +259,11 @@ namespace PetsWebsite.Models
 
                 entity.Property(e => e.City).HasMaxLength(10);
 
-                entity.Property(e => e.Email)
-                    .HasMaxLength(20)
-                    .IsUnicode(false)
-                    .HasComputedColumnSql("([Account])", false);
+                entity.Property(e => e.Email).HasMaxLength(20);
 
                 entity.Property(e => e.FirstName).HasMaxLength(20);
 
                 entity.Property(e => e.LastName).HasMaxLength(20);
-
-                entity.Property(e => e.Password)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
 
                 entity.Property(e => e.Phone)
                     .HasMaxLength(20)
@@ -270,6 +282,24 @@ namespace PetsWebsite.Models
                     .HasForeignKey(d => d.RoleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Users_Roles1");
+
+                entity.HasOne(d => d.UserNavigation)
+                    .WithOne(p => p.User)
+                    .HasForeignKey<User>(d => d.UserId)
+                    .HasConstraintName("FK_Users_UserAccounts");
+            });
+
+            modelBuilder.Entity<UserAccount>(entity =>
+            {
+                entity.HasKey(e => e.UserId);
+
+                entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.Property(e => e.Account).HasMaxLength(20);
+
+                entity.Property(e => e.Password)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
             });
 
             OnModelCreatingPartial(modelBuilder);
