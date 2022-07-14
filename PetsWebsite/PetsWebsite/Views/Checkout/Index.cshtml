@@ -1,0 +1,160 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+    <title>shop</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+
+    <!-- Bootstrap CSS v5.2.0-beta1 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    <script src="./js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <section class="page-content">
+                <div class="container pt-5 pb-5">
+                    <div class="row">
+                        <!-- 結帳訊息/start -->
+                        <div class="col-12 mb-3">
+                            <h2>結帳</h2>
+                            <p>感謝您的訂購！</p>
+
+                        </div>
+                        <!-- 結帳訊息/end -->
+                        <!-- 帳單資訊/start -->
+                        <div class="col-12 col-md-6 mb-3">
+                            <h2>帳單資訊</h2>
+                            <form action="">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="LastName">
+                                            姓氏
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="text" class="form-control" id="LastName" required=""
+                                               placeholder="必填，例如：葉">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="FirstName">
+                                            名字
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="text" class="form-control" id="FirstName" required=""
+                                               placeholder="必填：例如：大雄">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="tel">
+                                            連絡電話
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="number" class="form-control" id="tel" required=""
+                                               placeholder="必填，例如：0912-345-678">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="EMail">
+                                            電子信箱
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="email" class="form-control" id="EMail" required=""
+                                               placeholder="必填，電子信箱">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Address">
+                                        地址
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" id="Address" required=""
+                                           placeholder="必填，縣/市-區/鄉/鎮-路/街-號/樓">
+                                </div>
+                            </form>
+                        </div>
+                        <!-- 帳單資訊/end -->
+                        <!-- 您的訂單/start -->
+                        <div class="col-12 col-md-6">
+                            <h2>您的訂單</h2>
+                            <div class="table-responsive-sm">
+                                <table class="table table-bordered table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <td>商品</td>
+                                            <td>總計</td>
+                                        </tr>
+                                        <tr>
+                                            <td>貓貓罐頭</td>
+                                            <td>NT$&nbsp;500</td>
+                                        </tr>
+                                        <tr>
+                                            <td>食在好抓窩</td>
+                                            <td>NT$&nbsp;500</td>
+                                        </tr>
+                                        <tr>
+                                            <td>狗狗玩具</td>
+                                            <td>NT$&nbsp;500</td>
+                                        </tr>
+                                        <tr>
+                                            <td>小計</td>
+                                            <td>NT$&nbsp;1,500</td>
+                                        </tr>
+                                        <tr>
+                                            <td>運送方式</td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input id="Expenses" name="tran-expenses" type="radio"
+                                                           class="form-check-input">
+                                                    <label class="form-check-label">免運費0</label>
+                                                </div>
+                                                <div class="form-check checkbox">
+                                                    <input id="PostOffice" name="tran-expenses" type="radio"
+                                                           class="form-check-input" checked="">
+                                                    <label class="form-check-label">郵局:NT$&nbsp;80</label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>總計</td>
+                                            <td>NT$&nbsp;1,580</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="2">
+                                                <a href="#" class="btn btn-outline-info btn-lg float-right">下單購買</a>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- 您的訂單/end -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.11.5/dist/umd/popper.min.js"
+            integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+            crossorigin="anonymous">
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+            integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+            crossorigin="anonymous">
+    </script>
+
+</body>
+
+</html>
