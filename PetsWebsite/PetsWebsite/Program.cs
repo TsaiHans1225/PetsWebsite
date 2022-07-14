@@ -1,3 +1,4 @@
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using PetsWebsite.Models;
 
@@ -11,7 +12,13 @@ builder.Services.AddDbContext<PetsDBContext>(opt =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+//登入Cookie設定
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(opt =>
+    {
+        opt.LoginPath = "/Members/Login";
+        opt.AccessDeniedPath = "/Members/AccessDenied";
+    });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,6 +34,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+//驗證
+app.UseAuthentication();
+//授權
 app.UseAuthorization();
 
 app.MapControllerRoute(
