@@ -1,22 +1,15 @@
 ﻿<!-- 會員資訊內容頁 -->
 <div>
-    <div class="row g-5" style="padding: 50px 100px 10px 200px;">
+    <div class="row g-5" style="padding: 50px 100px 10px 200px;" id="userDetails">
         <div class="col-md-8 col-lg-8 px-3">
             <div class="d-flex align-items-center mb-2">
                 <h4 class="mb-0 d-inline-block">會員資訊</h4>
-                <a class="btn btn-lg rounded-3 btn-primary mx-3" style="font-size: 15px;" type="submit">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save"
-                         viewBox="0 0 16 16">
-                        <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
-                    </svg>
-                    儲存
-                </a>
             </div>
             <form class="needs-validation" novalidate="">
                 <div class="row g-3">
                     <div class="col-sm-6">
-                        <label for="firstName" class="form-label">First name</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+                        <label for="firstName" class="form-label">FirstName</label>
+                        <input type="text" class="form-control" id="firstName" placeholder="" v-model="user.firstName" required="">
                         <div class="invalid-feedback">
                             Valid first name is required.
                         </div>
@@ -24,7 +17,7 @@
 
                     <div class="col-sm-6">
                         <label for="lastName" class="form-label">Last name</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+                        <input type="text" class="form-control" id="lastName" placeholder="" v-model="user.lastName" required="">
                         <div class="invalid-feedback">
                             Valid last name is required.
                         </div>
@@ -32,7 +25,7 @@
 
                     <div class="col-sm-6">
                         <label for="Phone" class="form-label">Phone</label>
-                        <input type="text" class="form-control" id="Phone" placeholder="" value="" required="">
+                        <input type="text" class="form-control" id="Phone" placeholder="" v-model="user.phone" required="">
                         <div class="invalid-feedback">
                             Valid Phone is required.
                         </div>
@@ -40,7 +33,7 @@
 
                     <div class="col-sm-6">
                         <label for="birthday" class="form-label">Birthday</label>
-                        <input type="text" class="form-control" id="birthday" placeholder="" value="" required="">
+                        <input type="text" class="form-control" id="birthday" placeholder="" v-model="user.birthday" required="">
                         <div class="invalid-feedback">
                             Valid birthday is required.
                         </div>
@@ -48,7 +41,7 @@
 
                     <div class="col-sm-12">
                         <label for="email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
-                        <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                        <input type="email" class="form-control" id="email" placeholder="you@example.com" v-model="user.email">
                         <div class="invalid-feedback">
                             Please enter a valid email address for shipping updates.
                         </div>
@@ -80,7 +73,7 @@
 
                     <div class="col-12">
                         <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
+                        <input type="text" class="form-control" id="address" placeholder="1234 Main St" v-model="user.address">
                         <div class="invalid-feedback">
                             Please enter your shipping address.
                         </div>
@@ -92,6 +85,13 @@
                         </label>
                         <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
                     </div>
+                    <a class="btn btn-lg rounded-3 btn-primary mx-3" style="font-size: 15px;" type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save"
+                         viewBox="0 0 16 16">
+                        <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+                    </svg>
+                    儲存
+                </a>
                 </div>
             </form>
         </div>
@@ -221,3 +221,23 @@
         </div>
     </div>
 </div>
+
+<script>
+    var vm = new Vue({
+        data: {
+            user: []
+        },
+        mounted: function () {
+            let self = this;
+            fetch("/api/UserDetails/GetUserDetails")
+                .then(function (result) {
+                    return result.json();
+                })
+                .then(function (mydata) {
+                    console.log("API");
+                    console.log(self);
+                    self.user = mydata;
+                })
+        }
+    }).$mount('#userDetails')
+</script>
