@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="~/css/AaronCSS/index.css" />
 }
 <div id="Rest">
+
+      
         <!-- 旋轉木馬 -->
         <div class="container">
             <div class="row">
@@ -74,7 +76,7 @@
                         <div id="itemBorder" class="col-6 list-group mt-1 mb-1">
                             <a  class="list-group-item bg-white h-100" aria-current="true" asp-controller="Restaurants" asp-action="RestaurantDetails">
                                 <div class="d-flex w-100 justify-content-between text-info">
-                                    <h5 class="mb-3">{{item.restaurantname}}</h5>
+                                    <h5 class="mb-3">{{item.restaurantName}}</h5>
                                     <small>3 days ago</small>
                                 </div>
                                 <p class="mb-1">Some placeholder content in a paragraph.</p>
@@ -98,6 +100,7 @@ var app = new Vue({
     el:'#Rest',
     data: {
         restaurantList:[]
+       
     },
     mounted: function () {
         let self = this;
