@@ -11,15 +11,24 @@ namespace PetsWebsite.Controllers.API
     {
         private readonly PetsDBContext _PetsDB;
 
-        public  ClinicAPIController(PetsDBContext petsDB)
+        public ClinicAPIController(PetsDBContext petsDB)
         {
             _PetsDB = petsDB;
         }
         [HttpGet]
+        public async Task<ActionResult<IEnumerable<Clinic>>> GetAll()
+        {
+            if (_PetsDB.Clinics == null)
+            {
+                return NotFound();
+            }
+            return await _PetsDB.Clinics.ToListAsync();
+        }
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<string>>> GetCity()
         {
-      
-             return await _PetsDB.Clinics.Select(c => c.City).Distinct().ToListAsync();
+
+            return await _PetsDB.Clinics.Select(c => c.City).Distinct().ToListAsync();
         }
 
         [HttpGet]
