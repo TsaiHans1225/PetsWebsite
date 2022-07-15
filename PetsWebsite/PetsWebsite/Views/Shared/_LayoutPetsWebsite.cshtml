@@ -116,6 +116,7 @@
                         <div style="position: relative; right: -5%">
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
                                 <li><a class="dropdown-item" asp-controller="UserDetails" asp-action="Index">會員資訊</a></li>
+                                <li><a class="dropdown-item" asp-controller="Pets" asp-action="Index">我的愛寵</a></li>
                                 <li><a class="dropdown-item" asp-controller="UserCollection" asp-action="Index">我的最愛</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
@@ -169,7 +170,7 @@
     </footer>
 
     @*UserSignin彈出視窗*@ @*會員登入*@
-    <div class="modal fade" tabindex="-1" role="dialog" id="modalUserSignin">
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalUserSignin" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content rounded-4 shadow">
                 <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -180,13 +181,11 @@
                 <div class="modal-body p-5 pt-0">
                     <div class="">
                         <div class="form-floating mb-3 rounded-pill">
-                            <input type="email" class="form-control rounded-3" id="floatingInput"
-                                   placeholder="name@example.com" v-model="Account">
+                            <input type="email" class="form-control rounded-3" id="floatingInput" v-model="Account">
                             <label for="floatingInput">電子郵件</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control rounded-3" id="floatingPassword"
-                                   placeholder="Password" v-model="Password">
+                            <input type="password" class="form-control rounded-3" id="floatingPassword" v-model="Password">
                             <label for="floatingPassword">密碼</label>
                         </div>
                         <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;" v-on:click="SubmitHandle">登入</button>
@@ -241,7 +240,7 @@
     </div>
 
     @*UserSignUp彈出視窗*@ @*會員註冊*@
-    <div class="modal fade" tabindex="-1" role="dialog" id="modalUserSignUp">
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalUserSignUp" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content rounded-4 shadow">
                 <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -253,24 +252,20 @@
                     <form class="" method="post" action="/Members/Register">
                         <div class="row row-cols-2">
                             <div class="form-floating mb-3 col">
-                                <input type="text" class="form-control rounded-3" id="floatingInput"
-                                       placeholder="name@example.com" name="LastName">
+                                <input type="text" class="form-control rounded-3" id="floatingInput" name="LastName">
                                 <label for="floatingInput" style="margin-left: 12px;">姓</label>
                             </div>
                             <div class="form-floating mb-3 col">
-                                <input type="text" class="form-control rounded-3" id="floatingInput"
-                                       placeholder="name@example.com" name="FirstName">
+                                <input type="text" class="form-control rounded-3" id="floatingInput" name="FirstName">
                                 <label for="floatingInput" style="margin-left: 12px;"> 名</label>
                             </div>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control rounded-3" id="floatingInput"
-                                   placeholder="name@example.com" name="Account">
+                            <input type="email" class="form-control rounded-3" id="floatingInput" name="Account">
                             <label for="floatingInput">電子郵件</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control rounded-3" id="floatingPassword"
-                                   placeholder="Password" name="Password">
+                            <input type="password" class="form-control rounded-3" id="floatingPassword" name="Password">
                             <label for="floatingPassword">密碼</label>
                         </div>
                         <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;"
@@ -318,7 +313,7 @@
     </div>
 
     @*OwnerSignin彈出視窗*@ @*產商登入*@
-    <div class="modal fade" tabindex="-1" role="dialog" id="modalOwnerSignin">
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalOwnerSignin" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content rounded-4 shadow">
                 <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -329,13 +324,11 @@
                 <div class="modal-body p-5 pt-0">
                     <form class="">
                         <div class="form-floating mb-3 rounded-pill">
-                            <input type="email" class="form-control rounded-3" id="floatingInput"
-                                   placeholder="name@example.com">
+                            <input type="email" class="form-control rounded-3" id="floatingInput">
                             <label for="floatingInput">電子郵件</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control rounded-3" id="floatingPassword"
-                                   placeholder="Password">
+                            <input type="password" class="form-control rounded-3" id="floatingPassword">
                             <label for="floatingPassword">密碼</label>
                         </div>
                         <a class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;"
@@ -377,7 +370,7 @@
     </div>
 
     @*OwnerSignUp彈出視窗*@@*產商註冊*@
-    <div class="modal fade" tabindex="-1" role="dialog" id="modalOwnerSignUp">
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalOwnerSignUp" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content rounded-4 shadow">
                 <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -388,23 +381,19 @@
                 <div class="modal-body p-5 pt-0">
                     <form class="">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control rounded-3" id="floatingInput"
-                                   placeholder="name@example.com">
+                            <input type="email" class="form-control rounded-3" id="floatingInput">
                             <label for="floatingInput">公司名稱</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control rounded-3" id="floatingInput"
-                                   placeholder="name@example.com">
+                            <input type="email" class="form-control rounded-3" id="floatingInput">
                             <label for="floatingInput">統一編號</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control rounded-3" id="floatingInput"
-                                   placeholder="name@example.com">
+                            <input type="email" class="form-control rounded-3" id="floatingInput">
                             <label for="floatingInput">電子郵件</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control rounded-3" id="floatingPassword"
-                                   placeholder="Password">
+                            <input type="password" class="form-control rounded-3" id="floatingPassword">
                             <label for="floatingPassword">密碼</label>
                         </div>
                         <a class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;"
@@ -440,7 +429,7 @@
     </div>
 
     @*User忘記密碼彈出視窗*@
-    <div class="modal fade" tabindex="-1" role="dialog" id="modalUserForgotPassword">
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalUserForgotPassword" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content rounded-4 shadow">
                 <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -451,8 +440,7 @@
                 <div class="modal-body p-5 pt-0">
                     <form class="">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control rounded-3" id="floatingInput"
-                                   placeholder="name@example.com">
+                            <input type="email" class="form-control rounded-3" id="floatingInput">
                             <label for="floatingInput">電子郵件</label>
                         </div>
                         <a class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;"
@@ -476,7 +464,7 @@
     </div>
 
     @*Owner忘記密碼彈出視窗*@
-    <div class="modal fade" tabindex="-1" role="dialog" id="modalOwnerForgotPassword">
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalOwnerForgotPassword" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content rounded-4 shadow">
                 <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -487,8 +475,7 @@
                 <div class="modal-body p-5 pt-0">
                     <form class="">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control rounded-3" id="floatingInput"
-                                   placeholder="name@example.com">
+                            <input type="email" class="form-control rounded-3" id="floatingInput">
                             <label for="floatingInput">電子郵件</label>
                         </div>
                         <a class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;"
