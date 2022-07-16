@@ -8,5 +8,10 @@ namespace PetsWebsite.Controllers
         {
             return View();
         }
+
+        public IActionResult CreateProduct()
+        {
+            return View();
+        }
     }
 }
