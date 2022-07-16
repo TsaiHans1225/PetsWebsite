@@ -36,7 +36,8 @@ namespace PetsWebsite.Models
             {
                 IConfigurationRoot Configuration = new ConfigurationBuilder()
                     .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                    .AddJsonFile("appsettings.json").Build();
+                    .AddJsonFile("appsettings.json")
+                    .Build();
                 optionsBuilder.UseSqlServer(Configuration.GetConnectionString("PetsDb"));
             }
         }
@@ -181,10 +182,6 @@ namespace PetsWebsite.Models
             modelBuilder.Entity<Pet>(entity =>
             {
                 entity.Property(e => e.PetId).HasColumnName("PetID");
-
-                entity.Property(e => e.Age).HasComputedColumnSql("(datediff(year,[Birthday],getdate()))", false);
-
-                entity.Property(e => e.Birthday).HasColumnType("datetime");
 
                 entity.Property(e => e.PetName).HasMaxLength(20);
 

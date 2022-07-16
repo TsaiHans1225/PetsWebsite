@@ -10,8 +10,7 @@ namespace PetsWebsite.Models
         public string PetName { get; set; } = null!;
         public string Species { get; set; } = null!;
         public int? Age { get; set; }
-        public DateTime Birthday { get; set; }
-        public bool Gender { get; set; }
+        public bool? Gender { get; set; }
 
         public virtual User User { get; set; } = null!;
     }
