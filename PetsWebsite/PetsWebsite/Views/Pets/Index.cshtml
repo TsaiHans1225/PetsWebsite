@@ -12,28 +12,28 @@
             </div>
             <form class="needs-validation" novalidate="">
                 <div class="row g-3">
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 was-validated">
                         <label for="validationinput" class="form-label">名字: </label>
-                        <input type="text" class="form-control is-invalid" id="validationinput" v-model="newPetName" required></input>
+                        <input type="text" class="form-control is-invalid" id="validationinput" v-model="newPetName" required>
                     </div>
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 was-validated">
                         <label for="validationinput" class="form-label">物種: </label>
-                        <input type="text" class="form-control is-invalid" id="validationinput" v-model="newPetSpecie" required></input>
+                        <input type="text" class="form-control is-invalid" id="validationinput" v-model="newPetSpecie" required>
                     </div>
 
                     <div class="col-sm-6 was-validated">
                         <label for="variety" class="form-label">性別: </label>
-                        <select class="form-select" required aria-label="select example" v-model="newPetGender">
+                        <select class="form-select" aria-label="select example" v-model="newPetGender" required>
                             <option value="">-- 請選擇 --</option>
                             <option value="1">公</option>
                             <option value="0">母</option>
                         </select>
                     </div>
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 was-validated">
                         <label for="birthday" class="form-label">年齡: </label>
-                        <input type="text" class="form-control" id="birthday" v-model="newPetAge">
+                        <input type="text" class="form-control is-invalid" id="validationinput" v-model="newPetAge" required>
                     </div>
                 </div>
             </form>
@@ -41,7 +41,7 @@
     </div>
     <hr>
     <div class="row row-cols-2 d-flex justify-content-evenly" style="padding: 10px 100px 10px 200px;">
-        <div class="card mb-3 col col-12 h-auto" style="max-width: 540px;" v-for="pet in pets">
+        <div class="card mb-3 col col-6 h-auto" style="max-width: 540px;" v-for="pet in pets">
             <div class="row g-0">
                 <div class="col-md-4 d-flex align-content-center">
                     <img src="/images/UserDetails/black-dog-.jpeg" class="img-fluid rounded" alt="">
@@ -99,7 +99,7 @@
                     .then(resp => console.log(resp))
                     .catch(error => console.log("error", error))
                     .then(response => console.log("success", response));
-                    alert("已傳送")
+                    alert("已傳送");
             }
         }
     }).$mount('#pets');
