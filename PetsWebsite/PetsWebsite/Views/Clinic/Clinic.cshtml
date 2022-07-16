@@ -220,9 +220,15 @@
                     self.City = d
                 })
             },
-            methods:{
+              methods: {
                 Getdata: function() {
-                  
+                    let list = this;
+                    fetch("/api/ClinicAPI/GetAll")
+                     .then(function(result) {
+                        return result.json();
+                    }).then(function(d) {
+                        list.ClinlicList= d
+                    })
                 }
             }
         }).$mount("#Clinic")
