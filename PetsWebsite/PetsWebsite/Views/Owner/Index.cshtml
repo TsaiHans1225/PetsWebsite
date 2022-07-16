@@ -4,65 +4,94 @@
         <thead>
             <tr>
                 <th scope="col">圖片</th>
-                <th scope="col">商品名</th>
+                <th scope="col">商品名稱</th>
                 <th scope="col">商品單價</th>
                 <th scope="col">商品折扣</th>
                 <th scope="col">庫存量</th>
+                <th scope="col">商品描述</th>
                 <th scope="col">修改商品資訊</th>
                 <th scope="col">下架商品</th>
+                <th scope="col">商品狀態</th>
             </tr>
         </thead>
         <tbody>
             <tr class="">
-                <th scope="row">
+                <td scope="row">
                     <img src="/images/Owner/狗飼料.jpg" style="width: 100px; height: 80px;" alt="">
-                </th>
+                </td>
                 <td>營養飼料</td>
                 <td>300</td>
                 <td>none</td>
                 <td>100</td>
+                <td>
+                    <p style="width: 100px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </p>
+                </td>
                 <td>
                     <a class="btn btn-warning" type="submit">修改</a>
                 </td>
                 <td>
                     <a class="btn btn-danger" type="submit">下架</a>
                 </td>
+                <td>已上架</td>
             </tr>
             <tr class="">
-                <th scope="row">
+                <td scope="row">
                     <img src="/images/Owner/狗飼料.jpg" style="width: 100px; height: 80px;" alt="">
-                </th>
+                </td>
                 <td>營養飼料</td>
                 <td>300</td>
                 <td>none</td>
                 <td>100</td>
+                <td>
+                    <p style="width: 100px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </p>
+                </td>
                 <td>
                     <a class="btn btn-warning" type="submit">修改</a>
                 </td>
                 <td>
                     <a class="btn btn-danger" type="submit">下架</a>
                 </td>
+                <td>待審核...</td>
             </tr>
             <tr class="">
-                <th scope="row">
+                <td scope="row">
                     <img src="/images/Owner/狗飼料.jpg" style="width: 100px; height: 80px;" alt="">
-                </th>
+                </td>
                 <td>營養飼料</td>
                 <td>300</td>
                 <td>none</td>
                 <td>100</td>
+                <td>
+                    <p style="width: 100px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </p>
+                </td>
                 <td>
                     <a class="btn btn-warning" type="submit">修改</a>
                 </td>
                 <td>
                     <a class="btn btn-danger" type="submit">下架</a>
                 </td>
+                <td>已下架</td>
             </tr>
         </tbody>
     </table>
+    <div class="row">
+        <a class="btn btn-primary position-absolute col col-1" style="right: 5%;" asp-action="CreateProduct" asp-controller="Owner">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+                 viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+            </svg>
+            新增商品
+        </a>
+    </div>
 </div>
 
-<hr>
 
 <div class="contanier mx-5 pt-5">
     <table class="table table-success table-striped">
@@ -74,64 +103,105 @@
                 <th scope="col">城市</th>
                 <th scope="col">地區</th>
                 <th scope="col">地址</th>
+                <th scope="col">餐廳簡述</th>
                 <th scope="col">修改餐廳資訊</th>
                 <th scope="col">下架餐廳</th>
+                <th scope="col">餐廳狀態</th>
             </tr>
         </thead>
         <tbody>
             <tr class="">
-                <th scope="row">
+                <td scope="row">
                     <img src="/images/Owner/餐廳.jpg" style="width: 100px; height: 80px;" alt="">
-                </th>
+                </td>
                 <td>寵物餐廳</td>
                 <td>02-22222222</td>
                 <td>台北市</td>
                 <td>大安區</td>
-                <td>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
+                <td>
+                    <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </p>
+                </td>
+                <td>
+                    <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </p>
+                </td>
                 <td>
                     <a class="btn btn-warning" type="submit">修改</a>
                 </td>
                 <td>
                     <a class="btn btn-danger" type="submit">下架</a>
                 </td>
+                <td>已上架</td>
             </tr>
             <tr class="">
-                <th scope="row">
+                <td scope="row">
                     <img src="/images/Owner/餐廳.jpg" style="width: 100px; height: 80px;" alt="">
-                </th>
+                </td>
                 <td>寵物餐廳</td>
                 <td>02-22222222</td>
                 <td>台北市</td>
                 <td>大安區</td>
-                <td>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
+                <td>
+                    <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </p>
+                </td>
+                <td>
+                    <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </p>
+                </td>
                 <td>
                     <a class="btn btn-warning" type="submit">修改</a>
                 </td>
                 <td>
                     <a class="btn btn-danger" type="submit">下架</a>
                 </td>
+                <td>已上架</td>
             </tr>
             <tr class="">
-                <th scope="row">
+                <td scope="row">
                     <img src="/images/Owner/餐廳.jpg" style="width: 100px; height: 80px;" alt="">
-                </th>
+                </td>
                 <td>寵物餐廳</td>
                 <td>02-22222222</td>
                 <td>台北市</td>
                 <td>大安區</td>
-                <td>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
+                <td>
+                    <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </p>
+                </td>
+                <td>
+                    <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </p>
+                </td>
                 <td>
                     <a class="btn btn-warning" type="submit">修改</a>
                 </td>
                 <td>
                     <a class="btn btn-danger" type="submit">下架</a>
                 </td>
+                <td>已上架</td>
             </tr>
         </tbody>
     </table>
+    <div class="row">
+        <a class="btn btn-primary position-absolute col col-1" style="right: 5%;" asp-action="CreateProduct" asp-controller="Owner">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+                 viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+            </svg>
+            新增餐廳
+        </a>
+    </div>
 </div>
 
-<hr>
 
 <div class="contanier mx-5 pt-5">
     <table class="table table-success table-striped">
@@ -143,22 +213,33 @@
                 <th scope="col">城市</th>
                 <th scope="col">地區</th>
                 <th scope="col">地址</th>
+                <th scope="col">診所簡述</th>
                 <th scope="col">犬貓專科</th>
                 <th scope="col">急診</th>
                 <th scope="col">修改診所資訊</th>
                 <th scope="col">下架診所</th>
+                <th scope="col">商品狀態</th>
             </tr>
         </thead>
         <tbody>
             <tr class="">
-                <th scope="row">
+                <td scope="row">
                     <img src="/images/Owner/動物醫院.png" style="width: 100px; height: 80px;" alt="">
-                </th>
+                </td>
                 <td>寵物醫院</td>
                 <td>02-22222222</td>
                 <td>台北市</td>
                 <td>大安區</td>
-                <td>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
+                <td>
+                    <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </p>
+                </td>
+                <td>
+                    <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    </p>
+                </td>
                 <td>否</td>
                 <td>是</td>
                 <td>
@@ -167,25 +248,18 @@
                 <td>
                     <a class="btn btn-danger" type="submit">下架</a>
                 </td>
-            </tr>
-            <tr class="">
-                <th scope="row">
-                    <img src="/images/Owner/動物醫院.png" style="width: 100px; height: 80px;" alt="">
-                </th>
-                <td>寵物醫院</td>
-                <td>02-22222222</td>
-                <td>台北市</td>
-                <td>大安區</td>
-                <td>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
-                <td>否</td>
-                <td>是</td>
-                <td>
-                    <a class="btn btn-warning" type="submit">修改</a>
-                </td>
-                <td>
-                    <a class="btn btn-danger" type="submit">下架</a>
-                </td>
+                <td>已上架</td>
             </tr>
         </tbody>
     </table>
+    <div class="row">
+        <a class="btn btn-primary position-absolute col col-1" style="right: 5%;" asp-action="CreateProduct" asp-controller="Owner">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+                 viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+            </svg>
+            新增診所
+        </a>
+    </div>
 </div>

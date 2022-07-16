@@ -1,0 +1,183 @@
+﻿@*新增商品頁面*@
+<div class="contanier m-5">
+    <div class="row align-items-center" style="height: 200px;">
+        <div class="col col-3">
+            <label class="d-block" for="">上傳商品圖片</label>
+            <hr>
+            <div class="mb-3">
+                <input class="form-control" type="file" id="formFile">
+            </div>
+        </div>
+        <div class="col col-6">
+            <div class="row g-3">
+                <div class="col col-6 was-validated">
+                    <label for="validationinput" class="form-label">商品名稱: </label>
+                    <input type="text" class="form-control is-invalid" id="validationinput" required></input>
+                    <div class="invalid-feedback">
+                        請填寫商品名稱
+                    </div>
+                </div>
+                <div class="col col-6 was-validated">
+                    <label for="validationinput" class="form-label">商品單價: </label>
+                    <input type="text" class="form-control is-invalid" id="validationinput" required></input>
+                    <div class="invalid-feedback">
+                        請填寫商品單價
+                    </div>
+                </div>
+                <div class="col col-6">
+                    <label for="">商品折扣: </label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="col col-6">
+                    <label for="">商品庫存: </label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="col col-12">
+                    <label for="">商品描述: </label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col col-3 d-flex justify-content-center">
+            <a class="btn btn-success">確認上傳</a>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="contanier m-5">
+    <div class="row align-items-center" style="height: 250px;">
+        <div class="col col-3">
+            <label class="d-block" for="">上傳餐廳圖片</label>
+            <hr>
+            <div class="mb-3">
+                <input class="form-control" type="file" id="formFile">
+            </div>
+        </div>
+        <div class="col col-6">
+            <div class="row g-3">
+                <div class="col col-6 was-validated">
+                    <label for="validationinput" class="form-label">餐廳名稱: </label>
+                    <input type="text" class="form-control is-invalid" id="validationinput" required></input>
+                    <!-- <div class="invalid-feedback">
+                        請填寫餐廳名稱
+                    </div> -->
+                </div>
+                <div class="col col-6 was-validated">
+                    <label for="validationinput" class="form-label">連絡電話: </label>
+                    <input type="text" class="form-control is-invalid" id="validationinput" required></input>
+                    <!-- <div class="invalid-feedback">
+                        請填寫連絡電話
+                    </div> -->
+                </div>
+                <div class="col col-6 was-validated">
+                    <label for="">所在城市: </label>
+                    <select class="form-select" required aria-label="select example">
+                        <option value="">-- 請選擇 --</option>
+                        <option value="1">台北市</option>
+                        <option value="2">新北市</option>
+                    </select>
+                    <div class="invalid-feedback">請選擇所在城市</div>
+                </div>
+                <div class="col col-6 was-validated">
+                    <label for="">所在區域: </label>
+                    <select class="form-select" required aria-label="select example">
+                        <option value="">-- 請選擇 --</option>
+                        <option value="1">松山區</option>
+                        <option value="2">大安區</option>
+                        <option value="3">三重區</option>
+                        <option value="4">土城區</option>
+                    </select>
+                    <div class="invalid-feedback">請選擇所在區域</div>
+                </div>
+                <div class="col col-12 was-validated">
+                    <label for="validationinput" class="form-label">餐廳地址: </label>
+                    <input type="text" class="form-control is-invalid" id="validationinput" required></input>
+                    <!-- <div class="invalid-feedback">
+                        請填寫餐廳地址
+                    </div> -->
+                </div>
+                <div class="col col-12">
+                    <label for="">餐廳簡述: </label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col col-3 d-flex justify-content-center">
+            <a class="btn btn-success">確認上傳</a>
+        </div>
+    </div>
+</div>
+
+<div class="contanier m-5">
+    <hr class="my-5">
+    <div class="row align-items-center" style="height: 250px;">
+        <div class="col col-3">
+            <label class="d-block" for="">上傳診所圖片</label>
+            <hr>
+            <div class="mb-3">
+                <input class="form-control" type="file" id="formFile">
+            </div>
+        </div>
+        <div class="col col-6">
+            <div class="row g-3">
+                <div class="col col-6 was-validated">
+                    <label for="validationinput" class="form-label">診所名稱: </label>
+                    <input type="text" class="form-control is-invalid" id="validationinput" required></input>
+                </div>
+                <div class="col col-6 was-validated">
+                    <label for="validationinput" class="form-label">連絡電話: </label>
+                    <input type="text" class="form-control is-invalid" id="validationinput" required></input>
+                </div>
+                <div class="col col-6 was-validated">
+                    <label for="">所在城市: </label>
+                    <select class="form-select" required aria-label="select example">
+                        <option value="">-- 請選擇 --</option>
+                        <option value="1">台北市</option>
+                        <option value="2">新北市</option>
+                    </select>
+                    <div class="invalid-feedback">請選擇所在城市</div>
+                </div>
+                <div class="col col-6 was-validated">
+                    <label for="">所在區域: </label>
+                    <select class="form-select" required aria-label="select example">
+                        <option value="">-- 請選擇 --</option>
+                        <option value="1">松山區</option>
+                        <option value="2">大安區</option>
+                        <option value="3">三重區</option>
+                        <option value="4">土城區</option>
+                    </select>
+                    <div class="invalid-feedback">請選擇所在區域</div>
+                </div>
+                <div class="col col-12 was-validated">
+                    <label for="validationinput" class="form-label">診所地址: </label>
+                    <input type="text" class="form-control is-invalid" id="validationinput" required></input>
+                </div>
+                <div class="col col-12">
+                    <label for="">診所簡述: </label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
+                </div>
+                <div class="col col-6 was-validated">
+                    <label for="">是否為犬貓專科: </label>
+                    <select class="form-select" required aria-label="select example">
+                        <option value="">-- 請選擇 --</option>
+                        <option value="1">是</option>
+                        <option value="2">否</option>
+                    </select>
+                    <div class="invalid-feedback">請選擇是否為犬貓專科</div>
+                </div>
+                <div class="col col-6 was-validated">
+                    <label for="">是否有24小時急診服務: </label>
+                    <select class="form-select" required aria-label="select example">
+                        <option value="">-- 請選擇 --</option>
+                        <option value="1">是</option>
+                        <option value="2">否</option>
+                    </select>
+                    <div class="invalid-feedback">請選擇是否有24小時急診服務</div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-3 d-flex justify-content-center">
+            <a class="btn btn-success">確認上傳</a>
+        </div>
+    </div>
+</div>
