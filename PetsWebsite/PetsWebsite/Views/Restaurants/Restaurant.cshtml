@@ -1,13 +1,19 @@
-﻿@model List<Restaurant>
-@{
-    ViewData["Title"] = "Restautant";
-}
-@section Styles{
+﻿@section Styles{
     <link rel="stylesheet" href="~/css/AaronCSS/index.css" />
 }
-<div id="Rest">
 
-      
+    @{
+    List<string> items = ViewBag.Data;
+    string JsonString = Newtonsoft.Json.JsonConvert.SerializeObject(items);
+}
+
+<script>
+var cities = @Html.Raw(JsonString);
+var qryFromRestaurant = '@Html.Raw(ViewBag.QryByCity)';
+</script>
+    <div id="Rest">
+
+
         <!-- 旋轉木馬 -->
         <div class="container">
             <div class="row">
@@ -54,13 +60,15 @@
             <div class="row row-cols-1 ">
 
                 <div class="d-flex justify-content-end">
-                    <select class="me-2">
-                        <option>--請選擇城市--</option>
+                    <select class="me-2" v-model="selectItem" autocomplete="off">
+                        <option value="" selected="selected">--請選擇城市--</option>
+                        <option v-for="item in items" v-bind:value="item">{{item}}</option>
                     </select>
                     <select class="me-2">
                         <option>--請選擇地區--</option>
                     </select>
-                    <button class="btn btn-primary ">查詢</button>
+                    <button class="btn btn-primary" v-on:click="Qry">查詢</button>
+
                 </div>
 
             </div>
@@ -69,18 +77,18 @@
         <!-- 自製Card -->
         <div class="container">
             <!-- 第一張 -->
-            <div class="row" v-for="item in restaurantList">
+            <div class="row" v-for="rest in restaurants" v-show="isShow">
                 <div id="divBorder" class="col-12 h-50 border-10 bg-light text-dark p-3 m-3">
-                    <div class="row" >
-                        <img id="cardImage" v-bind:src="item.photo" alt="" class="w-50 p-3 col-6">
+                    <div class="row">
+                        <img id="cardImage" v-bind:src="rest.photo" alt="" class="w-50 p-3 col-6">
                         <div id="itemBorder" class="col-6 list-group mt-1 mb-1">
-                            <a  class="list-group-item bg-white h-100" aria-current="true" asp-controller="Restaurants" asp-action="RestaurantDetails">
+                            <a class="list-group-item bg-white h-100" aria-current="true" asp-controller="Restaurants" asp-action="RestaurantDetails">
                                 <div class="d-flex w-100 justify-content-between text-info">
-                                    <h5 class="mb-3">{{item.restaurantName}}</h5>
-                                    <small>3 days ago</small>
+                                    <h5 class="mb-3">{{rest.restaurantName}}</h5>
+                                    <small>餐廳電話:{{rest.phone}}</small>
                                 </div>
-                                <p class="mb-1">Some placeholder content in a paragraph.</p>
-                                <small>And some small print.</small>
+                                <p class="mb-1">詳細地址:{{rest.city+rest.region+rest.address}}</p>
+                                <small>{{rest.introduction}}</small>
                             </a>
                         </div>
                     </div>
@@ -89,32 +97,49 @@
                 </div>
 
 
-</div>
+            </div>
 
 
 
-@section Scripts{
-     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    <script>
-var app = new Vue({
-    el:'#Rest',
-    data: {
-        restaurantList:[]
-       
-    },
-    mounted: function () {
-        let self = this;
-        //ajax => es fetch
-        fetch('/api/Restaurants/Restaurant')
-            .then(function (result) {
-            return result.json();
-        }).then(function (d) {
-            console.log("已拿到資料", d);
-            console.log(this);
-            self.restaurantList = d;
-        })
-    }
-});
+            @section Scripts{
+            
+            <script>
+                var app = new Vue({
+                   
+                    data: {
 
-    </script>
-}
+                       
+
+                        selectItem: '',
+                        items: [],
+                        qryFromRestaurant:'',
+                        restaurants:[],
+                        isShow:false
+
+
+                    },
+                    methods:{
+                        Qry: function() { 
+                            let urlString = this.qryFromRestaurant.replace('{0}', this.selectItem);
+                            axios.get(urlString)
+                            .then(res => {
+                                console.log(res)
+                                this.restaurants = res.data;
+                                this.isShow = true;
+                            })
+                            .catch(err => {
+                                console.error(err); 
+                            })
+                        }
+                    },
+                    mounted: function() {
+                         console.log('掛載完成');
+                         this.items=cities;
+                         this.qryFromRestaurant=qryFromRestaurant;
+                    }
+                       
+
+                });
+            app.$mount('#Rest')
+            </script>
+        }

@@ -15,6 +15,7 @@
     integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     @*Vue2 development version*@
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="~/js/axios.min.js"></script>
 
     @await RenderSectionAsync("Styles", required: false)
 </head>
@@ -24,7 +25,7 @@
         <nav class="navbar navbar-expand-xl bg-dark">
             <div class="container-fluid">
                 <a class="navbar-brand text-light" href="/home/Index">
-                    <img class="d-inline-block" src="/apple.svg" alt=""
+                    <img class="d-inline-block" src="~/images/pet-food.svg" alt=""
                          style="width: 25px; height: 25px; padding-bottom: 5px;">
                     EveryPets
                 </a>

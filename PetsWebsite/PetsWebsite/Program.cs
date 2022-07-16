@@ -19,6 +19,20 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         opt.LoginPath = "/Members/Login";
         opt.AccessDeniedPath = "/Members/AccessDenied";
     });
+
+//自訂Config串聯連線字串
+DbConfig dbConfig = new DbConfig()
+{
+    ConnectionString = PetsDbConnectionString
+};
+builder.Services.AddSingleton(dbConfig.GetType(), dbConfig);
+
+//自訂封裝連線資訊
+IConfigurationSection section = builder.Configuration.GetSection("RestaurantService");
+RestaurantService restaurantService = new RestaurantService();
+section.Bind(restaurantService);
+builder.Services.AddSingleton(restaurantService.GetType(), restaurantService);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
