@@ -12,6 +12,8 @@ namespace PetsWebsite.Controllers.API
     public class RestaurantsApiController : ControllerBase
     {
         private readonly PetsDBContext _petsDBContext;
+        Restaurant rest = new Restaurant();
+        
         public RestaurantsApiController(PetsDBContext petsDBContext)
         {
             _petsDBContext = petsDBContext;
@@ -29,6 +31,25 @@ namespace PetsWebsite.Controllers.API
 
             return query;
 
+        }
+        //=============================================================================
+        //規劃查詢Region
+        [HttpGet]
+        [Route("QryByRegion/{region}/rawdata")]
+        public List<Restaurant> RestaurantQryByRegion([FromRoute(Name = "region")] string region)
+        {
+            var query = (_petsDBContext.Restaurants).Where(r => r.Region == region).ToList<Restaurant>();
+            return query;
+        }
+        //=============================================================================
+        //規劃查詢&Region
+        [HttpGet]
+        [Route("QryByCityRegion/{city}/{region}/rawdata")]
+        public List<Restaurant> RestaurantQryCityRegion([FromRoute(Name = "city")] string city, [FromRoute(Name = "region")] string region)
+        {
+            var query = (_petsDBContext.Restaurants)
+                .Where(c => c.City == city && c.Region == region).ToList<Restaurant>();
+            return query;
         }
 
         //尚未完成

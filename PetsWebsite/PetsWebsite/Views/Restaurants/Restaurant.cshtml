@@ -1,145 +1,192 @@
 ﻿@section Styles{
-    <link rel="stylesheet" href="~/css/AaronCSS/index.css" />
+<link rel="stylesheet" href="~/css/AaronCSS/index.css" />
 }
 
     @{
     List<string> items = ViewBag.Data;
     string JsonString = Newtonsoft.Json.JsonConvert.SerializeObject(items);
+    List<string> regionstr = ViewBag.region;
+    string JsonStr = Newtonsoft.Json.JsonConvert.SerializeObject(regionstr);
+
 }
 
 <script>
-var cities = @Html.Raw(JsonString);
-var qryFromRestaurant = '@Html.Raw(ViewBag.QryByCity)';
+    var cities = @Html.Raw(JsonString);
+    var region = @Html.Raw(JsonStr);
+    var qryFromCity = '@Html.Raw(ViewBag.QryByCity)';
+    var qryFromRegion = '@Html.Raw(ViewBag.QryByRegion)';
+    
 </script>
-    <div id="Rest">
+<div id="Rest">
 
 
-        <!-- 旋轉木馬 -->
-        <div class="container">
-            <div class="row">
-                <h1 id="titleH1" class="text-danger mt-5">寵物友善餐廳</h1>
-            </div>
-            <div class="row">
-                <div class="m-0 p-2 col-12">
-                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
-                        <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-                                class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                                aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                                aria-label="Slide 3"></button>
-                        </div>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="https://picsum.photos/id/1060/600/400" class="d-block w-100" alt="">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/id/1025/600/400" class="d-block w-100" alt="">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/id/237/600/400" class="d-block w-100" alt="">
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
+    <!-- 旋轉木馬 -->
+    <div class="container">
+        <div class="row">
+            <h1 id="titleH1" class="text-danger mt-5">寵物友善餐廳</h1>
+        </div>
+        <div class="row">
+            <div class="m-0 p-2 col-12">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                            class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                            aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                            aria-label="Slide 3"></button>
                     </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="https://picsum.photos/id/1060/600/400" class="d-block w-100" alt="">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://picsum.photos/id/1025/600/400" class="d-block w-100" alt="">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://picsum.photos/id/237/600/400" class="d-block w-100" alt="">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
             </div>
         </div>
-        <!-- 依...搜尋... -->
-        <div class="container">
-            <div class="row row-cols-1 ">
+    </div>
+    <!-- 依...搜尋... -->
+    <div class="container">
+        <div class="row row-cols-1 ">
 
-                <div class="d-flex justify-content-end">
-                    <select class="me-2" v-model="selectItem" autocomplete="off">
-                        <option value="" selected="selected">--請選擇城市--</option>
-                        <option v-for="item in items" v-bind:value="item">{{item}}</option>
-                    </select>
-                    <select class="me-2">
-                        <option>--請選擇地區--</option>
-                    </select>
-                    <button class="btn btn-primary" v-on:click="Qry">查詢</button>
-
-                </div>
+            <div class="d-flex justify-content-end">
+                <select class="me-2" v-model="selectItem" autocomplete="off">
+                    <option value="" selected="selected" disabled>--請選擇城市--</option>
+                    <option v-for="item in items" v-bind:value="item">{{item}}</option>
+                </select>
+                <select class="me-2" v-model="selectRegion">
+                    <option value="" selected="selected" disabled>--請選擇地區--</option>
+                    <option v-for="region in regions" v-bind:value="region">{{region}}</option>
+                </select>
+                <button class="btn btn-primary" v-on:click="Qry">查詢</button>
 
             </div>
+
         </div>
+    </div>
 
-        <!-- 自製Card -->
-        <div class="container">
-            <!-- 第一張 -->
-            <div class="row" v-for="rest in restaurants" v-show="isShow">
-                <div id="divBorder" class="col-12 h-50 border-10 bg-light text-dark p-3 m-3">
-                    <div class="row">
-                        <img id="cardImage" v-bind:src="rest.photo" alt="" class="w-50 p-3 col-6">
-                        <div id="itemBorder" class="col-6 list-group mt-1 mb-1">
-                            <a class="list-group-item bg-white h-100" aria-current="true" asp-controller="Restaurants" asp-action="RestaurantDetails">
-                                <div class="d-flex w-100 justify-content-between text-info">
-                                    <h5 class="mb-3">{{rest.restaurantName}}</h5>
-                                    <small>餐廳電話:{{rest.phone}}</small>
-                                </div>
-                                <p class="mb-1">詳細地址:{{rest.city+rest.region+rest.address}}</p>
-                                <small>{{rest.introduction}}</small>
-                            </a>
-                        </div>
+    <!-- 自製Card -->
+    <div class="container">
+        <!-- 第一張 -->
+        <div class="row" v-for="rest in restaurants" v-show="isShow">
+            <div id="divBorder" class="col-12 h-50 border-10 bg-light text-dark p-3 m-3">
+                <div class="row">
+                    <img id="cardImage" v-bind:src="rest.photo" alt="" class="w-50 p-3 col-6">
+                    <div id="itemBorder" class="col-6 list-group mt-1 mb-1">
+                        <a class="list-group-item bg-white h-100" aria-current="true" asp-controller="Restaurants"
+                            asp-action="RestaurantDetails">
+                            <div class="d-flex w-100 justify-content-between text-info">
+                                <h5 class="mb-3">{{rest.restaurantName}}</h5>
+                                <small>餐廳電話:{{rest.phone}}</small>
+                            </div>
+                            <p class="mb-1">詳細地址:{{rest.city+rest.region+rest.address}}</p>
+                            <small>{{rest.introduction}}</small>
+                        </a>
                     </div>
-
-
                 </div>
 
 
             </div>
 
 
+        </div>
+    </div>
 
-            @section Scripts{
-            
-            <script>
-                var app = new Vue({
+
+    @section Scripts{
+
+    <script>
+        var app = new Vue({
+
+            data: {
+                selectItem: '',
+                items: [],
+                qryFromCity: '',
+                restaurants: [],
+                isShow: false,
+                selectRegion:'',
+                regions:[],
+                qryFromRegion:'',
+                qryCityRegion:''
+
+
+            },
+            methods: {
+                Qry: function () {
+                    
+                    axios.all([this.QryCity(),this.QryRegion(),this.QryCityRegion()])
+                    .then(axios.spread((res1, res2, res3)=>{
+                        
+                    }))
                    
-                    data: {
+                },
+                QryCity:function(){
+                    let urlString = this.qryFromCity.replace('{0}', this.selectItem);
+                     axios.get(urlString)
+                        .then(res => {
+                            console.log(res)
+                            this.restaurants = res.data;
+                            this.isShow = true;
+                            console.log("載到囉!!City");
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        })
+                },
+                QryRegion:function(){
+                    let urlStrByRegion = this.qryFromRegion.replace('{0}',this.selectRegion);
+                    axios.get(urlStrByRegion)
+                    .then(res => {
+                        console.log(res)
+                        this.restaurants = res.data;
+                            this.isShow = true;
+                        console.log("載到囉!!Region");
+                    })
+                    .catch(err => {
+                        console.error(err); 
+                    })
+                },
+                QryCityRegion: function() {
+                    let url = `/api/RestaurantsApi/QryByCityRegion/${this.selectItem}/${this.selectRegion}/rawdata`
+                    axios.get(url)
+                    .then(res => {
+                        console.log(res)
+                        this.restaurants = res.data;
+                        this.isShow = true;
+                        console.log("載到囉!!複合查詢");
+                    })
+                    .catch(err => {
+                        console.error(err); 
+                    })
+                }
+            },
+            mounted: function () {
+                console.log('掛載完成');
+                this.items = cities;
+                this.qryFromCity = qryFromCity;
+                this.regions = region;
+                this.qryFromRegion = qryFromRegion;
+                
+            }
 
-                       
 
-                        selectItem: '',
-                        items: [],
-                        qryFromRestaurant:'',
-                        restaurants:[],
-                        isShow:false
-
-
-                    },
-                    methods:{
-                        Qry: function() { 
-                            let urlString = this.qryFromRestaurant.replace('{0}', this.selectItem);
-                            axios.get(urlString)
-                            .then(res => {
-                                console.log(res)
-                                this.restaurants = res.data;
-                                this.isShow = true;
-                            })
-                            .catch(err => {
-                                console.error(err); 
-                            })
-                        }
-                    },
-                    mounted: function() {
-                         console.log('掛載完成');
-                         this.items=cities;
-                         this.qryFromRestaurant=qryFromRestaurant;
-                    }
-                       
-
-                });
-            app.$mount('#Rest')
-            </script>
-        }
+        });
+        app.$mount('#Rest')
+    </script>
+    }
