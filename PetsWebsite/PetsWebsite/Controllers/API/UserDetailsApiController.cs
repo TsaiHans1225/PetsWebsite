@@ -5,7 +5,7 @@ using PetsWebsite.Models;
 using PetsWebsite.Models.ViewModel;
 using System.Collections.Generic;
 
-namespace PetsWebsite.Controllers.UserDetailsAPIController
+namespace PetsWebsite.Controllers.API
 {
 
     [Route("api/UserDetails/{action}")]
@@ -34,7 +34,7 @@ namespace PetsWebsite.Controllers.UserDetailsAPIController
         [HttpGet]
         public async Task<ActionResult<UserDetailsViewModel>> GetUserDetails()
         {
-            int id = 4; 
+            int id = 4;
             if (_dbContext.Users == null)
             {
                 return NotFound();
@@ -51,7 +51,7 @@ namespace PetsWebsite.Controllers.UserDetailsAPIController
         }
 
         [HttpPost]
-        public ActionResult<Boolean> UpdateUserDetails(UserDetailsViewModel uDetails)
+        public ActionResult<bool> UpdateUserDetails(UserDetailsViewModel uDetails)
         {
             int id = 4;
             var query = _dbContext.Users.FirstOrDefault(u => u.UserId == id);

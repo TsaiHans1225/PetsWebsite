@@ -1,4 +1,4 @@
-﻿<!-- 會員資訊內容頁 -->
+﻿@*會員資訊內容頁*@
 <div>
     <div class="row g-5" style="padding: 50px 100px 10px 200px;" id="userDetails">
         <div class="col-md-8 col-lg-8 px-3">
@@ -121,7 +121,7 @@
         data: {
             user: []
         },
-        beforeCreate: function () {
+        created: function () {
             let self = this;
             fetch("/api/UserDetails/GetUserDetails")
                 .then(function (result) {
