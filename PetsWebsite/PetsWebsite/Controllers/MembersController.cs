@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using PetsWebsite.Models;
 using PetsWebsite.Models.ViewModels;
 
@@ -44,6 +45,12 @@ namespace PetsWebsite.Controllers
             }
             return Redirect("/Home/Index");
 
+        }
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            HttpContext.SignOutAsync();
+            return Redirect("/Home/Index");
         }
     }
 }

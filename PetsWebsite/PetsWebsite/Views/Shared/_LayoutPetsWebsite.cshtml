@@ -88,7 +88,10 @@
                         </svg>
                         購物車
                     </a>
-                    <div class="dropdown">
+                    @{
+                        if (!User.Identity.IsAuthenticated)
+                        {
+                            <div class="dropdown">
                         <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             登入
@@ -107,6 +110,7 @@
                             </ul>
                         </div>
                     </div>
+                        }else{
                     <div class="dropdown">
                         <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
                            data-bs-toggle="dropdown" aria-expanded="false">
@@ -119,7 +123,7 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#">登出</a></li>
+                                <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
                             </ul>
                         </div>
                     </div>
@@ -138,6 +142,11 @@
                             </ul>
                         </div>
                     </div>
+
+                        }
+                    }
+                    
+                    
                 </div>
             </div>
         </nav>
@@ -715,7 +724,12 @@ var MLogin =new Vue({
                     })
                         .then(res => res.json())
                         .catch(error => console.error('Error:', error))
-                        .then(response => console.log('Success:', response));
+                        .then(response => {
+                            console.log('Success:', response);
+                            if (response) {
+                                location.reload();
+                            }
+                        });
                             }
                             }
 }).$mount("#modalUserSignin")
