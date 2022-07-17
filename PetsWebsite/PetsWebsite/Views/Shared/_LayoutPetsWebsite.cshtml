@@ -12,7 +12,7 @@
 
     @*Bootstrap CSS v5.2.0-beta1*@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
-    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     @*Vue2 development version*@
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="~/js/axios.min.js"></script>
@@ -94,62 +94,64 @@
                         if (!User.Identity.IsAuthenticated)
                         {
                             <div class="dropdown">
-                        <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            登入
-                        </a>
-                        <div style="position: relative; right: 80%">
-                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                <li>
-                                    <a class="dropdown-item" data-bs-toggle="modal"
-                                       data-bs-target="#modalUserSignin" href="#">使用者</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" data-bs-toggle="modal"
-                                       data-bs-target="#modalOwnerSignin" href="#">廠商</a>
-                                </li>
-                                <li>
-                            </ul>
-                        </div>
-                    </div>
-                        }else{
-                    <div class="dropdown">
-                        <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            歡迎XXX User
-                        </a>
-                        <div style="position: relative; right: -5%">
-                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                <li><a class="dropdown-item" asp-controller="UserDetails" asp-action="Index">會員資訊</a></li>
-                                <li><a class="dropdown-item" asp-controller="Pets" asp-action="Index">我的愛寵</a></li>
-                                <li><a class="dropdown-item" asp-controller="UserCollection" asp-action="Index">我的最愛</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="dropdown">
-                        <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            歡迎XXX Owner
-                        </a>
-                        <div style="position: relative; right: -5%">
-                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                <li><a class="dropdown-item" asp-controller="Owner" asp-action="Index">管理商品</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">登出</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                                <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                    登入
+                                </a>
+                                <div style="position: relative; right: 80%">
+                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                        <li>
+                                            <a class="dropdown-item" data-bs-toggle="modal"
+                                           data-bs-target="#modalUserSignin" href="#">使用者</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" data-bs-toggle="modal"
+                                           data-bs-target="#modalOwnerSignin" href="#">廠商</a>
+                                        </li>
+                                        <li>
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="dropdown">
+                                <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                    歡迎XXX User
+                                </a>
+                                <div style="position: relative; right: -5%">
+                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                        <li><a class="dropdown-item" asp-controller="UserDetails" asp-action="Index">會員資訊</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Pets" asp-action="Index">我的愛寵</a></li>
+                                        <li><a class="dropdown-item" asp-controller="UserCollection" asp-action="Index">我的最愛</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                    歡迎XXX Owner
+                                </a>
+                                <div style="position: relative; right: -5%">
+                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                        <li><a class="dropdown-item" asp-controller="Owner" asp-action="Index">管理商品</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" href="#">登出</a></li>
+                                    </ul>
+                                </div>
+                            </div>
 
                         }
                     }
-                    
-                    
+
+
                 </div>
             </div>
         </nav>
@@ -187,7 +189,7 @@
                     <h2 class="fw-bold mb-0">歡迎回來</h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-               
+
                 <div class="modal-body p-5 pt-0">
                     <div class="">
                         <div class="form-floating mb-3 rounded-pill">
@@ -279,7 +281,9 @@
                             <label for="floatingPassword">密碼</label>
                         </div>
                         <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;"
-                           type="submit">註冊</button>
+                                type="submit">
+                            註冊
+                        </button>
                         <div class="row row-cols-1 text-center">
                             <a class="col text-decoration-none" data-bs-toggle="modal" data-bs-target="#modalUserSignin"
                                href="#">
@@ -439,7 +443,7 @@
     </div>
 
     @*User忘記密碼彈出視窗*@
-    <div class="modal fade" tabindex="-1" role="dialog" id="modalUserForgotPassword" data-bs-backdrop="static">
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalUserForgotPassword">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content rounded-4 shadow">
                 <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -450,11 +454,11 @@
                 <div class="modal-body p-5 pt-0">
                     <form class="">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control rounded-3" id="floatingInput">
+                            <input type="email" class="form-control rounded-3" id="floatingInput" v-model="Email">
                             <label for="floatingInput">電子郵件</label>
                         </div>
                         <a class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;"
-                           type="submit">寄送驗證信</a>
+                           type="submit" v-on:click="SendMailToken">寄送驗證信</a>
                         <small class="text-danger">請輸入電子郵件信箱，我們將為您傳送驗證信，謝謝。</small>
                         <a class="col d-block text-decoration-none" data-bs-toggle="modal"
                            data-bs-target="#modalUserSignin" href="#">
@@ -468,6 +472,19 @@
                             <small class="text-muted">返回登入畫面</small>
                         </a>
                     </form>
+                    <!--使用 Bootstrap Modal 樣式，當執行有錯誤時，顯示錯誤訊息-->
+                    <div class="modal fade" id="ErrorAlert" tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">錯誤訊息</h4>
+                                </div>
+                                <div class="modal-body" id="ErrorMsg" style="overflow-x:auto;width:100%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -686,41 +703,67 @@
 
 @*Bootstrap JavaScript Libraries*@
 <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.11.5/dist/umd/popper.min.js"
-    integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
-    crossorigin="anonymous"></script>
+        integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+        crossorigin="anonymous"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
-    integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
-    crossorigin="anonymous"></script>
-    <script>
-var MLogin =new Vue({
-     data: {
-                Account: '',
-                Password: ''
-            },
-            methods: {
-                SubmitHandle: function() {
-                    var Ldata = {
-                        Account: this.Account,
-                        Password: this.Password
-                    }; console.log(Ldata);
-                    fetch("/api/UserOpt/UserLogin", {
-                        method: 'POST', // or 'PUT'
-                        body: JSON.stringify(Ldata), // data can be `string` or {object}!
-                        headers: new Headers({
-                            'Content-Type': 'application/json'
-                        })
+        integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+        crossorigin="anonymous"></script>
+<script>
+    var MLogin = new Vue({
+        data: {
+            Account: '',
+            Password: ''
+        },
+        methods: {
+            SubmitHandle: function() {
+                var Ldata = {
+                    Account: this.Account,
+                    Password: this.Password
+                }; console.log(Ldata);
+                fetch("/api/UserOpt/UserLogin", {
+                    method: 'POST', // or 'PUT'
+                    body: JSON.stringify(Ldata), // data can be `string` or {object}!
+                    headers: new Headers({
+                        'Content-Type': 'application/json'
                     })
-                        .then(res => res.json())
-                        .catch(error => console.error('Error:', error))
-                        .then(response => {
-                            console.log('Success:', response);
-                            if (response) {
-                                location.reload();
-                            }
-                        });
-                            }
-                            }
-}).$mount("#modalUserSignin")
-    </script>
+                })
+                    .then(res => res.json())
+                    .catch(error => console.error('Error:', error))
+                    .then(response => {
+                        console.log('Success:', response);
+                        if (response) {
+                            location.reload();
+                        }
+                    });
+            }
+        }
+    }).$mount("#modalUserSignin");
+
+    var forgotPass = new Vue({
+        data:
+        {
+            Email: ""
+        },
+        methods:
+        {
+            // 寄送驗證碼
+            SendMailToken: function() {
+                var self = this;
+                fetch(`/api/ForgotPwd/SendMailToken?email=${self.Email}`)
+                    .then(function(response) {
+                        console.log("response = ", response);
+                        return response.text();
+                    })
+                    .then(function(res) {
+                        console.log("res = ", res);
+                    });
+                alert("驗證信已寄送，請至您的信箱收信，謝謝")
+            }
+        }
+    }).$mount('#modalUserForgotPassword');
+
+</script>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
 </html>

@@ -21,7 +21,7 @@ namespace PetsWebsite.Controllers.API
         [HttpGet]
         public IQueryable<PetsViewModel> GetPets()
         {
-            int id = 4;
+            int id = 5;
             var query = _petsDBContext.Pets.Where(p => p.UserId == id).Select(p => new PetsViewModel
             {
                 PetName = p.PetName,
@@ -36,7 +36,7 @@ namespace PetsWebsite.Controllers.API
         [HttpPost]
         public void CreatePet(PetsViewModel newPet)
         {
-            int id = 4;
+            int id = 5;
             Pet addpet = new Pet()
             {
                 UserId = id,

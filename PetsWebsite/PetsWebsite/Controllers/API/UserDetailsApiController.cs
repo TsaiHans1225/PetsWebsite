@@ -34,7 +34,7 @@ namespace PetsWebsite.Controllers.API
         [HttpGet]
         public async Task<ActionResult<UserDetailsViewModel>> GetUserDetails()
         {
-            int id = 4;
+            int id = 5;
             if (_dbContext.Users == null)
             {
                 return NotFound();

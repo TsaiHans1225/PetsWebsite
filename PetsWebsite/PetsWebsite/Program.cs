@@ -10,6 +10,8 @@ builder.Services.AddDbContext<PetsDBContext>(opt =>
     opt.UseSqlServer(PetsDbConnectionString);
 });
 
+//builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 //登入Cookie設定
@@ -19,6 +21,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         opt.LoginPath = "/Members/Login";
         opt.AccessDeniedPath = "/Members/AccessDenied";
     });
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
 
 //自訂Config串聯連線字串
 DbConfig dbConfig = new DbConfig()
@@ -43,6 +48,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseSession();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
