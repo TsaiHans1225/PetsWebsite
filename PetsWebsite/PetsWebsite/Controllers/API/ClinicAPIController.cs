@@ -25,7 +25,7 @@ namespace PetsWebsite.Controllers.API
             return await _PetsDB.Clinics.ToListAsync();
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<string>>> GetCity()
+        public async Task<ActionResult<IEnumerable<string>>> GetCity(string? City)
         {
 
             return await _PetsDB.Clinics.Select(c => c.City).Distinct().ToListAsync();
@@ -33,7 +33,7 @@ namespace PetsWebsite.Controllers.API
 
         [HttpGet]
         //[Route("api/ClinicAPI/[action]")]
-        public async Task<ActionResult<IEnumerable<Clinic>>> GetContent(string City)
+        public async Task<ActionResult<IEnumerable<Clinic>>> GetContent(string? City)
         {
              
             return await _PetsDB.Clinics.Where(c => c.City== City).ToListAsync();

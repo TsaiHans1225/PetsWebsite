@@ -20,43 +20,33 @@
 
 <body>
     <div class="container-lg" id="Clinic">
-        <!-- 按鈕*2 -->
-        <div class="container">
-            <div class="row my-2 justify-content-evenly">
-                <h1 style="text-align: start"></h1>
-                <button >按鈕</button>
-                <a href="" class="col-5 btn btn-danger rounded-pill">台北/非台北</a>
-                <a href="" class="col-5 btn btn-danger rounded-pill">犬貓/非犬貓</a>
-            </div>
-        </div>
+
 
         <!-- 下拉選取 -->
         <div class="container">
             <div class="row justify-content-evenly">
-<<<<<<< HEAD
-                <select class=" col-10  form-select-sm mt-3 " aria-label="form-select-sm example">
-                    <option selected v-on:change="Getdata">地區</option>
-                    <option v-bind:value="item" v-for="item in City">{{item}}</option>
-=======
+
+
+
                 <select class=" col-10  form-select-sm mt-3 " aria-label="form-select-sm example" v-on:change="Getdata">
-                    <option selected>地區</option>
+                    <option selected disabled>地區</option>
                     <option v-bind:value="item" v-for="item in City" v-on:change="Getdata">{{item}}</option>
->>>>>>> Powei
+
                 </select>
             </div>
         </div>
 
         <!-- 卡片 -->
-        <div class="container">
-            <div class="row ">
+        <div class="container" v-show="show">
+            <div class="row " v-for="item in ClinicList">
 
                 <div class="card mt-4" style="padding-left: 0px;padding-right: 0px">
                     <div class="row g-0">
                         <div class="col-md-8">
-                            <div class="card-body">
-                                <a href="#"></a>
-                                <p class="card-text"></p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            <div class="card-body" >
+                                <a href="#">{{item.clinicName}}</a>
+                                <p class="card-text">{{item.phone}}</p>
+                                <p class="card-text"><small class="text-muted">{{item.address}}</small></p>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -69,145 +59,12 @@
                     </div>
                 </div>
             </div>
-@*            <div class="row">
-                <div class="card mt-4" style="padding-left: 0px;padding-right: 0px">
-                    <div class="row g-0 ">
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">
-                                    This is a wider card with supporting text below as a natural
-                                    lead-in to additional content. This content is a little bit longer.
-                                </p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="position-relative">
-                                <img src="https://picsum.photos/id/682/300/300" class="w-100 rounded" alt="">
-                                <button class="position-absolute btn btn-outline-danger rounded-pill" id="collection">收藏</button>
-                            </div>
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="card mt-4" style="padding-left: 0px;padding-right: 0px">
-                    <div class="row g-0">
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">
-                                    This is a wider card with supporting text below as a natural
-                                    lead-in to additional content. This content is a little bit longer.
-                                </p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="position-relative">
-                                <img src="https://picsum.photos/id/682/300/300" class="w-100 rounded" alt="">
-                                <button class="position-absolute btn btn-outline-danger rounded-pill" id="collection">收藏</button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="card mt-4" style="padding-left: 0px;padding-right: 0px">
-                    <div class="row g-0">
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">
-                                    This is a wider card with supporting text below as a natural
-                                    lead-in to additional content. This content is a little bit longer.
-                                </p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="position-relative">
-                                <img src="https://picsum.photos/id/682/300/300" class="w-100 rounded" alt="">
-                                <button class="position-absolute btn btn-outline-danger rounded-pill" id="collection">收藏</button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="card mt-4" style="padding-left: 0px;padding-right: 0px">
-                    <div class="row g-0">
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">
-                                    This is a wider card with supporting text below as a natural
-                                    lead-in to additional content. This content is a little bit longer.
-                                </p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="position-relative">
-                                <img src="https://picsum.photos/id/682/300/300" class="w-100 rounded" alt="">
-                                <button class="position-absolute btn btn-outline-danger rounded-pill" id="collection">收藏</button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="card mt-4" style="padding-left: 0px;padding-right: 0px">
-                    <div class="row g-0">
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">
-                                    This is a wider card with supporting text below as a natural
-                                    lead-in to additional content. This content is a little bit longer.
-                                </p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="position-relative">
-                                <img src="https://picsum.photos/id/682/300/300" class="w-100 rounded" alt="">
-                                <button class="position-absolute btn btn-outline-danger rounded-pill rounded-pill" id="collection">收藏</button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>*@
         </div>
-    </div>>
+    </div>
 
 
-    <!-- 頁尾 -->
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        <p class="col-md-4 mb-0 text-muted">© 2022 Company, Inc</p>
 
-        <a href="/"
-           class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-            <svg class="bi me-2" width="40" height="32">
-                <use xlink:href="#bootstrap"></use>
-            </svg>
-        </a>
-
-        <ul class="nav col-md-4 justify-content-end">
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
-        </ul>
-    </footer>
 </body>
 
 @section Scripts{
@@ -216,66 +73,48 @@
         var app = new Vue({
             data: {
                 ClinicList: [],
-<<<<<<< HEAD
                 City: [],
+                show: false
 
-=======
-                City: []
->>>>>>> Powei
             },
             mounted: function() {       //頁面渲染之前執行
                 fetch('/api/ClinicAPI/GetCity').then(res => {
                     return res.json();
                 }).then(res => {
-                    console.log('抓到')
+                    console.log('抓到', res)
                     this.City = res
+                    console.log(this);
+                });
+                fetch('/api/ClinicAPI/GetAll').then(res => { //頁面更新
+                    return res.json();
+                }).then(res => {
+                    console.log('抓到all', res)
+                    this.ClinicList = res
+                    this.show = true;
+                    console.log(this);
+
                 })
             },
-<<<<<<< HEAD
             methods: {
-                Getdata: function(){
-            fetch('/api/ClinicAPI/GetAll').then(res => {
-                return res.json();
-            }).then(res => {
-
-                this.ClinicList = res
-            })
-        }
-                    }
-               }).$mount("#Clinic")
-
-
-=======
-<<<<<<< HEAD
-              methods: {
-                Getdata: function() {
-                    let list = this;
-                    fetch("/api/ClinicAPI/GetAll")
-                     .then(function(result) {
-                        return result.json();
-                    }).then(function(d) {
-                        list.ClinlicList= d
-                    })
-=======
-            methods:{
                 Getdata: function(e) {
                     console.log(e.target.value);
-                     let self = this;
+                    let self = this;
                     var addr = e.target.value;
                     fetch('/api/ClinicAPI/GetContent/' + addr, {
-                         method: 'GET',
+                        method: 'GET',
                     })
                         .then(function(res) {
                             return res.json();
                         }).then(function(d) {
                             console.log(d);
-                            self.ClinicList=d;
+                            console.log(this);
+                            self.ClinicList = d;
+
                         }).catch(error => console.log(error))
->>>>>>> Allen
                 }
             }
         }).$mount("#Clinic")
->>>>>>> Powei
+
 
     </script>
 }
