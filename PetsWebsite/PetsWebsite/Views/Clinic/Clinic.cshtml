@@ -24,6 +24,7 @@
         <div class="container">
             <div class="row my-2 justify-content-evenly">
                 <h1 style="text-align: start"></h1>
+                <button >按鈕</button>
                 <a href="" class="col-5 btn btn-danger rounded-pill">台北/非台北</a>
                 <a href="" class="col-5 btn btn-danger rounded-pill">犬貓/非犬貓</a>
             </div>
@@ -33,22 +34,22 @@
         <div class="container">
             <div class="row justify-content-evenly">
                 <select class=" col-10  form-select-sm mt-3 " aria-label="form-select-sm example">
-                    <option selected>地區</option>
-                    <option v-bind:value="item" v-for="item in City" v-on:change="Getdata">{{item}}</option>
+                    <option selected v-on:change="Getdata">地區</option>
+                    <option v-bind:value="item" v-for="item in City">{{item}}</option>
                 </select>
             </div>
         </div>
 
         <!-- 卡片 -->
         <div class="container">
-            <div class="row " v-for="item in ClinicList">
+            <div class="row ">
 
                 <div class="card mt-4" style="padding-left: 0px;padding-right: 0px">
                     <div class="row g-0">
                         <div class="col-md-8">
                             <div class="card-body">
-                                <a href="#">{{item.clinicName}}</a>
-                                <p class="card-text">{{item.address}}</p>
+                                <a href="#"></a>
+                                <p class="card-text"></p>
                                 <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                             </div>
                         </div>
@@ -179,28 +180,28 @@
                 </div>
             </div>
         </div>
-        </div>>
+    </div>>
 
 
-        <!-- 頁尾 -->
-        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-            <p class="col-md-4 mb-0 text-muted">© 2022 Company, Inc</p>
+    <!-- 頁尾 -->
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <p class="col-md-4 mb-0 text-muted">© 2022 Company, Inc</p>
 
-            <a href="/"
-               class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                <svg class="bi me-2" width="40" height="32">
-                    <use xlink:href="#bootstrap"></use>
-                </svg>
-            </a>
+        <a href="/"
+           class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32">
+                <use xlink:href="#bootstrap"></use>
+            </svg>
+        </a>
 
-            <ul class="nav col-md-4 justify-content-end">
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
-            </ul>
-        </footer>
+        <ul class="nav col-md-4 justify-content-end">
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+        </ul>
+    </footer>
 </body>
 
 @section Scripts{
@@ -208,30 +209,31 @@
     <script>
         var app = new Vue({
             data: {
-                ClinlicList: [],
-                City: []
+                ClinicList: [],
+                City: [],
+
             },
-            mounted: function() {
-                let self = this;
-                fetch('/api/ClinicAPI/GetCity')
-                .then(function(result) {
-                    return result.json();
-                }).then(function(d) {
-                    self.City = d
+            mounted: function() {       //頁面渲染之前執行
+                fetch('/api/ClinicAPI/GetCity').then(res => {
+                    return res.json();
+                }).then(res => {
+                    console.log('抓到')
+                    this.City = res
                 })
             },
-              methods: {
-                Getdata: function() {
-                    let list = this;
-                    fetch("/api/ClinicAPI/GetAll")
-                     .then(function(result) {
-                        return result.json();
-                    }).then(function(d) {
-                        list.ClinlicList= d
-                    })
-                }
-            }
-        }).$mount("#Clinic")
+            methods: {
+                Getdata: function(){
+            fetch('/api/ClinicAPI/GetAll').then(res => {
+                return res.json();
+            }).then(res => {
+
+                this.ClinicList = res
+            })
+        }
+                    }
+               }).$mount("#Clinic")
+
+
 
     </script>
 }
