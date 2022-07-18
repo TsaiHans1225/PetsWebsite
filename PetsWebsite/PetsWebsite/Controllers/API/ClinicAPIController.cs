@@ -5,7 +5,7 @@ using PetsWebsite.Models;
 
 namespace PetsWebsite.Controllers.API
 {
-    [Route("api/ClinicAPI/{action}")]
+    [Route("api/ClinicAPI/{action}/{City?}")]
     [ApiController]
     public class ClinicAPIController : ControllerBase
     {
@@ -32,11 +32,11 @@ namespace PetsWebsite.Controllers.API
         }
 
         [HttpGet]
-        [Route("api/[controller]/[action]/{City?}/{Region?}")]
-        public async Task<ActionResult<IEnumerable<Clinic>>> GetContent(string ?City,string? Region)
+        //[Route("api/ClinicAPI/[action]")]
+        public async Task<ActionResult<IEnumerable<Clinic>>> GetContent(string City)
         {
-            var query = _PetsDB.Clinics.Where(c => c.City== City || c.Region== Region);
-            return query.ToList();
+             
+            return await _PetsDB.Clinics.Where(c => c.City== City).ToListAsync();
         }
     }
 }

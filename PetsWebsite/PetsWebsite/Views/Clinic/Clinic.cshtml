@@ -33,9 +33,15 @@
         <!-- 下拉選取 -->
         <div class="container">
             <div class="row justify-content-evenly">
+<<<<<<< HEAD
                 <select class=" col-10  form-select-sm mt-3 " aria-label="form-select-sm example">
                     <option selected v-on:change="Getdata">地區</option>
                     <option v-bind:value="item" v-for="item in City">{{item}}</option>
+=======
+                <select class=" col-10  form-select-sm mt-3 " aria-label="form-select-sm example" v-on:change="Getdata">
+                    <option selected>地區</option>
+                    <option v-bind:value="item" v-for="item in City" v-on:change="Getdata">{{item}}</option>
+>>>>>>> Powei
                 </select>
             </div>
         </div>
@@ -63,7 +69,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+@*            <div class="row">
                 <div class="card mt-4" style="padding-left: 0px;padding-right: 0px">
                     <div class="row g-0 ">
                         <div class="col-md-8">
@@ -178,7 +184,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>*@
         </div>
     </div>>
 
@@ -210,8 +216,12 @@
         var app = new Vue({
             data: {
                 ClinicList: [],
+<<<<<<< HEAD
                 City: [],
 
+=======
+                City: []
+>>>>>>> Powei
             },
             mounted: function() {       //頁面渲染之前執行
                 fetch('/api/ClinicAPI/GetCity').then(res => {
@@ -221,6 +231,7 @@
                     this.City = res
                 })
             },
+<<<<<<< HEAD
             methods: {
                 Getdata: function(){
             fetch('/api/ClinicAPI/GetAll').then(res => {
@@ -234,6 +245,37 @@
                }).$mount("#Clinic")
 
 
+=======
+<<<<<<< HEAD
+              methods: {
+                Getdata: function() {
+                    let list = this;
+                    fetch("/api/ClinicAPI/GetAll")
+                     .then(function(result) {
+                        return result.json();
+                    }).then(function(d) {
+                        list.ClinlicList= d
+                    })
+=======
+            methods:{
+                Getdata: function(e) {
+                    console.log(e.target.value);
+                     let self = this;
+                    var addr = e.target.value;
+                    fetch('/api/ClinicAPI/GetContent/' + addr, {
+                         method: 'GET',
+                    })
+                        .then(function(res) {
+                            return res.json();
+                        }).then(function(d) {
+                            console.log(d);
+                            self.ClinicList=d;
+                        }).catch(error => console.log(error))
+>>>>>>> Allen
+                }
+            }
+        }).$mount("#Clinic")
+>>>>>>> Powei
 
     </script>
 }
