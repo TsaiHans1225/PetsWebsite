@@ -1,0 +1,69 @@
+﻿<div id="resetPwdPage">
+    <!--使用 Bootstrap 設計重設密碼表單-->
+    <div class="panel panel-primary m-auto" style="width: 250px">
+        <div class="panel-body mt-5">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label><strong>新密碼</strong></label>
+                        <input type="password" class="form-control" v-model="newPwd">
+                    </div>
+                </div>
+                <div class="col-md-12 mt-2">
+                    <div class="form-group">
+                        <label><strong>確認密碼</strong></label>
+                        <input type="password" class="form-control" v-model="confirmPwd">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer d-flex justify-content-center mt-3">
+            <a type="button" class="btn btn-danger" v-on:click="DoResetPwd"><strong>重設密碼</strong></a>
+        </div>
+    </div>
+ 
+    <!--使用 Bootstrap Modal 樣式，當執行有錯誤時，顯示錯誤訊息-->
+    <div class="modal fade" id="ErrorAlert" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">錯誤訊息</h4>
+                </div>
+                <div class="modal-body" id="ErrorMsg" style="overflow-x:auto;width:100%;">
+                </div>
+            </div>
+        </div>
+    </div><!-- /.modal -->
+</div>
+
+<script>
+var resetPwd = new Vue({
+    data: {
+        newPwd: "",
+        confirmPwd: ""
+    },
+    methods: {
+        DoResetPwd: function(){
+            var self = this;
+            if (self.newPwd != self.confirmPwd) {
+                self.confirmPwd = "";
+                alert("確認密碼與新密碼不一致");
+            }
+            else {
+                fetch(`/api/ForgotPwd/DoResetPwd?newPwd=${self.newPwd}&confirmPwd=${self.confirmPwd}`)
+                .then(function(resp) {
+                    console.log("resp", resp);
+                    return resp;
+                })
+                .then(function(result){
+                    console.log("result", result);
+                })
+                alert("已更新使用者密碼，請再次登入，謝謝")
+                self.newPwd = "";
+                self.confirmPwd = "";
+            }
+        }
+    }
+}).$mount('#resetPwdPage')
+</script>

@@ -1,0 +1,32 @@
+﻿@model PetsWebsite.Models.Product
+
+@*商品照片*@
+@{
+    string imgName = $"{Model.ProductId}.jpg";
+}
+
+@*顯示商品內容*@
+
+<div class="col-12 col-md-3 mt-3">
+    <div class="img-thumbnail">
+        <img src="~/ProductImages/@imgName" style="width:100%">
+        <div class="row mt-1 ms-2">
+            <h4 class="text-danger">單價：@Model.UnitPrice</h4>
+            <h6>@Model.ProductName</h6>
+            <p>寵物類型：@Model.Discontinued</p>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="d-grid gap-2 ">
+                    <a href="#" class="btn btn-primary btn-sm">直接結帳</a>
+                </div>
+                <div class="d-grid gap-2 mt-1">
+                    <a href="#" class="btn btn-warning btn-sm">放入購物車</a>
+                </div>
+                <div class="d-grid gap-2 mt-1">
+                    <a href="#" class="btn btn-outline-danger btn-sm">❤收藏</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

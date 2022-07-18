@@ -98,7 +98,13 @@
                 })
                     .then(resp => console.log(resp))
                     .catch(error => console.log("error", error))
-                    .then(response => console.log("success", response));
+                    .then(response => {
+                        console.log("success", response);
+                        var flag = true;
+                        if (flag) {
+                            location.reload();
+                        }
+                    });
                     alert("已傳送");
             }
         }
