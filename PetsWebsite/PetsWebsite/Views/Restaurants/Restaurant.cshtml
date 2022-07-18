@@ -1,8 +1,9 @@
 ﻿@section Styles{
 <link rel="stylesheet" href="~/css/AaronCSS/index.css" />
+<link rel="stylesheet" href="~/css/AaronCSS/favoriteIcon.css" />
 }
 
-    @{
+@{
     List<string> items = ViewBag.Data;
     string JsonString = Newtonsoft.Json.JsonConvert.SerializeObject(items);
     List<string> regionstr = ViewBag.region;
@@ -15,7 +16,7 @@
     var region = @Html.Raw(JsonStr);
     var qryFromCity = '@Html.Raw(ViewBag.QryByCity)';
     var qryFromRegion = '@Html.Raw(ViewBag.QryByRegion)';
-    
+
 </script>
 <div id="Rest">
 
@@ -90,7 +91,7 @@
                     <img id="cardImage" v-bind:src="rest.photo" alt="" class="w-50 p-3 col-6">
                     <div id="itemBorder" class="col-6 list-group mt-1 mb-1">
                         <a class="list-group-item bg-white h-100" aria-current="true" asp-controller="Restaurants"
-                            asp-action="RestaurantDetails">
+                            asp-action="RestaurantDetails" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                             <div class="d-flex w-100 justify-content-between text-info">
                                 <h5 class="mb-3">{{rest.restaurantName}}</h5>
                                 <small>餐廳電話:{{rest.phone}}</small>
@@ -100,13 +101,63 @@
                         </a>
                     </div>
                 </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">{{rest.restaurantName}}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- map -->
+                            <div class="container">
+                                <div class="row">
+                                    <h2 id="h2Text" class="col-12 text-center text-danger mb-2">Map</h2>
+                                    <div class="col-12">
+                                        <iframe id="map"
+                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.769612505944!2d121.52342931484193!3d25.041891483968584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a970a11a84ad%3A0x58e05f2528812097!2z5ZyL56uL6Ie65YyX5ZWG5qWt5aSn5a24!5e0!3m2!1szh-TW!2stw!4v1657415255330!5m2!1szh-TW!2stw"
+                                            class="w-100" style="border:0;" allowfullscreen="" loading="lazy"
+                                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 評論 -->
+                            <div class="container">
+                                <div class="row">
+                                    <h1 id="titleH1" class="text-danger mt-5">評論</h1>
+                                </div>
+                                <div class="row">
 
-
+                                    <div class="form-floating mt-3">
+                                        <textarea class="form-control" placeholder="Leave a comment here"
+                                            id="floatingTextarea2" style="height: 100px"></textarea>
+                                        <label for="floatingTextarea2">Comments</label>
+                                        <div class="d-flex justify-content-end mt-3">
+                                            <a href="#" class="btn btn-info">提交</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-between">
+                            <div id="container" class="favorite">
+                                <div class="circle" onclick="toggle()"></div>
+                            </div>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            
+                        </div>
+                    </div>
+                </div>
             </div>
 
 
         </div>
     </div>
+
+
 
 
     @section Scripts{
@@ -120,25 +171,25 @@
                 qryFromCity: '',
                 restaurants: [],
                 isShow: false,
-                selectRegion:'',
-                regions:[],
-                qryFromRegion:'',
-                qryCityRegion:''
+                selectRegion: '',
+                regions: [],
+                qryFromRegion: '',
+                qryCityRegion: ''
 
 
             },
             methods: {
                 Qry: function () {
-                    
-                    axios.all([this.QryCity(),this.QryRegion(),this.QryCityRegion()])
-                    .then(axios.spread((res1, res2, res3)=>{
-                        
-                    }))
-                   
+
+                    axios.all([this.QryCity(), this.QryRegion(), this.QryCityRegion()])
+                        .then(axios.spread((res1, res2, res3) => {
+
+                        }))
+
                 },
-                QryCity:function(){
+                QryCity: function () {
                     let urlString = this.qryFromCity.replace('{0}', this.selectItem);
-                     axios.get(urlString)
+                    axios.get(urlString)
                         .then(res => {
                             console.log(res)
                             this.restaurants = res.data;
@@ -149,31 +200,31 @@
                             console.error(err);
                         })
                 },
-                QryRegion:function(){
-                    let urlStrByRegion = this.qryFromRegion.replace('{0}',this.selectRegion);
+                QryRegion: function () {
+                    let urlStrByRegion = this.qryFromRegion.replace('{0}', this.selectRegion);
                     axios.get(urlStrByRegion)
-                    .then(res => {
-                        console.log(res)
-                        this.restaurants = res.data;
+                        .then(res => {
+                            console.log(res)
+                            this.restaurants = res.data;
                             this.isShow = true;
-                        console.log("載到囉!!Region");
-                    })
-                    .catch(err => {
-                        console.error(err); 
-                    })
+                            console.log("載到囉!!Region");
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        })
                 },
-                QryCityRegion: function() {
+                QryCityRegion: function () {
                     let url = `/api/RestaurantsApi/QryByCityRegion/${this.selectItem}/${this.selectRegion}/rawdata`
                     axios.get(url)
-                    .then(res => {
-                        console.log(res)
-                        this.restaurants = res.data;
-                        this.isShow = true;
-                        console.log("載到囉!!複合查詢");
-                    })
-                    .catch(err => {
-                        console.error(err); 
-                    })
+                        .then(res => {
+                            console.log(res)
+                            this.restaurants = res.data;
+                            this.isShow = true;
+                            console.log("載到囉!!複合查詢");
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        })
                 }
             },
             mounted: function () {
@@ -182,11 +233,14 @@
                 this.qryFromCity = qryFromCity;
                 this.regions = region;
                 this.qryFromRegion = qryFromRegion;
-                
+
             }
 
 
         });
         app.$mount('#Rest')
+        function toggle() {
+                document.getElementById('container').classList.toggle('is-active')
+            }
     </script>
     }

@@ -1,0 +1,82 @@
+﻿/*收藏按鈕*/
+.favorite {
+    box-sizing: border-box;
+    width: 70px;
+    height: 40px;
+    padding: 2px;
+    border-radius: 20px;
+    background-color: #eee;
+    border: 2px solid #ccc;
+}
+
+.circle {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    background-color: #aaa;
+    border-radius: 50%;
+    margin-left: 0;
+    cursor: pointer;
+}
+
+.is-active.favorite {
+    background-color: LavenderBlush;
+    border-color: Crimson;
+}
+
+.is-active .circle {
+    background-color: Crimson;
+    margin-left: calc(100% - 32px);
+}
+
+.favorite,
+.circle {
+    transition: .3s;
+}
+
+    .circle::before,
+    .circle::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        background-color: #eee;
+        transform: translate(-50%, -50%);
+        border-radius: 2px;
+    }
+
+    .circle::before {
+        height: 60%;
+        width: 5px;
+    }
+
+    .circle::after {
+        width: 60%;
+        height: 5px;
+    }
+
+.is-active .circle::before,
+.is-active .circle::after {
+    transform: none;
+    top: 24%;
+    left: 24%;
+}
+
+.is-active .circle::before {
+    width: 32%;
+    border-radius: 0 0 20px 20px;
+}
+
+.is-active .circle::after {
+    height: 32%;
+    border-radius: 0 20px 20px 0;
+}
+
+.is-active .circle {
+    transform: rotate(-135deg);
+}
+
+.circle::before,
+.circle::after {
+    transition: .3s;
+}
