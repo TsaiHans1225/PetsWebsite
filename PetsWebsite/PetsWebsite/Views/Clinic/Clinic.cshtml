@@ -32,7 +32,7 @@
         <!-- 下拉選取 -->
         <div class="container">
             <div class="row justify-content-evenly">
-                <select class=" col-10  form-select-sm mt-3 " aria-label="form-select-sm example">
+                <select class=" col-10  form-select-sm mt-3 " aria-label="form-select-sm example" v-on:change="Getdata">
                     <option selected>地區</option>
                     <option v-bind:value="item" v-for="item in City" v-on:change="Getdata">{{item}}</option>
                 </select>
@@ -62,7 +62,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+@*            <div class="row">
                 <div class="card mt-4" style="padding-left: 0px;padding-right: 0px">
                     <div class="row g-0 ">
                         <div class="col-md-8">
@@ -177,7 +177,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>*@
         </div>
         </div>>
 
@@ -208,7 +208,7 @@
     <script>
         var app = new Vue({
             data: {
-                ClinlicList: [],
+                ClinicList: [],
                 City: []
             },
             mounted: function() {
@@ -221,8 +221,19 @@
                 })
             },
             methods:{
-                Getdata: function() {
-                  
+                Getdata: function(e) {
+                    console.log(e.target.value);
+                     let self = this;
+                    var addr = e.target.value;
+                    fetch('/api/ClinicAPI/GetContent/' + addr, {
+                         method: 'GET',
+                    })
+                        .then(function(res) {
+                            return res.json();
+                        }).then(function(d) {
+                            console.log(d);
+                            self.ClinicList=d;
+                        }).catch(error => console.log(error))
                 }
             }
         }).$mount("#Clinic")
