@@ -24,14 +24,14 @@
 
         <!-- 下拉選取 -->
         <div class="container">
-            <div class="row justify-content-evenly">
-                <select class=" col-5  form-select-sm mt-3 " aria-label="form-select-sm example" v-on:change="Getdata">
+            <div class="row justify-content-evenly" >
+                <select class=" col-5  form-select-sm mt-3 " aria-label="form-select-sm example" id="city" v-on:change="Getdata">
                     <option selected disabled>地區</option>
-                    <option v-bind:value="item" v-for="item in City" v-on:change="Getdata">{{item}}</option>
+                    <option v-bind:value="item" v-for="item in City">{{item}}</option>
                 </select>
-                 <select class=" col-5  form-select-sm mt-3 " aria-label="form-select-sm example" v-on:change="Getdata">
-                    <option selected disabled>地區</option>
-                    <option v-bind:value="item" v-for="item in City" v-on:change="Getdata">{{item}}</option>
+                 <select class=" col-5  form-select-sm mt-3 " aria-label="form-select-sm example" id="region" v-on:change="Getdata">
+                    <option selected disabled >地區</option>
+                    <option v-bind:value="item" v-for="item in Region" >{{item}}</option>
                 </select>
             </div>
         </div>
@@ -75,6 +75,8 @@
             data: {
                 ClinicList: [],
                 City: [],
+                Region:[],
+                Regiondata:[],
                 show: false
 
             },
@@ -86,7 +88,7 @@
                     this.City = res
                     console.log(this);
                 });
-                fetch('/api/ClinicAPI/GetAll').then(res => { //網頁打開頁面顯示最初內容
+                 fetch('/api/ClinicAPI/GetAll').then(res => { //網頁打開頁面顯示最初內容
                     return res.json();
                 }).then(res => {
                     console.log('抓到all', res)
@@ -94,14 +96,22 @@
                     this.show = true;
                     console.log(this);
 
+                });
+                fetch('/api/ClinicAPI/GetRegion').then(res => {
+                    return res.json();
+                }).then(res => {
+                    this.Region=res
                 })
             },
             methods: {
                 Getdata: function(e) {
                     console.log(e.target.value);
-                    let self = this;
                     var addr = e.target.value;
-                    fetch('/api/ClinicAPI/GetContent/' + addr, {
+                    let self = this;
+                    //var city = $("#city")[0].value;
+                    //var region = $("#region")[0].value;
+                      //fetch(`/api/ClinicAPI/GetContent/${city}/{region}`
+                    fetch('/api/ClinicAPI/GetContent/'+addr , {
                         method: 'GET',
                     })
                         .then(function(res) {
@@ -112,7 +122,7 @@
                             self.ClinicList = d;
 
                         }).catch(error => console.log(error))
-                }
+                },
             }
         }).$mount("#Clinic")
 
