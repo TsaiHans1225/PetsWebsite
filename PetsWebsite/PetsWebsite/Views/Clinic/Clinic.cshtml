@@ -24,14 +24,14 @@
 
         <!-- 下拉選取 -->
         <div class="container">
-            <div class="row justify-content-evenly" >
+            <div class="row justify-content-evenly">
                 <select class=" col-5  form-select-sm mt-3 " aria-label="form-select-sm example" id="city" v-on:change="Getdata">
                     <option selected disabled>地區</option>
                     <option v-bind:value="item" v-for="item in City">{{item}}</option>
                 </select>
-                 <select class=" col-5  form-select-sm mt-3 " aria-label="form-select-sm example" id="region" v-on:change="Getdata">
-                    <option selected disabled >地區</option>
-                    <option v-bind:value="item" v-for="item in Region" >{{item}}</option>
+                <select class=" col-5  form-select-sm mt-3 " aria-label="form-select-sm example" id="region" v-on:change="Getdata">
+                    <option selected disabled>地區</option>
+                    <option v-bind:value="item" v-for="item in Region">{{item}}</option>
                 </select>
             </div>
         </div>
@@ -43,7 +43,7 @@
                 <div class="card mt-4" style="padding-left: 0px;padding-right: 0px">
                     <div class="row g-0">
                         <div class="col-md-8">
-                            <div class="card-body" >
+                            <div class="card-body">
                                 <h1>{{item.clinicName}}</h1>
                                 <p class="card-text">電話號碼:{{item.phone}}</p>
                                 <p class="card-text"><small class="text-muted">地址:{{item.address}}</small></p>
@@ -53,16 +53,69 @@
                         <div class="col-md-4">
                             <div class="position-relative">
                                 <img src="https://picsum.photos/id/682/600/400" class="w-100 rounded" alt="">
-                                <button class="position-absolute  btn btn-outline-danger rounded-pill" id="collection">收藏</button>
+                                <button class="position-absolute  btn btn-outline-danger rounded-pill" id="collection" data-bs-toggle="modal" data-bs-target="#staticBackdrop">收藏</button>
                             </div>
 
                         </div>
                     </div>
                 </div>
-            </div>
+                   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">{{item.clinicName}}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- map -->
+                            <div class="container">
+                                <div class="row">
+                                    <h2 id="h2Text" class="col-12 text-center text-danger mb-2">Map</h2>
+                                    <div class="col-12">
+                                        <iframe id="map"
+                                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.769612505944!2d121.52342931484193!3d25.041891483968584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a970a11a84ad%3A0x58e05f2528812097!2z5ZyL56uL6Ie65YyX5ZWG5qWt5aSn5a24!5e0!3m2!1szh-TW!2stw!4v1657415255330!5m2!1szh-TW!2stw"
+                                                class="w-100" style="border:0;" allowfullscreen="" loading="lazy"
+                                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 評論 -->
+                            <div class="container">
+                                <div class="row">
+                                    <h1 id="titleH1" class="text-danger mt-5">評論</h1>
+                                </div>
+                                <div class="row">
 
+                                    <div class="form-floating mt-3">
+                                        <textarea class="form-control" placeholder="Leave a comment here"
+                                                  id="floatingTextarea2" style="height: 100px"></textarea>
+                                        <label for="floatingTextarea2">Comments</label>
+                                        <div class="d-flex justify-content-end mt-3">
+                                            <a href="#" class="btn btn-info">提交</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-between">
+                            <div id="container" class="favorite">
+                                <div class="circle" onclick="toggle()"></div>
+                            </div>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+            </div>
+         
+
+
+
 
 
 
@@ -75,8 +128,8 @@
             data: {
                 ClinicList: [],
                 City: [],
-                Region:[],
-                Regiondata:[],
+                Region: [],
+                Regiondata: [],
                 show: false
 
             },
@@ -88,7 +141,7 @@
                     this.City = res
                     console.log(this);
                 });
-                 fetch('/api/ClinicAPI/GetAll').then(res => { //網頁打開頁面顯示最初內容
+                fetch('/api/ClinicAPI/GetAll').then(res => { //網頁打開頁面顯示最初內容
                     return res.json();
                 }).then(res => {
                     console.log('抓到all', res)
@@ -100,7 +153,7 @@
                 fetch('/api/ClinicAPI/GetRegion').then(res => {
                     return res.json();
                 }).then(res => {
-                    this.Region=res
+                    this.Region = res
                 })
             },
             methods: {
@@ -110,8 +163,8 @@
                     let self = this;
                     //var city = $("#city")[0].value;
                     //var region = $("#region")[0].value;
-                      //fetch(`/api/ClinicAPI/GetContent/${city}/{region}`
-                    fetch('/api/ClinicAPI/GetContent/'+addr , {
+                    //fetch(`/api/ClinicAPI/GetContent/${city}/{region}`
+                    fetch('/api/ClinicAPI/GetContent/' + addr, {
                         method: 'GET',
                     })
                         .then(function(res) {
