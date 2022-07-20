@@ -11,6 +11,7 @@ namespace PetsWebsite.Models
         public string Species { get; set; } = null!;
         public int? Age { get; set; }
         public bool? Gender { get; set; }
+        public string? Photo { get; set; }
 
         public virtual User User { get; set; } = null!;
     }

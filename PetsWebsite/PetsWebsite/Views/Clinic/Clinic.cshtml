@@ -8,136 +8,159 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS v5.2.0-beta1 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+    @section Styles{
+        <link rel="stylesheet" href="~/css/AaronCSS/index.css" />
+        <link rel="stylesheet" href="~/css/AaronCSS/favoriteIcon.css" />
+    }
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <style>
-        #collection {
-            bottom: 5%;
-            right: 5%;
-        }
-    </style>
-</head>
 
-<body>
-    <div class="container-lg" id="Clinic">
+        <style>
+            #collection {
+                bottom: 5%;
+                right: 5%;
+            }
+            
+
+        </style>
 
 
-        <!-- 下拉選取 -->
-        <div class="container">
-            <div class="row justify-content-evenly">
-                <select class=" col-5  form-select-sm mt-3 " aria-label="form-select-sm example" id="city" v-on:change="Getdata">
-                    <option selected disabled>地區</option>
-                    <option v-bind:value="item" v-for="item in City">{{item}}</option>
-                </select>
-                <select class=" col-5  form-select-sm mt-3 " aria-label="form-select-sm example" id="region" v-on:change="Getdata">
-                    <option selected disabled>地區</option>
-                    <option v-bind:value="item" v-for="item in Region">{{item}}</option>
-                </select>
+    </head>
+
+    <body>
+        <div class="container-lg" id="Clinic">
+
+
+            <!-- 下拉選取 -->
+            <div id="Clinic" class="contanier m-2 ">
+                <form class="row ">
+                    <div class="col-5">
+                        <label for="inputCity" class="form-label">縣市</label>
+                        <select id="inputCity" class="form-select" v-model="selected.city" v-on:change="GetRegion">
+                            <option selected disabled>請選擇</option>
+                            <option v-for="(city, index) in City" v-bind:value="index">{{city.CityName}}</option>
+                        </select>
+                    </div>
+                    <div class="col-5">
+                        <label for="inputState" class="form-label">區域</label>
+                        <select id="inputState" class="form-select" v-on:change="Getdata">
+                            <option selected disabled>請選擇</option>
+                            <option v-for="area in Region" v-bind:value="area.AreaName">{{area.AreaName}}</option>
+                        </select>
+                    </div>
+                </form>
+                 
             </div>
-        </div>
+                
+          
+            
 
-        <!-- 卡片 -->
-        <div class="container" v-show="show">
-            <div class="row " v-for="item in ClinicList">
+            
 
-                <div class="card mt-4" style="padding-left: 0px;padding-right: 0px">
-                    <div class="row g-0">
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h1>{{item.clinicName}}</h1>
-                                <p class="card-text">電話號碼:{{item.phone}}</p>
-                                <p class="card-text"><small class="text-muted">地址:{{item.address}}</small></p>
-                                <small>有無急診:{{item.emergency}}</small>
+            <!-- 卡片 -->
+            <div class="container" v-show="show">
+                <div class="row " v-for="item in ClinicList">
+
+                    <div class="card mt-4" style="padding-left: 0px;padding-right: 0px">
+                        <div class="row g-0">
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h1>{{item.clinicName}}</h1>
+                                    <p class="card-text">電話號碼:{{item.phone}}</p>
+                                    <p class="card-text"><small class="text-muted">地址:{{item.region+item.address}}</small></p>
+                                    <small>有無急診:{{item.emergency}}</small>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="position-relative">
-                                <img src="https://picsum.photos/id/682/600/400" class="w-100 rounded" alt="">
-                                <button class="position-absolute  btn btn-outline-danger rounded-pill" id="collection" data-bs-toggle="modal" data-bs-target="#staticBackdrop">收藏</button>
+                            <div class="col-md-4">
+                                <div class="position-relative">
+                                    <img src="https://picsum.photos/id/682/600/400" class="w-100 rounded" alt="">
+                                    <button class="position-absolute  btn btn-outline-danger rounded-pill" id="collection" data-bs-toggle="modal" data-bs-target="#staticBackdrop">收藏</button>
+                                </div>
                             </div>
-
                         </div>
                     </div>
-                </div>
-                   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">{{item.clinicName}}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- map -->
-                            <div class="container">
-                                <div class="row">
-                                    <h2 id="h2Text" class="col-12 text-center text-danger mb-2">Map</h2>
-                                    <div class="col-12">
-                                        <iframe id="map"
-                                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.769612505944!2d121.52342931484193!3d25.041891483968584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a970a11a84ad%3A0x58e05f2528812097!2z5ZyL56uL6Ie65YyX5ZWG5qWt5aSn5a24!5e0!3m2!1szh-TW!2stw!4v1657415255330!5m2!1szh-TW!2stw"
-                                                class="w-100" style="border:0;" allowfullscreen="" loading="lazy"
-                                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">{{item.clinicName}}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- map -->
+                                    <div class="container">
+                                        <div class="row">
+                                            <h2 id="h2Text" class="col-12 text-center text-danger mb-2">Map</h2>
+                                            <div class="col-12">
+                                                <iframe id="map"
+                                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.769612505944!2d121.52342931484193!3d25.041891483968584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a970a11a84ad%3A0x58e05f2528812097!2z5ZyL56uL6Ie65YyX5ZWG5qWt5aSn5a24!5e0!3m2!1szh-TW!2stw!4v1657415255330!5m2!1szh-TW!2stw"
+                                                    class="w-100" style="border:0;" allowfullscreen="" loading="lazy"
+                                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <!-- 評論 -->
-                            <div class="container">
-                                <div class="row">
-                                    <h1 id="titleH1" class="text-danger mt-5">評論</h1>
-                                </div>
-                                <div class="row">
+                                    <!-- 評論 -->
+                                    <div class="container">
+                                        <div class="row">
+                                            <h1 id="titleH1" class="text-danger mt-5">評論</h1>
+                                        </div>
+                                        <div class="row">
 
-                                    <div class="form-floating mt-3">
-                                        <textarea class="form-control" placeholder="Leave a comment here"
-                                                  id="floatingTextarea2" style="height: 100px"></textarea>
-                                        <label for="floatingTextarea2">Comments</label>
-                                        <div class="d-flex justify-content-end mt-3">
-                                            <a href="#" class="btn btn-info">提交</a>
+                                            <div class="form-floating mt-3">
+                                                <textarea class="form-control" placeholder="Leave a comment here"
+                                                      id="floatingTextarea2" style="height: 100px"></textarea>
+                                                <label for="floatingTextarea2">Comments</label>
+                                                <div class="d-flex justify-content-end mt-3">
+                                                    <a href="#" class="btn btn-info">提交</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer d-flex justify-content-between">
-                            <div id="container" class="favorite">
-                                <div class="circle" onclick="toggle()"></div>
-                            </div>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <div class="modal-footer d-flex justify-content-between">
+                                    <div id="container" class="favorite">
+                                        <div class="circle" onclick="toggle()"></div>
+                                    </div>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
-    </div>
-
-            </div>
-         
 
 
 
 
 
 
-</body>
 
-@section Scripts{
+    </body>
+
+    @section Scripts{
 
     <script>
         var app = new Vue({
             data: {
+                selected: {
+                    city: "",
+                    area: ""
+                },
                 ClinicList: [],
                 City: [],
                 Region: [],
-                Regiondata: [],
                 show: false
-
             },
             mounted: function() {       //頁面渲染之前執行
-                fetch('/api/ClinicAPI/GetCity').then(res => {
+                fetch("https://raw.githubusercontent.com/donma/TaiwanAddressCityAreaRoadChineseEnglishJSON/master/CityCountyData.json").then(res => {
                     return res.json();
                 }).then(res => {
-                    console.log('抓到', res)
+                    console.log('抓到zipcode', res)
                     this.City = res
                     console.log(this);
                 });
@@ -147,23 +170,15 @@
                     console.log('抓到all', res)
                     this.ClinicList = res
                     this.show = true;
-                    console.log(this);
+                    
 
                 });
-                fetch('/api/ClinicAPI/GetRegion').then(res => {
-                    return res.json();
-                }).then(res => {
-                    this.Region = res
-                })
             },
             methods: {
                 Getdata: function(e) {
                     console.log(e.target.value);
                     var addr = e.target.value;
                     let self = this;
-                    //var city = $("#city")[0].value;
-                    //var region = $("#region")[0].value;
-                    //fetch(`/api/ClinicAPI/GetContent/${city}/{region}`
                     fetch('/api/ClinicAPI/GetContent/' + addr, {
                         method: 'GET',
                     })
@@ -171,15 +186,21 @@
                             return res.json();
                         }).then(function(d) {
                             console.log(d);
-                            console.log(this);
                             self.ClinicList = d;
-
+                            this.show = true;
                         }).catch(error => console.log(error))
                 },
+                GetRegion: function(e) {
+                    console.log(e.target.value)
+                    this.Region = this.City[e.target.value].AreaList
+                }
+
             }
         }).$mount("#Clinic")
 
-
+        function toggle() {
+            document.getElementById('container').classList.toggle('is-active')
+        }
     </script>
 }
 

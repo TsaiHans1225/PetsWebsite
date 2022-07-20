@@ -38,9 +38,9 @@ namespace PetsWebsite.Controllers.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Clinic>>> GetContent(string? City,string? Region)
         {
-            if (Region == null)
+            if (Region == null||Region=="null")
             {
-                return await _PetsDB.Clinics.Where(c => c.City == City).ToListAsync();
+                return await _PetsDB.Clinics.Where(c => c.City==City).ToListAsync();
             }
             else
             {
