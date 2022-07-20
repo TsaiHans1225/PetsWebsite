@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PetsWebsite.Models;
+using PetsWebsite.Models.ViewModel;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,7 +14,7 @@ namespace PetsWebsite.Controllers.API
     {
         private readonly PetsDBContext _petsDBContext;
         Restaurant rest = new Restaurant();
-        
+
         public RestaurantsApiController(PetsDBContext petsDBContext)
         {
             _petsDBContext = petsDBContext;
@@ -42,21 +43,21 @@ namespace PetsWebsite.Controllers.API
             return query;
         }
         //=============================================================================
-        //規劃查詢&Region
+        //規劃查詢City&Region
         [HttpGet]
         [Route("QryByCityRegion/{city}/{region}/rawdata")]
-        public List<Restaurant> RestaurantQryCityRegion([FromRoute(Name = "city")] string city, [FromRoute(Name = "region")] string region)
+        public async Task<ActionResult<IEnumerable<Restaurant>>> RestaurantQryCityRegion([FromRoute(Name = "city")] string? city, [FromRoute(Name = "region")] string? region)
         {
             var query = (_petsDBContext.Restaurants)
-                .Where(c => c.City == city && c.Region == region).ToList<Restaurant>();
-            return query;
+                .Where(c => c.City == city && c.Region == region).ToListAsync<Restaurant>();
+            return await query;
         }
 
-        //尚未完成
         [HttpGet]
         [Route("Details/rawdata")]
         public async Task<ActionResult<IEnumerable<Restaurant>>> Details()
         {
+
             if (_petsDBContext.Restaurants == null)
             {
                 return NotFound();
@@ -65,5 +66,16 @@ namespace PetsWebsite.Controllers.API
         }
 
 
+
+        //[HttpPut]
+        //[Route("UpdateFavorite/rawdata")]
+        //[Consumes("application/json")]
+        //[Produces("application/json")]
+        //[ProducesResponseType(typeof(Messages), 200)]
+        //[ProducesResponseType(typeof(Messages), 400)]
+        //public Messages UpdateFavorite([FromBody] Restaurant rest)
+        //{
+
+        //}
     }
 }

@@ -3,21 +3,6 @@
 <link rel="stylesheet" href="~/css/AaronCSS/favoriteIcon.css" />
 }
 
-@{
-    List<string> items = ViewBag.Data;
-    string JsonString = Newtonsoft.Json.JsonConvert.SerializeObject(items);
-    List<string> regionstr = ViewBag.region;
-    string JsonStr = Newtonsoft.Json.JsonConvert.SerializeObject(regionstr);
-
-}
-
-<script>
-    var cities = @Html.Raw(JsonString);
-    var region = @Html.Raw(JsonStr);
-    var qryFromCity = '@Html.Raw(ViewBag.QryByCity)';
-    var qryFromRegion = '@Html.Raw(ViewBag.QryByRegion)';
-
-</script>
 <div id="Rest">
 
 
@@ -67,13 +52,13 @@
         <div class="row row-cols-1 ">
 
             <div class="d-flex justify-content-end">
-                <select class="me-2" v-model="selectItem" autocomplete="off">
-                    <option value="" selected="selected" disabled>--請選擇城市--</option>
-                    <option v-for="item in items" v-bind:value="item">{{item}}</option>
+                <select class="me-2" v-model="selected.city" autocomplete="off" v-on:change="cheCity($event)">
+                    <option value="" selected disabled>--請選擇城市--</option>
+                    <option v-for="(item,index) in items" v-bind:value="index">{{item.CityName}}</option>
                 </select>
-                <select class="me-2" v-model="selectRegion">
-                    <option value="" selected="selected" disabled>--請選擇地區--</option>
-                    <option v-for="region in regions" v-bind:value="region">{{region}}</option>
+                <select class="me-2" v-model="selected.area">
+                    <option value="" selected disabled>--請選擇地區--</option>
+                    <option v-for="region in regions" v-bind:value="region.AreaName">{{region.AreaName}}</option>
                 </select>
                 <button class="btn btn-primary" v-on:click="Qry">查詢</button>
 
@@ -144,7 +129,7 @@
                         </div>
                         <div class="modal-footer d-flex justify-content-between">
                             <div id="container" class="favorite">
-                                <div class="circle" onclick="toggle()"></div>
+                                <div class="circle" v-on:click="toggle()"></div>
                             </div>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             
@@ -166,81 +151,95 @@
         var app = new Vue({
 
             data: {
-                selectItem: '',
+                
                 items: [],
-                qryFromCity: '',
                 restaurants: [],
                 isShow: false,
-                selectRegion: '',
                 regions: [],
-                qryFromRegion: '',
-                qryCityRegion: ''
-
+                total:{},
+                selected:{
+                    city:'',
+                    area:'',
+                }
 
             },
             methods: {
-                Qry: function () {
+                Qry:async function () {
 
-                    axios.all([this.QryCity(), this.QryRegion(), this.QryCityRegion()])
-                        .then(axios.spread((res1, res2, res3) => {
-
-                        }))
+                   
+                    let that = this;
+                    var a = await that.QryCityRegion()
+                    
+                    return a;
 
                 },
-                QryCity: function () {
-                    let urlString = this.qryFromCity.replace('{0}', this.selectItem);
-                    axios.get(urlString)
-                        .then(res => {
-                            console.log(res)
-                            this.restaurants = res.data;
-                            this.isShow = true;
-                            console.log("載到囉!!City");
-                        })
-                        .catch(err => {
-                            console.error(err);
-                        })
-                },
-                QryRegion: function () {
-                    let urlStrByRegion = this.qryFromRegion.replace('{0}', this.selectRegion);
-                    axios.get(urlStrByRegion)
-                        .then(res => {
-                            console.log(res)
-                            this.restaurants = res.data;
-                            this.isShow = true;
-                            console.log("載到囉!!Region");
-                        })
-                        .catch(err => {
-                            console.error(err);
-                        })
-                },
+               
                 QryCityRegion: function () {
-                    let url = `/api/RestaurantsApi/QryByCityRegion/${this.selectItem}/${this.selectRegion}/rawdata`
+                    let url = `/api/RestaurantsApi/QryByCityRegion/${this.selected.city}/${this.selected.area}/rawdata`
                     axios.get(url)
                         .then(res => {
                             console.log(res)
                             this.restaurants = res.data;
                             this.isShow = true;
                             console.log("載到囉!!複合查詢");
+                            
                         })
                         .catch(err => {
                             console.error(err);
                         })
+                        
+                },
+               
+                selectThat:function(){
+                    
+                    let that = this;
+                    axios.get('https://raw.githubusercontent.com/donma/TaiwanAddressCityAreaRoadChineseEnglishJSON/master/AllData.json')
+                    .then(res => {
+                        console.log("在這在這")
+                        that.items = res.data;
+                    })
+                    .catch(err => {
+                        console.error(err); 
+                    })
+                
+                },
+                cheCity:function(event){
+                    let that = this;
+                    console.log(event);
+                    that.regions = that.items[event.target.value].AreaList;
+                    if(event.target.value === '0')
+                    {
+                        that.selected.city = '台北';
+                        
+                    }
+                    if(event.target.value === '2')
+                    {
+                        that.selected.city = '新北市';
+                    }
+                },
+                toggle:function(){
+                     document.getElementById('container').classList.toggle('is-active')
+            
                 }
             },
-            mounted: function () {
+            mounted:  function () {
                 console.log('掛載完成');
-                this.items = cities;
-                this.qryFromCity = qryFromCity;
-                this.regions = region;
-                this.qryFromRegion = qryFromRegion;
+                this.items = this.selectThat();
 
+                let that = this;
+                axios.get("/api/RestaurantsApi/Details/rawdata")
+                .then(res => {
+                    console.log(res)
+                    this.total=res.data;
+                })
+                .catch(err => {
+                    console.error(err); 
+                })
             }
 
 
         });
         app.$mount('#Rest')
-        function toggle() {
-                document.getElementById('container').classList.toggle('is-active')
-            }
+        
     </script>
     }
