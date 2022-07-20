@@ -1,4 +1,5 @@
-﻿<!doctype html>
+﻿@model IEnumerable<PetsWebsite.Models.Product>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -6,14 +7,14 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-    <link rel="stylesheet" href="./css/style.css">
+    @* <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">*@
 
     <!-- Bootstrap CSS v5.2.0-beta1 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
-          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    @*<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
-    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>*@
 </head>
 
 <body>
@@ -85,55 +86,35 @@
                         <div class="col-12 col-md-6">
                             <h2>您的訂單</h2>
                             <div class="table-responsive-sm">
-                                <table class="table table-bordered table-striped">
-                                    <tbody>
+                                <h2>訂單明細</h2>
+                                <table class="table">
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ProductId)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ProductName)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.UnitPrice)
+                                        </th>
+
+                                    </tr>
+                                    @foreach (var item in Model)
+                                    {
                                         <tr>
-                                            <td>商品</td>
-                                            <td>總計</td>
-                                        </tr>
-                                        <tr>
-                                            <td>貓貓罐頭</td>
-                                            <td>NT$&nbsp;500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>食在好抓窩</td>
-                                            <td>NT$&nbsp;500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>狗狗玩具</td>
-                                            <td>NT$&nbsp;500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>小計</td>
-                                            <td>NT$&nbsp;1,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>運送方式</td>
                                             <td>
-                                                <div class="form-check">
-                                                    <input id="Expenses" name="tran-expenses" type="radio"
-                                                           class="form-check-input">
-                                                    <label class="form-check-label">免運費0</label>
-                                                </div>
-                                                <div class="form-check checkbox">
-                                                    <input id="PostOffice" name="tran-expenses" type="radio"
-                                                           class="form-check-input" checked="">
-                                                    <label class="form-check-label">郵局:NT$&nbsp;80</label>
-                                                </div>
+                                                @Html.DisplayFor(modelItem => item.ProductId)
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td>總計</td>
-                                            <td>NT$&nbsp;1,580</td>
-                                        </tr>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td colspan="2">
-                                                <a href="#" class="btn btn-outline-info btn-lg float-right">下單購買</a>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ProductName)
                                             </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.UnitPrice)
+                                            </td>
+
                                         </tr>
-                                    </tfoot>
+                                    }
                                 </table>
                             </div>
                         </div>
@@ -145,15 +126,15 @@
     </div>
 
     <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.11.5/dist/umd/popper.min.js"
-            integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
-            crossorigin="anonymous">
+    @* <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.11.5/dist/umd/popper.min.js"
+    integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+    crossorigin="anonymous">
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
-            integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
-            crossorigin="anonymous">
-    </script>
+    integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+    crossorigin="anonymous">
+    </script>*@
 
 </body>
 

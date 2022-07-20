@@ -18,7 +18,7 @@
         <div class="container">
             <div class="row">
                 <div class="d-grid gap-2 ">
-                    <a href="#" class="btn btn-primary btn-sm">直接結帳</a>
+                    <a asp-controller="Checkout" asp-action="Index" asp-route-id="@Model.ProductId" class="btn btn-primary btn-sm">直接結帳</a>
                 </div>
                 <div class="d-grid gap-2 mt-1">
                     <a href="#" class="btn btn-warning btn-sm">放入購物車</a>
