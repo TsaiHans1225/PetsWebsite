@@ -229,10 +229,6 @@ namespace PetsWebsite.Models
                 entity.Property(e => e.Region).HasMaxLength(10);
 
                 entity.Property(e => e.RestaurantName).HasMaxLength(20);
-
-                entity.Property(e => e.Photo).HasMaxLength(int.MaxValue);
-
-                entity.Property(e => e.Introduction).HasMaxLength(int.MaxValue);
             });
 
             modelBuilder.Entity<Role>(entity =>
