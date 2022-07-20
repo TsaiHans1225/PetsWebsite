@@ -51,9 +51,9 @@ namespace PetsWebsite.Controllers.API
         }
 
         [HttpPost]
-        public ActionResult<bool> UpdateUserDetails(UserDetailsViewModel uDetails)
+        public void UpdateUserDetails(UserDetailsViewModel uDetails)
         {
-            int id = 4;
+            int id = 5;
             var query = _dbContext.Users.FirstOrDefault(u => u.UserId == id);
             query.LastName = uDetails.LastName;
             query.FirstName = uDetails.FirstName;
@@ -62,7 +62,6 @@ namespace PetsWebsite.Controllers.API
             query.Address = uDetails.Address;
             query.Birthday = Convert.ToDateTime(uDetails.Birthday);
             _dbContext.SaveChanges();
-            return true;
         }
     }
 }

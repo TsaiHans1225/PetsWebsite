@@ -47,27 +47,32 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <label for="city" class="form-label">所在城市</label>
-                        <select class="form-select" id="city" required="">
-                            <option value="">Choose...</option>
-                            <option>台北市</option>
-                            <option>新北市</option>
+                    <div class="col-md-4">
+                        <label for="city" class="form-label">縣市</label>
+                        <select class="form-select" id="city" v-on:change="chgCity" required="">
+                            <option value="" disabled>- - 請選擇 - -</option>
+                            <option v-for="(city, index) in source" :value="index">{{city.CityName}}</option>
                         </select>
                         <div class="invalid-feedback">
                             Please select a valid city.
                         </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <label for="region" class="form-label">所在區域</label>
-                        <select class="form-select" id="region" required="">
-                            <option value="">Choose...</option>
-                            <option>XXX</option>
-                            <option>XXX</option>
+                    <div class="col-md-4">
+                        <label for="region" class="form-label">區域</label>
+                        <select class="form-select" id="region" v-on:click="regionChange" required="">
+                            <option value="" disabled>- - 請選擇 - -</option>
+                            <option v-for="area in secSource" :value="area.ZipCode">{{area.AreaName}}</option>
                         </select>
                         <div class="invalid-feedback">
                             Please provide a valid region.
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <label for="zipCode" class="form-label">郵遞區號</label>
+                        <input type="text" class="form-control" id="zipCode" placeholder="郵遞區號" :value="zipCode" disabled>
+                        <div class="invalid-feedback">
+                            Please enter your zipCode.
                         </div>
                     </div>
 
@@ -119,7 +124,10 @@
 <script>
     var vm = new Vue({
         data: {
-            user: []
+            user: [],
+            source:[],
+            secSource: [],
+            zipCode: ""
         },
         created: function () {
             let self = this;
@@ -132,6 +140,11 @@
                     console.log(self);
                     self.user = mydata;
                 })
+        },
+        mounted: function() {
+            var self = this
+            fetch("https://raw.githubusercontent.com/donma/TaiwanAddressCityAreaRoadChineseEnglishJSON/master/CityCountyData.json")
+            .then(function(res){return res.json()}).then(function(json){self.source = json})
         },
         methods: {
             UpdateUserDetails: function() {
@@ -153,6 +166,13 @@
                     .then(resp => resp.json())
                     .catch(error => console.log("error", error))
                     .then(response => console.log("success", response));
+            },
+            chgCity:function(e){
+                console.log(e.target.value)
+                this.secSource = this.source[e.target.value].AreaList
+            },
+            regionChange: function(e){
+                this.zipCode = e.target.value
             }
         }
     }).$mount('#userDetails')
