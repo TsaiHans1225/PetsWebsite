@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PetsWebsite.Models;
 
+
 namespace PetsWebsite.Controllers.API
 {
     [Route("api/ClinicAPI/{action}")]
@@ -30,16 +31,12 @@ namespace PetsWebsite.Controllers.API
 
             return await _PetsDB.Clinics.Select(c => c.City).Distinct().ToListAsync();
         }
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<string>>> GetRegion()
-        {
-            return await _PetsDB.Clinics.Select(r => r.Region).Distinct().ToListAsync();
-        }
+       
         [HttpGet]
         [Route("{City}/{Region?}")]
         public async Task<ActionResult<IEnumerable<Clinic>>> GetContent(string City,string? Region)
         {
-            if (Region == null||Region=="null")
+            if (Region == null)
             {
                 return await _PetsDB.Clinics.Where(c => c.City==City).ToListAsync();
             }
@@ -48,5 +45,6 @@ namespace PetsWebsite.Controllers.API
                 return await _PetsDB.Clinics.Where(c => c.City == City&&c.Region == Region).ToListAsync();
             }
         }
+      
     }
 }
