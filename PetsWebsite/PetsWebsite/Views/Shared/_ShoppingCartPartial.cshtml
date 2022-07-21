@@ -4,39 +4,53 @@
     string imgName = $"{Model.ProductId}.jpg";
     int UnitPrice = Convert.ToInt32(Model.UnitPrice);
 }
-
-
-<table class="table table-bordered">
-    <thead class="thead-dark">
-        <tr>
-            @*<th scope="col" class="product-remove">&nbsp;</th>*@
-            <th scope="col" class="product-thumbnail">圖片</th>
-            <th scope="col" class="product-name">名稱</th>
-            <th scope="col" class="product-price">價格</th>
-            <th scope="col" class="product-quantity">數量</th>
-            <th scope="col" class="product-subtotal">總計</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            @*<td class="product-remove">
-                <a class="remove text-white" data-toggle="tooltip" data-placement="top"
-                   title="" data-original-title="是否確定要移除">X</a>
-            </td>*@
-            <td class="product-thumbnail">
-                <a href="product.html">
-                    <img src="~/images/Product/@imgName" style="width:100%">
-                </a>
-            </td>
-            <td class="product-name">
-                <a href="product.html">@Model.ProductName</a>
-            </td>
-            <td class="product-price">單價：@UnitPrice</td>
-            <td class="product-quantity">
-                <input type="number" value="1">
-            </td>
-            <td class="product-subtotal">單價：@UnitPrice</td>
-        </tr>
-
-    </tbody>
-</table>
+<div class="row justify-content-center mt-5">
+    <div class="col-10">
+        <table class="table border border-warning border-5 table-hover table-responsive">
+            <thead>
+                <tr class="table-dark"  align="center">
+                    <th scope="col"></th>
+                    <th scope="col">圖片</th>
+                    <th scope="col">名稱</th>
+                    <th scope="col">價格</th>
+                    <th scope="col">數量</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-warning "align="center">
+                    <th scope="row"><input type="checkbox" /></th>
+                    <td><img src="~/images/Product/@imgName" style="width:25%" alt="圖片"></td>
+                    <td><a>@Model.ProductName</a></td>
+                    <td>NT$&nbsp:@UnitPrice</td>
+                    <td><input type="number" value="1"></td>
+                    <td><input type="button" value="下次再買" /></td>
+                </tr>
+                <tr class="table-info" align="center">
+                    <th scope="row"><input type="checkbox" /></th>
+                    <td><img src="~/images/Product/@imgName" style="width:25%" alt="圖片"></td>
+                    <td><a>@Model.ProductName</a></td>
+                    <td>NT$&nbsp:@UnitPrice</td>
+                    <td><input type="number" value="1"></td>
+                    <td><input type="button" value="下次再買" /></td>
+                </tr>
+                <tr class="table-danger"align="center">
+                    <th scope="row"><input type="checkbox" /></th>
+                    <td><img src="~/images/Product/@imgName" style="width:25%" alt="圖片"></td>
+                    <td><a>@Model.ProductName</a></td>
+                    <td>NT$&nbsp:@UnitPrice</td>
+                    <td><input type="number" value="1"></td>
+                    <td><input type="button" value="下次再買" /></td>
+                </tr>
+                <tr class="table-success" align="center">
+                    <th scope="row"><input type="checkbox" /></th>
+                    <td><img src="~/images/Product/@imgName" style="width:25%" alt="圖片"></td>
+                    <td><a>@Model.ProductName</a></td>
+                    <td>NT$&nbsp:@UnitPrice</td>
+                    <td><input type="number" value="1"></td>
+                    <td><input type="button" value="下次再買" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

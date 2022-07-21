@@ -12,8 +12,10 @@
     <div class="img-thumbnail">
         <img src="~/images/Product/@imgName" style="width:100%">
         <div class="row mt-1 ms-2">
-            <h4 class="text-danger">單價：@UnitPrice</h4>
-            <h6 style="display: -webkit-box;-webkit-box-orient: vertical; text-overflow: ellipsis; white-space: normal; overflow: hidden; -webkit-line-clamp: 2;"> @Model.ProductName</h6>
+            <div class="col">
+                <h2 class="text-danger">單價：@UnitPrice</h2>
+                <h6 style="display: -webkit-box;-webkit-box-orient: vertical; text-overflow: ellipsis; white-space: normal; overflow: hidden; -webkit-line-clamp: 2;"> @Model.ProductName</h6>
+            </div>
             @*<h6> @Model.ProductName</h6>*@
             @*<p>寵物類型：@Model.Discontinued</p>*@
         </div>
