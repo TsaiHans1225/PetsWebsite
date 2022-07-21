@@ -20,6 +20,7 @@ namespace PetsWebsite.Models
         public virtual DbSet<Clinic> Clinics { get; set; } = null!;
         public virtual DbSet<Comment> Comments { get; set; } = null!;
         public virtual DbSet<Company> Companies { get; set; } = null!;
+        public virtual DbSet<CompanyAccount> CompanyAccounts { get; set; } = null!;
         public virtual DbSet<CompanyType> CompanyTypes { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<OrderDetail> OrderDetails { get; set; } = null!;
@@ -120,6 +121,26 @@ namespace PetsWebsite.Models
                 entity.Property(e => e.Phone)
                     .HasMaxLength(20)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<CompanyAccount>(entity =>
+            {
+                entity.HasKey(e => e.CompanyId);
+
+                entity.ToTable("CompanyAccount");
+
+                entity.Property(e => e.CompanyId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("CompanyID");
+
+                entity.Property(e => e.Account).HasMaxLength(20);
+
+                entity.Property(e => e.Password).HasMaxLength(20);
+
+                entity.HasOne(d => d.Company)
+                    .WithOne(p => p.CompanyAccount)
+                    .HasForeignKey<CompanyAccount>(d => d.CompanyId)
+                    .HasConstraintName("FK_CompanyAccount_Company");
             });
 
             modelBuilder.Entity<CompanyType>(entity =>
@@ -273,6 +294,8 @@ namespace PetsWebsite.Models
                 entity.Property(e => e.UserName)
                     .HasMaxLength(40)
                     .HasComputedColumnSql("([LastName]+[FirstName])", false);
+
+                entity.Property(e => e.Zipcode).HasMaxLength(10);
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.Users)
