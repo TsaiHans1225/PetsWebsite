@@ -152,17 +152,17 @@
                         }
                     }
                     self.selected.region = mydata.region;
-                    //for (let index = 0; index < self.secSource.length; index++) {
-                    //    if (self.secSource[index].zipCode == mydata.zipCode) {
-                    //        self.selected.zipCode = mydata.zipCode;
-                    //        break;
-                    //    }
-                    //}
+                    console.log(self.secSource)
+                    for (let index = 0; index < self.secSource.length; index++) {
+                        if (self.secSource[index].AreaName == mydata.region) {
+                            self.selected.zipCode = self.secSource[index].ZipCode;
+                            break;
+                        }
+                    }
                 })
         },
         mounted: function() {
             this.source = JSON.parse(cityRegionSource);
-            this.$forceUpdate()
         },
         methods: {
             UpdateUserDetails: function() {
@@ -187,11 +187,10 @@
                     .then(resp => resp.json())
                     .catch(error => console.log("error", error))
                     .then(response => console.log("success", response));
+                    alert("會員資料以儲存")
             },
             chgCity: function(e) {
                 for (let index = 0; index < this.source.length; index++) {
-                    console.log(this.source[index].CityName)
-                    console.log(e.target.value)
                     if (this.source[index].CityName == e.target.value) {
                         this.secSource = this.source[index].AreaList;
                         break;
