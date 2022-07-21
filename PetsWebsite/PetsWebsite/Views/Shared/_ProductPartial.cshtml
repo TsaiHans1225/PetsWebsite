@@ -13,17 +13,17 @@
         <img src="~/images/Product/@imgName" style="width:100%">
         <div class="row mt-1 ms-2">
             <h4 class="text-danger">單價：@UnitPrice</h4>
-            @*<h6 style="width: 100px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;"> @Model.ProductName</h6>*@
-            <h6> @Model.ProductName</h6>
-            <p>寵物類型：@Model.Discontinued</p>
+            <h6 style="display: -webkit-box;-webkit-box-orient: vertical; text-overflow: ellipsis; white-space: normal; overflow: hidden; -webkit-line-clamp: 2;"> @Model.ProductName</h6>
+            @*<h6> @Model.ProductName</h6>*@
+            @*<p>寵物類型：@Model.Discontinued</p>*@
         </div>
         <div class="container">
             <div class="row">
                 <div class="d-grid gap-2 ">
-                    <a asp-controller="Checkout" asp-action="Index" asp-route-id="@Model.ProductId" class="btn btn-primary btn-sm">直接結帳</a>
+                    <a asp-controller="ShoppingCart" asp-action="Index" asp-route-id="@Model.ProductId" class="btn btn-primary btn-sm">直接結帳</a>
                 </div>
                 <div class="d-grid gap-2 mt-1">
-                    <a href="#" class="btn btn-warning btn-sm">放入購物車</a>
+                    <a asp-controller="ShoppingCart" asp-action="Index" asp-route-id="@Model.ProductId" class="btn btn-warning btn-sm">放入購物車</a>
                 </div>
                 <div class="d-grid gap-2 mt-1">
                     <a href="#" class="btn btn-danger btn-sm">❤收藏</a>
