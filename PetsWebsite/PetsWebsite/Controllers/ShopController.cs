@@ -73,7 +73,7 @@ namespace PetsWebsite.Controllers
         {
 
             var products = await ProductDBContext.Products
-                    .Where(m => m.ProductName.Contains(txtKeyword) || m.ProductName.Contains(txtKeyword))
+                    .Where(m => m.ProductName.Contains(txtKeyword))
                     .ToListAsync();
 
             return View(products);

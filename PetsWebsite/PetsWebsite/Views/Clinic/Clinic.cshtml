@@ -17,121 +17,130 @@
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
         <style>
-            #collection {
-                bottom: 5%;
-                right: 5%;
-            }
-            
-
+         #Jumbotron{
+             flex-direction:column;
+         }
+      
         </style>
 
 
     </head>
 
     <body>
-        <div class="container-lg" id="Clinic">
+        <div class="container-lg mt-2" id="Clinic">
 
 
             <!-- 下拉選取 -->
-            <div id="Clinic" class="contanier m-2 ">
-                <form class="row ">
-                    <div class="col-5">
-                        <label for="inputCity" class="form-label">縣市</label>
-                        <select id="inputCity" class="form-select" v-model="selected.city" v-on:change="GetRegion">
-                            <option selected disabled>請選擇</option>
-                            <option v-for="(city, index) in City" v-bind:value="index">{{city.CityName}}</option>
-                        </select>
-                    </div>
-                    <div class="col-5">
-                        <label for="inputState" class="form-label">區域</label>
-                        <select id="inputState" class="form-select" v-on:change="Getdata">
-                            <option selected disabled>請選擇</option>
-                            <option v-for="area in Region" v-bind:value="area.AreaName">{{area.AreaName}}</option>
-                        </select>
-                    </div>
-                </form>
-                 
+            <div class="jumbotron mt-2 d-flex align-items-center" id="Jumbotron">
+                <h1 class="display-4">醫療資訊</h1>
+                <p class="lead">這邊可以提供您想查詢的醫療資訊</p>
+                <hr class="my-4">
+                <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
             </div>
-                
-          
-            
+            <form class="row mt-4" v-on:change="Getdata">
+                <div class="col-4">
+                    <select id="inputCity" class="form-select" v-model="selected.city" v-on:change="GetRegion">
+                        <option selected disabled value="">請選擇縣市</option>
+                        <option v-for="(city, index) in City" v-bind:value="index">{{city.CityName}}</option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <select id="inputState" class="form-select" v-model="selected.area">
+                        <option selected disabled value="">請選擇地區</option>
+                        <option v-for="area in Region" v-bind:value="area.AreaName">{{area.AreaName}}</option>
+                    </select>
+                </div>
+            </form>
 
-            
+
+
+
+
+
 
             <!-- 卡片 -->
             <div class="container" v-show="show">
-                <div class="row " v-for="item in ClinicList">
-
-                    <div class="card mt-4" style="padding-left: 0px;padding-right: 0px">
-                        <div class="row g-0">
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h1>{{item.clinicName}}</h1>
-                                    <p class="card-text">電話號碼:{{item.phone}}</p>
-                                    <p class="card-text"><small class="text-muted">地址:{{item.region+item.address}}</small></p>
-                                    <small>有無急診:{{item.emergency}}</small>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="position-relative">
-                                    <img src="https://picsum.photos/id/682/600/400" class="w-100 rounded" alt="">
-                                    <button class="position-absolute  btn btn-outline-danger rounded-pill" id="collection" data-bs-toggle="modal" data-bs-target="#staticBackdrop">收藏</button>
-                                </div>
+                <div class="row">
+                    <div class="col col-3 my-3" v-for="item in ClinicList">
+                        <div class="card">
+                            <img src="https://picsum.photos/id/684/600/400" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">{{item.clinicName}}</h5>
+                                <p class="card-text">{{item.region+item.address}}</p>
+                                <a href="#" class="btn btn-primary"data-bs-toggle="modal" data-bs-target="#staticBackdrop">Go somewhere</a>
                             </div>
                         </div>
+                        @*<div class="card mt-4" style="padding-left: 0px;padding-right: 0px">
+                    <div class="row g-0">
+                    <div class="col-md-2">
+                    <div class="card-body">
+                    <h1>{{item.clinicName}}</h1>
+                    <p class="card-text">電話號碼:{{item.phone}}</p>
+                    <p class="card-text"><small class="text-muted">地址:{{item.region+item.address}}</small></p>
+                    <small>有無急診:{{item.emergency == false? "無急診":"有急診"}}</small>
                     </div>
-                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="staticBackdropLabel">{{item.clinicName}}</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <!-- map -->
-                                    <div class="container">
-                                        <div class="row">
-                                            <h2 id="h2Text" class="col-12 text-center text-danger mb-2">Map</h2>
-                                            <div class="col-12">
-                                                <iframe id="map"
-                                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.769612505944!2d121.52342931484193!3d25.041891483968584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a970a11a84ad%3A0x58e05f2528812097!2z5ZyL56uL6Ie65YyX5ZWG5qWt5aSn5a24!5e0!3m2!1szh-TW!2stw!4v1657415255330!5m2!1szh-TW!2stw"
-                                                    class="w-100" style="border:0;" allowfullscreen="" loading="lazy"
-                                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <div class="col-md-4">
+                    <div class="position-relative">
+                    <img src="https://picsum.photos/id/682/600/400" class="w-100 rounded" alt="">
+                    <button class="position-absolute  btn btn-outline-danger rounded-pill" id="collection" data-bs-toggle="modal" data-bs-target="#staticBackdrop">收藏</button>
+                    </div>
+                    </div>
+                    </div>
+                    </div>*@
+
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">{{item.clinicName}}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- map -->
+                                        <div class="container">
+                                            <div class="row">
+                                                <h2 id="h2Text" class="col-12 text-center text-danger mb-2">Map</h2>
+                                                <div class="col-12">
+                                                    <iframe id="map"
+                                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.769612505944!2d121.52342931484193!3d25.041891483968584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a970a11a84ad%3A0x58e05f2528812097!2z5ZyL56uL6Ie65YyX5ZWG5qWt5aSn5a24!5e0!3m2!1szh-TW!2stw!4v1657415255330!5m2!1szh-TW!2stw"
+                                                        class="w-100" style="border:0;" allowfullscreen="" loading="lazy"
+                                                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <!-- 評論 -->
-                                    <div class="container">
-                                        <div class="row">
-                                            <h1 id="titleH1" class="text-danger mt-5">評論</h1>
-                                        </div>
-                                        <div class="row">
+                                        <!-- 評論 -->
+                                        <div class="container">
+                                            <div class="row">
+                                                <h1 id="titleH1" class="text-danger mt-5">評論</h1>
+                                            </div>
+                                            <div class="row">
 
-                                            <div class="form-floating mt-3">
-                                                <textarea class="form-control" placeholder="Leave a comment here"
-                                                      id="floatingTextarea2" style="height: 100px"></textarea>
-                                                <label for="floatingTextarea2">Comments</label>
-                                                <div class="d-flex justify-content-end mt-3">
-                                                    <a href="#" class="btn btn-info">提交</a>
+                                                <div class="form-floating mt-3">
+                                                    <textarea class="form-control" placeholder="Leave a comment here"
+                                                          id="floatingTextarea2" style="height: 100px"></textarea>
+                                                    <label for="floatingTextarea2">Comments</label>
+                                                    <div class="d-flex justify-content-end mt-3">
+                                                        <a href="#" class="btn btn-info">提交</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="modal-footer d-flex justify-content-between">
-                                    <div id="container" class="favorite">
-                                        <div class="circle" onclick="toggle()"></div>
-                                    </div>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <div class="modal-footer d-flex justify-content-between">
+                                        <div id="container" class="favorite">
+                                            <div class="circle" onclick="toggle()"></div>
+                                        </div>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
 
 
@@ -143,7 +152,7 @@
     </body>
 
     @section Scripts{
-
+    <script src="~/js/CityRegion.js"></script>
     <script>
         var app = new Vue({
             data: {
@@ -157,29 +166,25 @@
                 show: false
             },
             mounted: function() {       //頁面渲染之前執行
-                fetch("https://raw.githubusercontent.com/donma/TaiwanAddressCityAreaRoadChineseEnglishJSON/master/CityCountyData.json").then(res => {
-                    return res.json();
-                }).then(res => {
-                    console.log('抓到zipcode', res)
-                    this.City = res
-                    console.log(this);
-                });
+                this.City = JSON.parse(cityRegionSource);
                 fetch('/api/ClinicAPI/GetAll').then(res => { //網頁打開頁面顯示最初內容
                     return res.json();
                 }).then(res => {
                     console.log('抓到all', res)
                     this.ClinicList = res
                     this.show = true;
-                    
+
 
                 });
             },
             methods: {
-                Getdata: function(e) {
-                    console.log(e.target.value);
-                    var addr = e.target.value;
+                Getdata: async function(e) {
+                    var city = this.City[this.selected.city].CityName; //抓到縣市
+                    console.log(city, "縣市查詢")
                     let self = this;
-                    fetch('/api/ClinicAPI/GetContent/' + addr, {
+                    var Url = `/api/ClinicAPI/GetContent/${city}/${self.selected.area}`;   //抓到選取縣市跟地區
+                    if (self.selected.area == null) { Url = `/api/ClinicAPI/GetContent/${city}` }   //判斷如果沒有選取地區，只取出縣市資料
+                    await fetch(Url, {
                         method: 'GET',
                     })
                         .then(function(res) {
@@ -191,15 +196,16 @@
                         }).catch(error => console.log(error))
                 },
                 GetRegion: function(e) {
+                    let self = this;
                     console.log(e.target.value)
                     this.Region = this.City[e.target.value].AreaList
-                }
-
+                    this.selected.area = ""; //初始化地區資料
+                },
             }
         }).$mount("#Clinic")
 
         function toggle() {
-            document.getElementById('container').classList.toggle('is-active')
+            document.getElementById('container').classList.toggle('is-active') //收藏按鈕動畫效果
         }
     </script>
 }
