@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using PetsWebsite.Logic;
 using PetsWebsite.Models;
+using PetsWebsite.Models.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +11,8 @@ builder.Services.AddDbContext<PetsDBContext>(opt =>
 {
     opt.UseSqlServer(PetsDbConnectionString);
 });
-
+builder.Services.AddTransient<IcommonLogic, CommonLogic>();
+builder.Services.AddTransient<RestaurantsRepository>();
 //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 // Add services to the container.

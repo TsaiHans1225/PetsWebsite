@@ -49,9 +49,9 @@ namespace PetsWebsite.Controllers.API
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name,existUser.Account),
-                new Claim(ClaimTypes.Role,existUser.Role)
+                new Claim(ClaimTypes.Role,existUser.Role),               
             };
-
+           
             var claimsIndntity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             //建立憑證
             var claimsPrincipal = new ClaimsPrincipal(claimsIndntity);
