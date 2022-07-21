@@ -123,70 +123,89 @@
 
 <script src="~/js/CityRegion.js"></script>
 <script>
-var vm = new Vue({
-    data: {
-        user: [],
-        source: [],
-        secSource: [],
-        zipCode: "",
-        selected: {
-            city: "",
-            region: "",
-            zipCode: ""
-        }
-    },
-    created: function() {
-        let self = this;
-        fetch("/api/UserDetails/GetUserDetails")
-            .then(function(result) {
-                return result.json();
-            })
-            .then(function(mydata) {
-                console.log("API");
-                console.log(self);
-                self.user = mydata;
-            })
-    },
-    mounted: function() {
-        this.source = JSON.parse(cityRegionSource);
-    },
-    methods: {
-        UpdateUserDetails: function() {
-            var curData = {
-                lastName: this.user.lastName,
-                firstName: this.user.firstName,
-                phone: this.user.phone,
-                birthday: this.user.birthday,
-                email: this.user.email,
-                address: this.user.address
+    var vm = new Vue({
+        data: {
+            user: [],
+            source: [],
+            secSource: [],
+            selected: {
+                city: "",
+                region: "",
+                zipCode: ""
             }
-            fetch("/api/UserDetails/UpdateUserDetails", {
-                method: 'POST',
-                body: JSON.stringify(curData),
-                headers: new Headers({
-                    'Content-type': 'application/json'
+        },
+        created: function() {
+            let self = this;
+            fetch("/api/UserDetails/GetUserDetails")
+                .then(function(result) {
+                    return result.json();
                 })
-            })
-                .then(resp => resp.json())
-                .catch(error => console.log("error", error))
-                .then(response => console.log("success", response));
+                .then(function(mydata) {
+                    console.log("API");
+                    console.log(self);
+                    self.user = mydata;
+                    self.selected.city = mydata.city;
+                    for (let index = 0; index < self.source.length; index++) {
+                        if (self.source[index].CityName == mydata.city) {
+                            self.secSource = self.source[index].AreaList;
+                            break;
+                        }
+                    }
+                    self.selected.region = mydata.region;
+                    //for (let index = 0; index < self.secSource.length; index++) {
+                    //    if (self.secSource[index].zipCode == mydata.zipCode) {
+                    //        self.selected.zipCode = mydata.zipCode;
+                    //        break;
+                    //    }
+                    //}
+                })
         },
-        chgCity: function(e) {
-            for (let index = 0; index < this.source.length; index++) {
-                console.log(this.source[index].CityName)
-                console.log(e.target.value)
-                if (this.source[index].CityName == e.target.value) {
-                    this.secSource = this.source[index].AreaList
+        mounted: function() {
+            this.source = JSON.parse(cityRegionSource);
+            this.$forceUpdate()
+        },
+        methods: {
+            UpdateUserDetails: function() {
+                var curData = {
+                    lastName: this.user.lastName,
+                    firstName: this.user.firstName,
+                    email: this.user.email,
+                    phone: this.user.phone,
+                    city: this.selected.city,
+                    region: this.selected.region,
+                    zipCode: this.selected.zipCode,
+                    address: this.user.address,
+                    birthday: this.user.birthday
                 }
-            }
-        },
-        regionChange: function(e) {
-            for (let index = 0; index < this.secSource.length; index++) {
-                if (this.secSource[index].AreaName == e.target.value) {
-                    this.selected.zipCode = this.secSource[index].ZipCode
+                fetch("/api/UserDetails/UpdateUserDetails", {
+                    method: 'POST',
+                    body: JSON.stringify(curData),
+                    headers: new Headers({
+                        'Content-type': 'application/json'
+                    })
+                })
+                    .then(resp => resp.json())
+                    .catch(error => console.log("error", error))
+                    .then(response => console.log("success", response));
+            },
+            chgCity: function(e) {
+                for (let index = 0; index < this.source.length; index++) {
+                    console.log(this.source[index].CityName)
+                    console.log(e.target.value)
+                    if (this.source[index].CityName == e.target.value) {
+                        this.secSource = this.source[index].AreaList;
+                        break;
+                    }
+                }
+            },
+            regionChange: function(e) {
+                for (let index = 0; index < this.secSource.length; index++) {
+                    if (this.secSource[index].AreaName == e.target.value) {
+                        this.selected.zipCode = this.secSource[index].ZipCode;
+                        break;
+                    }
                 }
             }
         }
-    }
-}).$mount('#userDetails')
+    }).$mount('#userDetails')
 </script>

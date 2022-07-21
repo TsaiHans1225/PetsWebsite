@@ -45,6 +45,8 @@ namespace PetsWebsite.Controllers.API
                 FirstName = u.FirstName,
                 Email = u.Email,
                 Phone = u.Phone,
+                City = u.City,
+                Region = u.Region,
                 Address = u.Address,
                 Birthday = u.Birthday?.ToShortDateString()
             }).FirstOrDefault();
@@ -59,6 +61,8 @@ namespace PetsWebsite.Controllers.API
             query.FirstName = uDetails.FirstName;
             query.Email = uDetails.Email;
             query.Phone = uDetails.Phone;
+            query.City = uDetails.City;
+            query.Region = uDetails.Region;
             query.Address = uDetails.Address;
             query.Birthday = Convert.ToDateTime(uDetails.Birthday);
             _dbContext.SaveChanges();
