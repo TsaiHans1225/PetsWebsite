@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PetsWebsite.Models;
 using PetsWebsite.Models.ViewModels;
 using System.Security.Claims;
@@ -18,10 +19,10 @@ namespace PetsWebsite.Controllers.API
             _PetsDB = petsDB;
         }
         [HttpPost]
-        public async Task<ActionResult<bool>> UserLogin(Login users)
+        public async Task<bool> UserLogin(Login users)
         {
             //到資料庫找資料
-            var existUser = _PetsDB.UserAccounts.Join(_PetsDB.Users,
+            var existUser =await _PetsDB.UserAccounts.Join(_PetsDB.Users,
                 a => a.UserId,
                 u => u.UserId,
                 (a, u) => new
@@ -40,7 +41,7 @@ namespace PetsWebsite.Controllers.API
                     Password = a.Password,
                     Role = r.Role1
                 }
-                ).FirstOrDefault(x => x.Account == users.Account && x.Password == users.Password);
+                ).FirstOrDefaultAsync(x => x.Account == users.Account && x.Password == users.Password);
             if (existUser == null)
             {
                 return false;
@@ -52,6 +53,33 @@ namespace PetsWebsite.Controllers.API
                 new Claim(ClaimTypes.Role,existUser.Role),               
             };
            
+            var claimsIndntity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            //建立憑證
+            var claimsPrincipal = new ClaimsPrincipal(claimsIndntity);
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal
+                );
+            return true;
+
+        }
+
+        [HttpPost]
+        public async Task<bool> CompanyLogin(Login users)
+        {
+            //到資料庫找資料
+            var existUser = await _PetsDB.CompanyAccounts.FirstOrDefaultAsync(x => x.Account == users.Account && x.Password == users.Password);
+            if (existUser == null)
+            {
+                return false;
+            }
+            //給予身分
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name,existUser.Account),
+                new Claim(ClaimTypes.Role,"Company"),
+            };
+
             var claimsIndntity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             //建立憑證
             var claimsPrincipal = new ClaimsPrincipal(claimsIndntity);
