@@ -40,7 +40,7 @@ body {
 
 #cardContent {
     padding: 12px;
-    border-radius: 65px 65px 65px 65px;
+    border-radius: 30px;
     border-color: darkgray;
     border-width: initial;
     box-shadow: grey 15px 7px 15px;
@@ -54,7 +54,7 @@ body {
 
 .card-img-top {
     width: 100%;
-    border-radius: 50px;
+    border-radius: 35px;
 }
 
 #cardAbout {
