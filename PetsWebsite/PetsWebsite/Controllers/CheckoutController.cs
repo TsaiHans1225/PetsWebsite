@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PetsWebsite.Models;
 
 namespace PetsWebsite.Controllers
@@ -16,9 +17,9 @@ namespace PetsWebsite.Controllers
         //立即購買
         public async Task<IActionResult> Index(int id)
         {
-            var products = ProductDBContext.Products
+            var products = await ProductDBContext.Products
                 .Where(m => m.ProductId == id)
-                .ToList();
+                .ToListAsync();
 
             return View(products);
         }
