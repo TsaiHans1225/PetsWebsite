@@ -23,7 +23,7 @@ namespace PetsWebsite.Controllers.API
 
         //規劃查詢指定City
         [HttpGet]
-        [Route("QryByCity/{city}/rawdata")]
+        [Route("QryByCityRegion/{city}/rawdata")]
         public List<Restaurant> RestaurantQryByCity([FromRoute(Name = "city")] string city)
         {
             var query = (from c in _petsDBContext.Restaurants
@@ -45,12 +45,15 @@ namespace PetsWebsite.Controllers.API
         //=============================================================================
         //規劃查詢City&Region
         [HttpGet]
-        [Route("QryByCityRegion/{city}/{region}/rawdata")]
+        [Route("QryByCityRegion/{city}/{region?}/rawdata")]
         public async Task<ActionResult<IEnumerable<Restaurant>>> RestaurantQryCityRegion([FromRoute(Name = "city")] string? city, [FromRoute(Name = "region")] string? region)
         {
-            var query = (_petsDBContext.Restaurants)
-                .Where(c => c.City == city && c.Region == region).ToListAsync<Restaurant>();
-            return await query;
+            if (region == null)
+            {
+                return await _petsDBContext.Restaurants.Where(c => c.City == city).ToListAsync<Restaurant>();
+            }
+            return await (_petsDBContext.Restaurants)
+                .Where(c => c.City == city && c.Region == region).ToListAsync<Restaurant>(); ;
         }
 
         [HttpGet]
@@ -65,17 +68,5 @@ namespace PetsWebsite.Controllers.API
             return await _petsDBContext.Restaurants.ToListAsync();
         }
 
-
-
-        //[HttpPut]
-        //[Route("UpdateFavorite/rawdata")]
-        //[Consumes("application/json")]
-        //[Produces("application/json")]
-        //[ProducesResponseType(typeof(Messages), 200)]
-        //[ProducesResponseType(typeof(Messages), 400)]
-        //public Messages UpdateFavorite([FromBody] Restaurant rest)
-        //{
-
-        //}
     }
 }
