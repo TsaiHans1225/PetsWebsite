@@ -13,16 +13,16 @@
     @*Bootstrap CSS v5.2.0-beta1*@
     @*<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">*@
-    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/lib/bootstrap/Custscss/all.css" />
     @*Vue2 development version*@
 
 
     @await RenderSectionAsync("Styles", required: false)
 </head>
 
-<body>
+<body class="bg-secondary" style="font-weight: 600;">
     <div class="">
-        <nav class="navbar navbar-expand-xl bg-dark">
+        <nav class="navbar navbar-expand-xl bg-primary text-light">
             <div class="container-fluid">
                 <a class="navbar-brand text-light" href="/home/Index">
                     <img class="d-inline-block" src="~/images/pet-food.svg" alt=""
@@ -42,7 +42,7 @@
                                 醫療資訊
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/Clinic/Clinic">一般醫療</a></li>
+                                <li><a class="dropdown-item rounded" href="/Clinic/Clinic">一般醫療</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -95,60 +95,60 @@
                     @{
                         if (!User.Identity.IsAuthenticated)
                         {
-                            <div class="dropdown">
-                                <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
-                               data-bs-toggle="dropdown" aria-expanded="false">
-                                    登入
-                                </a>
-                                <div style="position: relative; right: 80%">
-                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                        <li>
-                                            <a class="dropdown-item" data-bs-toggle="modal"
-                                           data-bs-target="#modalUserSignin" href="#">使用者</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" data-bs-toggle="modal"
-                                           data-bs-target="#modalOwnerSignin" href="#">廠商</a>
-                                        </li>
-                                        <li>
-                                    </ul>
-                                </div>
-                            </div>
+                                            <div class="dropdown">
+                                                <button class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                                               data-bs-toggle="dropdown" aria-expanded="false">
+                                                    登入
+                                                </button>
+                                                <div style="position: relative; right: 80%">
+                                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                                        <li>
+                                                            <a class="dropdown-item" data-bs-toggle="modal"
+                                                           data-bs-target="#modalUserSignin" href="#">使用者</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" data-bs-toggle="modal"
+                                                           data-bs-target="#modalOwnerSignin" href="#">廠商</a>
+                                                        </li>
+                                                        <li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                         }
                         else
                         {
-                            <div class="dropdown">
-                                <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
-                               data-bs-toggle="dropdown" aria-expanded="false">
-                                    歡迎XXX User
-                                </a>
-                                <div style="position: relative; right: -5%">
-                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                        <li><a class="dropdown-item" asp-controller="UserDetails" asp-action="Index">會員資訊</a></li>
-                                        <li><a class="dropdown-item" asp-controller="Pets" asp-action="Index">我的愛寵</a></li>
-                                        <li><a class="dropdown-item" asp-controller="UserCollection" asp-action="Index">我的最愛</a></li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="dropdown">
-                                <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
-                               data-bs-toggle="dropdown" aria-expanded="false">
-                                    歡迎XXX Owner
-                                </a>
-                                <div style="position: relative; right: -5%">
-                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                        <li><a class="dropdown-item" asp-controller="Owner" asp-action="Index">管理商品</a></li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item" href="#">登出</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                                            <div class="dropdown">
+                                                <button class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                                               data-bs-toggle="dropdown" aria-expanded="false">
+                                                    歡迎XXX User
+                                                </button>
+                                                <div style="position: relative; right: -5%">
+                                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                                        <li><a class="dropdown-item" asp-controller="UserDetails" asp-action="Index">會員資訊</a></li>
+                                                        <li><a class="dropdown-item" asp-controller="Pets" asp-action="Index">我的愛寵</a></li>
+                                                        <li><a class="dropdown-item" asp-controller="UserCollection" asp-action="Index">我的最愛</a></li>
+                                                        <li>
+                                                            <hr class="dropdown-divider">
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="dropdown">
+                                                <button class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                                               data-bs-toggle="dropdown" aria-expanded="false">
+                                                    歡迎XXX Owner
+                                                </button>
+                                                <div style="position: relative; right: -5%">
+                                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                                        <li><a class="dropdown-item" asp-controller="Owner" asp-action="Index">管理商品</a></li>
+                                                        <li>
+                                                            <hr class="dropdown-divider">
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="#">登出</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
 
                         }
                     }
@@ -164,7 +164,7 @@
         </main>
     </div>
 
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 ps-3 pe-3 border-top">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 mb-0 ps-3 pe-3 border-top bg-primary" style="position: sticky; bottom: o;">
         <p class="col-md-4 mb-0 text-muted">© 2022 Company, Inc</p>
 
         <a href="/"
@@ -174,12 +174,12 @@
             </svg>
         </a>
 
-        <ul class="nav col-md-4 justify-content-end">
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+        <ul class="nav col-md-4 justify-content-end ">
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted text-light">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted text-light">Features</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted text-light">Pricing</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted text-light">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted text-light">About</a></li>
         </ul>
     </footer>
 
