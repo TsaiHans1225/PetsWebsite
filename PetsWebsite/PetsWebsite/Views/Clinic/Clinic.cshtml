@@ -10,64 +10,93 @@
     <!-- Bootstrap CSS v5.2.0-beta1 -->
     @section Styles{
         <link rel="stylesheet" href="~/css/AaronCSS/index.css" />
-        <link rel="stylesheet" href="~/css/AaronCSS/favoriteIcon.css" />
+        <link retext-decorationlesheet" href="~/css/AaronCSS/favoriteIcon.css" />
     }
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
         <style>
-         #Jumbotron{
-             flex-direction:column;
-         }
-      
+            #Jumbotron {
+                flex-direction: column;
+                opacity:0.6;
+                background:#f6bd60;
+                border-radius:30px;
+                box-shadow:5px 5px 5px #E36414
+            }
+            .Clinic:visited{
+                color:red;
+            }
+            #collection:hover{
+               transform: scale(1.05) !important
+            }
+             #collection:active{
+               transform: scale(1) !important
+             }
+             #collection{
+                 transition: .2s !important
+             }
+             .card:hover{
+                 transform:scale(1.05) !important
+             }
+              #card:active{
+               transform: scale(1) !important
+             }
+               #card{
+                 transition: .2s !important
+             }
         </style>
 
 
     </head>
 
     <body>
-        <div class="container-lg mt-2" id="Clinic">
+
+        <div class="container-lg " id="Clinic">
 
 
-            <!-- 下拉選取 -->
-            <div class="jumbotron mt-2 d-flex align-items-center" id="Jumbotron">
+           <!--麵包屑-->
+            <div class="container">
+                 <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="~/Home/Index"style="text-decoration:none;">首頁</a></li>
+                        <li class="breadcrumb-item"><a href="~/Clinic/Clinic" class="Clinic" style="text-decoration:none;">醫療資訊</a></li>
+                    </ol>
+                </nav>
+            </div>
+            <!--jumbotron-->
+            <div class="jumbotron  d-flex align-items-center" id="Jumbotron">
                 <h1 class="display-4">醫療資訊</h1>
                 <p class="lead">這邊可以提供您想查詢的醫療資訊</p>
-                <hr class="my-4">
                 <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
             </div>
-            <form class="row mt-4" v-on:change="Getdata">
-                <div class="col-4">
-                    <select id="inputCity" class="form-select" v-model="selected.city" v-on:change="GetRegion">
-                        <option selected disabled value="">請選擇縣市</option>
-                        <option v-for="(city, index) in City" v-bind:value="index">{{city.CityName}}</option>
-                    </select>
-                </div>
-                <div class="col-4">
-                    <select id="inputState" class="form-select" v-model="selected.area">
-                        <option selected disabled value="">請選擇地區</option>
-                        <option v-for="area in Region" v-bind:value="area.AreaName">{{area.AreaName}}</option>
-                    </select>
-                </div>
-            </form>
-
-
-
-
-
-
-
+             <!--下拉選取 -->
+            <div class="container mt-3">
+                <form class="row  flex-row-reverse" v-on:change="Getdata" >
+                    <div class="col-2">
+                        <select id="inputState" class="form-select" v-model="selected.area">
+                            <option selected disabled value="">請選擇地區</option>
+                            <option v-for="area in Region" v-bind:value="area.AreaName">{{area.AreaName}}</option>
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <select id="inputCity" class="form-select" v-model="selected.city" v-on:change="GetRegion">
+                            <option selected disabled value="">請選擇縣市</option>
+                            <option v-for="(city, index) in City" v-bind:value="index">{{city.CityName}}</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
             <!-- 卡片 -->
-            <div class="container" v-show="show">
+            <div class="container" v-show="show" >
                 <div class="row">
                     <div class="col col-3 my-3" v-for="item in ClinicList">
-                        <div class="card">
+                        <div class="card ">
                             <img src="https://picsum.photos/id/684/600/400" class="card-img-top">
-                            <div class="card-body">
+                            <div class="card-body" id="Card">
                                 <h5 class="card-title">{{item.clinicName}}</h5>
                                 <p class="card-text">{{item.region+item.address}}</p>
-                                <a href="#" class="btn btn-primary"data-bs-toggle="modal" data-bs-target="#staticBackdrop">Go somewhere</a>
+                                <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="collection">收藏與地圖</a>
                             </div>
                         </div>
                         @*<div class="card mt-4" style="padding-left: 0px;padding-right: 0px">
@@ -88,7 +117,6 @@
                     </div>
                     </div>
                     </div>*@
-
                         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                          aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog">
@@ -133,7 +161,6 @@
                                             <div class="circle" onclick="toggle()"></div>
                                         </div>
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-
                                     </div>
                                 </div>
                             </div>
