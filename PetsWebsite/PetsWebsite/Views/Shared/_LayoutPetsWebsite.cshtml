@@ -1,4 +1,5 @@
-﻿<!doctype html>
+﻿@using System.Security.Claims
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -117,7 +118,10 @@
                         }
                         else
                         {
-                            <div class="dropdown">
+                            
+                            if (User.Claims.FirstOrDefault(X => X.Type ==ClaimTypes.Role)?.Value!="Company")
+                            {
+                                <div class="dropdown">
                                 <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
                                data-bs-toggle="dropdown" aria-expanded="false">
                                     歡迎XXX User
@@ -133,8 +137,11 @@
                                         <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
                                     </ul>
                                 </div>
-                            </div>
-                            <div class="dropdown">
+                                </div>
+                            }else
+
+                            {
+                                <div class="dropdown">
                                 <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
                                data-bs-toggle="dropdown" aria-expanded="false">
                                     歡迎XXX Owner
@@ -145,10 +152,13 @@
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
-                                        <li><a class="dropdown-item" href="#">登出</a></li>
+                                        <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
                                     </ul>
                                 </div>
                             </div>
+                            }
+
+                            
 
                         }
                     }
@@ -338,17 +348,17 @@
                 </div>
 
                 <div class="modal-body p-5 pt-0">
-                    <form class="">
+                    <div class="">
                         <div class="form-floating mb-3 rounded-pill">
-                            <input type="email" class="form-control rounded-3" id="floatingInput">
+                            <input type="email" class="form-control rounded-3" id="floatingInput" v-model="Account">
                             <label for="floatingInput">電子郵件</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control rounded-3" id="floatingPassword">
+                            <input type="password" class="form-control rounded-3" id="floatingPassword" v-model="Password">
                             <label for="floatingPassword">密碼</label>
                         </div>
-                        <a class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;"
-                           type="submit">登入</a>
+                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;"
+                        v-on:click="ComLoginHandle">登入</button>
                         <div class="row row-cols-2 text-center">
                             <a class="col text-decoration-none" data-bs-toggle="modal"
                                data-bs-target="#modalOwnerForgotPassword" href="#">
@@ -379,7 +389,7 @@
                             </svg>
                             透過Google登入
                         </a>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -397,23 +407,23 @@
                 <div class="modal-body p-5 pt-0">
                     <form class="">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control rounded-3" id="floatingInput">
+                            <input type="email" class="form-control rounded-3" id="floatingInput" v-model="CompanyName">
                             <label for="floatingInput">公司名稱</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control rounded-3" id="floatingInput">
+                            <input type="email" class="form-control rounded-3" id="floatingInput" v-model="CompanyId">
                             <label for="floatingInput">統一編號</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control rounded-3" id="floatingInput">
+                            <input type="email" class="form-control rounded-3" id="floatingInput" v-model="Account">
                             <label for="floatingInput">電子郵件</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control rounded-3" id="floatingPassword">
+                            <input type="password" class="form-control rounded-3" id="floatingPassword" v-model="Password">
                             <label for="floatingPassword">密碼</label>
                         </div>
-                        <a class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;"
-                           type="submit">註冊</a>
+                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;"
+                           v-on:click="ComRegisterHandle">註冊</button>
                         <div class="row row-cols-1 text-center">
                             <a class="col text-decoration-none" data-bs-toggle="modal"
                                data-bs-target="#modalOwnerSignin" href="#">
@@ -713,7 +723,8 @@
         crossorigin="anonymous"></script>*@
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    var MLogin = new Vue({
+    //會員登入
+    var MemLog = new Vue({
         data: {
             Account: '',
             Password: ''
@@ -742,6 +753,71 @@
             }
         }
     }).$mount("#modalUserSignin");
+    //廠商註冊
+    var ComRst = new Vue({
+        data: {
+            CompanyId:'',
+            CompanyName:'',
+            Account: '',
+            Password: '',
+        },
+        methods: {
+            ComRegisterHandle: function() {
+                var ComRegistdata = {
+                    CompanyId:this.CompanyId,
+                    CompanyName:this.CompanyName,
+                    Account: this.Account,
+                    Password: this.Password,
+
+                };
+                fetch("api/UserRegister/CompanyRegister", {
+                    method: 'POST', // or 'PUT'
+                    body: JSON.stringify(ComRegistdata), // data can be `string` or {object}!
+                    headers: new Headers({
+                        'Content-Type': 'application/json'
+                    })
+                })
+                    .then(res => res.json())
+                    .catch(error => console.error('Error:', error))
+                    .then(response => {
+                        console.log('Success:', response);
+                        if (response) {
+                            location.reload();
+                        }
+                    });
+            }
+        }
+    }).$mount("#modalOwnerSignUp");
+    //廠商登入
+    var ComLog = new Vue({
+        data: {
+            Account: '',
+            Password: ''
+        },
+        methods: {
+            ComLoginHandle: function() {
+                var ComLogdata = {
+                    Account: this.Account,
+                    Password: this.Password
+                }; 
+                fetch("/api/UserOpt/CompanyLogin", {
+                    method: 'POST', // or 'PUT'
+                    body: JSON.stringify(ComLogdata), // data can be `string` or {object}!
+                    headers: new Headers({
+                        'Content-Type': 'application/json'
+                    })
+                })
+                    .then(res => res.json())
+                    .catch(error => console.error('Error:', error))
+                    .then(response => {
+                        console.log('Success:', response);
+                         if (response) {
+                            location.reload();
+                        }
+                    });
+            }
+        }
+    }).$mount("#modalOwnerSignin");
 
     var forgotPass = new Vue({
         data:
