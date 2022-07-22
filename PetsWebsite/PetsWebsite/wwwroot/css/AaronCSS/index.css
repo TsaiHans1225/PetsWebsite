@@ -64,3 +64,10 @@ body {
     border-radius: 40px;
     border-color: darkgray;
 }
+
+@media screen and (min-width:375px) and (max-width:575px) {
+    #sel {
+        flex: 0 0 auto;
+        min-width: 100%;
+    }
+}

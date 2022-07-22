@@ -21,30 +21,44 @@
                 </div>
             </div>
         </div>
-
+        <!--麵包屑-->
+            <div class="container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="~/Home/Index" style="text-decoration:none;">首頁</a></li>
+                        <li class="breadcrumb-item"><a href="~/Restaurants/Restaurant" class="Clinic" style="text-decoration:none;">寵物友善餐廳</a></li>
+                    </ol>
+                </nav>
+            </div>
         <!-- 依...搜尋... -->
         <div class="container">
-            <div class="row row-cols-1 ">
-
-                <div class="d-flex justify-content-end">
-                    <select class="me-2" autocomplete="off" v-on:change="cheCity($event)">
-                        <option value="" selected disabled>--請選擇城市--</option>
-                        <option v-for="(item,index) in items" v-bind:value="index">{{item.CityName}}</option>
+ 
+            <div class="row row-cols-2 row-cols-sm-1 row-cols-md-2" >
+                   
+                <div class="col-8 d-flex justify-content-start mb-2" id="sel">
+                    <select  class="me-2 form-control w-50" autocomplete="off" v-on:change="cheCity($event)" style="height:50px;">
+                            <option value="" selected disabled>請選擇城市</option>
+                            <option v-for="(item,index) in items" v-bind:value="index">{{item.CityName}}</option>
                     </select>
-                    <select class="me-2" v-model="selected.area">
-                        <option value="" selected disabled>--請選擇地區--</option>
-                        <option v-for="region in regions" v-bind:value="region.AreaName">{{region.AreaName}}</option>
+                    <select  class="me-2 form-control w-50" v-model="selected.area" style="height:50px;">
+                            <option value="" selected disabled>請選擇地區</option>
+                            <option v-for="region in regions" v-bind:value="region.AreaName">{{region.AreaName}}</option>
                     </select>
-                    <button class="btn btn-primary" v-on:click="Qry">查詢</button>
-
+                    <button  class="btn btn-primary" v-on:click="Qry" style="height:50px;width: 75px;">查詢</button>
                 </div>
 
+                <div id="sel" class="col-4 d-flex justify-content-lg-end justify-content-sm-start justify-content-md-end" >
+                    <input  type="text" placeholder="請輸入關鍵字.." class="form-control mb-2 w-50 me-2" style="height:50px;">
+                    <button  class="btn btn-primary" style="height:50px;width: 60px;">查詢</button>
+                </div>
             </div>
+
+           
         </div>
 
         <!-- card -->
         <div class="container mt-3 ">
-            <div class="row row-cols-3" id="cardBody">
+            <div class="row  row-cols-sm-1 row-cols-lg-2 row-cols-md-2 row-cols-xl-3" id="cardBody">
                 
                 <div id="inCard" v-for="(card,index) in restaurants" v-show="isShow">
                     <div class="card mb-4" id="cardContent">
