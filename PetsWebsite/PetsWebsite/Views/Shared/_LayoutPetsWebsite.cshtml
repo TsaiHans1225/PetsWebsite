@@ -13,12 +13,14 @@
 
     @*Bootstrap CSS v5.2.0-beta1*@
     @*<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
-          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">*@
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">*@
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
     @*Vue2 development version*@
 
-
-    @await RenderSectionAsync("Styles", required: false)
+    @*Sweetalert*@
+    <script src="/js/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="/css/Sweetalert/sweetalert.css"
+          @await RenderSectionAsync("Styles", required: false)
 </head>
 
 <body>
@@ -57,7 +59,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                                <li><a class="dropdown-item"asp-controller="Shop" asp-action="Index" asp-route-id="3">犬貓專區</a></li>
+                                <li><a class="dropdown-item" asp-controller="Shop" asp-action="Index" asp-route-id="3">犬貓專區</a></li>
 
                                 <li>
                                     <hr class="dropdown-divider">
@@ -118,47 +120,48 @@
                         }
                         else
                         {
-                            
-                            if (User.Claims.FirstOrDefault(X => X.Type ==ClaimTypes.Role)?.Value!="Company")
+
+                            if (User.Claims.FirstOrDefault(X => X.Type == ClaimTypes.Role)?.Value != "Company")
                             {
                                 <div class="dropdown">
-                                <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                                    <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
                                data-bs-toggle="dropdown" aria-expanded="false">
-                                    歡迎XXX User
-                                </a>
-                                <div style="position: relative; right: -5%">
-                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                        <li><a class="dropdown-item" asp-controller="UserDetails" asp-action="Index">會員資訊</a></li>
-                                        <li><a class="dropdown-item" asp-controller="Pets" asp-action="Index">我的愛寵</a></li>
-                                        <li><a class="dropdown-item" asp-controller="UserCollection" asp-action="Index">我的最愛</a></li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
-                                    </ul>
+                                        歡迎XXX User
+                                    </a>
+                                    <div style="position: relative; right: -5%">
+                                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                            <li><a class="dropdown-item" asp-controller="UserDetails" asp-action="Index">會員資訊</a></li>
+                                            <li><a class="dropdown-item" asp-controller="Pets" asp-action="Index">我的愛寵</a></li>
+                                            <li><a class="dropdown-item" asp-controller="UserCollection" asp-action="Index">我的最愛</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                </div>
-                            }else
+                            }
+                            else
 
                             {
                                 <div class="dropdown">
-                                <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                                    <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
                                data-bs-toggle="dropdown" aria-expanded="false">
-                                    歡迎XXX Owner
-                                </a>
-                                <div style="position: relative; right: -5%">
-                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                        <li><a class="dropdown-item" asp-controller="Owner" asp-action="Index">管理商品</a></li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
-                                    </ul>
+                                        歡迎XXX Owner
+                                    </a>
+                                    <div style="position: relative; right: -5%">
+                                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                            <li><a class="dropdown-item" asp-controller="Owner" asp-action="Index">管理商品</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
                             }
 
-                            
+
 
                         }
                     }
@@ -358,7 +361,9 @@
                             <label for="floatingPassword">密碼</label>
                         </div>
                         <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;"
-                        v-on:click="ComLoginHandle">登入</button>
+                                v-on:click="ComLoginHandle">
+                            登入
+                        </button>
                         <div class="row row-cols-2 text-center">
                             <a class="col text-decoration-none" data-bs-toggle="modal"
                                data-bs-target="#modalOwnerForgotPassword" href="#">
@@ -423,7 +428,9 @@
                             <label for="floatingPassword">密碼</label>
                         </div>
                         <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;"
-                           v-on:click="ComRegisterHandle">註冊</button>
+                                v-on:click="ComRegisterHandle">
+                            註冊
+                        </button>
                         <div class="row row-cols-1 text-center">
                             <a class="col text-decoration-none" data-bs-toggle="modal"
                                data-bs-target="#modalOwnerSignin" href="#">
@@ -747,7 +754,17 @@
                     .then(response => {
                         console.log('Success:', response);
                         if (response) {
-                            location.reload();
+                            swal({
+                                title: '登入成功',
+                                text: '歡迎您回來',
+                                type: 'success',
+                                closeOnClickOutside: false,
+                                icon: "success",
+                                button: "確定"
+                            }).then(() => {
+                                location.reload();
+                            });
+                            setTimeout("location.reload()", 3000);
                         }
                     });
             }
@@ -756,16 +773,16 @@
     //廠商註冊
     var ComRst = new Vue({
         data: {
-            CompanyId:'',
-            CompanyName:'',
+            CompanyId: '',
+            CompanyName: '',
             Account: '',
             Password: '',
         },
         methods: {
             ComRegisterHandle: function() {
                 var ComRegistdata = {
-                    CompanyId:this.CompanyId,
-                    CompanyName:this.CompanyName,
+                    CompanyId: this.CompanyId,
+                    CompanyName: this.CompanyName,
                     Account: this.Account,
                     Password: this.Password,
 
@@ -799,7 +816,7 @@
                 var ComLogdata = {
                     Account: this.Account,
                     Password: this.Password
-                }; 
+                };
                 fetch("/api/UserOpt/CompanyLogin", {
                     method: 'POST', // or 'PUT'
                     body: JSON.stringify(ComLogdata), // data can be `string` or {object}!
@@ -811,7 +828,7 @@
                     .catch(error => console.error('Error:', error))
                     .then(response => {
                         console.log('Success:', response);
-                         if (response) {
+                        if (response) {
                             location.reload();
                         }
                     });
