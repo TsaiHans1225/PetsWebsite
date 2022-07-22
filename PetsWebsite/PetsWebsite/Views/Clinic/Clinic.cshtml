@@ -10,7 +10,7 @@
     <!-- Bootstrap CSS v5.2.0-beta1 -->
     @section Styles{
         <link rel="stylesheet" href="~/css/AaronCSS/index.css" />
-        <link retext-decorationlesheet" href="~/css/AaronCSS/favoriteIcon.css" />
+        <link rel="stylesheet" href="~/css/AaronCSS/favoriteIcon.css" />
     }
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
@@ -19,32 +19,39 @@
         <style>
             #Jumbotron {
                 flex-direction: column;
-                opacity:0.6;
-                background:#f6bd60;
-                border-radius:30px;
-                box-shadow:5px 5px 5px #E36414
+                opacity: 0.6;
+                background: #f6bd60;
+                border-radius: 30px;
+                box-shadow: 5px 5px 5px #E36414
             }
-            .Clinic:visited{
-                color:red;
+
+            .Clinic:visited {
+                color: red;
             }
-            #collection:hover{
-               transform: scale(1.05) !important
+
+            #collection:hover {
+                transform: scale(1.05) !important
             }
-             #collection:active{
-               transform: scale(1) !important
-             }
-             #collection{
-                 transition: .2s !important
-             }
-             .card:hover{
-                 transform:scale(1.05) !important
-             }
-              #card:active{
-               transform: scale(1) !important
-             }
-               #card{
-                 transition: .2s !important
-             }
+
+            #collection:active {
+                transform: scale(1) !important
+            }
+
+            #collection {
+                transition: .2s !important
+            }
+
+            .card:hover {
+                transform: scale(1.05) !important
+            }
+
+            #card:active {
+                transform: scale(1) !important
+            }
+
+            #card {
+                transition: .2s !important
+            }
         </style>
 
 
@@ -55,11 +62,11 @@
         <div class="container-lg " id="Clinic">
 
 
-           <!--麵包屑-->
+            <!--麵包屑-->
             <div class="container">
-                 <nav aria-label="breadcrumb">
+                <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="~/Home/Index"style="text-decoration:none;">首頁</a></li>
+                        <li class="breadcrumb-item"><a href="~/Home/Index" style="text-decoration:none;">首頁</a></li>
                         <li class="breadcrumb-item"><a href="~/Clinic/Clinic" class="Clinic" style="text-decoration:none;">醫療資訊</a></li>
                     </ol>
                 </nav>
@@ -70,9 +77,9 @@
                 <p class="lead">這邊可以提供您想查詢的醫療資訊</p>
                 <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
             </div>
-             <!--下拉選取 -->
+            <!--下拉選取 -->
             <div class="container mt-3">
-                <form class="row  flex-row-reverse" v-on:change="Getdata" >
+                <form class="row  flex-row-reverse" v-on:change="Getdata">
                     <div class="col-2">
                         <select id="inputState" class="form-select" v-model="selected.area">
                             <option selected disabled value="">請選擇地區</option>
@@ -88,7 +95,7 @@
                 </form>
             </div>
             <!-- 卡片 -->
-            <div class="container" v-show="show" >
+            <div class="container" v-show="show">
                 <div class="row">
                     <div class="col col-3 my-3" v-for="item in ClinicList">
                         <div class="card ">
