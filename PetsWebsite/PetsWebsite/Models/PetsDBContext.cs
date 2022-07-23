@@ -37,9 +37,9 @@ namespace PetsWebsite.Models
             if (!optionsBuilder.IsConfigured)
             {
                 IConfigurationRoot Configuration = new ConfigurationBuilder()
-                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                    .AddJsonFile("appsettings.json")
-                    .Build();
+                                  .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                                  .AddJsonFile("appsettings.json")
+                                  .Build();
                 optionsBuilder.UseSqlServer(Configuration.GetConnectionString("PetsDb"));
             }
         }
@@ -273,10 +273,6 @@ namespace PetsWebsite.Models
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
-
-                entity.Property(e => e.Count)
-                    .HasMaxLength(10)
-                    .IsFixedLength();
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.ShoppingCars)
