@@ -310,13 +310,13 @@ $dark:          $gray-900 !default;
 
 // scss-docs-start theme-colors-map
 $theme-colors: (
-  "primary":    #84A59D,
-  "secondary":  #ffc870,
-  "success":    #588157,
+  "primary":    #f2cc8f,
+  "secondary":  #E5E5E5,
+  "success":    #78b4ae,
   "info":       #489FB5,
   "warning":    #ee8c30,
   "danger":     #eb6865,
-  "light":      #F2F4F3,
+  "light":      #343A40,
   "dark":       #343A40
 ) !default;
 // scss-docs-end theme-colors-map
@@ -555,9 +555,9 @@ $font-size-lg:                $font-size-base * 1.25 !default;
 
 $font-weight-lighter:         lighter !default;
 $font-weight-light:           300 !default;
-$font-weight-normal:          400 !default;
-$font-weight-semibold:        600 !default;
-$font-weight-bold:            700 !default;
+$font-weight-normal:          700 !default;
+$font-weight-semibold:        800 !default;
+$font-weight-bold:            900 !default;
 $font-weight-bolder:          bolder !default;
 
 $font-weight-base:            $font-weight-normal !default;

@@ -12,17 +12,17 @@
 
 .text-bg-primary {
   color: #000 !important;
-  background-color: RGBA(132, 165, 157, var(--bs-bg-opacity, 1)) !important;
+  background-color: RGBA(242, 204, 143, var(--bs-bg-opacity, 1)) !important;
 }
 
 .text-bg-secondary {
   color: #000 !important;
-  background-color: RGBA(255, 200, 112, var(--bs-bg-opacity, 1)) !important;
+  background-color: RGBA(229, 229, 229, var(--bs-bg-opacity, 1)) !important;
 }
 
 .text-bg-success {
   color: #000 !important;
-  background-color: RGBA(88, 129, 87, var(--bs-bg-opacity, 1)) !important;
+  background-color: RGBA(120, 180, 174, var(--bs-bg-opacity, 1)) !important;
 }
 
 .text-bg-info {
@@ -41,8 +41,8 @@
 }
 
 .text-bg-light {
-  color: #000 !important;
-  background-color: RGBA(242, 244, 243, var(--bs-bg-opacity, 1)) !important;
+  color: #fff !important;
+  background-color: RGBA(52, 58, 64, var(--bs-bg-opacity, 1)) !important;
 }
 
 .text-bg-dark {
@@ -51,24 +51,24 @@
 }
 
 .link-primary {
-  color: #84A59D !important;
+  color: #f2cc8f !important;
 }
 .link-primary:hover, .link-primary:focus {
-  color: #9db7b1 !important;
+  color: #f5d6a5 !important;
 }
 
 .link-secondary {
-  color: #ffc870 !important;
+  color: #E5E5E5 !important;
 }
 .link-secondary:hover, .link-secondary:focus {
-  color: #ffd38d !important;
+  color: #eaeaea !important;
 }
 
 .link-success {
-  color: #588157 !important;
+  color: #78b4ae !important;
 }
 .link-success:hover, .link-success:focus {
-  color: #799a79 !important;
+  color: #93c3be !important;
 }
 
 .link-info {
@@ -93,10 +93,10 @@
 }
 
 .link-light {
-  color: #F2F4F3 !important;
+  color: #343A40 !important;
 }
 .link-light:hover, .link-light:focus {
-  color: #f5f6f5 !important;
+  color: #2a2e33 !important;
 }
 
 .link-dark {
@@ -1320,15 +1320,15 @@
 }
 
 .fw-normal {
-  font-weight: 400 !important;
-}
-
-.fw-bold {
   font-weight: 700 !important;
 }
 
+.fw-bold {
+  font-weight: 900 !important;
+}
+
 .fw-semibold {
-  font-weight: 600 !important;
+  font-weight: 800 !important;
 }
 
 .fw-bolder {

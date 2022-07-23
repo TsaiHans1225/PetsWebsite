@@ -28,21 +28,21 @@
   --bs-gray-700: #495057;
   --bs-gray-800: #343a40;
   --bs-gray-900: #212529;
-  --bs-primary: #84A59D;
-  --bs-secondary: #ffc870;
-  --bs-success: #588157;
+  --bs-primary: #f2cc8f;
+  --bs-secondary: #E5E5E5;
+  --bs-success: #78b4ae;
   --bs-info: #489FB5;
   --bs-warning: #ee8c30;
   --bs-danger: #eb6865;
-  --bs-light: #F2F4F3;
+  --bs-light: #343A40;
   --bs-dark: #343A40;
-  --bs-primary-rgb: 132, 165, 157;
-  --bs-secondary-rgb: 255, 200, 112;
-  --bs-success-rgb: 88, 129, 87;
+  --bs-primary-rgb: 242, 204, 143;
+  --bs-secondary-rgb: 229, 229, 229;
+  --bs-success-rgb: 120, 180, 174;
   --bs-info-rgb: 72, 159, 181;
   --bs-warning-rgb: 238, 140, 48;
   --bs-danger-rgb: 235, 104, 101;
-  --bs-light-rgb: 242, 244, 243;
+  --bs-light-rgb: 52, 58, 64;
   --bs-dark-rgb: 52, 58, 64;
   --bs-white-rgb: 255, 255, 255;
   --bs-black-rgb: 0, 0, 0;
@@ -53,7 +53,7 @@
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
   --bs-body-font-family: var(--bs-font-sans-serif);
   --bs-body-font-size: 1rem;
-  --bs-body-font-weight: 400;
+  --bs-body-font-weight: 700;
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
   --bs-body-bg: #fff;
@@ -196,7 +196,7 @@ ul ol {
 }
 
 dt {
-  font-weight: 700;
+  font-weight: 900;
 }
 
 dd {

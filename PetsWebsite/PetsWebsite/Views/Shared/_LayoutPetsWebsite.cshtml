@@ -95,60 +95,60 @@
                     @{
                         if (!User.Identity.IsAuthenticated)
                         {
-                                            <div class="dropdown">
-                                                <button class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
-                                               data-bs-toggle="dropdown" aria-expanded="false">
-                                                    登入
-                                                </button>
-                                                <div style="position: relative; right: 80%">
-                                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                                        <li>
-                                                            <a class="dropdown-item" data-bs-toggle="modal"
-                                                           data-bs-target="#modalUserSignin" href="#">使用者</a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="dropdown-item" data-bs-toggle="modal"
-                                                           data-bs-target="#modalOwnerSignin" href="#">廠商</a>
-                                                        </li>
-                                                        <li>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                                        <div class="dropdown">
+                                                            <button class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                                                           data-bs-toggle="dropdown" aria-expanded="false">
+                                                                登入
+                                                            </button>
+                                                            <div style="position: relative; right: 80%">
+                                                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                                                    <li>
+                                                                        <a class="dropdown-item" data-bs-toggle="modal"
+                                                                       data-bs-target="#modalUserSignin" href="#">使用者</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item" data-bs-toggle="modal"
+                                                                       data-bs-target="#modalOwnerSignin" href="#">廠商</a>
+                                                                    </li>
+                                                                    <li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
                         }
                         else
                         {
-                                            <div class="dropdown">
-                                                <button class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
-                                               data-bs-toggle="dropdown" aria-expanded="false">
-                                                    歡迎XXX User
-                                                </button>
-                                                <div style="position: relative; right: -5%">
-                                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                                        <li><a class="dropdown-item" asp-controller="UserDetails" asp-action="Index">會員資訊</a></li>
-                                                        <li><a class="dropdown-item" asp-controller="Pets" asp-action="Index">我的愛寵</a></li>
-                                                        <li><a class="dropdown-item" asp-controller="UserCollection" asp-action="Index">我的最愛</a></li>
-                                                        <li>
-                                                            <hr class="dropdown-divider">
-                                                        </li>
-                                                        <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="dropdown">
-                                                <button class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
-                                               data-bs-toggle="dropdown" aria-expanded="false">
-                                                    歡迎XXX Owner
-                                                </button>
-                                                <div style="position: relative; right: -5%">
-                                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                                        <li><a class="dropdown-item" asp-controller="Owner" asp-action="Index">管理商品</a></li>
-                                                        <li>
-                                                            <hr class="dropdown-divider">
-                                                        </li>
-                                                        <li><a class="dropdown-item" href="#">登出</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                                        <div class="dropdown">
+                                                            <button class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                                                           data-bs-toggle="dropdown" aria-expanded="false">
+                                                                歡迎XXX User
+                                                            </button>
+                                                            <div style="position: relative; right: -5%">
+                                                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                                                    <li><a class="dropdown-item" asp-controller="UserDetails" asp-action="Index">會員資訊</a></li>
+                                                                    <li><a class="dropdown-item" asp-controller="Pets" asp-action="Index">我的愛寵</a></li>
+                                                                    <li><a class="dropdown-item" asp-controller="UserCollection" asp-action="Index">我的最愛</a></li>
+                                                                    <li>
+                                                                        <hr class="dropdown-divider">
+                                                                    </li>
+                                                                    <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="dropdown">
+                                                            <button class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                                                           data-bs-toggle="dropdown" aria-expanded="false">
+                                                                歡迎XXX Owner
+                                                            </button>
+                                                            <div style="position: relative; right: -5%">
+                                                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                                                    <li><a class="dropdown-item" asp-controller="Owner" asp-action="Index">管理商品</a></li>
+                                                                    <li>
+                                                                        <hr class="dropdown-divider">
+                                                                    </li>
+                                                                    <li><a class="dropdown-item" href="#">登出</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
 
                         }
                     }
@@ -164,7 +164,7 @@
         </main>
     </div>
 
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 mb-0 ps-3 pe-3 border-top bg-primary" style="position: sticky; bottom: o;">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 mb-0 mt-5 ps-3 pe-3 border-top bg-primary">
         <p class="col-md-4 mb-0 text-muted">© 2022 Company, Inc</p>
 
         <a href="/"
@@ -539,155 +539,70 @@
                  style="width: 680px; height: 80px;">
                 <div class="list-group list-group-flush border-bottom scrollarea">
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-6">
                             商品
                         </div>
-                        <div class="col-2">
+                        <div class="col-3">
                             單價
                         </div>
-                        <div class="col-2">
-                            數量
-                        </div>
-                        <div class="col-2">
-                            總價
-                        </div>
-                        <div class="col-2">
+                        <div class="col-3">
                             移除
                         </div>
                     </div>
                     <div class="row border-top border-bottom pt-1 pb-1 d-flex align-items-center" style="height: 80px;">
-                        <div class="col-2">
+                        <div class="col-3">
                             <img src="https://picsum.photos/id/684/600/400" class="card-img-top" alt="...">
                         </div>
-                        <div class="col-2">
+                        <div class="col-3">
                             內容
                         </div>
-                        <div class="col-2">
+                        <div class="col-3">
                             $120
                         </div>
-                        <div class="col-2">
-                            <a name="" id="" class="text-decoration-none" href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
-                                     class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                          d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                                </svg>
-                            </a>
-                            <input type="text" value="1" style="width: 30px; font-size: 5px;">
-                            <a name="" id="" class="text-decoration-none" href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
-                                     class="bi bi-chevron-up" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                          d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="col-2">
-                            $120
-                        </div>
-                        <div class="col-2">
+                        <div class="col-3">
                             <a class="btn btn-lg rounded-3 btn-danger" style="font-size: 15px;" type="submit">移除</a>
                         </div>
                     </div>
                     <div class="row border-top border-bottom pt-1 pb-1 d-flex align-items-center" style="height: 80px;">
-                        <div class="col-2">
+                        <div class="col-3">
                             <img src="https://picsum.photos/id/684/600/400" class="card-img-top" alt="...">
                         </div>
-                        <div class="col-2">
+                        <div class="col-3">
                             內容
                         </div>
-                        <div class="col-2">
+                        <div class="col-3">
                             $120
                         </div>
-                        <div class="col-2">
-                            <a name="" id="" class="text-decoration-none" href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
-                                     class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                          d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                                </svg>
-                            </a>
-                            <input type="text" value="1" style="width: 30px; font-size: 5px;">
-                            <a name="" id="" class="text-decoration-none" href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
-                                     class="bi bi-chevron-up" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                          d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="col-2">
-                            $120
-                        </div>
-                        <div class="col-2">
+                        <div class="col-3">
                             <a class="btn btn-lg rounded-3 btn-danger" style="font-size: 15px;" type="submit">移除</a>
                         </div>
                     </div>
                     <div class="row border-top border-bottom pt-1 pb-1 d-flex align-items-center" style="height: 80px;">
-                        <div class="col-2">
+                        <div class="col-3">
                             <img src="https://picsum.photos/id/684/600/400" class="card-img-top" alt="...">
                         </div>
-                        <div class="col-2">
+                        <div class="col-3">
                             內容
                         </div>
-                        <div class="col-2">
+                        <div class="col-3">
                             $120
                         </div>
-                        <div class="col-2">
-                            <a name="" id="" class="text-decoration-none" href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
-                                     class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                          d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                                </svg>
-                            </a>
-                            <input type="text" value="1" style="width: 30px; font-size: 5px;">
-                            <a name="" id="" class="text-decoration-none" href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
-                                     class="bi bi-chevron-up" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                          d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="col-2">
-                            $120
-                        </div>
-                        <div class="col-2">
+                        
+                        <div class="col-3">
                             <a class="btn btn-lg rounded-3 btn-danger" style="font-size: 15px;" type="submit">移除</a>
                         </div>
                     </div>
                     <div class="row border-top border-bottom pt-1 pb-1 d-flex align-items-center" style="height: 80px;">
-                        <div class="col-2">
+                        <div class="col-3">
                             <img src="https://picsum.photos/id/684/600/400" class="card-img-top" alt="...">
                         </div>
-                        <div class="col-2">
+                        <div class="col-3">
                             內容
                         </div>
-                        <div class="col-2">
+                        <div class="col-3">
                             $120
                         </div>
-                        <div class="col-2">
-                            <a name="" id="" class="text-decoration-none" href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
-                                     class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                          d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                                </svg>
-                            </a>
-                            <input type="text" value="1" style="width: 30px; font-size: 5px;">
-                            <a name="" id="" class="text-decoration-none" href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
-                                     class="bi bi-chevron-up" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                          d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="col-2">
-                            $120
-                        </div>
-                        <div class="col-2">
+                        <div class="col-3">
                             <a class="btn btn-lg rounded-3 btn-danger" style="font-size: 15px;" type="submit">移除</a>
                         </div>
                     </div>
