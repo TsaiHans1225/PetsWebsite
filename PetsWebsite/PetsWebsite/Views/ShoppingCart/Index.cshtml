@@ -44,3 +44,17 @@
 
 </div>
 
+@section Scripts{
+    <script>
+console.log(123);
+        function AddShopCar(e) {
+            fetch("/api/ShoppingCar/GetShopCar/" + e.target.value)
+                .then(res => res.json)
+                .then(result => {
+                    if (result) {
+                        alert("加入購物車");
+                    }
+                })
+        }
+    </script>
+}
