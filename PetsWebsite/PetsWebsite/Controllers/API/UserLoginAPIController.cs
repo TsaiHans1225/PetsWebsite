@@ -37,6 +37,7 @@ namespace PetsWebsite.Controllers.API
                 (a, r) =>
                 new
                 {
+                    UserId=a.UserId,
                     Account = a.Account,
                     Password = a.Password,
                     Role = r.Role1
@@ -50,7 +51,8 @@ namespace PetsWebsite.Controllers.API
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name,existUser.Account),
-                new Claim(ClaimTypes.Role,existUser.Role),               
+                new Claim(ClaimTypes.Role,existUser.Role),
+                new Claim("UserID",existUser.UserId.ToString())
             };
            
             var claimsIndntity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

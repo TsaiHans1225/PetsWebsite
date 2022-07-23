@@ -28,6 +28,7 @@ namespace PetsWebsite.Models
         public virtual DbSet<Product> Products { get; set; } = null!;
         public virtual DbSet<Restaurant> Restaurants { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
+        public virtual DbSet<ShoppingCar> ShoppingCars { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<UserAccount> UserAccounts { get; set; } = null!;
 
@@ -36,9 +37,9 @@ namespace PetsWebsite.Models
             if (!optionsBuilder.IsConfigured)
             {
                 IConfigurationRoot Configuration = new ConfigurationBuilder()
-                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                    .AddJsonFile("appsettings.json")
-                    .Build();
+                                  .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                                  .AddJsonFile("appsettings.json")
+                                  .Build();
                 optionsBuilder.UseSqlServer(Configuration.GetConnectionString("PetsDb"));
             }
         }
@@ -261,6 +262,29 @@ namespace PetsWebsite.Models
                 entity.Property(e => e.Role1)
                     .HasMaxLength(20)
                     .HasColumnName("Role");
+            });
+
+            modelBuilder.Entity<ShoppingCar>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.ProductId });
+
+                entity.ToTable("ShoppingCar");
+
+                entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.ShoppingCars)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ShoppingCar_Products");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.ShoppingCars)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ShoppingCar_Users");
             });
 
             modelBuilder.Entity<User>(entity =>

@@ -1,13 +1,38 @@
-﻿@model IEnumerable<PetsWebsite.Models.Product>
+﻿@*@model IEnumerable<PetsWebsite.Models.Product>*@
+@model PetsWebsite.Models.Product
+@*商品照片,單價轉型*@
+@*@{
+    string imgName = $"{Model.ProductId}.jpg";
+    int UnitPrice = Convert.ToInt32(Model.UnitPrice);
+}*@
 
-
-<div class="container">
-
-    @foreach (var item in Model)
-    {
-        @*<partial name="_ProductPartial" model="item" />*@
-        @await Html.PartialAsync("_ShoppingCartPartial", item)
-    }
+<div class="container" id="ShoppingCarView">
+    <div class="row justify-content-center mt-5">
+        <div class="col-10">
+            <table class="table border border-warning border-5 table-hover table-responsive">
+                <thead>
+                    <tr class="table-dark" align="center">
+                        <th scope="col"></th>
+                        <th scope="col">圖片</th>
+                        <th scope="col">名稱</th>
+                        <th scope="col">價格</th>
+                        <th scope="col">數量</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-warning " align="center" v-for="item in DShopCarList" >
+                        <th scope="row"><input type="checkbox" /></th>
+                        <td><img :src=`~/images/Product/item.shopCarId` style="width:25%" alt="圖片"></td>
+                        <td><a>{{item.productName}}</a></td>
+                        <td>NT$&nbsp:{{item.price}}</td>
+                        <td><input type="text" v-bind:value="item.count"></td>
+                        <td><input type="button" value="下次再買" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <div class="row justify-content-center">
         <div class="col-7 mt-5">
@@ -19,3 +44,25 @@
 
 </div>
 
+@section Scripts{
+    <script>
+var ShopCarDisply = new Vue({
+    el:'#ShoppingCarView',
+    data: {
+        DShopCarList:[]
+    },
+    mounted: function() {
+        var self = this;
+        $.ajax({
+            type:"get",
+            url:`/api/ShoppingCar/GetShopCarList`,
+        }).done(function(data){
+            console.log(data);
+            self.DShopCarList = data;
+        }).fail(function(err) {
+            console.log(err);
+        })
+    }
+})
+    </script>
+}

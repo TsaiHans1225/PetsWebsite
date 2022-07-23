@@ -14,14 +14,10 @@ namespace PetsWebsite.Controllers
             ProductDBContext = _PetsDBContext;
         }
 
-        //加入購物車
-        public async Task<IActionResult> Index(int id)
+        //加入購物車      
+        public IActionResult Index()
         {
-            var products = await ProductDBContext.Products
-                .Where(m => m.ProductId == id)
-                .ToListAsync();
-
-            return View(products);
+            return View();
         }
     }
 }

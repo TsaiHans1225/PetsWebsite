@@ -1,0 +1,24 @@
+﻿@import "../scss/bootstrap.scss";
+
+.cardlight{
+    background-color: #F2F4F3;
+    box-shadow: 3px 3px 5px 0px #a7a7a74e;
+}
+.cardlight:hover{
+    position: relative;
+    bottom: 1%;
+    right: 1%;
+    box-shadow: 3px 3px 8px 0px #a7a7a74e;
+    transition-duration: 0.5s;
+}
+.btnPrimary{
+    background-color: #f2cc8f;
+    color: #343A40;
+    border: none;
+}
+
+.btnPrimary:hover{
+    background-color: #E5E5E5;
+    color: #343A40;
+    transition-duration: 0.3s;
+}
