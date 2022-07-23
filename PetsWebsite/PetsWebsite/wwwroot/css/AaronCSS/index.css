@@ -1,8 +1,4 @@
-#titleH1 {
-    text-align: center;
-    background-color: beige;
-    border-radius: 30px 30px 30px 30px;
-}
+
 
 body {
     background-color: rgba(246, 235, 220, 0.63);
@@ -15,11 +11,10 @@ body {
     height: 320px;
 }
 
-#h2Text {
+/*#h2Text{
     background-color: beige;
     border-radius: 30px 30px 30px 30px;
-}
-
+}*/
 .jumbotron {
     margin-top: 10px;
     margin-bottom: 2rem;
@@ -63,11 +58,4 @@ body {
     text-align: left;
     border-radius: 40px;
     border-color: darkgray;
-}
-
-@media screen and (min-width:375px) and (max-width:575px) {
-    #sel {
-        flex: 0 0 auto;
-        min-width: 100%;
-    }
 }

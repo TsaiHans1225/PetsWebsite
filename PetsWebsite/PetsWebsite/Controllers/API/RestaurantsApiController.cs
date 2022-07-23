@@ -68,5 +68,14 @@ namespace PetsWebsite.Controllers.API
             return await _petsDBContext.Restaurants.ToListAsync();
         }
 
+       
+
+        [HttpGet]
+        [Route("Search/rawdata")]
+        public async Task<ActionResult<IEnumerable<Restaurant>>> SearchKey([FromQuery] string key)
+        {
+            return await _petsDBContext.Restaurants.Where(s => s.RestaurantName.Contains(key) || s.City.Contains(key) || s.Region.Contains(key) || s.Address.Contains(key)).ToListAsync();
+        }
+
     }
 }
