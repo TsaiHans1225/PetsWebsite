@@ -41,8 +41,8 @@
 }
 
 .text-bg-light {
-  color: #fff !important;
-  background-color: RGBA(52, 58, 64, var(--bs-bg-opacity, 1)) !important;
+  color: #000 !important;
+  background-color: RGBA(255, 255, 255, var(--bs-bg-opacity, 1)) !important;
 }
 
 .text-bg-dark {
@@ -93,10 +93,10 @@
 }
 
 .link-light {
-  color: #343A40 !important;
+  color: #FFF !important;
 }
 .link-light:hover, .link-light:focus {
-  color: #2a2e33 !important;
+  color: white !important;
 }
 
 .link-dark {
