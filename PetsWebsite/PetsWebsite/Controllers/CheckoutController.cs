@@ -15,13 +15,11 @@ namespace PetsWebsite.Controllers
         }
 
         //立即購買
-        public async Task<IActionResult> Index(int id)
+        public IActionResult Index()
         {
-            var products = await ProductDBContext.Products
-                .Where(m => m.ProductId == id)
-                .ToListAsync();
+            
 
-            return View(products);
+            return View();
         }
     }
 }
