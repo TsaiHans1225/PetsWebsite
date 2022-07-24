@@ -49,7 +49,7 @@ namespace PetsWebsite.Controllers.API
             return _PetsDB.ShoppingCars.Where(x => x.UserId == User.GetId()).Select(x=>new ShopcarViewModel
             {
                 ProductName= x.Product.ProductName,
-                PicturePath=x.Product.PhotoId,
+                PicturePath=x.Product.PhotoPath,
                 Count=x.Count,
                 Price=x.Product.UnitPrice,
                 ShopCarId=x.ProductId,

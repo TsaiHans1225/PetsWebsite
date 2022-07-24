@@ -37,9 +37,9 @@ namespace PetsWebsite.Models
             if (!optionsBuilder.IsConfigured)
             {
                 IConfigurationRoot Configuration = new ConfigurationBuilder()
-                                  .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                                  .AddJsonFile("appsettings.json")
-                                  .Build();
+                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                    .AddJsonFile("appsettings.json")
+                    .Build();
                 optionsBuilder.UseSqlServer(Configuration.GetConnectionString("PetsDb"));
             }
         }
@@ -68,6 +68,8 @@ namespace PetsWebsite.Models
                 entity.Property(e => e.Phone).HasMaxLength(20);
 
                 entity.Property(e => e.Region).HasMaxLength(10);
+
+                entity.Property(e => e.Service).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Comment>(entity =>
@@ -224,11 +226,15 @@ namespace PetsWebsite.Models
 
                 entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
 
-                entity.Property(e => e.PhotoId)
-                    .HasMaxLength(50)
-                    .HasColumnName("PhotoID");
+                entity.Property(e => e.CompanyId).HasColumnName("CompanyID");
+
+                entity.Property(e => e.LaunchDate).HasColumnType("datetime");
+
+                entity.Property(e => e.PhotoPath).HasMaxLength(50);
 
                 entity.Property(e => e.ProductName).HasMaxLength(20);
+
+                entity.Property(e => e.RemoveDate).HasColumnType("datetime");
 
                 entity.Property(e => e.UnitPrice).HasColumnType("money");
 
@@ -236,6 +242,11 @@ namespace PetsWebsite.Models
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.CategoryId)
                     .HasConstraintName("FK_Products_Categories");
+
+                entity.HasOne(d => d.Company)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.CompanyId)
+                    .HasConstraintName("FK_Products_Company");
             });
 
             modelBuilder.Entity<Restaurant>(entity =>
