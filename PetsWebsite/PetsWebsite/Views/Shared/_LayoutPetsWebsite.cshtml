@@ -99,25 +99,25 @@
                     @{
                         if (!User.Identity.IsAuthenticated)
                         {
-                                                                        <div class="dropdown">
-                                                                            <button class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
-                                                                           data-bs-toggle="dropdown" aria-expanded="false">
-                                                                                登入
-                                                                            </button>
-                                                                            <div style="position: relative; right: 80%">
-                                                                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                                                                    <li>
-                                                                                        <a class="dropdown-item" data-bs-toggle="modal"
-                                                                                       data-bs-target="#modalUserSignin" href="#">使用者</a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <a class="dropdown-item" data-bs-toggle="modal"
-                                                                                       data-bs-target="#modalOwnerSignin" href="#">廠商</a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
+                                <div class="dropdown">
+                                    <button class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        登入
+                                    </button>
+                                    <div style="position: relative; right: 80%">
+                                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                            <li>
+                                                <a class="dropdown-item" data-bs-toggle="modal"
+                                               data-bs-target="#modalUserSignin" href="#">使用者</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" data-bs-toggle="modal"
+                                               data-bs-target="#modalOwnerSignin" href="#">廠商</a>
+                                            </li>
+                                            <li>
+                                        </ul>
+                                    </div>
+                                </div>
                         }
                         else
                         {
@@ -125,42 +125,42 @@
 
                             if (User.Claims.FirstOrDefault(X => X.Type == ClaimTypes.Role)?.Value != "Company")
                             {
-                                                <div class="dropdown">
-                                                    <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
-                                               data-bs-toggle="dropdown" aria-expanded="false">
-                                                        歡迎XXX User
-                                                    </a>
-                                                    <div style="position: relative; right: -5%">
-                                                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                                            <li><a class="dropdown-item" asp-controller="UserDetails" asp-action="Index">會員資訊</a></li>
-                                                            @*<li><a class="dropdown-item" asp-controller="Pets" asp-action="Index">我的愛寵</a></li>*@
-                                                            <li><a class="dropdown-item" asp-controller="UserCollection" asp-action="Index">我的最愛</a></li>
-                                                            <li>
-                                                                <hr class="dropdown-divider">
-                                                            </li>
-                                                            <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
+                                    <div class="dropdown">
+                                        <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                            歡迎XXX User
+                                        </a>
+                                        <div style="position: relative; right: -5%">
+                                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                                <li><a class="dropdown-item" asp-controller="UserDetails" asp-action="Index">會員資訊</a></li>
+                                                @*<li><a class="dropdown-item" asp-controller="Pets" asp-action="Index">我的愛寵</a></li>*@
+                                                <li><a class="dropdown-item" asp-controller="UserCollection" asp-action="Index">我的最愛</a></li>
+                                                <li>
+                                                    <hr class="dropdown-divider">
+                                                </li>
+                                                <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
                             }
                             else
 
                             {
-                                                <div class="dropdown">
-                                                    <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
-                                               data-bs-toggle="dropdown" aria-expanded="false">
-                                                        歡迎XXX Owner
-                                                    </a>
-                                                    <div style="position: relative; right: -5%">
-                                                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                                            <li><a class="dropdown-item" asp-controller="Owner" asp-action="Index">管理商品</a></li>
-                                                            <li>
-                                                                <hr class="dropdown-divider">
-                                                            </li>
-                                                            <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
+                                    <div class="dropdown">
+                                        <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                            歡迎XXX Owner
+                                        </a>
+                                        <div style="position: relative; right: -5%">
+                                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                                <li><a class="dropdown-item" asp-controller="Owner" asp-action="Index">管理商品</a></li>
+                                                <li>
+                                                    <hr class="dropdown-divider">
+                                                </li>
+                                                <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
                             }
 
                         }
@@ -524,48 +524,63 @@
                  style="width: 680px; height: 80px;">
                 <div class="list-group list-group-flush border-bottom scrollarea">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-4">
                             商品
                         </div>
-                        <div class="col-3">
+                        <div class="col-1">
                             單價
                         </div>
                         <div class="col-3">
+                            數量
+                        </div>
+                        <div class="col-2">
+                            總計
+                        </div>
+                        <div class="col-2">
                             移除
                         </div>
                     </div>
-                    <div class="row border-top border-bottom pt-1 pb-1 d-flex align-items-center" style="height: 80px;" v-for="item in ShopCarList">
+                    <div class="row border-top border-bottom pt-1 pb-1 d-flex align-items-center" style="height: 80px;" v-for="(item,index) in ShopCarList">
                         <div class="col-2">
                             <img src="https://picsum.photos/id/684/600/400" class="card-img-top" alt="...">
                         </div>
-                        <div class="col-2">
+                        <div class="col-2 text-truncate" v-bind:title="item.productName">
                             {{item.productName}}
                         </div>
-                        <div class="col-2">
+                        <div class="col-1">
                             {{item.price}}
                         </div>
-                        <div class="col-2">
-                            <a name="" id="" class="text-decoration-none" href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
-                                     class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                          d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                                </svg>
+                        <div class="col-3">
+                            @*<a name="" id="" class="text-decoration-none" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
+                            class="bi bi-chevron-down" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                            d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                            </svg>
                             </a>
                             <input type="text" v-bind:value="item.count" style="width: 30px; font-size: 5px;">
                             <a name="" id="" class="text-decoration-none" href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
-                                     class="bi bi-chevron-up" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                          d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
-                                </svg>
-                            </a>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
+                            class="bi bi-chevron-up" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                            d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                            </svg>
+                            </a>*@
+                            <div class="input-group container justify-content: center">
+                                <a class="btn btn-outline-dark p-0" type="button" style="width:32px;" v-on:click="ReductCount($event,index)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle-fill" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z" /></svg>
+                                </a>
+                                <input type="text" style="width: 40px; font-size: 5px; text-align: center;" :value="item.count" v-on:change="ChangeCount($event,index)">
+                                <a class="btn btn-outline-dark p-0" type="button" style="width:32px;" v-on:click="AddCount($event,index)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" /></svg>
+                                </a>
+                            </div>
                         </div>
                         <div class="col-2">
                             {{item.price * item.count}}
                         </div>
                         <div class="col-2">
-                            <button  class="btn btn-lg rounded-3 btn-danger" style="font-size: 15px;" type="submit" :value="item.shopCarId" v-on:click="RemoveData" >移除</button>
+                            <button class="btn btn-lg rounded-3 btn-danger" style="font-size: 15px;" type="submit" :value="item.shopCarId" v-on:click="RemoveData">移除</button>
                         </div>
                     </div>
                 </div>
@@ -733,6 +748,10 @@
         el: '#shoppingCart',
         data: {
             ShopCarList: [],
+            NewCount: {
+                ProductId: "",
+                Count: ""
+            }
         },
         methods: {
             reLoadData: function() {
@@ -747,8 +766,9 @@
             },
             RemoveData: function(e) {
                 var self = this;
-                fetch("/api/ShoppingCar/RemoveShopCar/" + e.target.value,{
-                    method:"Delete"
+                var DelProductId = e.target.value;
+                fetch(`/api/ShoppingCar/RemoveShopCar/${DelProductId}`, {
+                    method: "Delete"
                 })
                     .then(res => res.json())
                     .then(result => {
@@ -757,6 +777,47 @@
                             self.reLoadData();
                         }
                     })
+            },
+            AddCount: function(e, index) {
+                this.ShopCarList[index].count += 1;
+                this.NewCount = {
+                    ProductId: this.ShopCarList[index].shopCarId,
+                    Count: this.ShopCarList[index].count
+                };
+                this.SaveShopCarCount();
+            },
+            ReductCount: function(e, index) {
+                if (this.ShopCarList[index].count > 1) {
+                    this.ShopCarList[index].count -= 1;
+                }
+                this.NewCount = {
+                    ProductId: this.ShopCarList[index].shopCarId,
+                    Count: this.ShopCarList[index].count
+                };
+                this.SaveShopCarCount();
+            },
+            ChangeCount: function(e, index) {
+                if (parseInt(e.target.value) > 1) {
+                    this.ShopCarList[index].count = parseInt(e.target.value);
+                } else {
+                    this.ShopCarList[index].count = 1;
+                }
+                this.NewCount = {
+                    ProductId: this.ShopCarList[index].shopCarId,
+                    Count: this.ShopCarList[index].count
+                };
+                this.SaveShopCarCount();
+            },
+            SaveShopCarCount: function() {
+                var self = this;
+                fetch("/api/ShoppingCar/ChangeShopCarCount", {
+                    method: "Put",
+                    body: JSON.stringify(self.NewCount),
+                    headers: new Headers({
+                        'Content-Type': 'application/json'
+                    })
+                }).then(res => res.json())
+                    .then(result => console.log(result))
             }
         },
         mounted: function() {
