@@ -23,7 +23,7 @@
                 <tbody>
                     <tr class="table-warning " align="center" v-for="item in DShopCarList" >
                         <th scope="row"><input type="checkbox" /></th>
-                        <td><img :src=`~/images/Product/item.shopCarId` style="width:25%" alt="圖片"></td>
+                        <td><img :src=`item.shopCarId` style="width:25%" alt="圖片"></td>
                         <td><a>{{item.productName}}</a></td>
                         <td>NT$&nbsp:{{item.price}}</td>
                         <td><input type="text" v-bind:value="item.count"></td>
@@ -37,7 +37,7 @@
     <div class="row justify-content-center">
         <div class="col-7 mt-5">
             <div class="d-grid gap-2">
-                <a href="#" class="btn btn-warning btn-lg">前往結帳</a>
+                <a asp-controller="CheckOut" asp-action="Index" class="btn btn-warning btn-lg">前往結帳</a>
             </div>
         </div>
     </div>

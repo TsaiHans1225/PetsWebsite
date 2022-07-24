@@ -1,265 +1,252 @@
 ﻿@*管理商品頁面*@
-<div class="contanier mx-5 pt-5">
-    <table class="table table-success table-striped">
-        <thead>
-            <tr>
-                <th scope="col">圖片</th>
-                <th scope="col">商品名稱</th>
-                <th scope="col">商品單價</th>
-                <th scope="col">商品折扣</th>
-                <th scope="col">庫存量</th>
-                <th scope="col">商品描述</th>
-                <th scope="col">修改商品資訊</th>
-                <th scope="col">下架商品</th>
-                <th scope="col">商品狀態</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="">
-                <td scope="row">
-                    <img src="/images/Owner/狗飼料.jpg" style="width: 100px; height: 80px;" alt="">
-                </td>
-                <td>營養飼料</td>
-                <td>300</td>
-                <td>none</td>
-                <td>100</td>
-                <td>
-                    <p style="width: 100px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
-                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                    </p>
-                </td>
-                <td>
-                    <a class="btn btn-warning" type="submit">修改</a>
-                </td>
-                <td>
-                    <a class="btn btn-danger" type="submit">下架</a>
-                </td>
-                <td>已上架</td>
-            </tr>
-            <tr class="">
-                <td scope="row">
-                    <img src="/images/Owner/狗飼料.jpg" style="width: 100px; height: 80px;" alt="">
-                </td>
-                <td>營養飼料</td>
-                <td>300</td>
-                <td>none</td>
-                <td>100</td>
-                <td>
-                    <p style="width: 100px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
-                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                    </p>
-                </td>
-                <td>
-                    <a class="btn btn-warning" type="submit">修改</a>
-                </td>
-                <td>
-                    <a class="btn btn-danger" type="submit">下架</a>
-                </td>
-                <td>待審核...</td>
-            </tr>
-            <tr class="">
-                <td scope="row">
-                    <img src="/images/Owner/狗飼料.jpg" style="width: 100px; height: 80px;" alt="">
-                </td>
-                <td>營養飼料</td>
-                <td>300</td>
-                <td>none</td>
-                <td>100</td>
-                <td>
-                    <p style="width: 100px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
-                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                    </p>
-                </td>
-                <td>
-                    <a class="btn btn-warning" type="submit">修改</a>
-                </td>
-                <td>
-                    <a class="btn btn-danger" type="submit">下架</a>
-                </td>
-                <td>已下架</td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="row">
-        <a class="btn btn-primary position-absolute col col-1" style="right: 5%;" asp-action="CreateProduct" asp-controller="Owner">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
-                 viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                      d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
-            </svg>
-            新增商品
-        </a>
+<div class="contanier mx-5 pt-5" id="ownerManage">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="product-tab" data-bs-toggle="tab" data-bs-target="#product" type="button" role="tab" aria-controls="product" aria-selected="true">product</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="restaurant-tab" data-bs-toggle="tab" data-bs-target="#restaurant" type="button" role="tab" aria-controls="restaurant" aria-selected="false">restaurant</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="clinic-tab" data-bs-toggle="tab" data-bs-target="#clinic" type="button" role="tab" aria-controls="clinic" aria-selected="false">clinic</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade bg-light show active" id="product" role="tabpanel" aria-labelledby="product-tab">
+            <div class="contanier mx-5 pt-5">
+                <table class="table table-light table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">圖片</th>
+                            <th scope="col">商品名稱</th>
+                            <th scope="col">商品單價</th>
+                            <th scope="col">商品折扣</th>
+                            <th scope="col">庫存量</th>
+                            <th scope="col">商品描述</th>
+                            <th scope="col">修改商品資訊</th>
+                            <th scope="col">下架商品</th>
+                            <th scope="col">商品狀態</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="">
+                            <td scope="row">
+                                <img src="/images/Owner/狗飼料.jpg" style="width: 100px; height: 80px;" alt="">
+                            </td>
+                            <td>營養飼料</td>
+                            <td>300</td>
+                            <td>none</td>
+                            <td>100</td>
+                            <td>
+                                <p style="width: 100px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
+                                    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                </p>
+                            </td>
+                            <td>
+                                <a class="btn btn-warning" type="submit">修改</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-danger" type="submit">下架</a>
+                            </td>
+                            <td>已上架</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <a class="btn btn-primary position-absolute col col-1" style="right: 5%;" asp-action="CreateProduct" asp-controller="Owner">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+                             viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+                        </svg>
+                        新增商品
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade bg-light" id="restaurant" role="tabpanel" aria-labelledby="restaurant-tab">
+            <div class="contanier mx-5 pt-5">
+                <table class="table table-light table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">圖片</th>
+                            <th scope="col">餐廳名稱</th>
+                            <th scope="col">電話</th>
+                            <th scope="col">城市</th>
+                            <th scope="col">地區</th>
+                            <th scope="col">地址</th>
+                            <th scope="col">餐廳簡述</th>
+                            <th scope="col">修改餐廳資訊</th>
+                            <th scope="col">下架餐廳</th>
+                            <th scope="col">餐廳狀態</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="">
+                            <td scope="row">
+                                <img src="/images/Owner/餐廳.jpg" style="width: 100px; height: 80px;" alt="">
+                            </td>
+                            <td>寵物餐廳</td>
+                            <td>02-22222222</td>
+                            <td>台北市</td>
+                            <td>大安區</td>
+                            <td>
+                                <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
+                                    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                </p>
+                            </td>
+                            <td>
+                                <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
+                                    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                </p>
+                            </td>
+                            <td>
+                                <a class="btn btn-warning" type="submit">修改</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-danger" type="submit">下架</a>
+                            </td>
+                            <td>已上架</td>
+                        </tr>
+                        <tr class="">
+                            <td scope="row">
+                                <img src="/images/Owner/餐廳.jpg" style="width: 100px; height: 80px;" alt="">
+                            </td>
+                            <td>寵物餐廳</td>
+                            <td>02-22222222</td>
+                            <td>台北市</td>
+                            <td>大安區</td>
+                            <td>
+                                <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
+                                    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                </p>
+                            </td>
+                            <td>
+                                <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
+                                    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                </p>
+                            </td>
+                            <td>
+                                <a class="btn btn-warning" type="submit">修改</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-danger" type="submit">下架</a>
+                            </td>
+                            <td>已上架</td>
+                        </tr>
+                        <tr class="">
+                            <td scope="row">
+                                <img src="/images/Owner/餐廳.jpg" style="width: 100px; height: 80px;" alt="">
+                            </td>
+                            <td>寵物餐廳</td>
+                            <td>02-22222222</td>
+                            <td>台北市</td>
+                            <td>大安區</td>
+                            <td>
+                                <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
+                                    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                </p>
+                            </td>
+                            <td>
+                                <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
+                                    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                </p>
+                            </td>
+                            <td>
+                                <a class="btn btn-warning" type="submit">修改</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-danger" type="submit">下架</a>
+                            </td>
+                            <td>已上架</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <a class="btn btn-primary position-absolute col col-1" style="right: 5%;" asp-action="CreateProduct" asp-controller="Owner">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+                             viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+                        </svg>
+                        新增餐廳
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade bg-light" id="clinic" role="tabpanel" aria-labelledby="clinic-tab">
+            <div class="contanier mx-5 pt-5">
+                <table class="table table-light table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">圖片</th>
+                            <th scope="col">診所名稱</th>
+                            <th scope="col">電話</th>
+                            <th scope="col">城市</th>
+                            <th scope="col">地區</th>
+                            <th scope="col">地址</th>
+                            <th scope="col">診所簡述</th>
+                            <th scope="col">犬貓專科</th>
+                            <th scope="col">急診</th>
+                            <th scope="col">修改診所資訊</th>
+                            <th scope="col">下架診所</th>
+                            <th scope="col">商品狀態</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="">
+                            <td scope="row">
+                                <img src="/images/Owner/動物醫院.png" style="width: 100px; height: 80px;" alt="">
+                            </td>
+                            <td>寵物醫院</td>
+                            <td>02-22222222</td>
+                            <td>台北市</td>
+                            <td>大安區</td>
+                            <td>
+                                <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
+                                    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                </p>
+                            </td>
+                            <td>
+                                <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
+                                    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                </p>
+                            </td>
+                            <td>否</td>
+                            <td>是</td>
+                            <td>
+                                <a class="btn btn-warning" type="submit">修改</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-danger" type="submit">下架</a>
+                            </td>
+                            <td>已上架</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <a class="btn btn-primary position-absolute col col-1" style="right: 5%;" asp-action="CreateProduct" asp-controller="Owner">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+                             viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+                        </svg>
+                        新增診所
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
+<script>
+var vm = new Vue({
+    data: {
 
-<div class="contanier mx-5 pt-5">
-    <table class="table table-success table-striped">
-        <thead>
-            <tr>
-                <th scope="col">圖片</th>
-                <th scope="col">餐廳名稱</th>
-                <th scope="col">電話</th>
-                <th scope="col">城市</th>
-                <th scope="col">地區</th>
-                <th scope="col">地址</th>
-                <th scope="col">餐廳簡述</th>
-                <th scope="col">修改餐廳資訊</th>
-                <th scope="col">下架餐廳</th>
-                <th scope="col">餐廳狀態</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="">
-                <td scope="row">
-                    <img src="/images/Owner/餐廳.jpg" style="width: 100px; height: 80px;" alt="">
-                </td>
-                <td>寵物餐廳</td>
-                <td>02-22222222</td>
-                <td>台北市</td>
-                <td>大安區</td>
-                <td>
-                    <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
-                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                    </p>
-                </td>
-                <td>
-                    <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
-                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                    </p>
-                </td>
-                <td>
-                    <a class="btn btn-warning" type="submit">修改</a>
-                </td>
-                <td>
-                    <a class="btn btn-danger" type="submit">下架</a>
-                </td>
-                <td>已上架</td>
-            </tr>
-            <tr class="">
-                <td scope="row">
-                    <img src="/images/Owner/餐廳.jpg" style="width: 100px; height: 80px;" alt="">
-                </td>
-                <td>寵物餐廳</td>
-                <td>02-22222222</td>
-                <td>台北市</td>
-                <td>大安區</td>
-                <td>
-                    <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
-                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                    </p>
-                </td>
-                <td>
-                    <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
-                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                    </p>
-                </td>
-                <td>
-                    <a class="btn btn-warning" type="submit">修改</a>
-                </td>
-                <td>
-                    <a class="btn btn-danger" type="submit">下架</a>
-                </td>
-                <td>已上架</td>
-            </tr>
-            <tr class="">
-                <td scope="row">
-                    <img src="/images/Owner/餐廳.jpg" style="width: 100px; height: 80px;" alt="">
-                </td>
-                <td>寵物餐廳</td>
-                <td>02-22222222</td>
-                <td>台北市</td>
-                <td>大安區</td>
-                <td>
-                    <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
-                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                    </p>
-                </td>
-                <td>
-                    <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
-                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                    </p>
-                </td>
-                <td>
-                    <a class="btn btn-warning" type="submit">修改</a>
-                </td>
-                <td>
-                    <a class="btn btn-danger" type="submit">下架</a>
-                </td>
-                <td>已上架</td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="row">
-        <a class="btn btn-primary position-absolute col col-1" style="right: 5%;" asp-action="CreateProduct" asp-controller="Owner">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
-                 viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                      d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
-            </svg>
-            新增餐廳
-        </a>
-    </div>
-</div>
+    },
+    mounted: function() {
 
+    },
 
-<div class="contanier mx-5 pt-5">
-    <table class="table table-success table-striped">
-        <thead>
-            <tr>
-                <th scope="col">圖片</th>
-                <th scope="col">診所名稱</th>
-                <th scope="col">電話</th>
-                <th scope="col">城市</th>
-                <th scope="col">地區</th>
-                <th scope="col">地址</th>
-                <th scope="col">診所簡述</th>
-                <th scope="col">犬貓專科</th>
-                <th scope="col">急診</th>
-                <th scope="col">修改診所資訊</th>
-                <th scope="col">下架診所</th>
-                <th scope="col">商品狀態</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="">
-                <td scope="row">
-                    <img src="/images/Owner/動物醫院.png" style="width: 100px; height: 80px;" alt="">
-                </td>
-                <td>寵物醫院</td>
-                <td>02-22222222</td>
-                <td>台北市</td>
-                <td>大安區</td>
-                <td>
-                    <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
-                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                    </p>
-                </td>
-                <td>
-                    <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
-                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                    </p>
-                </td>
-                <td>否</td>
-                <td>是</td>
-                <td>
-                    <a class="btn btn-warning" type="submit">修改</a>
-                </td>
-                <td>
-                    <a class="btn btn-danger" type="submit">下架</a>
-                </td>
-                <td>已上架</td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="row">
-        <a class="btn btn-primary position-absolute col col-1" style="right: 5%;" asp-action="CreateProduct" asp-controller="Owner">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
-                 viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                      d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
-            </svg>
-            新增診所
-        </a>
-    </div>
-</div>
+}).$mount('#ownerManage')
+</script>

@@ -80,6 +80,7 @@ namespace PetsWebsite.Controllers.API
             {
                 new Claim(ClaimTypes.Name,existUser.Account),
                 new Claim(ClaimTypes.Role,"Company"),
+                new Claim("UserID",existUser.CompanyId.ToString())
             };
 
             var claimsIndntity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

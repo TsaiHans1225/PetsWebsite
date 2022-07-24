@@ -17,10 +17,15 @@ namespace PetsWebsite.Models
         public int? CategoryId { get; set; }
         public decimal? UnitPrice { get; set; }
         public short? UnitsInStock { get; set; }
-        public string PhotoId { get; set; } = null!;
+        public string? PhotoPath { get; set; }
         public bool? Discontinued { get; set; }
+        public string? Describe { get; set; }
+        public DateTime? LaunchDate { get; set; }
+        public DateTime? RemoveDate { get; set; }
+        public int? CompanyId { get; set; }
 
         public virtual Category? Category { get; set; }
+        public virtual Company? Company { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ICollection<ShoppingCar> ShoppingCars { get; set; }
