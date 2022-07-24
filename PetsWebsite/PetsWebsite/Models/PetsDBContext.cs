@@ -28,6 +28,7 @@ namespace PetsWebsite.Models
         public virtual DbSet<Product> Products { get; set; } = null!;
         public virtual DbSet<Restaurant> Restaurants { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
+        public virtual DbSet<ShoppingCar> ShoppingCars { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<UserAccount> UserAccounts { get; set; } = null!;
 
@@ -67,6 +68,8 @@ namespace PetsWebsite.Models
                 entity.Property(e => e.Phone).HasMaxLength(20);
 
                 entity.Property(e => e.Region).HasMaxLength(10);
+
+                entity.Property(e => e.Service).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Comment>(entity =>
@@ -223,11 +226,15 @@ namespace PetsWebsite.Models
 
                 entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
 
-                entity.Property(e => e.PhotoId)
-                    .HasMaxLength(50)
-                    .HasColumnName("PhotoID");
+                entity.Property(e => e.CompanyId).HasColumnName("CompanyID");
+
+                entity.Property(e => e.LaunchDate).HasColumnType("datetime");
+
+                entity.Property(e => e.PhotoPath).HasMaxLength(50);
 
                 entity.Property(e => e.ProductName).HasMaxLength(20);
+
+                entity.Property(e => e.RemoveDate).HasColumnType("datetime");
 
                 entity.Property(e => e.UnitPrice).HasColumnType("money");
 
@@ -235,6 +242,11 @@ namespace PetsWebsite.Models
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.CategoryId)
                     .HasConstraintName("FK_Products_Categories");
+
+                entity.HasOne(d => d.Company)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.CompanyId)
+                    .HasConstraintName("FK_Products_Company");
             });
 
             modelBuilder.Entity<Restaurant>(entity =>
@@ -261,6 +273,29 @@ namespace PetsWebsite.Models
                 entity.Property(e => e.Role1)
                     .HasMaxLength(20)
                     .HasColumnName("Role");
+            });
+
+            modelBuilder.Entity<ShoppingCar>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.ProductId });
+
+                entity.ToTable("ShoppingCar");
+
+                entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.ShoppingCars)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ShoppingCar_Products");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.ShoppingCars)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ShoppingCar_Users");
             });
 
             modelBuilder.Entity<User>(entity =>

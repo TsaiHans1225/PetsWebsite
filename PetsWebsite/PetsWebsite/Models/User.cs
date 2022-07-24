@@ -10,6 +10,7 @@ namespace PetsWebsite.Models
             Comments = new HashSet<Comment>();
             Orders = new HashSet<Order>();
             Pets = new HashSet<Pet>();
+            ShoppingCars = new HashSet<ShoppingCar>();
         }
 
         public int UserId { get; set; }
@@ -32,5 +33,6 @@ namespace PetsWebsite.Models
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<Pet> Pets { get; set; }
+        public virtual ICollection<ShoppingCar> ShoppingCars { get; set; }
     }
 }

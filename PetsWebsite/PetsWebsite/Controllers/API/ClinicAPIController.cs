@@ -26,13 +26,6 @@ namespace PetsWebsite.Controllers.API
             return await _PetsDB.Clinics.ToListAsync();
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<string>>> GetCity()
-        {
-
-            return await _PetsDB.Clinics.Select(c => c.City).Distinct().ToListAsync();
-        }
-       
-        [HttpGet]
         [Route("{City}/{Region?}")]
         public async Task<ActionResult<IEnumerable<Clinic>>> GetContent(string City,string? Region)
         {

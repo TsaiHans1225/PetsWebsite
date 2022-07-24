@@ -21,7 +21,7 @@
     @*Sweetalert*@
     <script src="/js/sweetalert.min.js"></script>
     <link rel="stylesheet" href="/css/Sweetalert/sweetalert.css" />
-          @await RenderSectionAsync("Styles", required: false)
+    @await RenderSectionAsync("Styles", required: false)
 </head>
 
 <body class="bg-secondary" style="font-weight: 600;">
@@ -171,7 +171,7 @@
             </div>
         </nav>
     </div>
-    <div class="container">
+    <div class="container-fluid">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -534,61 +534,38 @@
                             移除
                         </div>
                     </div>
-                    <div class="row border-top border-bottom pt-1 pb-1 d-flex align-items-center" style="height: 80px;">
-                        <div class="col-3">
+                    <div class="row border-top border-bottom pt-1 pb-1 d-flex align-items-center" style="height: 80px;" v-for="item in ShopCarList">
+                        <div class="col-2">
                             <img src="https://picsum.photos/id/684/600/400" class="card-img-top" alt="...">
                         </div>
-                        <div class="col-3">
-                            內容
+                        <div class="col-2">
+                            {{item.productName}}
                         </div>
-                        <div class="col-3">
-                            $120
+                        <div class="col-2">
+                            {{item.price}}
                         </div>
-                        <div class="col-3">
-                            <a class="btn btn-lg rounded-3 btn-danger" style="font-size: 15px;" type="submit">移除</a>
+                        <div class="col-2">
+                            <a name="" id="" class="text-decoration-none" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
+                                     class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </a>
+                            <input type="text" v-bind:value="item.count" style="width: 30px; font-size: 5px;">
+                            <a name="" id="" class="text-decoration-none" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
+                                     class="bi bi-chevron-up" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                                </svg>
+                            </a>
                         </div>
-                    </div>
-                    <div class="row border-top border-bottom pt-1 pb-1 d-flex align-items-center" style="height: 80px;">
-                        <div class="col-3">
-                            <img src="https://picsum.photos/id/684/600/400" class="card-img-top" alt="...">
+                        <div class="col-2">
+                            {{item.price * item.count}}
                         </div>
-                        <div class="col-3">
-                            內容
-                        </div>
-                        <div class="col-3">
-                            $120
-                        </div>
-                        <div class="col-3">
-                            <a class="btn btn-lg rounded-3 btn-danger" style="font-size: 15px;" type="submit">移除</a>
-                        </div>
-                    </div>
-                    <div class="row border-top border-bottom pt-1 pb-1 d-flex align-items-center" style="height: 80px;">
-                        <div class="col-3">
-                            <img src="https://picsum.photos/id/684/600/400" class="card-img-top" alt="...">
-                        </div>
-                        <div class="col-3">
-                            內容
-                        </div>
-                        <div class="col-3">
-                            $120
-                        </div>
-                        
-                        <div class="col-3">
-                            <a class="btn btn-lg rounded-3 btn-danger" style="font-size: 15px;" type="submit">移除</a>
-                        </div>
-                    </div>
-                    <div class="row border-top border-bottom pt-1 pb-1 d-flex align-items-center" style="height: 80px;">
-                        <div class="col-3">
-                            <img src="https://picsum.photos/id/684/600/400" class="card-img-top" alt="...">
-                        </div>
-                        <div class="col-3">
-                            內容
-                        </div>
-                        <div class="col-3">
-                            $120
-                        </div>
-                        <div class="col-3">
-                            <a class="btn btn-lg rounded-3 btn-danger" style="font-size: 15px;" type="submit">移除</a>
+                        <div class="col-2">
+                            <button  class="btn btn-lg rounded-3 btn-danger" style="font-size: 15px;" type="submit" :value="item.shopCarId" v-on:click="RemoveData" >移除</button>
                         </div>
                     </div>
                 </div>
@@ -647,7 +624,7 @@
                             }).then(() => {
                                 location.reload();
                             });
-                            setTimeout("location.reload()", 3000);
+                            setTimeout("location.reload()", 5000);
                         }
                     });
             }
@@ -712,13 +689,23 @@
                     .then(response => {
                         console.log('Success:', response);
                         if (response) {
-                            location.reload();
+                            swal({
+                                title: '登入成功',
+                                text: '歡迎您回來',
+                                type: 'success',
+                                closeOnClickOutside: false,
+                                icon: "success",
+                                button: "確定"
+                            }).then(() => {
+                                location.reload();
+                            });
+                            setTimeout("location.reload()", 5000);
                         }
                     });
             }
         }
     }).$mount("#modalOwnerSignin");
-
+    //會員忘記密碼
     var forgotPass = new Vue({
         data:
         {
@@ -741,7 +728,41 @@
             }
         }
     }).$mount('#modalUserForgotPassword');
+    //購物車
+    var ShopCar = new Vue({
+        el: '#shoppingCart',
+        data: {
+            ShopCarList: [],
+        },
+        methods: {
+            reLoadData: function() {
+                var self = this;
+                fetch("/api/ShoppingCar/GetShopCarList")
+                    .then(res => res.json())
+                    .then(result => {
+                        console.log(result);
+                        self.ShopCarList = result;
+                    })
 
+            },
+            RemoveData: function(e) {
+                var self = this;
+                fetch("/api/ShoppingCar/RemoveShopCar/" + e.target.value,{
+                    method:"Delete"
+                })
+                    .then(res => res.json())
+                    .then(result => {
+                        console.log(result);
+                        if (result) {
+                            self.reLoadData();
+                        }
+                    })
+            }
+        },
+        mounted: function() {
+            this.reLoadData();
+        }
+    })
 </script>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

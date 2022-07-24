@@ -9,13 +9,13 @@
 
     <!-- Bootstrap CSS v5.2.0-beta1 -->
     @section Styles{
-        <link rel="stylesheet" href="~/css/AaronCSS/index.css" />
-        <link rel="stylesheet" href="~/css/AaronCSS/favoriteIcon.css" />
-    }
+@*        <link rel="stylesheet" href="~/css/AaronCSS/index.css" />
+*@        <link rel="stylesheet" href="~/css/AaronCSS/favoriteIcon.css" />
+    
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-*@
+
         <style>
             #Jumbotron {
                 flex-direction: column;
@@ -26,9 +26,8 @@
             }
 
             .Clinic:visited {
-                color: red;
+                color:red;
             }
-
             #collection:hover {
                 transform: scale(1.05) !important
             }
@@ -59,7 +58,7 @@
 
     <body>
 
-        <div class="container-lg " id="Clinic">
+        <div class="container " id="Clinic">
 
 
             <!--麵包屑-->
@@ -97,34 +96,38 @@
             <!-- 卡片 -->
             <div class="container" v-show="show">
                 <div class="row">
-                    <div class="col col-3 my-3" v-for="item in ClinicList">
+                    <div class=" col-3 my-3" v-for="(item,index) in ClinicList">
                         <div class="card ">
-                            <img src="https://picsum.photos/id/684/600/400" class="card-img-top">
+                            <img :src="item.photo" class="card-img-top w-100">
                             <div class="card-body" id="Card">
-                                <h5 class="card-title">{{item.clinicName}}</h5>
-                                <p class="card-text">{{item.region+item.address}}</p>
-                                <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="collection">收藏與地圖</a>
+                                <h5 class="card-title" style="">
+                                    <a href="~/Clinic/Clinicinfo" style="text-decoration:none"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hospital" viewBox="0 0 16 16">
+                                        <path d="M8.5 5.034v1.1l.953-.55.5.867L9 7l.953.55-.5.866-.953-.55v1.1h-1v-1.1l-.953.55-.5-.866L7 7l-.953-.55.5-.866.953.55v-1.1h1ZM13.25 9a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5ZM13 11.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5Zm.25 1.75a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5Zm-11-4a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5A.25.25 0 0 0 3 9.75v-.5A.25.25 0 0 0 2.75 9h-.5Zm0 2a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5ZM2 13.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5Z" />
+                                        <path d="M5 1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1a1 1 0 0 1 1 1v4h3a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h3V3a1 1 0 0 1 1-1V1Zm2 14h2v-3H7v3Zm3 0h1V3H5v12h1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3Zm0-14H6v1h4V1Zm2 7v7h3V8h-3Zm-8 7V8H1v7h3Z" />
+                                    </svg>{{item.clinicName}}
+                                    </a>
+                                </h5>
+                                <p class="card-text">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+                                    </svg>醫院地址 : {{item.city+item.region+item.address}}
+                                </p>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
+                                    </svg>連絡電話 : {{item.phone}}
+                                </p>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 640 350">
+                                        <path d="M368 0C394.5 0 416 21.49 416 48V96H466.7C483.7 96 499.1 102.7 512 114.7L589.3 192C601.3 204 608 220.3 608 237.3V352C625.7 352 640 366.3 640 384C640 401.7 625.7 416 608 416H576C576 469 533 512 480 512C426.1 512 384 469 384 416H256C256 469 213 512 160 512C106.1 512 64 469 64 416H48C21.49 416 0 394.5 0 368V48C0 21.49 21.49 0 48 0H368zM416 160V256H544V237.3L466.7 160H416zM160 368C133.5 368 112 389.5 112 416C112 442.5 133.5 464 160 464C186.5 464 208 442.5 208 416C208 389.5 186.5 368 160 368zM480 464C506.5 464 528 442.5 528 416C528 389.5 506.5 368 480 368C453.5 368 432 389.5 432 416C432 442.5 453.5 464 480 464zM112 176C112 184.8 119.2 192 128 192H176V240C176 248.8 183.2 256 192 256H224C232.8 256 240 248.8 240 240V192H288C296.8 192 304 184.8 304 176V144C304 135.2 296.8 128 288 128H240V80C240 71.16 232.8 64 224 64H192C183.2 64 176 71.16 176 80V128H128C119.2 128 112 135.2 112 144V176z" />
+                                    </svg>急診服務 : {{item.emergency==false?"無急診":"有急診"}}
+                                </p>
+                                <div class="tagbox" style="color:green">
+                                    <span>{{item.service}}</span>
+                                </div>
                             </div>
                         </div>
-                        @*<div class="card mt-4" style="padding-left: 0px;padding-right: 0px">
-                    <div class="row g-0">
-                    <div class="col-md-2">
-                    <div class="card-body">
-                    <h1>{{item.clinicName}}</h1>
-                    <p class="card-text">電話號碼:{{item.phone}}</p>
-                    <p class="card-text"><small class="text-muted">地址:{{item.region+item.address}}</small></p>
-                    <small>有無急診:{{item.emergency == false? "無急診":"有急診"}}</small>
-                    </div>
-                    </div>
-                    <div class="col-md-4">
-                    <div class="position-relative">
-                    <img src="https://picsum.photos/id/682/600/400" class="w-100 rounded" alt="">
-                    <button class="position-absolute  btn btn-outline-danger rounded-pill" id="collection" data-bs-toggle="modal" data-bs-target="#staticBackdrop">收藏</button>
-                    </div>
-                    </div>
-                    </div>
-                    </div>*@
-                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                        <div class="modal fade" :id=" 'btn'+index" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                          aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -197,7 +200,7 @@
                 ClinicList: [],
                 City: [],
                 Region: [],
-                show: false
+                show: false,
             },
             mounted: function() {       //頁面渲染之前執行
                 this.City = JSON.parse(cityRegionSource);
@@ -207,8 +210,6 @@
                     console.log('抓到all', res)
                     this.ClinicList = res
                     this.show = true;
-
-
                 });
             },
             methods: {
