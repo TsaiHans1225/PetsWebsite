@@ -16,8 +16,6 @@
                 <h2 class="text-danger">單價：@UnitPrice</h2>
                 <h6 style="display: -webkit-box;-webkit-box-orient: vertical; text-overflow: ellipsis; white-space: normal; overflow: hidden; -webkit-line-clamp: 2;"> @Model.ProductName</h6>
             </div>
-            @*<h6> @Model.ProductName</h6>*@
-            @*<p>寵物類型：@Model.Discontinued</p>*@
         </div>
         <div class="container">
             <div class="row">
@@ -28,7 +26,7 @@
                     <button class="btn btn-warning btn-sm" value=@Model.ProductId onclick="AddShopCar(event)">放入購物車</button>
                 </div>
                 <div class="d-grid gap-2 mt-1">
-                    <a href="#" class="btn btn-danger btn-sm text-light">❤收藏</a>
+                    <a asp-controller="Collect" asp-action="Index" asp-route-id="@Model.ProductId" class="btn btn-danger btn-sm text-light">❤收藏</a>
                 </div>
             </div>
         </div>

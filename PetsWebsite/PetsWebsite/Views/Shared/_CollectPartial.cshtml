@@ -1,0 +1,28 @@
+﻿@model PetsWebsite.Models.Product
+
+@*商品照片,單價轉型*@
+@{
+    string imgName = $"{Model.ProductId}.jpg";
+    int UnitPrice = Convert.ToInt32(Model.UnitPrice);
+}
+
+@*顯示商品內容*@
+
+<div class="col-5 col-md-3 mt-3">
+    <div class="img-thumbnail cardlight">
+        <img src="~/images/Product/@imgName" style="width:50%">
+        <div class="row mt-1 ms-2">
+            <div class="col">
+                <h4 class="text-danger">單價：@UnitPrice</h4>
+                <h6>@Model.ProductName</h6>
+            </div>
+        </div>
+        <div class="d-grid gap-2 mt-1">
+             <button class="btn btn-warning btn-sm" value=@Model.ProductId onclick="AddShopCar(event)">放入購物車</button>
+        </div>
+        <div class="d-grid gap-2 ">
+             <a asp-controller="ShoppingCart" asp-action="Index" asp-route-id="@Model.ProductId" class="btn btn-primary btn-sm text-light">刪除</a>
+        </div>
+
+    </div>
+</div>

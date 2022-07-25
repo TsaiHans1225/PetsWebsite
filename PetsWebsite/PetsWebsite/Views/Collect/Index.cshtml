@@ -1,0 +1,19 @@
+﻿@model IEnumerable<PetsWebsite.Models.Product>
+<div class="container">
+
+    <div class="row">
+        <div class="col-4  offset-4">
+        <h1>❤已收藏商品❤</h1>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            @await Html.PartialAsync("_CollectPartial", item)
+        }
+    </div>
+</div>
+</div>
