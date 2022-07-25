@@ -7,7 +7,9 @@ namespace PetsWebsite.Models
     {
         public Company()
         {
+            Clinics = new HashSet<Clinic>();
             Products = new HashSet<Product>();
+            Restaurants = new HashSet<Restaurant>();
         }
 
         public int CompanyId { get; set; }
@@ -17,6 +19,8 @@ namespace PetsWebsite.Models
         public string? ContactPerson { get; set; }
 
         public virtual CompanyAccount CompanyAccount { get; set; } = null!;
+        public virtual ICollection<Clinic> Clinics { get; set; }
         public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<Restaurant> Restaurants { get; set; }
     }
 }

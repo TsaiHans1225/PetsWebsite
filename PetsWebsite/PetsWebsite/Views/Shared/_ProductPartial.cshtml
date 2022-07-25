@@ -22,7 +22,7 @@
         <div class="container">
             <div class="row">
                 <div class="d-grid gap-2 ">
-                    <a asp-controller="ShoppingCart" asp-action="Index" asp-route-id="@Model.ProductId" class="btn btn-primary btn-sm text-light">直接結帳</a>
+                    <button class="btn btn-primary btn-sm text-light" value=@Model.ProductId onclick="CheckoutShopCar(event)">直接結帳</button>
                 </div>
                 <div class="d-grid gap-2 mt-1">
                     <button class="btn btn-warning btn-sm" value=@Model.ProductId onclick="AddShopCar(event)">放入購物車</button>

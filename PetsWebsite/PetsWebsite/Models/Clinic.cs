@@ -15,5 +15,8 @@ namespace PetsWebsite.Models
         public string? Describe { get; set; }
         public string? Photo { get; set; }
         public string? Service { get; set; }
+        public int? CompanyId { get; set; }
+
+        public virtual Company? Company { get; set; }
     }
 }
