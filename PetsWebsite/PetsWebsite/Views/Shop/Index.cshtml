@@ -79,5 +79,15 @@
                     }
                 })
         }
+         function CheckoutShopCar(e) {
+            fetch("/api/ShoppingCar/AddShopCar/" + e.target.value)
+                .then(res => res.json())
+                .then(result => {
+                    if (result) {
+                        ShopCar.reLoadData();
+                        window.location.href = `/ShoppingCart/Index`;
+                    }
+                })
+        }
     </script>
 }

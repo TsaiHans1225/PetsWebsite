@@ -18,6 +18,7 @@ namespace PetsWebsite.Models
 
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Clinic> Clinics { get; set; } = null!;
+        public virtual DbSet<Collection> Collections { get; set; } = null!;
         public virtual DbSet<Comment> Comments { get; set; } = null!;
         public virtual DbSet<Company> Companies { get; set; } = null!;
         public virtual DbSet<CompanyAccount> CompanyAccounts { get; set; } = null!;
@@ -65,11 +66,43 @@ namespace PetsWebsite.Models
 
                 entity.Property(e => e.ClinicName).HasMaxLength(20);
 
+                entity.Property(e => e.CompanyId).HasColumnName("CompanyID");
+
                 entity.Property(e => e.Phone).HasMaxLength(20);
 
                 entity.Property(e => e.Region).HasMaxLength(10);
 
                 entity.Property(e => e.Service).HasMaxLength(50);
+
+                entity.HasOne(d => d.Company)
+                    .WithMany(p => p.Clinics)
+                    .HasForeignKey(d => d.CompanyId)
+                    .HasConstraintName("FK_Clinics_Company");
+            });
+
+            modelBuilder.Entity<Collection>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.ProductId });
+
+                entity.ToTable("Collection");
+
+                entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.Property(e => e.CollectDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.Collections)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Collection_Products");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Collections)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Collection_Users");
             });
 
             modelBuilder.Entity<Comment>(entity =>
@@ -257,11 +290,18 @@ namespace PetsWebsite.Models
 
                 entity.Property(e => e.City).HasMaxLength(10);
 
+                entity.Property(e => e.CompanyId).HasColumnName("CompanyID");
+
                 entity.Property(e => e.Phone).HasMaxLength(20);
 
                 entity.Property(e => e.Region).HasMaxLength(10);
 
                 entity.Property(e => e.RestaurantName).HasMaxLength(20);
+
+                entity.HasOne(d => d.Company)
+                    .WithMany(p => p.Restaurants)
+                    .HasForeignKey(d => d.CompanyId)
+                    .HasConstraintName("FK_Restaurants_Company");
             });
 
             modelBuilder.Entity<Role>(entity =>

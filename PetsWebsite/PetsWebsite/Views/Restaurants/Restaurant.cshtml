@@ -6,13 +6,15 @@
     #bread:visited {
         color: red;
     }
+
+   
 </style>
 }
 
 <div id="Rest">
 
     <!-- Jumbotron -->
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
             <div class="jumbotron">
                 <div class="container">
@@ -35,58 +37,55 @@
                         style="text-decoration:none;">寵物友善餐廳</a></li>
             </ol>
         </nav>
+
+
     </div>
-    <!-- 依...搜尋... -->
-    <div class="container">
 
-        <div class="row row-cols-2 ">
-
-            <div class="col-md-6 col-12">
-                <div class="row">
-                    <div class="mb-2 d-flex justify-content-lg-start">
-                        <div class="col-5 me-1">
-                            <select class="form-control" autocomplete="off" v-on:change="cheCity($event)">
-                                <option value="" selected disabled>請選擇城市</option>
-                                <option v-for="(item,index) in items" v-bind:value="index">{{item.CityName}}</option>
-                            </select>
+    <div class="container d-flex justify-content-end">
+        <div class="row">
+            <div class=" ">
+                <div>
+                    <div class="  col-12">
+                        <div class="col-12 me-1">
+                            <input type="text" placeholder="請輸入關鍵字.." class="form-control mb-2 me-1" v-model="search"
+                                v-on:change="searchKey">
                         </div>
-                        <div class="col-5 me-1">
-                            <select class="form-control" v-model="selected.area">
-                                <option value="" selected disabled>請選擇地區</option>
-                                <option v-for="region in regions" v-bind:value="region.AreaName">{{region.AreaName}}
-                                </option>
-                            </select>
-                        </div>
-                        <div class="col-2">
-                            <button class="btn btn-primary" v-on:click="Qry" style="width: 60px;">查詢</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class=" col-md-6 col-12">
-                <div class="row" style="padding-left: 42px;">
-                    <div class="d-flex justify-content-end">
-                        <div class="col-9 me-1">
-                            <input type="text" placeholder="請輸入關鍵字.." class="form-control mb-2 me-1" v-model="search">
-                        </div>
-                        <div class="col-3">
-                            <button class="btn btn-primary" v-on:click="searchKey">查詢</button>
-                        </div>
-
                     </div>
                 </div>
             </div>
         </div>
-
-
     </div>
+    <!-- 依...搜尋... -->
+<div class="container">
+    <div class=" ">
+        <div class="row d-flex justify-content-center">
+            <div class="col-4">
+                <select class="form-control" autocomplete="off" v-on:change="cheCity($event)">
+                    <option value="" selected disabled>請選擇城市</option>
+                    <option v-for="(item,index) in items" v-bind:value="index">{{item.CityName}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-4">
+                <select class="form-control" v-model="selected.area">
+                    <option value="" selected disabled>請選擇地區</option>
+                    <option v-for="region in regions" v-bind:value="region.AreaName">{{region.AreaName}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-primary" v-on:click="Qry">查詢</button>
+            </div>
+        </div>
+    </div>
+
+</div>
 
     <!-- cardFromDropDowm -->
     <div class="container mt-3 ">
         <div class="row  row-cols-sm-1 row-cols-lg-2 row-cols-md-2 row-cols-xl-3" id="cardBody">
 
-            <div id="inCard" v-for="(card,index) in restaurants" v-if="isShow">
+            <div id="inCard" v-for="(card,index) in total" v-if="isShow">
                 <div class="card mb-4" id="cardContent">
                     <!-- 旋轉木馬 -->
                     <div :id="'sch'+index" class="carousel slide" data-bs-ride="true">
@@ -122,16 +121,23 @@
                     </div>
 
                     <div class="card-body">
-                        <h4 class="card-title"><i class="fa-solid fa-utensils"></i> {{card.restaurantName}}</h4>
+                        <h4 class="card-title" v-html="highLight(card.restaurantName)"><i
+                                class="fa-solid fa-utensils"></i> {{card.restaurantName}}</h4>
                         <p class="card-text"><i class="fa-solid fa-phone-volume"></i> {{card.phone}}</p>
-                        <p class="card-text"><i class="fa-solid fa-location-dot"></i>
-                            {{card.city+card.region+card.address}}</p>
+                        <div class="mb-2"><i class="fa-solid fa-location-dot"></i>
+                            <b class="card-text" v-html="highLight(card.city)">
+                                {{card.city}}</b>
+                            <b class="card-text" v-html="highLight(card.region)">
+                                {{card.region}}</b>
+                            <b class="card-text" v-html="highLight(card.address)">
+                                {{card.address}}</b>
+                        </div>
                         <div class="mb-2">
-                            <p class="card-text"><i class="fa-solid fa-info"></i> 關於我們:</p>
+                            <p class="card-text"> <i class="fa-solid fa-info"></i> 關於我們:</p>
                             <p class="card-text" id="cardAbout">{{card.introduction}}</p>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <a href="#" class="btn btn-secondary">
+                            <a :href="`RestaurantDetails/${card.restaurantId}`" class="btn btn-secondary">
                                 請按我
                             </a>
                         </div>
@@ -147,7 +153,7 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        
+
                                         <div class="container">
                                             <div class="row">
                                                 <h2 id="h2Text" class="col-12 text-center text-danger mb-2">Map</h2>
@@ -181,65 +187,7 @@
         </div>
     </div>
 
-    <!-- cardFromSearch -->
-    <div class="container">
-        <div class="row  row-cols-sm-1 row-cols-lg-2 row-cols-md-2 row-cols-xl-3" id="cardBody">
 
-            <div id="inCard" v-for="(card,index) in searchItem" v-if="isShow2">
-                <div class="card mb-4" id="cardContent">
-                    <!-- 旋轉木馬 -->
-                    <div :id="'sch'+index" class="carousel slide" data-bs-ride="true">
-                        <div class="carousel-indicators">
-                            <button type="button" :data-bs-target="'#sch'+index" data-bs-slide-to="0" class="active"
-                                aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" :data-bs-target="'#sch'+index" data-bs-slide-to="1"
-                                aria-label="Slide 2"></button>
-                            <button type="button" :data-bs-target="'#sch'+index" data-bs-slide-to="2"
-                                aria-label="Slide 3"></button>
-                        </div>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="~/images/Owner/餐廳.jpg" class="d-block card-img-top" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="~/images/Owner/餐廳.jpg" class="d-block card-img-top" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="~/images/Owner/餐廳.jpg" class="d-block card-img-top" alt="...">
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" :data-bs-target="'#sch'+index"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" :data-bs-target="'#sch'+index"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-
-                    <div class="card-body">
-                        <h4 class="card-title"><i class="fa-solid fa-utensils"></i> {{card.restaurantName}}</h4>
-                        <p class="card-text"><i class="fa-solid fa-phone-volume"></i> {{card.phone}}</p>
-                        <p class="card-text"><i class="fa-solid fa-location-dot"></i>
-                            {{card.city+card.region+card.address}}</p>
-                        <div class="mb-2">
-                            <p class="card-text"><i class="fa-solid fa-info"></i> 關於我們:</p>
-                            <p class="card-text" id="cardAbout">{{card.introduction}}</p>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <a href="#" class="btn btn-secondary">
-                                請按我
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
 
 
 
@@ -253,16 +201,17 @@
             items: [],
             restaurants: [],
             isShow: false,
-            isShow2:false,
+            isShow2: false,
             regions: [],
             total: {},
             selected: {
                 city: '',
                 area: '',
             },
-            search:'',
-            searchItem:[]
+            search: '',
             
+
+
 
         },
         methods: {
@@ -279,13 +228,12 @@
                     axios.get(`/api/RestaurantsApi/QryByCityRegion/${that.selected.city}/rawdata`)
                         .then(res => {
                             console.log(res)
-                            this.restaurants = res.data;
+                            this.total = res.data;
                             this.isShow = true;
                             console.log("載到囉!!城市查詢");
-                            
-                            if(that.isShow===true)
-                            {
-                                that.isShow2=false;
+
+                            if (that.isShow === true) {
+                                that.isShow2 = false;
                             }
 
                         })
@@ -297,20 +245,16 @@
                     axios.get(url)
                         .then(res => {
                             console.log(res)
-                            this.restaurants = res.data;
+                            this.total = res.data;
                             this.isShow = true;
                             console.log("載到囉!!複合查詢");
-                            if(that.isShow===true)
-                            {
-                                that.isShow2=false;
-                            }
+
 
                         })
                         .catch(err => {
                             console.error(err);
                         })
                 }
-
 
             },
             cheCity: function (event) {
@@ -337,24 +281,48 @@
             //     document.querySelector(`.favorite`).classList.contains('is-active');
             //     console.log(event.target)
             // }
-            searchKey:function(){
-                let that=this;
-                let url = '/api/RestaurantsApi/Search/rawdata?';
-                
-                axios.get(url,{params:{key:`${that.search}`}})
-                .then(res => {
-                    console.log(res)
-                    that.searchItem = res.data;
-                    that.isShow2 = true;
-                    if(that.isShow2===true)
-                    {
-                        that.isShow=false;
-                    }
-                })
-                .catch(err => {
-                    console.error(err); 
-                })
-            }
+            searchKey: function () {
+                let that = this;
+                let url = '/api/RestaurantsApi/Search/rawdata';
+
+                axios.get(url, { params: { key: `${that.search}` } })
+                    .then(res => {
+                        console.log(res)
+                        that.total = res.data;
+                        that.isShow = true;
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    })
+            },
+            highLight: function (title) {
+
+                if (title.includes(this.search)) {
+                    title = title.replace(
+                        this.search,
+
+                        '<font style="color:red!important;">' + this.search + '</font>'
+                    )
+                    return title
+                }
+                else {
+                    return title
+                }
+            },
+
+            // restDetails:function(){
+            //     let url = `/api/RestaurantsApi/Details/rawdata/${that.total.restaurantId}`;
+            //     axios.get(url)
+            //     .then(res => {
+            //         console.log(res)
+            //         that.restID = des.data;
+            //     })
+            //     .catch(err => {
+            //         console.error(err); 
+            //     })
+            // }
+
+
 
         },
         mounted: function () {
@@ -366,7 +334,7 @@
                 .then(res => {
                     console.log(res)
                     that.total = res.data;
-                    
+
                 })
                 .catch(err => {
                     console.error(err);

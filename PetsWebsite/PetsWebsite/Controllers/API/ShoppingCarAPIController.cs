@@ -59,10 +59,10 @@ namespace PetsWebsite.Controllers.API
         [HttpDelete]
         [Authorize]
         [Route("{ProductId}")]
-        public bool RemoveShopCar(int ProductId)
+        public async Task<bool> RemoveShopCar(int ProductId)
         {
-            var user = _PetsDB.Users.Include("ShoppingCars")
-                .FirstOrDefault(x => x.UserId == User.GetId());
+            var user =await _PetsDB.Users.Include("ShoppingCars")
+                .FirstOrDefaultAsync(x => x.UserId == User.GetId());
             var exist = _PetsDB.ShoppingCars.FirstOrDefault(x => x.ProductId == ProductId && x.UserId == User.GetId());
             if (exist != null)
             {

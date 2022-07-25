@@ -7,6 +7,7 @@ namespace PetsWebsite.Models
     {
         public User()
         {
+            Collections = new HashSet<Collection>();
             Comments = new HashSet<Comment>();
             Orders = new HashSet<Order>();
             Pets = new HashSet<Pet>();
@@ -30,6 +31,7 @@ namespace PetsWebsite.Models
 
         public virtual Role Role { get; set; } = null!;
         public virtual UserAccount UserNavigation { get; set; } = null!;
+        public virtual ICollection<Collection> Collections { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<Pet> Pets { get; set; }
