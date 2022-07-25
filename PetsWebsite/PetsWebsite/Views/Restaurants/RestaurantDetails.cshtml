@@ -30,7 +30,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="~/Home/Index" style="text-decoration:none;">首頁</a></li>
                 <li class="breadcrumb-item"><a href="~/Restaurants/Restaurant"style="text-decoration:none;">寵物友善餐廳</a></li>
-                <li class="breadcrumb-item"><a href="~/Restaurants/RestaurantDetails" id="bread"style="text-decoration:none;">{{item.restaurantName}}</a></li>
+                <li class="breadcrumb-item"><a :href="`${item.restaurantId}`" id="bread"style="text-decoration:none;">{{item.restaurantName}}</a></li>
             </ol>
         </nav>
     </div>
