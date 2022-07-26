@@ -59,14 +59,10 @@ namespace PetsWebsite.Controllers.API
         [HttpDelete]
         [Authorize]
         [Route("{ProductId}")]
-        public bool RemoveShopCar(int ProductId)
+        public async Task<bool> RemoveShopCar(int ProductId)
         {
-            var user = _PetsDB.Users.Include("ShoppingCars")
-                .FirstOrDefault(x => x.UserId == User.GetId());
-            if (user == null)
-            {
-                return false;
-            }
+            var user =await _PetsDB.Users.Include("ShoppingCars")
+                .FirstOrDefaultAsync(x => x.UserId == User.GetId());
             var exist = _PetsDB.ShoppingCars.FirstOrDefault(x => x.ProductId == ProductId && x.UserId == User.GetId());
             if (exist != null)
             {
@@ -75,7 +71,19 @@ namespace PetsWebsite.Controllers.API
                 return true;
             }
             return false;
-            
+        }
+        [HttpPut]
+        [Authorize]
+        public bool ChangeShopCarCount(MemShopCarCount memShopCarCount)
+        {
+            var exist = _PetsDB.ShoppingCars.FirstOrDefault(x => x.ProductId == memShopCarCount.ProductId && x.UserId == User.GetId());
+            if (exist != null)
+            {
+                exist.Count= memShopCarCount.Count;
+                _PetsDB.SaveChanges();
+                return true;
+            }
+            return false;
         }
     }
 

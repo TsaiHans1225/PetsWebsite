@@ -2,65 +2,131 @@
 
 
 <div class="container mt-3">
-    <form asp-action="Index">
-        <div class="container">
-            <div class="row justify-content-end">
-                @*中間大圖*@
-                @*<img src="~/images/Product/Shop.jpg" />*@
-                @*麵包屑*@
-                <div class="col-10 mt-5">
-                    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="~/Home/Index">首頁</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">寵物商城</li>
-                        </ol>
-                    </nav>
-                </div>
-                @*查詢框*@
-                <div class="col-2 justify-content-md-end mt-2">
-                    <input type="text" class="form-control" name="txtKeyword" placeholder="請輸入商品關鍵字" required />
-                </div>
-            </div>
-        </div>
-    </form>
-
-
-    <div>
-        <div class="container  mt-3">
-            <div class="row">
-                @*遞增遞減*@
-                <div class="col-4 justify-content-start ">
-                    <div class="input-group">
-                        <a asp-action="Index" asp-route-id="2" class="btn btn-danger">▲</a>
-                        <a asp-action="Index" asp-route-id="1" class="btn btn-success">▼</a>
-
-                    </div>
-                </div>
-
-
-
-                @*選擇種類*@
-                <div class="col-2 offset-6">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            請選擇您的寵物類型
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a asp-action="Index" asp-route-id="3" class="dropdown-item">犬貓</a></li>
-                            <li><a asp-action="Index" asp-route-id="4" class="dropdown-item">其他</a></li>
-
-                        </ul>
-                    </div>
-                </div>
+    <div class="container">
+        <div class="row">
+            @*中間大圖*@
+            @*<img src="~/images/Product/Shop.jpg" />*@
+            @*麵包屑*@
+            <div class="col-5 mt-5">
+                <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="~/Home/Index">首頁</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">寵物商城</li>
+                    </ol>
+                </nav>
             </div>
         </div>
     </div>
 
+
+
+
+    <div class="container">
+        <div class="row">
+            @*遞增遞減*@
+            <div class="col-4 justify-content-start ">
+                <div class="input-group">
+                    <a asp-action="Index" asp-route-id="2" class="btn btn-primary">價格高到低</a>
+                    <a asp-action="Index" asp-route-id="1" class="btn btn-primary">價格低到高</a>
+                    <a asp-action="Index" asp-route-id="3" class="btn btn-primary">犬貓</a>
+                    <a asp-action="Index" asp-route-id="4" class="btn btn-primary">非犬貓</a>
+
+                </div>
+            </div>
+            <div class="col-4  offset-4">
+                <form asp-action="Index">
+                    <div class="container">
+                        <div class="row justify-content-end">
+
+                            @*查詢框*@
+                            <div class="col-12">
+                                <input type="text" class="form-control" name="txtKeyword" placeholder="請輸入商品關鍵字" required />
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
     <div class="row">
+        @{
+            //modal的id
+
+            int index = 0;
+
+
+        }
         @foreach (var item in Model)
         {
-            @*<partial name="_ProductPartial" model="item" />*@
-            @await Html.PartialAsync("_ProductPartial", item)
+            @*modal的id++，單價去小數*@
+
+            index++;
+            int UnitPrice = Convert.ToInt32(item.UnitPrice);
+
+            <div class="col-12 col-md-3 mt-3">
+                <div class="img-thumbnail cardlight">
+                    <img src="~/images/Product/@item.PhotoPath" style="width:100%">
+                    <div class="row mt-1 ms-2">
+                        <div class="col">
+                            <h2 class="text-danger">單價：@UnitPrice</h2>
+                            <h6 style="display: -webkit-box;-webkit-box-orient: vertical; text-overflow: ellipsis; white-space: normal; overflow: hidden; -webkit-line-clamp: 2;"> @item.ProductName</h6>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="d-grid gap-2 ">
+                                <button class="btn btn-primary btn-sm text-light" value=@item.ProductId onclick="CheckoutShopCar(event)">直接結帳</button>
+                            </div>
+                            <div class="d-grid gap-2 mt-1">
+                                <button class="btn btn-warning btn-sm" value=@item.ProductId onclick="AddShopCar(event)">放入購物車</button>
+                            </div>
+                            <div class="d-grid gap-2 mt-1">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal_@index">詳細資訊</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="myModal_@index">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">@item.ProductName </h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <img class="card-img-top" src="~/images/Product/@item.PhotoPath" style="width:50%">
+                                    </div>
+                                    <div class="col-6">
+                                        <p>
+                                            @item.Describe
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         }
     </div>
 </div>
@@ -80,6 +146,16 @@
                             timer: 1000,
                             button: false,
                         });
+                    }
+                })
+        }
+        function CheckoutShopCar(e) {
+            fetch("/api/ShoppingCar/AddShopCar/" + e.target.value)
+                .then(res => res.json())
+                .then(result => {
+                    if (result) {
+                        ShopCar.reLoadData();
+                        window.location.href = `/ShoppingCart/Index`;
                     }
                 })
         }

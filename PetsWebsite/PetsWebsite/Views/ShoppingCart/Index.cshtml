@@ -17,17 +17,17 @@
                         <th scope="col">名稱</th>
                         <th scope="col">價格</th>
                         <th scope="col">數量</th>
-                        <th scope="col"></th>
+                        <th scope="col">移除</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="table-warning " align="center" v-for="item in DShopCarList" >
-                        <th scope="row"><input type="checkbox" /></th>
-                        <td><img :src=`item.shopCarId` style="width:25%" alt="圖片"></td>
-                        <td><a>{{item.productName}}</a></td>
+                    <tr class="table-warning " align="center" v-for="(item,index) in DShopCarList">
+                        <th scope="row"><input type="checkbox" v-bind:value="item.shopCarId" /></th>
+                        <td><img style="width:25%" alt="圖片"></td>
+                        <td>{{item.productName}}</td>
                         <td>NT$&nbsp:{{item.price}}</td>
-                        <td><input type="text" v-bind:value="item.count"></td>
-                        <td><input type="button" value="下次再買" /></td>
+                        <td><input type="text" style="width: 40px; font-size: 5px; text-align: center;" v-bind:value="item.count" v-on:change="PurchaseCount($event,index)"></td>
+                        <td> <button class="btn btn-lg rounded-3 btn-danger" style="font-size: 15px;" type="submit" :value="item.shopCarId" v-on:click="DeleteShopCarProduct">移除</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -37,7 +37,7 @@
     <div class="row justify-content-center">
         <div class="col-7 mt-5">
             <div class="d-grid gap-2">
-                <a href="#" class="btn btn-warning btn-lg">前往結帳</a>
+                <a asp-controller="CheckOut" asp-action="Index" class="btn btn-warning btn-lg">前往結帳</a>
             </div>
         </div>
     </div>
@@ -46,23 +46,77 @@
 
 @section Scripts{
     <script>
-var ShopCarDisply = new Vue({
-    el:'#ShoppingCarView',
-    data: {
-        DShopCarList:[]
-    },
-    mounted: function() {
-        var self = this;
-        $.ajax({
-            type:"get",
-            url:`/api/ShoppingCar/GetShopCarList`,
-        }).done(function(data){
-            console.log(data);
-            self.DShopCarList = data;
-        }).fail(function(err) {
-            console.log(err);
+        var ShopCarDisply = new Vue({
+            el: '#ShoppingCarView',
+            data: {
+                DShopCarList: []
+            },
+            methods: {
+                ReloadShopCarData: function() {
+                    var self = this;
+                    $.ajax({
+                        type: "get",
+                        url: `/api/ShoppingCar/GetShopCarList`,
+                    }).done(function(data) {
+                        console.log(data);
+                        self.DShopCarList = data;
+                    }).fail(function(err) {
+                        console.log(err);
+                    })
+                },
+                DeleteShopCarProduct: function(e) {
+                    var self = this;
+                    var DelProductId = e.target.value;
+                    fetch(`/api/ShoppingCar/RemoveShopCar/${DelProductId}`, {
+                        method: "Delete"
+                    })
+                        .then(res => res.json())
+                        .then(result => {
+                            console.log(result);
+                            if (result) {
+                                self.ReloadShopCarData();
+                                ShopCar.reLoadData();
+                            }
+                        })
+                },
+                PurchaseCount: function(e,index) {
+                    var PurCount = e.target.value;
+                    if (PurCount < 1) {
+                        PurCount = 1;
+                    }
+                    var NewCount = {
+                        ProductId: this.DShopCarList[index].shopCarId,
+                        Count: PurCount
+                    };
+                    console.log(NewCount);
+                    var self = this;
+                    fetch("/api/ShoppingCar/ChangeShopCarCount", {
+                        method: "Put",
+                        body: JSON.stringify(NewCount),
+                        headers: new Headers({
+                            'Content-Type': 'application/json'
+                        })
+                    }).then(res => res.json())
+                        .then(result => {
+                            if (result) {
+                                console.log(result);
+                                ShopCar.reLoadData();
+                                self.ReloadShopCarData();
+                            }
+                        })
+                }
+            },
+            mounted: function() {
+                this.ReloadShopCarData();
+            }
         })
+function CheckoutCommodity() {
+    var CheckProducts = $("input:checkbox:checked");
+    var PurchaseProduct=[];
+    for (let i = 0; i < CheckProducts.length; i++) {
+        PurchaseProduct.push(CheckProducts[i].value);
     }
-})
+    console.log(PurchaseProduct);
+}
     </script>
 }

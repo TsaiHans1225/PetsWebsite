@@ -68,13 +68,37 @@ namespace PetsWebsite.Controllers.API
             return await _petsDBContext.Restaurants.ToListAsync();
         }
 
-       
+        //[HttpGet]
+        //[Route("Com/rawdata")]
+        //public IEnumerable<RestCommentVM> Comment([FromBody]RestCommentVM vm) 
+        //{
+        //    var query = _petsDBContext.Restaurants.Join(_petsDBContext.Comments,
+        //        r => r.RestaurantId,
+        //        c => c.CommentId,
+        //        (r, c) => new RestCommentVM()
+        //        {
+
+        //           RestName = r.RestaurantName,
+        //            CommTitle = c.Title,
+        //            CommentContent = c.Content,
+        //            CreateDate =c.SubmitTime,
+        //            NowDate =c.PublicDate
+        //        });
+        //    return query;
+        //}
 
         [HttpGet]
         [Route("Search/rawdata")]
         public async Task<ActionResult<IEnumerable<Restaurant>>> SearchKey([FromQuery] string key)
         {
             return await _petsDBContext.Restaurants.Where(s => s.RestaurantName.Contains(key) || s.City.Contains(key) || s.Region.Contains(key) || s.Address.Contains(key)).ToListAsync();
+        }
+
+        [HttpGet]
+        [Route("Details/rawdata/{id}")]
+        public async Task<ActionResult<IEnumerable<Restaurant>>> DetailPage([FromRoute(Name = "id")] int id)
+        {
+            return await _petsDBContext.Restaurants.Where(d => d.RestaurantId == id).ToListAsync();
         }
 
     }
