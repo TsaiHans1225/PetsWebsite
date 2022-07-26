@@ -10945,4 +10945,15 @@ textarea.form-control-lg {
   background-color: #E5E5E5;
   color: #343A40;
   transition-duration: 0.3s;
+}
+
+.btn:hover,
+.btn:focus,
+.btn:active:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.form-control:focus {
+  border-color: #fff;
 }/*# sourceMappingURL=all.css.map */
