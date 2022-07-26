@@ -22,3 +22,16 @@
     color: #343A40;
     transition-duration: 0.3s;
 }
+
+// 取消bootstrap button邊框效果
+.btn:hover,
+.btn:focus,
+.btn:active:focus {
+     outline: none !important;
+     box-shadow: none !important;
+}
+
+// 取消bootstrap input邊框效果
+.form-control:focus{
+    border-color:#fff;
+}

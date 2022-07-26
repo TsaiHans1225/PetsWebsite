@@ -1,10 +1,5 @@
 ﻿@model IEnumerable<PetsWebsite.Models.Product>
 
-@*商品照片,單價轉型*@
-@{
-    //string imgName = $"{Model.ProductId}.jpg";
-    //int UnitPrice = Convert.ToInt32(Model.UnitPrice);
-}
 
 <div class="container mt-3">
     <div class="container">
@@ -57,103 +52,112 @@
 
 
 
- <div class="row">
+    <div class="row">
         @{
+            //modal的id
+
             int index = 0;
 
 
         }
         @foreach (var item in Model)
         {
+            @*modal的id++，單價去小數*@
+
             index++;
             int UnitPrice = Convert.ToInt32(item.UnitPrice);
 
-                <div class="col-12 col-md-3 mt-3">
-                    <div class="img-thumbnail cardlight">
-                        <img src="~/images/Product/@item.PhotoPath" style="width:100%">
-                        <div class="row mt-1 ms-2">
-                            <div class="col">
-                                <h2 class="text-danger">單價：@UnitPrice</h2>
-                                <h6 style="display: -webkit-box;-webkit-box-orient: vertical; text-overflow: ellipsis; white-space: normal; overflow: hidden; -webkit-line-clamp: 2;"> @item.ProductName</h6>
-                            </div>
+            <div class="col-12 col-md-3 mt-3">
+                <div class="img-thumbnail cardlight">
+                    <img src="~/images/Product/@item.PhotoPath" style="width:100%">
+                    <div class="row mt-1 ms-2">
+                        <div class="col">
+                            <h2 class="text-danger">單價：@UnitPrice</h2>
+                            <h6 style="display: -webkit-box;-webkit-box-orient: vertical; text-overflow: ellipsis; white-space: normal; overflow: hidden; -webkit-line-clamp: 2;"> @item.ProductName</h6>
                         </div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="d-grid gap-2 ">
-                                    <button class="btn btn-primary btn-sm text-light" value=@item.ProductId onclick="CheckoutShopCar(event)">直接結帳</button>
-                                </div>
-                                <div class="d-grid gap-2 mt-1">
-                                    <button class="btn btn-warning btn-sm" value=@item.ProductId onclick="AddShopCar(event)">放入購物車</button>
-                                </div>
-                                <div class="d-grid gap-2 mt-1">
-                                    <a asp-controller="Collect" asp-action="Index" asp-route-id="@item.ProductId" class="btn btn-danger btn-sm text-light">❤收藏</a>
-                                </div>
-                                <div class="d-grid gap-2 mt-1">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal_@index">詳細資訊</button>
-                                </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="d-grid gap-2 ">
+                                <button class="btn btn-primary btn-sm text-light" value=@item.ProductId onclick="CheckoutShopCar(event)">直接結帳</button>
+                            </div>
+                            <div class="d-grid gap-2 mt-1">
+                                <button class="btn btn-warning btn-sm" value=@item.ProductId onclick="AddShopCar(event)">放入購物車</button>
+                            </div>
+                            <div class="d-grid gap-2 mt-1">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal_@index">詳細資訊</button>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
 
-                <div class="modal fade" id="myModal_@index">
-      <div class="modal-dialog">
-        <div class="modal-content">
+            <div class="modal fade" id="myModal_@index">
+                <div class="modal-dialog">
+                    <div class="modal-content">
 
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h4 class="modal-title">@item.ProductId </h4>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">@item.ProductName </h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
 
-          <!-- Modal body -->
-          <div class="modal-body">
-            <img class="card-img-top" src="~/images/Product/@item.PhotoPath" style="width:100%">
-            <p>
-              @item.ProductName
-            </p>
-          </div>
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <img class="card-img-top" src="~/images/Product/@item.PhotoPath" style="width:50%">
+                                    </div>
+                                    <div class="col-6">
+                                        <p>
+                                            @item.Describe
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-          <!-- Modal footer -->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-          </div>
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        </div>
 
-        </div>
-      </div>
-    </div>
+                    </div>
+                </div>
+            </div>
         }
     </div>
 </div>
 @section Scripts{
-                    <script>
-                        function AddShopCar(e) {
-                            fetch("/api/ShoppingCar/AddShopCar/" + e.target.value)
-                                .then(res => res.json())
-                                .then(result => {
-                                    if (result) {
-                                        ShopCar.reLoadData();
-                                        swal({
-                                            title: '已加入購物車',
-                                            type: 'success',
-                                            closeOnClickOutside: false,
-                                            icon: "success",
-                                            timer: 1000,
-                                            button: false,
-                                        });
-                                    }
-                                })
-                        }
-                         function CheckoutShopCar(e) {
-                            fetch("/api/ShoppingCar/AddShopCar/" + e.target.value)
-                                .then(res => res.json())
-                                .then(result => {
-                                    if (result) {
-                                        ShopCar.reLoadData();
-                                        window.location.href = `/ShoppingCart/Index`;
-                                    }
-                                })
-                        }
-                    </script>
+    <script>
+        function AddShopCar(e) {
+            fetch("/api/ShoppingCar/AddShopCar/" + e.target.value)
+                .then(res => res.json())
+                .then(result => {
+                    if (result) {
+                        ShopCar.reLoadData();
+                        swal({
+                            title: '已加入購物車',
+                            type: 'success',
+                            closeOnClickOutside: false,
+                            icon: "success",
+                            timer: 1000,
+                            button: false,
+                        });
+                    }
+                })
+        }
+        function CheckoutShopCar(e) {
+            fetch("/api/ShoppingCar/AddShopCar/" + e.target.value)
+                .then(res => res.json())
+                .then(result => {
+                    if (result) {
+                        ShopCar.reLoadData();
+                        window.location.href = `/ShoppingCart/Index`;
+                    }
+                })
+        }
+    </script>
 }
