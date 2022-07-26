@@ -2,18 +2,28 @@
 <div class="contanier mx-5 pt-5" id="ownerManage">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="product-tab" data-bs-toggle="tab" data-bs-target="#product" type="button" role="tab" aria-controls="product" aria-selected="true">product</button>
+            <button class="nav-link active" id="product-tab" data-bs-toggle="tab" data-bs-target="#product" type="button" role="tab" aria-controls="product" aria-selected="true">我的商品</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="restaurant-tab" data-bs-toggle="tab" data-bs-target="#restaurant" type="button" role="tab" aria-controls="restaurant" aria-selected="false">restaurant</button>
+            <button class="nav-link" id="restaurant-tab" data-bs-toggle="tab" data-bs-target="#restaurant" type="button" role="tab" aria-controls="restaurant" aria-selected="false" v-on:click="getMyRestaurant">我的餐廳</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="clinic-tab" data-bs-toggle="tab" data-bs-target="#clinic" type="button" role="tab" aria-controls="clinic" aria-selected="false">clinic</button>
+            <button class="nav-link" id="clinic-tab" data-bs-toggle="tab" data-bs-target="#clinic" type="button" role="tab" aria-controls="clinic" aria-selected="false">我的診所</button>
         </li>
     </ul>
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade bg-light show active" id="product" role="tabpanel" aria-labelledby="product-tab">
             <div class="contanier mx-5 pt-5">
+                <div class="row">
+                    <a class="btn btn-outline-success col col-2 ms-4 mb-2" href="/Owner/CreateProduct">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+                             viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+                        </svg>
+                        新增商品
+                    </a>
+                </div>
                 <table class="table table-light table-striped">
                     <thead>
                         <tr>
@@ -29,39 +39,29 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="">
+                        <tr class="" v-for="item in productList">
                             <td scope="row">
-                                <img src="/images/Owner/狗飼料.jpg" style="width: 100px; height: 80px;" alt="">
+                                <img v-bind:src="'/images/Product/' + item.photoPath" style="width: 100px; height: 80px;" alt="">
                             </td>
-                            <td>營養飼料</td>
-                            <td>300</td>
-                            <td>none</td>
-                            <td>100</td>
+                            <td>{{item.productName}}</td>
+                            <td>{{item.unitPrice}}</td>
+                            <td>折扣</td>
+                            <td>{{item.unitsInStock}}</td>
                             <td>
-                                <p style="width: 100px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
-                                    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                <p class="text-truncate" style="width: 80px;" v-bind:title="item.productDescription">
+                                    {{item.productDescription}}
                                 </p>
                             </td>
                             <td>
-                                <a class="btn btn-warning" type="submit">修改</a>
+                                <a v-bind:href="'/Owner/EditProduct/' + item.productId" v-bind:value="item.productId" class="btn btn-warning" type="submit">修改</a>
                             </td>
                             <td>
-                                <a class="btn btn-danger" type="submit">下架</a>
+                                <button v-bind:value="item.productId" class="btn btn-danger" type="submit">下架</button>
                             </td>
                             <td>已上架</td>
                         </tr>
                     </tbody>
                 </table>
-                <div class="row">
-                    <a class="btn btn-primary position-absolute col col-1" style="right: 5%;" asp-action="CreateProduct" asp-controller="Owner">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
-                             viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
-                        </svg>
-                        新增商品
-                    </a>
-                </div>
             </div>
         </div>
         <div class="tab-pane fade bg-light" id="restaurant" role="tabpanel" aria-labelledby="restaurant-tab">
@@ -240,13 +240,34 @@
 </div>
 
 <script>
-var vm = new Vue({
-    data: {
-
-    },
-    mounted: function() {
-
-    },
-
-}).$mount('#ownerManage')
+    var vm = new Vue({
+        data: {
+            productList: [],
+            restaurantList: [],
+            ClinicList: []
+        },
+        mounted: function() {
+            var self = this;
+            fetch("/api/ProductManageAPI/GetProduct")
+                .then(response => response.json())
+                .then(result => {
+                    console.log("result", result)
+                    self.productList = result
+                })
+        },
+        methods: {
+            getMyRestaurant: function() {
+                $.ajax({
+                    url: "/api/ProductManageAPI/GetRestaurant",
+                    method: "GET"
+                })
+                .done(function(res) {
+                    vm.restaurantList = res
+                })
+                .fail(function(res) {
+                    console.log("res: ", res)
+                })
+            }
+        }
+    }).$mount('#ownerManage')
 </script>
