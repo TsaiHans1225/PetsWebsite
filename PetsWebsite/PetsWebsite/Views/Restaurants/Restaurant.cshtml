@@ -17,11 +17,9 @@
         <div class="row">
             <div class="jumbotron">
                 <div class="container">
-                    <h1 class="display-3">Hello, world!</h1>
+                    <h1 class="display-3">寵物友善餐廳</h1>
                     <p>
-                        This is a template for a simple marketing or informational website. It includes a large callout
-                        called a jumbotron and three supporting pieces of content. Use it as a starting point to create
-                        something more unique.
+                        歡迎來到寵物友善餐廳，這裡收錄了"新北市"與"臺北市"的友善餐廳，歡迎預約訂位唷!!
                     </p>
                 </div>
             </div>
@@ -199,8 +197,8 @@
         data: {
             items: [],
             restaurants: [],
-            isShow: false,
-            isShow2: false,
+            isShow: true,
+            
             regions: [],
             total: {},
             selected: {
@@ -324,12 +322,12 @@
 
 
         },
-        mounted: function () {
+        mounted: async function () {
             console.log('掛載完成');
             let that = this;
             that.items = JSON.parse(cityRegionSource);
 
-            axios.get("/api/RestaurantsApi/Details/rawdata")
+           await axios.get("/api/RestaurantsApi/Details/rawdata")
                 .then(res => {
                     console.log(res)
                     that.total = res.data;
