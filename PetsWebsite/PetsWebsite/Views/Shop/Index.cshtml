@@ -1,6 +1,5 @@
 ﻿@model IEnumerable<PetsWebsite.Models.Product>
 
-
 <div class="container mt-3">
     <div class="container">
         <div class="row">
@@ -63,19 +62,31 @@
         @foreach (var item in Model)
         {
             @*modal的id++，單價去小數*@
-
             index++;
             int UnitPrice = Convert.ToInt32(item.UnitPrice);
 
             <div class="col-12 col-md-3 mt-3">
                 <div class="img-thumbnail cardlight">
-                    <img src="~/images/Product/@item.PhotoPath" style="width:100%">
+
+
+                    <img src="~/images/Product/@item.PhotoPath" style="width:100%" alt="目前無圖片，請稍後再試" />
                     <div class="row mt-1 ms-2">
-                        <div class="col">
-                            <h2 class="text-danger">單價：@UnitPrice</h2>
-                            <h6 style="display: -webkit-box;-webkit-box-orient: vertical; text-overflow: ellipsis; white-space: normal; overflow: hidden; -webkit-line-clamp: 2;"> @item.ProductName</h6>
+
+                        <div class="col-6">
+                            <h2 class="text-danger">$&nbsp;@UnitPrice</h2>
                         </div>
+                        <div class="col-3 offset-3">
+                            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                <input type="checkbox" class="btn-check" id="btncheck1_@index" autocomplete="off">
+                                <label class="btn btn-outline-danger btn-sm" for="btncheck1_@index">
+                                    ❤
+                                </label>
+                            </div>
+                        </div>
+                        <h6 style="display: -webkit-box;-webkit-box-orient: vertical; text-overflow: ellipsis; white-space: normal; overflow: hidden; -webkit-line-clamp: 2;"> @item.ProductName</h6>
+
                     </div>
+
                     <div class="container">
                         <div class="row">
                             <div class="d-grid gap-2 ">
@@ -108,7 +119,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-6">
-                                        <img class="card-img-top" src="~/images/Product/@item.PhotoPath" style="width:50%">
+                                        <img class="card-img-top" src="~/images/Product/@item.PhotoPath" style="width:100%" alt="目前無圖片，請稍後再試" />
                                     </div>
                                     <div class="col-6">
                                         <p>

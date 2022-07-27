@@ -17,6 +17,39 @@ namespace PetsWebsite.Controllers.API
             _PetsDB = petsDB;
         }
         [HttpPost]
+        public async Task<bool> MenberRegister(RegisterInfo users)
+        {
+            var query = _PetsDB.UserAccounts.FirstOrDefault(a => a.Account == users.Account);
+            if (query != null)
+            {
+                return false;
+            }
+            UserAccount userAccount = new UserAccount
+            {
+                Account = users.Account,
+                Password = users.Password,
+                User = new User
+                {
+                    LastName = users.LastName,
+                    FirstName = users.FirstName,
+                    Email = users.Account,
+                    RoleId = 1
+                }
+            };
+
+            try
+            {
+                _PetsDB.UserAccounts.Add(userAccount);
+                _PetsDB.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+            return true;
+        }
+        [HttpPost]
         public async Task<ActionResult<bool>> CompanyRegister(CompanyRegisterInfo register)
         {
             bool Isregst = true;
