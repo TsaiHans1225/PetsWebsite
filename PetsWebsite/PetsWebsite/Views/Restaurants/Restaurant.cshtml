@@ -3,9 +3,8 @@
 <link rel="stylesheet" href="~/css/AaronCSS/favoriteIcon.css" />
 <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
 <style>
-    #bread:visited {
-        color: red;
-    }
+    
+
 
    
 </style>
@@ -99,13 +98,13 @@
                         </div>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img src="~/images/Owner/餐廳.jpg" class="d-block card-img-top" alt="...">
+                                <img :src="card.photo" class="d-block card-img-top" style="height:320px;">
                             </div>
                             <div class="carousel-item">
-                                <img src="~/images/Owner/餐廳.jpg" class="d-block card-img-top" alt="...">
+                                <img :src="card.photo" class="d-block card-img-top" style="height:320px;">
                             </div>
                             <div class="carousel-item">
-                                <img src="~/images/Owner/餐廳.jpg" class="d-block card-img-top" alt="...">
+                                <img :src="card.photo" class="d-block card-img-top" style="height:320px;">
                             </div>
                         </div>
                         <button class="carousel-control-prev" type="button" :data-bs-target="'#sch'+index"
@@ -121,7 +120,7 @@
                     </div>
 
                     <div class="card-body">
-                        <h4 class="card-title" v-html="highLight(card.restaurantName)"><i
+                        <h4 class="card-title" v-html="highLight(card.restaurantName)" id="cardRestName"><i
                                 class="fa-solid fa-utensils"></i> {{card.restaurantName}}</h4>
                         <p class="card-text"><i class="fa-solid fa-phone-volume"></i> {{card.phone}}</p>
                         <div class="mb-2"><i class="fa-solid fa-location-dot"></i>
@@ -215,7 +214,7 @@
 
         },
         methods: {
-            Qry: async function () {
+            Qry: async function (ctrl) {
                 let that = this;
                 var a = await that.QryCityRegion()
                 return a;
@@ -262,7 +261,7 @@
                 console.log(event);
                 that.regions = that.items[event.target.value].AreaList;
                 if (event.target.value === '0') {
-                    that.selected.city = '台北';
+                    that.selected.city = '臺北市';
 
                 }
                 if (event.target.value === '2') {
@@ -281,11 +280,11 @@
             //     document.querySelector(`.favorite`).classList.contains('is-active');
             //     console.log(event.target)
             // }
-            searchKey: function () {
+            searchKey: async function () {
                 let that = this;
                 let url = '/api/RestaurantsApi/Search/rawdata';
 
-                axios.get(url, { params: { key: `${that.search}` } })
+               await axios.get(url, { params: { key: `${that.search}` } })
                     .then(res => {
                         console.log(res)
                         that.total = res.data;
