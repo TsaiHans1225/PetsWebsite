@@ -65,17 +65,15 @@
             index++;
             int UnitPrice = Convert.ToInt32(item.UnitPrice);
 
-            <div class="col-12 col-md-3 mt-3">
-                <div class="img-thumbnail cardlight">
-
-
+            <div class="col-12 col-md-3 mt-3 border border-0">
+                <div class="img-thumbnail cardlight border border-0">
                     <img src="~/images/Product/@item.PhotoPath" style="width:100%" alt="目前無圖片，請稍後再試" />
                     <div class="row mt-1 ms-2">
 
                         <div class="col-6">
-                            <h2 class="text-danger">$&nbsp;@UnitPrice</h2>
+                            <h4 class="text-danger" style="font-weight:bold;">$&nbsp;@UnitPrice</h4>
                         </div>
-                        <div class="col-3 offset-3">
+                        <div class="col-3 offset-3 mt-1">
                             <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                                 <input type="checkbox" class="btn-check" id="btncheck1_@index" autocomplete="off">
                                 <label class="btn btn-outline-danger btn-sm" for="btncheck1_@index">
@@ -83,20 +81,18 @@
                                 </label>
                             </div>
                         </div>
-                        <h6 style="display: -webkit-box;-webkit-box-orient: vertical; text-overflow: ellipsis; white-space: normal; overflow: hidden; -webkit-line-clamp: 2;"> @item.ProductName</h6>
+                        <p class="fs-6" style="display: -webkit-box;-webkit-box-orient: vertical; text-overflow: ellipsis; white-space: normal; overflow: hidden; -webkit-line-clamp: 2;"> @item.ProductName</p>
 
                     </div>
 
                     <div class="container">
                         <div class="row">
-                            <div class="d-grid gap-2 ">
-                                <button class="btn btn-primary btn-sm text-light" value=@item.ProductId onclick="CheckoutShopCar(event)">直接結帳</button>
-                            </div>
+
                             <div class="d-grid gap-2 mt-1">
                                 <button class="btn btn-warning btn-sm" value=@item.ProductId onclick="AddShopCar(event)">放入購物車</button>
                             </div>
                             <div class="d-grid gap-2 mt-1">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal_@index">詳細資訊</button>
+                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#myModal_@index">詳細資訊</button>
                             </div>
                         </div>
                     </div>
@@ -105,13 +101,19 @@
 
 
             <div class="modal fade" id="myModal_@index">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-xl">
                     <div class="modal-content">
 
                         <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">@item.ProductName </h4>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        <div class="modal-header bg-primary">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-6 offset-4">
+                                        <h3 class="modal-title align-content-center" style="font-weight:900;font-size:xx-large;" >@item.ProductName </h3>
+                                        @*<button type="button" class="btn-close" data-bs-dismiss="modal"></button>*@
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Modal body -->
@@ -119,20 +121,42 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-6">
-                                        <img class="card-img-top" src="~/images/Product/@item.PhotoPath" style="width:100%" alt="目前無圖片，請稍後再試" />
+                                        <img class="card-img-top" src="~/images/Product/@item.PhotoPath" style="width:85%" alt="目前無圖片，請稍後再試" />
                                     </div>
                                     <div class="col-6">
-                                        <p>
+                                        <h1 >
                                             @item.Describe
-                                        </p>
+                                        </h1>
+                                    </div>
+                                    <div class="row  align-items-end justify-content-end mt-0">
+                                    <div class="col-3 offset-6" style="font-weight:bold;">
+                                        <h2 class="text-danger" align="right">
+                                            單價:$&nbsp;@UnitPrice
+                                        </h2>
+                                    </div>
+                                    <div class="col-2 offset-1">
+                                        <b align="right">
+                                            目前庫存:@item.UnitsInStock
+                                        </b>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Modal footer -->
+
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-6 d-grid gap-2 mt-1">
+                                        <button class="btn btn-primary btn-sm text-light" value=@item.ProductId onclick="CheckoutShopCar(event)">直接結帳</button>
+                                    </div>
+                                    <div class="col-6 d-grid gap-2 mt-1">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
