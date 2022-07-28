@@ -33,7 +33,7 @@
                          style="width: 25px; height: 25px; padding-bottom: 5px;">
                     EveryPets
                 </a>
-                <button class="navbar-toggler bg-warning" type="button" data-bs-toggle="collapse"
+                <button class="navbar-toggler bg-primary" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -87,88 +87,80 @@
                             </ul>
                         </li>
                     </ul>
-
-
                     @{
                         if (!User.Identity.IsAuthenticated)
                         {
-                                    <div class="dropdown">
-                                        <button class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            登入
-                                        </button>
-                                        <div style="position: relative; right: 80%">
-                                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                                <li>
-                                                    <a class="dropdown-item" data-bs-toggle="modal"
-                                                   data-bs-target="#modalUserSignin" href="#">使用者</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" data-bs-toggle="modal"
-                                                   data-bs-target="#modalOwnerSignin" href="#">廠商</a>
-                                                </li>
-                                                <li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                            <div class="dropdown">
+                                <button class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    登入
+                                </button>
+                                <div style="position: relative; right: 80%">
+                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                        <li>
+                                            <a class="dropdown-item" data-bs-toggle="modal"
+                                           data-bs-target="#modalUserSignin" href="#">使用者</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" data-bs-toggle="modal"
+                                           data-bs-target="#modalOwnerSignin" href="#">廠商</a>
+                                        </li>
+                                        <li>
+                                    </ul>
+                                </div>
+                            </div>
                         }
                         else
                         {
-
-
                             if (User.Claims.FirstOrDefault(X => X.Type == ClaimTypes.Role)?.Value != "Company")
                             {
-                                        <a class="pt-2 me-3 text-dark text-decoration-none" type="button"
-                                   data-bs-toggle="offcanvas" data-bs-target="#shoppingCart" aria-controls="shoppingCart">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                         class="bi bi-cart" viewBox="0 0 16 16">
-                                                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                                            </svg>
-                                            購物車
-                                        </a>
-                                        <div class="dropdown">
-                                            <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
-                                       data-bs-toggle="dropdown" aria-expanded="false">
-                                                歡迎XXX User
-                                            </a>
-                                            <div style="position: relative; right: -5%">
-                                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                                    <li><a class="dropdown-item" asp-controller="UserDetails" asp-action="Index">會員資訊</a></li>
-                                                    @*<li><a class="dropdown-item" asp-controller="Pets" asp-action="Index">我的愛寵</a></li>*@
-                                                    <li><a class="dropdown-item" asp-controller="UserCollection" asp-action="Index">我的最愛</a></li>
-                                                    <li>
-                                                        <hr class="dropdown-divider">
-                                                    </li>
-                                                    <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
 
+                                <a class="text-dark text-decoration-none" type="button"
+                           data-bs-toggle="offcanvas" data-bs-target="#shoppingCart" aria-controls="shoppingCart">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-cart" viewBox="0 0 16 16">
+                                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                                    </svg>
+                                    購物車
+                                </a>
+                                <div class="dropdown">
+                                    <a type="button" class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                        歡迎XXX User
+                                    </a>
+                                    <div style="position: relative; right: -5%">
+                                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                            <li><a class="dropdown-item" asp-controller="UserDetails" asp-action="Index">會員資訊</a></li>
+                                            @*<li><a class="dropdown-item" asp-controller="Pets" asp-action="Index">我的愛寵</a></li>*@
+                                            <li><a class="dropdown-item" asp-controller="UserCollection" asp-action="Index">我的最愛</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
                             }
                             else
-
                             {
-                                        <div class="dropdown">
-                                            <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
-                                       data-bs-toggle="dropdown" aria-expanded="false">
-                                                歡迎XXX Owner
-                                            </a>
-                                            <div style="position: relative; right: -5%">
-                                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                                    <li><a class="dropdown-item" asp-controller="Owner" asp-action="Index">管理商品</a></li>
-                                                    <li>
-                                                        <hr class="dropdown-divider">
-                                                    </li>
-                                                    <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                <div class="dropdown">
+                                    <a type="button" class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                        歡迎XXX Owner
+                                    </a>
+                                    <div style="position: relative; right: -5%">
+                                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                            <li><a class="dropdown-item" asp-controller="Owner" asp-action="Index">管理商品</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
                             }
-
                         }
                     }
-
-
                 </div>
             </div>
         </nav>
@@ -829,93 +821,92 @@
         }
     }).$mount('#modalOwnerForgotPassword');
     //購物車
-    if ("@User.Claims.FirstOrDefault(X => X.Type == ClaimTypes.Role)?.Value" == "Member")
-    {
+    if ("@User.Claims.FirstOrDefault(X => X.Type == ClaimTypes.Role)?.Value" == "Member") {
         var ShopCar = new Vue({
-        el: '#shoppingCart',
-        data: {
-            ShopCarList: [],
-            NewCount: {
-                ProductId: "",
-                Count: ""
-            }
-        },
-        methods: {
-            reLoadData: function() {
-                var self = this;
-                fetch("/api/ShoppingCar/GetShopCarList")
-                    .then(res => res.json())
-                    .then(result => {
-                        //console.log(result);
-                        self.ShopCarList = result;
-                    }).catch(err => { })
+            el: '#shoppingCart',
+            data: {
+                ShopCarList: [],
+                NewCount: {
+                    ProductId: "",
+                    Count: ""
+                }
+            },
+            methods: {
+                reLoadData: function() {
+                    var self = this;
+                    fetch("/api/ShoppingCar/GetShopCarList")
+                        .then(res => res.json())
+                        .then(result => {
+                            //console.log(result);
+                            self.ShopCarList = result;
+                        }).catch(err => { })
 
-            },
-            RemoveData: function(index) {
-                var self = this;
-                var DelProductId = this.ShopCarList[index].shopCarId;
-                fetch(`/api/ShoppingCar/RemoveShopCar/${DelProductId}`, {
-                    method: "Delete"
-                })
-                    .then(res => res.json())
-                    .then(result => {
-                        console.log(result);
-                        if (result) {
-                            self.reLoadData();
-                        }
+                },
+                RemoveData: function(index) {
+                    var self = this;
+                    var DelProductId = this.ShopCarList[index].shopCarId;
+                    fetch(`/api/ShoppingCar/RemoveShopCar/${DelProductId}`, {
+                        method: "Delete"
                     })
-            },
-            AddCount: function(item) {
-                item.count += 1;
-                this.NewCount = {
-                    ProductId: item.shopCarId,
-                    Count: item.count
-                };
-                this.SaveShopCarCount();
-            },
-            ReductCount: function(item) {
-                if (item.count > 1) {
-                    item.count -= 1;
+                        .then(res => res.json())
+                        .then(result => {
+                            console.log(result);
+                            if (result) {
+                                self.reLoadData();
+                            }
+                        })
+                },
+                AddCount: function(item) {
+                    item.count += 1;
+                    this.NewCount = {
+                        ProductId: item.shopCarId,
+                        Count: item.count
+                    };
+                    this.SaveShopCarCount();
+                },
+                ReductCount: function(item) {
+                    if (item.count > 1) {
+                        item.count -= 1;
+                    }
+                    this.NewCount = {
+                        ProductId: item.shopCarId,
+                        Count: item.count
+                    };
+                    this.SaveShopCarCount();
+                },
+                ChangeCount: function(e, index) {
+                    if (parseInt(e.target.value) > 1) {
+                        this.ShopCarList[index].count = parseInt(e.target.value);
+                    } else {
+                        this.ShopCarList[index].count = 1;
+                    }
+                    this.NewCount = {
+                        ProductId: this.ShopCarList[index].shopCarId,
+                        Count: this.ShopCarList[index].count
+                    };
+                    this.SaveShopCarCount();
+                },
+                SaveShopCarCount: function() {
+                    var self = this;
+                    fetch("/api/ShoppingCar/ChangeShopCarCount", {
+                        method: "Put",
+                        body: JSON.stringify(self.NewCount),
+                        headers: new Headers({
+                            'Content-Type': 'application/json'
+                        })
+                    }).then(res => res.json())
+                        .then(result => {
+                            if (result) {
+                            }
+                        })
                 }
-                this.NewCount = {
-                    ProductId: item.shopCarId,
-                    Count: item.count
-                };
-                this.SaveShopCarCount();
             },
-            ChangeCount: function(e, index) {
-                if (parseInt(e.target.value) > 1) {
-                    this.ShopCarList[index].count = parseInt(e.target.value);
-                } else {
-                    this.ShopCarList[index].count = 1;
-                }
-                this.NewCount = {
-                    ProductId: this.ShopCarList[index].shopCarId,
-                    Count: this.ShopCarList[index].count
-                };
-                this.SaveShopCarCount();
-            },
-            SaveShopCarCount: function() {
-                var self = this;
-                fetch("/api/ShoppingCar/ChangeShopCarCount", {
-                    method: "Put",
-                    body: JSON.stringify(self.NewCount),
-                    headers: new Headers({
-                        'Content-Type': 'application/json'
-                    })
-                }).then(res => res.json())
-                    .then(result => {
-                        if (result) {
-                        }
-                    })
+            mounted: function() {
+                this.reLoadData();
             }
-        },
-        mounted: function() {
-            this.reLoadData();
-        }
-    })
+        })
     }
-    
+
 </script>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
