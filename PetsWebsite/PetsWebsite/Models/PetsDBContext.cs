@@ -72,7 +72,7 @@ namespace PetsWebsite.Models
 
                 entity.Property(e => e.Region).HasMaxLength(10);
 
-                entity.Property(e => e.Service).HasMaxLength(50);
+                entity.Property(e => e.Service).HasMaxLength(100);
 
                 entity.HasOne(d => d.Company)
                     .WithMany(p => p.Clinics)
