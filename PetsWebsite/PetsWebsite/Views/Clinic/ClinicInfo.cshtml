@@ -1,20 +1,8 @@
-﻿@*<!doctype html>
-<html lang="en">*@
+﻿
 
 
 <head>
-    @* <title>Title</title>
-    =======
-    @*<head>*@
-    @* <title>Title</title>
-    >>>>>>> Dev
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS v5.2.0-beta1 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
-    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">*@
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.2.4/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.2.4/assets/owl.theme.default.min.css">
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js'></script>
@@ -39,9 +27,21 @@
             top: 120px;
         }
 
-        .image:hover {
-            transform: scale(1.02) !important
+        #image {
+            overflow: hidden
         }
+
+        .image {
+            transform: scale(1,1);
+            transition: all .5s ease-in;
+        }
+
+            .image:hover {
+                transform: scale(1.05) !important
+            }
+            #owlimage{
+                width:50px;font-size:12px; border-radius: 5px; background-color: rgb(100 179 244 / 35%); display:flex;
+            }
     </style>
 
 
@@ -50,10 +50,10 @@
 
 
 
-<body>
+<div class="container">
     <!-- 醫院資訊 -->
-    <div class="container">
-        <div class="container mt-3" style="padding-left:77px; ">
+    <div class="container" id="allinfo">
+        <div class="container mt-3" style="padding-left:77px;" v-for="item in Clinicinfo">
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">首頁</a></li>
@@ -61,181 +61,178 @@
                 </ol>
             </nav>
             <div class="container">
-                <h1>台大醫院</h1>
+                <h1>{{item.clinicName}}</h1>
             </div>
         </div>
-    </div>
 
-    <div>
-        <div class="row mb-2 g-0 position-relative" id="info">
-            <div class="col-md-6">
-                <img src="https://www.medicaltravel.org.tw/img/300x222.png" style="width:649px;height:416px">
-            </div>
-            <div class="col-md-6" style="background:#FFF;width:500px;height:416px">
-                <ul class="mt-3 mb-4">
-                    <li>聯絡電話</li>
-                    <li>醫院地址</li>
-                    <li>聯絡信箱</li>
-                    <li>門診時間</li>
-                    <li>醫院網站</li>
-                    <li>友善支付</li>
-                    <li>服務項目</li>
-                </ul>
-                <div class="container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.762718190244!2d121.51610596500642!3d25.04212538396851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a973c658b995%3A0xfde0dc33b0bfb0ff!2z6Ie65aSn6Yar6Zmi!5e0!3m2!1szh-TW!2stw!4v1658629428113!5m2!1szh-TW!2stw" width="450" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+        <div>
+            <div class="row mb-2 g-0 position-relative" id="info" v-for="item in Clinicinfo">
+                <div class="col-md-6">
+                    <img :src="item.photo" style="width:649px;height:416px">
                 </div>
-            </div>
-            <div>
-            </div>
-        </div>
-        <h4 class="mt-5" style="padding-left:73px;padding-right:73px">
-            願景：健康守護，醫界典範
-            使命：秉承優良傳統，培育卓越人才，發展前瞻性的研究，提供高品質與人性化醫療，樹立醫界典範
-            價值：生命無價，健康至上
-            定位：世界第一流的大學醫院
-            核心價值：正直誠信，創新卓越，團隊合作，健康尊嚴
-        </h4>
-        <h1 class="mt-5 mb-5" style="padding-left:79px">服務項目</h1>
-
-        <!-- 手風琴 -->
-
-        <div class="accordion" id="accordionPanelsStayOpenExample" style="padding-left:73px;padding-right:73px">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                    <button class="accordion-button bg-primary" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                        <h4>診療項目</h4>
-                    </button>
-                </h2>
-                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-                    <div class="accordion-body">
-                        <h5 class="text-danger">一般內科</h5>
-                        <p>一般內科疾病是毛小孩們最常遇到的問題，疾病範疇也相當廣，包括胃腸道、內分泌、感染性疾病等等。通常主人很容易觀察到毛小孩的作息異常，進而求診，但很多慢性疾病和寄生蟲引起的疾病不太容易發現，加上動物天性隱藏自己病狀，或因毛髮蓬鬆看不出消瘦的跡象。種種原因都需要更精細的檢查，才能找到真正的病灶然後對症下藥。</p>
-                        <hr>
-                        <h5 class="text-danger">腫瘤科</h5>
-                        <p>腫瘤是現在小動物常見的死因之一，包含皮膚表面的不明腫塊或內臟器官長出的腫瘤。腫瘤確診最重要的就是要先了解腫瘤的種類，判別的方式包括『細針採樣』及『病理切片診斷』，並與病理獸醫師討論做出專業的對應治療，而在狗貓腫瘤的治療方式，包含了手術治療、化學治療、放射線治療、標靶治療等。</p>
+                <div class="col-md-6" style="background:#f2cc8f;width:500px;height:416px" v-for="item in Clinicinfo">
+                    <ul class="mt-3 mb-4">
+                        <li>聯絡電話 : {{item.phone}}</li>
+                        <li>醫院地址 : {{item.city+item.region+item.address}}</li>
+                        <li>聯絡信箱</li>
+                        <li>門診時間</li>
+                        <li>服務項目 : {{item.service}}</li>
+                        <li>有無急診 : {{item.emergency==false?"無急診":"有急診"}}</li>
+                    </ul>
+                    <div class="container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.762718190244!2d121.51610596500642!3d25.04212538396851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a973c658b995%3A0xfde0dc33b0bfb0ff!2z6Ie65aSn6Yar6Zmi!5e0!3m2!1szh-TW!2stw!4v1658629428113!5m2!1szh-TW!2stw" width="450" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
+                <div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div>
-    </div>
+            <h4 class="mt-5" style="padding-left:73px;padding-right:73px" v-for="item in Clinicinfo">
+                {{item.describe}}
+            </h4>
+            <h1 class="mt-5 mb-5" style="padding-left:79px">服務項目</h1>
 
+            <!-- 手風琴 -->
 
-
-    <!-- 院內照片 -->
-    <h1 style="padding-left:79px; padding-right:79px;" class="mt-5">院內照片</h1>
-    <div class="container" style="padding-left:73px; padding-right:73px">
-        <div class="col-md-12 owl-carousel owl-theme mt-5">
-            <div class="item"><img src="https://picsum.photos/id/684/280/280"></div>
-            <div class="item"><img src="https://picsum.photos/id/682/280/280"></div>
-            <div class="item"><img src="https://picsum.photos/id/683/280/280"></div>
-            <div class="item"><img src="https://picsum.photos/id/652/280/280"></div>
-            <div class="item"><img src="https://picsum.photos/id/651/280/280"></div>
-            <div class="item"><img src="https://picsum.photos/id/666/280/280"></div>
-            <div class="item"><img src="https://picsum.photos/id/682/280/280"></div>
-            <div class="item"><img src="https://picsum.photos/id/4/280/280"></div>
-        </div>
-    </div>
-    <!--附近寵物友善餐廳-->
-    <h1 style="padding-left:79px; padding-right:79px; " class="mt-5 mb-3">附近寵物友善餐廳</h1>
-    <div class="container" style="padding-left:73px;padding-right:73px">
-        <div class="owl-carousel">
-            <div class="mt-3">
-                <div class="card bg-secondary border-0">
-                    <a href="~/Restaurant/RestaurantDetail"><img src="https://picsum.photos/id/684/280/280" style="width:280px; height:180px" class="image"></a>
-                    <h5 class="card-title mt-3">Aaron寵物餐廳</h5>
-                    <div>
-                        <div mb-2" style="width:50px;font-size:12px; border-radius: 5px; background-color: rgb(100 179 244 / 35%); display:flex;">
-                            <a class=" col " href="#" style="text-decoration:none"><span style="color: #337ab7;">來去看看</span></a>
+            <div class="accordion" id="accordionPanelsStayOpenExample" style="padding-left:73px;padding-right:73px" v-for="item in Clinicinfo">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                        <button class="accordion-button bg-primary" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                            <h4>診療項目</h4>
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse hide" aria-labelledby="panelsStayOpen-headingOne">
+                        <div class="accordion-body">
+                            <h5 class="text-danger">{{item.service}}</h5>
+                            <p>腫瘤是現在小動物常見的死因之一，包含皮膚表面的不明腫塊或內臟器官長出的腫瘤。腫瘤確診最重要的就是要先了解腫瘤的種類，判別的方式包括『細針採樣』及『病理切片診斷』，並與病理獸醫師討論做出專業的對應治療，而在狗貓腫瘤的治療方式，包含了手術治療、化學治療、放射線治療、標靶治療等。</p>
                         </div>
-                        <span class=" text-success"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>4.4(35000)</span> |
-                        <span class=" text-success">早午餐</span>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-3">
-                <div class="card bg-secondary border-0">
-                    <a href="~/Restaurant/RestaurantDetail"><img src="https://picsum.photos/id/684/280/280" style="width:280px; height:180px" class="image"></a>
-                    <h5 class="card-title mt-3">Aaron寵物餐廳</h5>
-                    <div>
-                        <div mb-2" style="width:50px;font-size:12px; border-radius: 5px; background-color: rgb(100 179 244 / 35%); display:flex;">
-                            <a class=" col " href="#" style="text-decoration:none"><span style="color: #337ab7;">來去看看</span></a>
-                        </div>
-                        <span class=" text-success"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>4.4(35000)</span> |
-                        <span class=" text-success">早午餐</span>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-3">
-                <div class="card bg-secondary border-0">
-                    <a href="~/Restaurant/RestaurantDetail"><img src="https://picsum.photos/id/684/280/280" style="width:280px; height:180px" class="image"></a>
-                    <h5 class="card-title mt-3">Aaron寵物餐廳</h5>
-                    <div>
-                        <div mb-2" style="width:50px;font-size:12px; border-radius: 5px; background-color: rgb(100 179 244 / 35%); display:flex;">
-                            <a class=" col " href="#" style="text-decoration:none"><span style="color: #337ab7;">來去看看</span></a>
-                        </div>
-                        <span class=" text-success"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>4.4(35000)</span> |
-                        <span class=" text-success">早午餐</span>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-3">
-                <div class="card bg-secondary border-0">
-                    <a href="~/Restaurant/RestaurantDetail"><img src="https://picsum.photos/id/684/280/280" style="width:280px; height:180px" class="image"></a>
-                    <h5 class="card-title mt-3">Aaron寵物餐廳</h5>
-                    <div>
-                        <div mb-2" style="width:50px;font-size:12px; border-radius: 5px; background-color: rgb(100 179 244 / 35%); display:flex;">
-                            <a class=" col " href="#" style="text-decoration:none"><span style="color: #337ab7;">來去看看</span></a>
-                        </div>
-                        <span class=" text-success"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>4.4(35000)</span> |
-                        <span class=" text-success">早午餐</span>
                     </div>
                 </div>
             </div>
         </div>
+
+
+
+
+        <!-- 院內照片 -->
+        <h1 style="padding-left:79px; padding-right:79px;" class="mt-5">院內照片</h1>
+        <div class="container" style="padding-left:73px; padding-right:73px">
+            <div class="col-md-12 owl-carousel owl-theme mt-5" v-for="item in Clinicinfo">
+                <div class="item"><img :src="item.photo" style="width:280px;height:280px"></div>
+                <div class="item"><img src="https://picsum.photos/id/682/280/280"></div>
+                <div class="item"><img src="https://picsum.photos/id/683/280/280"></div>
+                <div class="item"><img src="https://picsum.photos/id/652/280/280"></div>
+                <div class="item"><img src="https://picsum.photos/id/651/280/280"></div>
+                <div class="item"><img src="https://picsum.photos/id/666/280/280"></div>
+                <div class="item"><img src="https://picsum.photos/id/682/280/280"></div>
+                <div class="item"><img src="https://picsum.photos/id/4/280/280"></div>
+            </div>
+        </div>
+        <!--附近寵物友善餐廳-->
+        <h1 style="padding-left:79px; padding-right:79px; " class="mt-5 mb-3">附近寵物友善餐廳</h1>
+        <div class="container" style="padding-left:73px;padding-right:73px">
+            <div class="owl-carousel">
+                <div class="mt-3" id="image">
+                    <div class="card bg-secondary border-0">
+                        <a href="~/Restaurant/RestaurantDetail"><img src="https://picsum.photos/id/684/280/280" style="width:280px; height:180px" class="image"></a>
+                        <h5 class="card-title mt-3">Aaron寵物餐廳</h5>
+                        <div>
+                            <div mb-2 id="owlimage">
+                                <a class=" col " href="#" style="text-decoration:none"><span style="color: #337ab7;">來去看看</span></a>
+                            </div>
+                            <span class=" text-success"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>4.4(35000)</span> |
+                            <span class=" text-success">早午餐</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3" id="image">
+                    <div class="card bg-secondary border-0">
+                        <a href="~/Restaurant/RestaurantDetail"><img src="https://picsum.photos/id/684/280/280" style="width:280px; height:180px" class="image"></a>
+                        <h5 class="card-title mt-3">Aaron寵物餐廳</h5>
+                        <div>
+                            <div mb-2 id="owlimage">
+                                <a class=" col " href="#" style="text-decoration:none"><span style="color: #337ab7;">來去看看</span></a>
+                            </div>
+                            <span class=" text-success"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>4.4(35000)</span> |
+                            <span class=" text-success">早午餐</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 附近交通-->
+        <h1 style="padding-left:79px; padding-right:79px; " class="mt-5 mb-3">附近交通</h1>
+        <div class="container" style="padding-left:79px; padding-right:79px; text-align: center;">
+            <table class="table bg-success">
+                <thead>
+                    <tr>
+                        <th scope="col" class="col-6">公車站</th>
+                        <th scope="col" class="col-6">捷運站</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                    </tr>
+            </table>
+        </div>
     </div>
-
-    <!-- 附近交通-->
-    <h1 style="padding-left:79px; padding-right:79px; " class="mt-5 mb-3">附近交通</h1>
-    <div class="container" style="padding-left:79px; padding-right:79px; text-align: center;">
-        <table class="table bg-success">
-            <thead>
-                <tr>
-                    <th scope="col" class="col-6">公車站</th>
-                    <th scope="col" class="col-6">捷運站</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                </tr>
-        </table>
-    </div>
-    <script>
-        $(".owl-carousel").owlCarousel({
-            loop: true, // 循環播放
-            margin: 10, // 外距 10px
-            items: 3,  /* 一頁出現的張數 */
-            nav: false, // 顯示點點
-            autoWidth: true,   /* 可自行設定輪播寬度 */
-            autoHeight: true,/* 可自行設定輪播高度 */
-            //autoplay: true,  /* 自動輪播 */
-            autoplayTimeout: 2000,  /* 輪播速度 */
-            autoplayHoverPause: true
-        });
+</div>
 
 
+<script>
+    (function($) {
+        var app = new Vue({
+            el: "#allinfo",
+            data: {
+                Clinicinfo: [],
+                ClinicId: ""
+            },
+            mounted: function() {
+                let self = this;
+                var Urlstr = window.location.href;
+                var index = Urlstr.lastIndexOf('/');
+                var fullurl = Urlstr.substring(index + 1);
+                self.ClinicId = fullurl;
+                let url = `/api/ClinicAPI/Getinfo/${self.ClinicId}`
+                fetch(url).then(res => {
+                    return res.json();
+                }).then(res => {
+                    console.log("抓到info", res)
+                    console.log(self)
+                    self.Clinicinfo = res;
+                    this.$nextTick(function() {
+                        $(".owl-carousel").owlCarousel({
+                            loop: true, //循環播放
+                            margin: 10, //外距 10px
+                            items: 2,  /* 一頁出現的張數 */
+                            nav: false, //顯示點點
+                            autoWidth: true,   /* 可自行設定輪播寬度 */
+                            autoHeight: true,/* 可自行設定輪播高度 */
+                            //autoplay: true,  /* 自動輪播 */
+                            autoplayTimeout: 2000,  /* 輪播速度 */
+                            autoplayHoverPause: true
+                        });
+                    })
+                })
+
+            }
+        })
+    }) (jQuery)
 
 
 
-    </script>
-</body>
+
+
+
+</script>
+
 @*<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
     integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
     crossorigin="anonymous"></script>*@

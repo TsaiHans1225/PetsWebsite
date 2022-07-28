@@ -21,10 +21,13 @@
     @*Sweetalert*@
     <script src="/js/sweetalert.min.js"></script>
     <link rel="stylesheet" href="/css/Sweetalert/sweetalert.css" />
+    <link rel="stylesheet" href="/css/PoweiCSS/BackToTop.css">
     @await RenderSectionAsync("Styles", required: false)
 </head>
 
 <body class="bg-secondary" style="font-weight: 600;">
+    <div class="back-top hide" title="回頂部">
+    </div>
     <div class="">
         <nav class="navbar navbar-expand-xl bg-primary text-dark">
             <div class="container-fluid">
@@ -99,6 +102,7 @@
                     @{
                         if (!User.Identity.IsAuthenticated)
                         {
+<<<<<<< Updated upstream
                                 <div class="dropdown">
                                     <button class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
                                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -118,6 +122,27 @@
                                         </ul>
                                     </div>
                                 </div>
+=======
+                            <div class="dropdown">
+                                <button class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    登入
+                                </button>
+                                <div style="position: relative; right: 80%">
+                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                        <li>
+                                            <a class="dropdown-item" data-bs-toggle="modal"
+                                           data-bs-target="#modalUserSignin" href="#">使用者</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" data-bs-toggle="modal"
+                                           data-bs-target="#modalOwnerSignin" href="#">廠商</a>
+                                        </li>
+                                        <li>
+                                    </ul>
+                                </div>
+                            </div>
+>>>>>>> Stashed changes
                         }
                         else
                         {
@@ -125,6 +150,7 @@
 
                             if (User.Claims.FirstOrDefault(X => X.Type == ClaimTypes.Role)?.Value != "Company")
                             {
+<<<<<<< Updated upstream
                                     <div class="dropdown">
                                         <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
                                    data-bs-toggle="dropdown" aria-expanded="false">
@@ -143,10 +169,30 @@
                                         </div>
                                     </div>
 
+=======
+                                <div class="dropdown">
+                                    <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                        歡迎XXX User
+                                    </a>
+                                    <div style="position: relative; right: -5%">
+                                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                            <li><a class="dropdown-item" asp-controller="UserDetails" asp-action="Index">會員資訊</a></li>
+                                            @*<li><a class="dropdown-item" asp-controller="Pets" asp-action="Index">我的愛寵</a></li>*@
+                                            <li><a class="dropdown-item" asp-controller="UserCollection" asp-action="Index">我的最愛</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+>>>>>>> Stashed changes
                             }
                             else
 
                             {
+<<<<<<< Updated upstream
                                     <div class="dropdown">
                                         <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
                                    data-bs-toggle="dropdown" aria-expanded="false">
@@ -162,6 +208,23 @@
                                             </ul>
                                         </div>
                                     </div>
+=======
+                                <div class="dropdown">
+                                    <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                        歡迎XXX Owner
+                                    </a>
+                                    <div style="position: relative; right: -5%">
+                                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                            <li><a class="dropdown-item" asp-controller="Owner" asp-action="Index">管理商品</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+>>>>>>> Stashed changes
                             }
 
                         }
@@ -579,6 +642,7 @@
         integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
         crossorigin="anonymous"></script>*@
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/jquery/Powei/BackToTop.js"></script>
 <script>
 
     function ErrorLogin() {
@@ -697,7 +761,7 @@
             }
         }
     }).$mount("#modalUserSignin");
-    //廠商註冊
+    @*廠商註冊*@
     var ComRst = new Vue({
         data: {
             CompanyId: '',
@@ -910,6 +974,8 @@
             this.reLoadData();
         }
     })
+
+  
 </script>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
