@@ -13,9 +13,11 @@ namespace PetsWebsite.Models
         public string Region { get; set; } = null!;
         public bool? Emergency { get; set; }
         public string? Describe { get; set; }
-        public string? Photo { get; set; }
+        public string? PhotoPath { get; set; }
         public string? Service { get; set; }
         public int? CompanyId { get; set; }
+        public double? Longitude { get; set; }
+        public double? Latitude { get; set; }
 
         public virtual Company? Company { get; set; }
     }

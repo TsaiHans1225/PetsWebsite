@@ -1,0 +1,160 @@
+﻿
+<div class="container-fluid">
+    <div class="row">
+        <section class="page-content">
+            <div class="container pt-5 pb-5">
+                <div class="row">
+                    <!-- 結帳訊息/end -->
+                    <!-- 您的訂單/start -->
+                    <div class="col-12 col-md-6" id="OrderInfo">
+                        <h2>訂單資訊</h2>
+                        <div class="table-responsive-sm">
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td>商品</td>
+                                        <td>數量</td>
+                                        <td>小計</td>
+                                    </tr>
+                                    <tr v-for="item in PreOrderList">
+                                        <td>{{item.productName}}</td>
+                                        <td>{{item.count}}</td>
+                                        <td>NT$&nbsp:{{item.price}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>運送方式</td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input id="Expenses" name="tran-expenses" type="radio"
+                                                       class="form-check-input">
+                                                <label class="form-check-label">免運費0</label>
+                                            </div>
+                                            <div class="form-check checkbox">
+                                                <input id="PostOffice" name="tran-expenses" type="radio"
+                                                       class="form-check-input" checked="">
+                                                <label class="form-check-label">郵局:NT$&nbsp;80</label>
+                                            </div>
+                                            <div class="form-check checkbox">
+                                                <input id="PostOffice" name="tran-expenses" type="radio"
+                                                       class="form-check-input" checked="">
+                                                <label class="form-check-label">黑貓:NT$&nbsp;100</label>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>總計</td>
+                                        <td></td>
+                                        <td>NT$&nbsp;1600</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="2">
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                使用折扣券
+                                            </button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">輸入折扣券</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <input type="text" placeholder="請輸入折扣券" />
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-primary">確認</button>
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href="#" class="btn btn-warning btn-lg float-right">確定購買</a>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- 您的訂單/end -->
+                    <!-- 訂購人資訊/start -->
+                    <div class="col-12 col-md-6 mb-3">
+                        <h2>訂購人資訊</h2>
+                        <table class="table table-bordered table-striped " id="CustomerInfo">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">姓名:</th>
+                                    <td>{{CustomerName}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">E-mail：</th>
+                                    <td>{{Email}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">手機號碼：</th>
+                                    <td colspan="2">{{Phone}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">地址：</th>
+                                    <td colspan="2">{{Address}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- 訂購人資訊/end -->
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        var PurchaseOrder = new Vue({
+            data: {
+                PreOrderList: [],
+            },
+            mounted: function() {
+                $.ajax({
+                    type: "get",
+                    url: "/api/CheckOrder/GetPreferProductListInOrder"
+                }).done(function(res) {
+                    console.log(res);
+                    PreOrderList = res;
+                    console.log("PreOrderList", PreOrderList);
+                }).fail(function(err) {
+                    console.log(err);
+                })
+            }
+        }).$mount("#OrderInfo")
+
+        var CustomerInfo = new Vue({
+            data: {
+                CustomerName: "",
+                Email: '',
+                Phone: '',
+                Address: ''
+            },
+            mounted: function() {
+                var self = this;
+                $.ajax({
+                    type: "get",
+                    url: "/api/CheckOrder/GetCustomerInfo"
+                }).done(function(res) {
+                    self.CustomerName = res.customerName;
+                    self.Email = res.email;
+                    self.Phone = res.phone;
+                    self.Address = res.address;
+                }).fail(function(err) {
+                    console.log(err);
+                })
+            }
+        }).$mount("#CustomerInfo")
+    </script>
+    }

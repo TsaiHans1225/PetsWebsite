@@ -24,6 +24,7 @@ namespace PetsWebsite.Models
         public DateTime? LaunchDate { get; set; }
         public DateTime? RemoveDate { get; set; }
         public int? CompanyId { get; set; }
+        public bool? State { get; set; }
 
         public virtual Category? Category { get; set; }
         public virtual Company? Company { get; set; }
