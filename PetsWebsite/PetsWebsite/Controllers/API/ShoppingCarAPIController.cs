@@ -43,7 +43,7 @@ namespace PetsWebsite.Controllers.API
             return true;
         }
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles= "Member")]
         public List<ShopcarViewModel> GetShopCarList()
         {
             return _PetsDB.ShoppingCars.Where(x => x.UserId == User.GetId()).Select(x=>new ShopcarViewModel
@@ -74,9 +74,9 @@ namespace PetsWebsite.Controllers.API
         }
         [HttpPut]
         [Authorize]
-        public bool ChangeShopCarCount(MemShopCarCount memShopCarCount)
+        public async Task<bool> ChangeShopCarCount(MemShopCarCount memShopCarCount)
         {
-            var exist = _PetsDB.ShoppingCars.FirstOrDefault(x => x.ProductId == memShopCarCount.ProductId && x.UserId == User.GetId());
+            var exist =await _PetsDB.ShoppingCars.FirstOrDefaultAsync(x => x.ProductId == memShopCarCount.ProductId && x.UserId == User.GetId());
             if (exist != null)
             {
                 exist.Count= memShopCarCount.Count;

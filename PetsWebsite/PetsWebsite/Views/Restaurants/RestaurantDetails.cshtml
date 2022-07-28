@@ -2,70 +2,85 @@
     <link rel="stylesheet" href="~/css/AaronCSS/index.css" />
     <style>
         #bread:visited {
-        color: red;
-    }
+            color: red;
+        }
     </style>
 }
 
-<div id="det">
-    <div v-for="item in restFromID">
-         <!-- Jumbotron -->
-     <div class="container">
-        <div class="row">
-            <div class="jumbotron">
-                <div class="container">
-                    <h1 class="display-3">Hello, world!</h1>
-                    <p>
-                        This is a template for a simple marketing or informational website. It includes a large callout
-                        called a jumbotron and three supporting pieces of content. Use it as a starting point to create
-                        something more unique.
-                    </p>
+    <div id="det">
+        <div v-for="item in restFromID">
+            <!-- Jumbotron -->
+            <!-- <div class="container">
+                <div class="row">
+                    <div class="jumbotron">
+                        <div class="container">
+                            <h1 class="display-3">{{item.restaurantName}}</h1>
+                            <p style="color:blue;text-indent: 1rem;">
+                                <b>{{item.introduction}}</b>
+                            </p>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </div> -->
+           
+                <div class="container">
+                    <div class="row" style="height:60%;">
+                        <img :src="item.photopath" class="img-fluid" style="width: 100%;height: 210px;">
+                    </div>
+                </div>
+
+                <!--麵包屑-->
+                <div class="container">
+                     <div class="row">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="~/Home/Index" style="text-decoration:none;">首頁</a></li>
+                                <li class="breadcrumb-item"><a href="~/Restaurants/Restaurant" style="text-decoration:none;">寵物友善餐廳</a></li>
+                                <li class="breadcrumb-item"><a :href="`${item.restaurantId}`" id="bread" style="text-decoration:none;">{{item.restaurantName}}</a></li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+
+
+                <div class="container">
+                    <div class="row">
+                        <h3 style="text-align:center;" >{{item.restaurantName}}</h3>
+                    </div>
+                </div>
+                
         </div>
-    </div>
-    <!--麵包屑-->
-    <div class="container">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="~/Home/Index" style="text-decoration:none;">首頁</a></li>
-                <li class="breadcrumb-item"><a href="~/Restaurants/Restaurant"style="text-decoration:none;">寵物友善餐廳</a></li>
-                <li class="breadcrumb-item"><a :href="`${item.restaurantId}`" id="bread"style="text-decoration:none;">{{item.restaurantName}}</a></li>
-            </ol>
-        </nav>
-    </div>
+
     </div>
 
-</div>
+    @section Scripts{
+    <script>
+        var vm = new Vue({
+            data: {
+                restID: '',
+                restFromID: []
+            },
+            methods: {
 
-@section Scripts{
-   <script>
-     var vm = new Vue({
-        data:{
-            restID:'',
-            restFromID:[]
-        },
-        methods:{
+            },
+            mounted: function() {
+                let that = this;
+                var urlStr = window.location.href
+                var index = urlStr.lastIndexOf('/')
+                var str = urlStr.substring(index + 1, urlStr.length)
+                that.restID = str;
 
-        },
-        mounted:function(){
-            let that=this;
-            var urlStr = window.location.href
-            var index = urlStr.lastIndexOf('/')
-            var str = urlStr.substring(index+1,urlStr.length)
-            that.restID = str;
-            
-            let url = `/api/RestaurantsApi/Details/rawdata/${that.restID}`
-            axios.get(url)
-            .then(res => {
-                console.log(res)
-                that.restFromID=res.data;
-            })
-            .catch(err => {
-                console.error(err); 
-            })
-        }
-    });
-    vm.$mount('#det');
-   </script>
+                let url = `/api/RestaurantsApi/Details/rawdata/${that.restID}`
+                axios.get(url)
+                    .then(res => {
+                        console.log(res)
+                        that.restFromID = res.data;
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    })
+            }
+        });
+        vm.$mount('#det');
+    </script>
 }
