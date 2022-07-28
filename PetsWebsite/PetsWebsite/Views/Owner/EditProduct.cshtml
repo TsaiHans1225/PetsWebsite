@@ -7,7 +7,7 @@
                 <div class="row g-3 bg-light rounded mb-3">
                     <div class="col col-12">
                         <label for="ProductId" class="form-label">商品ID: </label>
-                        <input type="text" value="@Model.ProductId" class="form-control" id="ProductId" name="ProductId" disabled>
+                        <input type="text" value="@Model.ProductId" class="form-control" id="ProductId" name="ProductId" readonly>
                     </div>
                     <div class="col col-6 was-validated">
                         <label for="ProductName" class="form-label">商品名稱: </label>
@@ -52,7 +52,7 @@ $('#editProductForm').submit(function(e) {
     e.preventDefault();
     var formdata = new FormData(this);
     $.ajax({
-        url: "/Owner/SaveEditedProduct/" + @Model.ProductId,
+        url: "/Owner/SaveEditedProduct/",
         type: "POST",
         data: formdata,
         async: false,

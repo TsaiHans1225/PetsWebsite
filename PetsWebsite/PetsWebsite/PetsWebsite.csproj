@@ -7,6 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\images\Product\0_282b6e35-3206-4ae1-8a65-549db960ec21.jfif" />
+    <Content Remove="wwwroot\images\Product\0_a1552f5f-bde3-4efe-9168-39a4cc0ffc52.jpg" />
+    <Content Remove="wwwroot\images\Product\0_bf5de8e8-4c04-4928-8168-2f88ea2fe2f7.jpg" />
+    <Content Remove="wwwroot\images\Product\0_f041d561-7135-42e3-b531-31d890b95c93.jpg" />
+    <Content Remove="wwwroot\images\Product\_31b6897b-b48b-4081-bec2-8da6effb5fbf.jfif" />
+    <Content Remove="wwwroot\images\Product\_3c6e9cdf-3672-4454-8c7e-b003b18b7d6e.jpg" />
+    <Content Remove="wwwroot\images\Product\_6e04ecbd-13ce-4e1a-818a-123454847996.jfif" />
+    <Content Remove="wwwroot\images\Product\_82897df5-a91f-41b5-be58-5ad83bf9a3ff.jpg" />
+    <Content Remove="wwwroot\images\Product\_88a37ff1-6f92-41d7-99d2-5952580e2897.jpg" />
+    <Content Remove="wwwroot\images\Product\_f849365d-2056-44f1-b328-79ec6d117720.jfif" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="6.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.6" />
@@ -18,6 +31,10 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.7" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\Restaurant\" />
   </ItemGroup>
 
 </Project>
