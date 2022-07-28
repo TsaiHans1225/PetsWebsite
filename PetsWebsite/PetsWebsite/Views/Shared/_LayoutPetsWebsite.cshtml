@@ -33,7 +33,7 @@
                          style="width: 25px; height: 25px; padding-bottom: 5px;">
                     EveryPets
                 </a>
-                <button class="navbar-toggler bg-warning" type="button" data-bs-toggle="collapse"
+                <button class="navbar-toggler bg-primary" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -88,7 +88,7 @@
                         </li>
                     </ul>
 
-                    <a class="pt-2 me-3 text-dark text-decoration-none" type="button"
+                    <a class="text-dark text-decoration-none" type="button"
                        data-bs-toggle="offcanvas" data-bs-target="#shoppingCart" aria-controls="shoppingCart">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-cart" viewBox="0 0 16 16">
@@ -99,75 +99,70 @@
                     @{
                         if (!User.Identity.IsAuthenticated)
                         {
-                                <div class="dropdown">
-                                    <button class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        登入
-                                    </button>
-                                    <div style="position: relative; right: 80%">
-                                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                            <li>
-                                                <a class="dropdown-item" data-bs-toggle="modal"
-                                               data-bs-target="#modalUserSignin" href="#">使用者</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" data-bs-toggle="modal"
-                                               data-bs-target="#modalOwnerSignin" href="#">廠商</a>
-                                            </li>
-                                            <li>
-                                        </ul>
-                                    </div>
+                            <div class="dropdown">
+                                <button class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    登入
+                                </button>
+                                <div style="position: relative; right: 80%">
+                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                        <li>
+                                            <a class="dropdown-item" data-bs-toggle="modal"
+                                           data-bs-target="#modalUserSignin" href="#">使用者</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" data-bs-toggle="modal"
+                                           data-bs-target="#modalOwnerSignin" href="#">廠商</a>
+                                        </li>
+                                        <li>
+                                    </ul>
                                 </div>
+                            </div>
                         }
                         else
                         {
-
-
                             if (User.Claims.FirstOrDefault(X => X.Type == ClaimTypes.Role)?.Value != "Company")
                             {
-                                    <div class="dropdown">
-                                        <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
-                                   data-bs-toggle="dropdown" aria-expanded="false">
-                                            歡迎XXX User
-                                        </a>
-                                        <div style="position: relative; right: -5%">
-                                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                                <li><a class="dropdown-item" asp-controller="UserDetails" asp-action="Index">會員資訊</a></li>
-                                                @*<li><a class="dropdown-item" asp-controller="Pets" asp-action="Index">我的愛寵</a></li>*@
-                                                <li><a class="dropdown-item" asp-controller="UserCollection" asp-action="Index">我的最愛</a></li>
-                                                <li>
-                                                    <hr class="dropdown-divider">
-                                                </li>
-                                                <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
-                                            </ul>
-                                        </div>
+                                <div class="dropdown">
+                                    <a type="button" class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                        歡迎XXX User
+                                    </a>
+                                    <div style="position: relative; right: -5%">
+                                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                            <li><a class="dropdown-item" asp-controller="UserDetails" asp-action="Index">會員資訊</a></li>
+                                            @*<li><a class="dropdown-item" asp-controller="Pets" asp-action="Index">我的愛寵</a></li>*@
+                                            <li><a class="dropdown-item" asp-controller="UserCollection" asp-action="Index">我的最愛</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
+                                        </ul>
                                     </div>
-
+                                </div>
                             }
                             else
 
                             {
-                                    <div class="dropdown">
-                                        <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
-                                   data-bs-toggle="dropdown" aria-expanded="false">
-                                            歡迎XXX Owner
-                                        </a>
-                                        <div style="position: relative; right: -5%">
-                                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                                <li><a class="dropdown-item" asp-controller="Owner" asp-action="Index">管理商品</a></li>
-                                                <li>
-                                                    <hr class="dropdown-divider">
-                                                </li>
-                                                <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
-                                            </ul>
-                                        </div>
+                                <div class="dropdown">
+                                    <a type="button" class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                        歡迎XXX Owner
+                                    </a>
+                                    <div style="position: relative; right: -5%">
+                                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                            <li><a class="dropdown-item" asp-controller="Owner" asp-action="Index">管理商品</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
+                                        </ul>
                                     </div>
+                                </div>
                             }
 
                         }
                     }
-
-
                 </div>
             </div>
         </nav>
@@ -393,7 +388,7 @@
                             <label for="floatingPassword">密碼</label>
                         </div>
                         <a class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" style="font-size: 15px;"
-                                v-on:click="ComRegisterHandle">
+                           v-on:click="ComRegisterHandle">
                             註冊
                         </a>
                         <div class="row row-cols-1 text-center">
@@ -658,7 +653,7 @@
                         console.log('Success:', response);
                         if (response) {
                             SuccessRegister();
-                        }else{
+                        } else {
                             ErrorRegister();
                         }
                     });
@@ -727,7 +722,7 @@
                         console.log('Success:', response);
                         if (response) {
                             SuccessRegister();
-                        }else{
+                        } else {
                             ErrorRegister();
                         }
                     });
@@ -784,7 +779,7 @@
                     })
                     .then(function(res) {
                         console.log("res = ", res);
-                        if(res){
+                        if (res) {
                             swal({
                                 title: '寄送驗證信',
                                 text: '驗證信已寄送，請至信箱確認',

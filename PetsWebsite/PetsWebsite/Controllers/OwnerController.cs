@@ -146,16 +146,16 @@ namespace PetsWebsite.Controllers
             var InputFilePath = "";
             if (InputFile == null)
             {
-                newRestaurant.Photo = "restaurant_Default";
+                newRestaurant.PhotoPath = "restaurant_Default";
             }
             else
             {
                 // 儲存photo
                 var UniqueId = Guid.NewGuid().ToString("D");
                 var PhotoFormat = InputFile.FileName.Split(".")[1];
-                newRestaurant.Photo = $"{newRestaurant.CompanyId}_{UniqueId}.{PhotoFormat}";
+                newRestaurant.PhotoPath= $"{newRestaurant.CompanyId}_{UniqueId}.{PhotoFormat}";
 
-                InputFilePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Restaurant", newRestaurant.Photo);
+                InputFilePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Restaurant", newRestaurant.PhotoPath);
                 FileStream fs = new FileStream(InputFilePath, FileMode.Create);
                 InputFile.CopyTo(fs);
             }
@@ -180,7 +180,7 @@ namespace PetsWebsite.Controllers
 
             if (HttpContext.Request.Form.Files.Count != 0)
             {
-                var oldPhoto = _dBContext.Restaurants.Where(r => r.RestaurantId == editedRestaurant.RestaurantId).Select(r => r.Photo).Single();
+                var oldPhoto = _dBContext.Restaurants.Where(r => r.RestaurantId == editedRestaurant.RestaurantId).Select(r => r.PhotoPath).Single();
 
                 if (!string.IsNullOrEmpty(oldPhoto))
                 {
@@ -193,14 +193,14 @@ namespace PetsWebsite.Controllers
 
                 var UniqueId = Guid.NewGuid().ToString("D");
                 var PhotoFormat = InputFile.FileName.Split(".")[1];
-                editedRestaurant.Photo = $"{editedRestaurant.CompanyId}_{UniqueId}.{PhotoFormat}";
+                editedRestaurant.PhotoPath = $"{editedRestaurant.CompanyId}_{UniqueId}.{PhotoFormat}";
 
-                InputFilePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Restaurant", editedRestaurant.Photo);
+                InputFilePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Restaurant", editedRestaurant.PhotoPath);
                 FileStream fs = new FileStream(InputFilePath, FileMode.Create);
                 InputFile.CopyTo(fs);
                 fs.Close();
 
-                query.Photo = editedRestaurant.Photo;
+                query.PhotoPath = editedRestaurant.PhotoPath;
             }
 
             query.RestaurantName = editedRestaurant.RestaurantName.Trim();
