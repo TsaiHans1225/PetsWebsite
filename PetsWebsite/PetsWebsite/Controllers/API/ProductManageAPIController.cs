@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PetsWebsite.Extensions;
 using PetsWebsite.Models;
 using PetsWebsite.Models.ViewModel;
 
@@ -30,10 +31,10 @@ namespace PetsWebsite.Controllers.API
             }).ToListAsync();
         }
 
-        //public async Task<List<Restaurant>> GetRestaurant()
-        //{
-        //    int CompanyId = 0;
-        //    return _petsDB.Restaurants.Where(r => r.CompanyId == CompanyId).Select(r => r).ToListAsync();
-        //}
+        public async Task<List<Restaurant>> GetRestaurant()
+        {
+            int CompanyId = User.GetId();
+            return await _petsDB.Restaurants.Where(r => r.CompanyId == CompanyId).Select(r => r).ToListAsync();
+        }
     }
 }

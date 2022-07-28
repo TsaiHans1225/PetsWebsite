@@ -1,5 +1,5 @@
 ﻿@*管理商品頁面*@
-<div class="contanier mx-5 pt-5" id="ownerManage">
+<div class="contanier mx-5 pt-5 h-100" id="ownerManage">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="product-tab" data-bs-toggle="tab" data-bs-target="#product" type="button" role="tab" aria-controls="product" aria-selected="true">我的商品</button>
@@ -56,7 +56,7 @@
                                 <a v-bind:href="'/Owner/EditProduct/' + item.productId" v-bind:value="item.productId" class="btn btn-warning" type="submit">修改</a>
                             </td>
                             <td>
-                                <button v-bind:value="item.productId" class="btn btn-danger" type="submit">下架</button>
+                                <button v-bind:value="item.productId" v-on:click="deleteProduct" class="btn btn-danger" type="submit">下架</button>
                             </td>
                             <td>已上架</td>
                         </tr>
@@ -66,6 +66,16 @@
         </div>
         <div class="tab-pane fade bg-light" id="restaurant" role="tabpanel" aria-labelledby="restaurant-tab">
             <div class="contanier mx-5 pt-5">
+                <div class="row">
+                    <a class="btn btn-outline-success col col-2 ms-4 mb-2" style="right: 5%;" href="/Owner/CreateRestaurant">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+                             viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+                        </svg>
+                        新增餐廳
+                    </a>
+                </div>
                 <table class="table table-light table-striped">
                     <thead>
                         <tr>
@@ -81,79 +91,27 @@
                             <th scope="col">餐廳狀態</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody v-for="item in restaurantList">
                         <tr class="">
                             <td scope="row">
-                                <img src="/images/Owner/餐廳.jpg" style="width: 100px; height: 80px;" alt="">
+                                <img v-bind:src="'/images/Restaurant/' + item.photoPath" style="width: 100px; height: 80px;" alt="">
                             </td>
-                            <td>寵物餐廳</td>
-                            <td>02-22222222</td>
-                            <td>台北市</td>
-                            <td>大安區</td>
+                            <td>{{item.restaurantName}}</td>
+                            <td>{{item.phone}}</td>
+                            <td>{{item.city}}</td>
+                            <td>{{item.region}}</td>
                             <td>
-                                <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
-                                    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;" v-bind:title="item.address">
+                                    {{item.address}}
                                 </p>
                             </td>
                             <td>
-                                <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
-                                    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;" v-bind:title="item.introduction">
+                                    {{item.introduction}}
                                 </p>
                             </td>
                             <td>
-                                <a class="btn btn-warning" type="submit">修改</a>
-                            </td>
-                            <td>
-                                <a class="btn btn-danger" type="submit">下架</a>
-                            </td>
-                            <td>已上架</td>
-                        </tr>
-                        <tr class="">
-                            <td scope="row">
-                                <img src="/images/Owner/餐廳.jpg" style="width: 100px; height: 80px;" alt="">
-                            </td>
-                            <td>寵物餐廳</td>
-                            <td>02-22222222</td>
-                            <td>台北市</td>
-                            <td>大安區</td>
-                            <td>
-                                <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
-                                    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                                </p>
-                            </td>
-                            <td>
-                                <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
-                                    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                                </p>
-                            </td>
-                            <td>
-                                <a class="btn btn-warning" type="submit">修改</a>
-                            </td>
-                            <td>
-                                <a class="btn btn-danger" type="submit">下架</a>
-                            </td>
-                            <td>已上架</td>
-                        </tr>
-                        <tr class="">
-                            <td scope="row">
-                                <img src="/images/Owner/餐廳.jpg" style="width: 100px; height: 80px;" alt="">
-                            </td>
-                            <td>寵物餐廳</td>
-                            <td>02-22222222</td>
-                            <td>台北市</td>
-                            <td>大安區</td>
-                            <td>
-                                <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
-                                    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                                </p>
-                            </td>
-                            <td>
-                                <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
-                                    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                                </p>
-                            </td>
-                            <td>
-                                <a class="btn btn-warning" type="submit">修改</a>
+                                <a v-bind:href="'/Owner/EditRestaurant/' + item.restaurantId" class="btn btn-warning" type="submit">修改</a>
                             </td>
                             <td>
                                 <a class="btn btn-danger" type="submit">下架</a>
@@ -162,16 +120,6 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="row">
-                    <a class="btn btn-primary position-absolute col col-1" style="right: 5%;" asp-action="CreateProduct" asp-controller="Owner">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
-                             viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
-                        </svg>
-                        新增餐廳
-                    </a>
-                </div>
             </div>
         </div>
         <div class="tab-pane fade bg-light" id="clinic" role="tabpanel" aria-labelledby="clinic-tab">
@@ -259,14 +207,49 @@
             getMyRestaurant: function() {
                 $.ajax({
                     url: "/api/ProductManageAPI/GetRestaurant",
-                    method: "GET"
+                    type: "GET"
                 })
-                .done(function(res) {
-                    vm.restaurantList = res
-                })
-                .fail(function(res) {
-                    console.log("res: ", res)
-                })
+                    .done(function(res) {
+                        vm.restaurantList = res
+                    })
+                    .fail(function(res) {
+                        console.log("res: ", res)
+                    })
+            },
+            deleteProduct: function(e) {
+                swal({
+                    title: "確認刪除此商品嗎?",
+                    text: "刪除商品後將無法復原",
+                    icon: "warning",
+                    buttons: [
+                        '取消',
+                        '確認'
+                    ],
+                    dangerMode: true
+                }).then((result) => {
+                    if (result) {
+                        fetch("/Owner/DeleteProduct/" + e.target.value, {
+                            method: "DELETE"
+                        })
+                            .then(resp => {
+                                console.log("success", resp);
+                                if (resp) {
+                                    swal({
+                                        title: '刪除商品',
+                                        text: '此商品已刪除',
+                                        type: 'success',
+                                        closeOnClickOutside: false,
+                                        icon: "success"
+                                    }).then(() => {
+                                        this.reLoadData();
+                                    });
+                                    setTimeout("location.reload()", 5000)
+                                }
+                            })
+                            .catch(err => console.log("err", err))
+                            .then(response => console.log("response", response));
+                    }
+                });
             }
         }
     }).$mount('#ownerManage')

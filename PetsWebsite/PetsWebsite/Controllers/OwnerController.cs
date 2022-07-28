@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PetsWebsite.Extensions;
 using PetsWebsite.Models;
-using PetsWebsite.Models.ViewModel;
 
 namespace PetsWebsite.Controllers
 {
@@ -25,11 +25,17 @@ namespace PetsWebsite.Controllers
             return View();
         }
 
+        public IActionResult CreateRestaurant()
+        {
+            return View();
+        }
+
+        // 新增商品
         public IActionResult NewProduct(Product newProduct)
         {
             // 整理資料
             newProduct.CategoryId = 1;
-            newProduct.CompanyId = 0;
+            newProduct.CompanyId = User.GetId();
             newProduct.ProductName = newProduct.ProductName.Trim();
             newProduct.Describe = newProduct.Describe.Trim();
             //newProduct.Discontinued = true;
@@ -59,24 +65,38 @@ namespace PetsWebsite.Controllers
             return RedirectToAction("Index");
         }
 
+        // 帶資料跳轉修改商品頁面
         [Route("Owner/EditProduct/{ProductId}")]
-        public async Task<IActionResult> EditProduct(int ProductId)
+        public IActionResult EditProduct(int ProductId)
         {
-            var query = _dBContext.Products.FirstOrDefault(x => x.ProductId == ProductId);
+            var query = _dBContext.Products.First(x => x.ProductId == ProductId);
             return View(query);
         }
 
+        // 儲存修改商品
         public async Task<IActionResult> SaveEditedProduct(Product editedProduct)
         {
-            // 找出圖檔
-            var InputFile = HttpContext.Request.Form.Files[0];
-            var InputFilePath = "";
-            if (InputFile == null)
+            var query = _dBContext.Products.FirstOrDefault(p => p.ProductId == editedProduct.ProductId);
+            editedProduct.CompanyId = User.GetId();
+
+            // 判斷有無修改圖檔
+            if (HttpContext.Request.Form.Files.Count != 0)
             {
-                editedProduct.PhotoPath = Convert.ToString(_dBContext.Products.Where(p => p.ProductId == editedProduct.ProductId).Select(p => p.PhotoPath));
-            }
-            else
-            {
+                // 找出舊圖路徑
+                var oldPhoto = _dBContext.Products.Where(p => p.ProductId == editedProduct.ProductId).Select(p => p.PhotoPath).Single();
+
+                // 判斷是否為null
+                if(!string.IsNullOrEmpty(oldPhoto))
+                {
+                    var oldPhotoPath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Product", oldPhoto);
+                    // 刪除舊圖
+                    System.IO.File.Delete(oldPhotoPath);
+                }
+
+                // 找出圖檔
+                var InputFile = HttpContext.Request.Form.Files[0];
+                var InputFilePath = "";
+
                 // 儲存photo
                 var UniqueId = Guid.NewGuid().ToString("D");
                 var PhotoFormat = InputFile.FileName.Split(".")[1];
@@ -84,17 +104,111 @@ namespace PetsWebsite.Controllers
 
                 InputFilePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Product", editedProduct.PhotoPath);
                 FileStream fs = new FileStream(InputFilePath, FileMode.Create);
-                InputFile.CopyToAsync(fs);
+                InputFile.CopyTo(fs);
                 fs.Close();
+
+                // 儲存圖片
+                query.PhotoPath = editedProduct.PhotoPath;
             }
 
             // 儲存資料
-            var query = _dBContext.Products.FirstOrDefault(p => p.ProductId == 42);
             query.ProductName = editedProduct.ProductName.Trim();
             query.UnitPrice = editedProduct.UnitPrice;
             query.Describe = editedProduct.Describe.Trim();
             query.LaunchDate = DateTime.Now;
-            query.PhotoPath = editedProduct.PhotoPath;
+
+            await _dBContext.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+        // 刪除商品
+        [Route("Owner/DeleteProduct/{ProductId}")]
+        public bool DeleteProduct(int ProductId)
+        {
+            var query = _dBContext.Products.First(p => p.ProductId == ProductId);
+            _dBContext.Remove(query);
+            _dBContext.SaveChanges();
+            return true;
+        }
+
+        public async Task<IActionResult> NewRestaurant(Restaurant newRestaurant)
+        {
+            // 整理資料
+            //newRestaurant.CategoryId = 2;
+            newRestaurant.CompanyId = User.GetId();
+            newRestaurant.RestaurantName = newRestaurant.RestaurantName.Trim();
+            newRestaurant.Address = newRestaurant.Address.Trim();
+            newRestaurant.Introduction = newRestaurant.Introduction.Trim();
+            newRestaurant.Phone = newRestaurant.Phone.Trim();
+
+            // 取出圖片及名稱
+            var InputFile = HttpContext.Request.Form.Files[0];
+            var InputFilePath = "";
+            if (InputFile == null)
+            {
+                newRestaurant.Photo = "restaurant_Default";
+            }
+            else
+            {
+                // 儲存photo
+                var UniqueId = Guid.NewGuid().ToString("D");
+                var PhotoFormat = InputFile.FileName.Split(".")[1];
+                newRestaurant.Photo = $"{newRestaurant.CompanyId}_{UniqueId}.{PhotoFormat}";
+
+                InputFilePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Restaurant", newRestaurant.Photo);
+                FileStream fs = new FileStream(InputFilePath, FileMode.Create);
+                InputFile.CopyTo(fs);
+            }
+            _dBContext.Restaurants.Add(newRestaurant);
+            _dBContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [Route("Owner/EditRestaurant/{RestaurantId}")]
+        public IActionResult EditRestaurant(int RestaurantId)
+        {
+            var query = _dBContext.Restaurants.FirstOrDefault(r => r.RestaurantId == RestaurantId);
+
+            ViewBag.editRestaurant = query;
+            return View();
+        }
+
+        public async Task<IActionResult> SaveEditedRestaurant(Restaurant editedRestaurant)
+        {
+            var query = _dBContext.Restaurants.FirstOrDefault(r => r.RestaurantId == editedRestaurant.RestaurantId);
+            editedRestaurant.CompanyId = User.GetId();
+
+            if (HttpContext.Request.Form.Files.Count != 0)
+            {
+                var oldPhoto = _dBContext.Restaurants.Where(r => r.RestaurantId == editedRestaurant.RestaurantId).Select(r => r.Photo).Single();
+
+                if (!string.IsNullOrEmpty(oldPhoto))
+                {
+                    var oldPhotoPath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Restaurant", oldPhoto);
+                    System.IO.File.Delete(oldPhotoPath);
+                }
+
+                var InputFile = HttpContext.Request.Form.Files[0];
+                var InputFilePath = "";
+
+                var UniqueId = Guid.NewGuid().ToString("D");
+                var PhotoFormat = InputFile.FileName.Split(".")[1];
+                editedRestaurant.Photo = $"{editedRestaurant.CompanyId}_{UniqueId}.{PhotoFormat}";
+
+                InputFilePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Restaurant", editedRestaurant.Photo);
+                FileStream fs = new FileStream(InputFilePath, FileMode.Create);
+                InputFile.CopyTo(fs);
+                fs.Close();
+
+                query.Photo = editedRestaurant.Photo;
+            }
+
+            query.RestaurantName = editedRestaurant.RestaurantName.Trim();
+            query.Phone = editedRestaurant.Phone.Trim();
+            query.City = editedRestaurant.City;
+            query.Region = editedRestaurant.Region;
+            query.Address = editedRestaurant.Address.Trim();
+            query.Introduction = editedRestaurant.Introduction;
             await _dBContext.SaveChangesAsync();
             return RedirectToAction("Index");
         }
