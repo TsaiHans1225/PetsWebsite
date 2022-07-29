@@ -29,6 +29,10 @@ namespace PetsWebsite.Controllers
         {
             return View();
         }
+        public IActionResult CreateClinic()
+        {
+            return View();
+        }
 
         // 新增商品
         public IActionResult NewProduct(Product newProduct)

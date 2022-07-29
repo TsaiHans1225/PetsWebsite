@@ -261,6 +261,8 @@ namespace PetsWebsite.Models
 
                 entity.Property(e => e.CompanyId).HasColumnName("CompanyID");
 
+                entity.Property(e => e.Discount).HasMaxLength(5);
+
                 entity.Property(e => e.LaunchDate).HasColumnType("datetime");
 
                 entity.Property(e => e.PhotoPath).HasMaxLength(50);

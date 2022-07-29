@@ -16,6 +16,7 @@ namespace PetsWebsite.Models
         public int? CompanyId { get; set; }
         public double? Longitude { get; set; }
         public double? Latitude { get; set; }
+        public bool? State { get; set; }
 
         public virtual Company? Company { get; set; }
     }

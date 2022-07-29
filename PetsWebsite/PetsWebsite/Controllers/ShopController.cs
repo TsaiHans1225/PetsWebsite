@@ -37,8 +37,8 @@ namespace PetsWebsite.Controllers
             }
             else if (id == 3)
             {
-                var products =await ProductDBContext.Products
-                 .Where(m => m.Discontinued == true)
+                var products = await ProductDBContext.Products
+                 .Where(m => m.Species == true)
                  .ToListAsync();
                 return View(products);
 
@@ -46,12 +46,10 @@ namespace PetsWebsite.Controllers
             }
             else if (id == 4)
             {
-                var products =await ProductDBContext.Products
-                 .Where(m => m.Discontinued == false)
+                var products = await ProductDBContext.Products
+                 .Where(m => m.Species == false)
                  .ToListAsync();
                 return View(products);
-
-
             }
             else
             {
