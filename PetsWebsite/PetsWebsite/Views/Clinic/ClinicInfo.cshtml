@@ -1,29 +1,15 @@
-﻿
+﻿<link rel="stylesheet" href="~/css/owl_carousel/owl.carousel.min.css" />
+<link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+@section Scripts{
+    <script defer src="/js/owl.carousel.js"></script>
+}
 
-
-<head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.2.4/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.2.4/assets/owl.theme.default.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.2.4/owl.carousel.min.js"></script>
-    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
     <style>
         #info {
             justify-content: center;
         }
 
-        .owl-prev {
-            left: -50px;
-        }
 
-        .owl-next {
-            right: -50px;
-        }
-
-        .owl-next, .owl-prev {
-            position: absolute;
-            top: 120px;
-        }
 
         #image {
             overflow: hidden
@@ -47,109 +33,96 @@
         }
     </style>
 
-
-</head>
-
-<script>
-    $(document).ready(function() {
-        $("#Banner_carousel").addClass("owl-carousel owl-theme");
-    })
-</script>
-
-
-<div class="container" id="allinfo">
-    <!-- 醫院資訊 -->
-    <div class="container" >
-        <div class="container mt-3" style="padding-left:77px;" v-for="item in Clinicinfo">
-            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">首頁</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><a href="#">醫療資訊</a> >{{item.clinicName}}</li>
-                </ol>
-            </nav>
-            <div class="container">
-                <h1>{{item.clinicName}}</h1>
-            </div>
-        </div>
-    </div>
-
-
-    <div>
-        <div class="row mb-2 g-0 position-relative" id="info" v-for="item in Clinicinfo">
-            <div class="col-md-6">
-                <img :src="item.photoPath" style="width:649px;height:416px">
-            </div>
-            <div class="col-md-6" style="background:#f2cc8f;width:500px;height:416px" v-for="item in Clinicinfo">
-                <ul class="mt-3 mb-4">
-                    <li>聯絡電話 : {{item.phone}}</li>
-                    <li>醫院地址 : {{item.city+item.region+item.address}}</li>
-                    <li>服務項目 : {{item.service}}</li>
-                    <li>有無急診 : {{item.emergency==false?"無急診":"有急診"}}</li>
-                </ul>
+    <div class="container" id="allinfo">
+        <!-- 醫院資訊 -->
+        <div class="container">
+            <div class="container mt-3" v-for="item in Clinicinfo">
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">首頁</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="#">醫療資訊</a> >{{item.clinicName}}</li>
+                    </ol>
+                </nav>
                 <div class="container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.762718190244!2d121.51610596500642!3d25.04212538396851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a973c658b995%3A0xfde0dc33b0bfb0ff!2z6Ie65aSn6Yar6Zmi!5e0!3m2!1szh-TW!2stw!4v1658629428113!5m2!1szh-TW!2stw" width="450" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <h1>{{item.clinicName}}</h1>
                 </div>
             </div>
-            <div>
-            </div>
         </div>
-        <h4 class="mt-5" style="padding-left:73px;padding-right:73px" v-for="item in Clinicinfo">
-            {{item.describe}}
-        </h4>
-        <h1 class="mt-5 mb-5" style="padding-left:79px">服務項目</h1>
 
-        <!-- 手風琴 -->
 
-        <div class="accordion" id="accordionPanelsStayOpenExample" style="padding-left:73px;padding-right:73px" v-for="item in Clinicinfo">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                    <button class="accordion-button bg-primary" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                        <h4>診療項目</h4>
-                    </button>
-                </h2>
-                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse hide" aria-labelledby="panelsStayOpen-headingOne">
-                    <div class="accordion-body">
-                        <h5 class="text-danger">{{item.service}}</h5>
-                        <p>腫瘤是現在小動物常見的死因之一，包含皮膚表面的不明腫塊或內臟器官長出的腫瘤。腫瘤確診最重要的就是要先了解腫瘤的種類，判別的方式包括『細針採樣』及『病理切片診斷』，並與病理獸醫師討論做出專業的對應治療，而在狗貓腫瘤的治療方式，包含了手術治療、化學治療、放射線治療、標靶治療等。</p>
+        <div>
+            <div class="row mb-2 g-0 position-relative" id="info" v-for="item in Clinicinfo">
+                <div class="col-md-6">
+                    <img :src="item.photoPath">
+                </div>
+                <div class="col-md-6" style="background:#f2cc8f;" v-for="item in Clinicinfo">
+                    <ul class="mt-3 mb-4">
+                        <li>聯絡電話 : {{item.phone}}</li>
+                        <li>醫院地址 : {{item.city+item.region+item.address}}</li>
+                        <li>服務項目 : {{item.service}}</li>
+                        <li>有無急診 : {{item.emergency==false?"無急診":"有急診"}}</li>
+                    </ul>
+                    <div class="container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.762718190244!2d121.51610596500642!3d25.04212538396851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a973c658b995%3A0xfde0dc33b0bfb0ff!2z6Ie65aSn6Yar6Zmi!5e0!3m2!1szh-TW!2stw!4v1658629428113!5m2!1szh-TW!2stw" width="450" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
+                <div>
+                </div>
             </div>
-        </div>
-    </div>
+            <h4 class="mt-5" v-for="item in Clinicinfo">
+                {{item.describe}}
+            </h4>
+            <h1 class="mt-5 mb-5">服務項目</h1>
 
+            <!-- 手風琴 -->
 
-
-
-    <!-- 推薦商品 -->
-    <h1 style="padding-left:79px; padding-right:79px;" class="mt-5">推薦商品</h1>
-    <div class="container" style="padding-left:73px; padding-right:73px" v-for="item in ProductInfo">
-        <div class="col-md-12  mt-5 owl-carousel owl-theme">
-            <div class="item"><img :src="'/images/Product/'+item.photoPath" style="width:280px;height:280px"></div>
-        </div>
-    </div>
-    <!--附近寵物友善餐廳-->
-    <h1 style="padding-left:79px; padding-right:79px; " class="mt-5 mb-3">附近寵物友善餐廳</h1>
-    <div class="container" style="padding-left:73px;padding-right:73px">
-        <div class="owl-carousel">
-            <div class="mt-3" id="image" v-for="item in Clinicinfo">
-                <div class="card bg-secondary border-0">
-                    <a href="~/Restaurant/RestaurantDetail"><img :src="item.photoPath" style="width:280px; height:180px" class="image"></a>
-                    <h5 class="card-title mt-3">Aaron寵物餐廳</h5>
-                    <div>
-                        <div mb-2 id="owlimage">
-                            <a class=" col " href="#" style="text-decoration:none"><span style="color: #337ab7;">來去看看</span></a>
+            <div class="accordion" id="accordionPanelsStayOpenExample" v-for="item in Clinicinfo">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                        <button class="accordion-button bg-primary" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                            <h4>診療項目</h4>
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                        <div class="accordion-body">
+                            <h5 class="text-danger">{{item.service}}</h5>
+                            <p>腫瘤是現在小動物常見的死因之一，包含皮膚表面的不明腫塊或內臟器官長出的腫瘤。腫瘤確診最重要的就是要先了解腫瘤的種類，判別的方式包括『細針採樣』及『病理切片診斷』，並與病理獸醫師討論做出專業的對應治療，而在狗貓腫瘤的治療方式，包含了手術治療、化學治療、放射線治療、標靶治療等。</p>
                         </div>
-                        <span class=" text-success"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>4.4(35000)</span> |
-                        <span class=" text-success">早午餐</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 推薦商品 -->
+        <h1 class="mt-5">推薦商品</h1>
+        <div class="container">
+            <div class="col-md-12">
+                <div class="owl-carousel">
+                    <div class="item" v-for="item in ProductInfo">
+                        <img :src="'/images/Product/'+item.photoPath" style="width:280px; height:180px">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--附近寵物友善餐廳-->
+        <h1 class="mt-5 mb-3">附近寵物友善餐廳</h1>
+        <div class="container">
+            <div class="owl-carousel">
+                <div class="mt-3" id="image">
+                    <div class="card bg-secondary border-0">
+                        <a href="~/Restaurant/RestaurantDetail"><img :src="item.photoPath" style="width:280px; height:180px" class="image" v-for="item in Clinicinfo"></a>
+                        <h5 class="card-title mt-3">Aaron寵物餐廳</h5>
+                        <div>
+                            <div mb-2 id="owlimage">
+                                <a class=" col " href="#" style="text-decoration:none"><span style="color: #337ab7;">來去看看</span></a>
+                            </div>
+                            <span class=" text-success"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>4.4(35000)</span> |
+                            <span class=" text-success">早午餐</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-</div>
-
-
     <script>
 
         var app = new Vue({
@@ -171,33 +144,31 @@
                     console.log("抓到info", res)
                     console.log(self)
                     self.Clinicinfo = res;
-                    self.GetProductInfo();
+                })
+                fetch('/api/ClinicAPI/GetProductInfo').then(res => {
+                    return res.json();
+                }).then(res => {
+                    self.ProductInfo = res;
                     self.$nextTick(function() {
-                        $(".owl_carousel").owlCarousel({
+                        $(".owl-carousel").owlCarousel({
                             loop: true, //循環播放
                             margin: 10, //外距 10px
                             items: 2,  /* 一頁出現的張數 */
-                            nav: false, //顯示點點
+                            nav: true, //顯示點點
                             autoWidth: true,   /* 可自行設定輪播寬度 */
                             autoHeight: true,/* 可自行設定輪播高度 */
-                            //autoplay: true,  /* 自動輪播 */
+                            autoplay: true,  /* 自動輪播 */
                             autoplayTimeout: 2000,  /* 輪播速度 */
                             autoplayHoverPause: true
                         });
-                    })
+                    }.bind(self))
                 })
             },
             methods: {
                 GetProductInfo: function() {
-                    fetch('/api/ClinicAPI/GetProductInfo').then(res => {
-                        return res.json();
-                    }).then(res => {
-                        console.log(res)
-                        self.ProductInfo = res;
-                        console.log("555", self.ProductInfo)
-                    })
+                    var self = this;
                 }
-            }
+            },
         }).$mount('#allinfo')
     </script>
 

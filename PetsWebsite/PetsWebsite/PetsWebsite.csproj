@@ -42,4 +42,13 @@
     <Folder Include="wwwroot\images\Restaurant\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\css\owl_carousel\owl.carousel.min.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\css\PoweiCSS\BackToTop.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
