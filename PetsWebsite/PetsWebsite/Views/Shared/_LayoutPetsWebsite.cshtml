@@ -102,27 +102,6 @@
                     @{
                         if (!User.Identity.IsAuthenticated)
                         {
-<<<<<<< Updated upstream
-                                <div class="dropdown">
-                                    <button class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        登入
-                                    </button>
-                                    <div style="position: relative; right: 80%">
-                                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                            <li>
-                                                <a class="dropdown-item" data-bs-toggle="modal"
-                                               data-bs-target="#modalUserSignin" href="#">使用者</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" data-bs-toggle="modal"
-                                               data-bs-target="#modalOwnerSignin" href="#">廠商</a>
-                                            </li>
-                                            <li>
-                                        </ul>
-                                    </div>
-                                </div>
-=======
                             <div class="dropdown">
                                 <button class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
                                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -142,7 +121,7 @@
                                     </ul>
                                 </div>
                             </div>
->>>>>>> Stashed changes
+
                         }
                         else
                         {
@@ -150,7 +129,7 @@
 
                             if (User.Claims.FirstOrDefault(X => X.Type == ClaimTypes.Role)?.Value != "Company")
                             {
-<<<<<<< Updated upstream
+
                                     <div class="dropdown">
                                         <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
                                    data-bs-toggle="dropdown" aria-expanded="false">
@@ -169,7 +148,7 @@
                                         </div>
                                     </div>
 
-=======
+
                                 <div class="dropdown">
                                     <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
                                data-bs-toggle="dropdown" aria-expanded="false">
@@ -187,12 +166,9 @@
                                         </ul>
                                     </div>
                                 </div>
->>>>>>> Stashed changes
                             }
                             else
-
                             {
-<<<<<<< Updated upstream
                                     <div class="dropdown">
                                         <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
                                    data-bs-toggle="dropdown" aria-expanded="false">
@@ -208,7 +184,6 @@
                                             </ul>
                                         </div>
                                     </div>
-=======
                                 <div class="dropdown">
                                     <a type="button" class="btn btn-warning mx-3 dropdown-toggle" id="dropdownMenuButton2"
                                data-bs-toggle="dropdown" aria-expanded="false">
@@ -224,13 +199,9 @@
                                         </ul>
                                     </div>
                                 </div>
->>>>>>> Stashed changes
                             }
-
                         }
                     }
-
-
                 </div>
             </div>
         </nav>
