@@ -15,7 +15,8 @@
         <div class="tab-pane fade bg-light show active" id="product" role="tabpanel" aria-labelledby="product-tab">
             <div class="contanier mx-5 pt-5">
                 <div class="row">
-                    <a class="btn btn-outline-success col col-2 ms-4 mb-2" href="/Owner/CreateProduct">
+                    <div class="col col-2 ms-4 mb-2">
+                        <a class="btn btn-outline-success" href="/Owner/CreateProduct">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
                              viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
@@ -23,15 +24,43 @@
                         </svg>
                         新增商品
                     </a>
+                    </div>
+                    <div class="col offset-4">
+                        <input class="form-control" />
+                    </div>
                 </div>
                 <table class="table table-light table-striped">
                     <thead>
                         <tr>
                             <th scope="col">圖片</th>
                             <th scope="col">商品名稱</th>
-                            <th scope="col">商品單價</th>
+                            <th scope="col">
+                                <button class="btn p-0 border-0" onclick="orderProductPriceAsc()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z" />
+                                    </svg>
+                                </button>
+                                商品單價
+                                <button class="btn p-0 border-0" onclick="orderProductPriceDesc()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z" />
+                                    </svg>
+                                </button>
+                            </th>
                             <th scope="col">商品折扣</th>
-                            <th scope="col">庫存量</th>
+                            <th scope="col">
+                                <button class="btn p-0 border-0" onclick="orderProductUnitsInStockAsc()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z" />
+                                    </svg>
+                                </button>
+                                庫存量
+                                <button class="btn p-0 border-0" onclick="orderProductUnitsInStockDesc()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z" />
+                                    </svg>
+                                </button>
+                            </th>
                             <th scope="col">商品描述</th>
                             <th scope="col">修改商品資訊</th>
                             <th scope="col">下架商品</th>
@@ -44,12 +73,24 @@
                                 <img v-bind:src="'/images/Product/' + item.photoPath" style="width: 100px; height: 80px;" alt="">
                             </td>
                             <td>{{item.productName}}</td>
-                            <td>{{item.unitPrice}}</td>
-                            <td>折扣</td>
-                            <td>{{item.unitsInStock}}</td>
                             <td>
-                                <p class="text-truncate" style="width: 80px;" v-bind:title="item.productDescription">
-                                    {{item.productDescription}}
+                                <div class="d-flex justify-content-center">
+                                    {{item.unitPrice}}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    折扣
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    {{item.unitsInStock}}
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-truncate" style="width: 80px;" v-bind:title="item.describe">
+                                    {{item.describe}}
                                 </p>
                             </td>
                             <td>
@@ -114,7 +155,7 @@
                                 <a v-bind:href="'/Owner/EditRestaurant/' + item.restaurantId" class="btn btn-warning" type="submit">修改</a>
                             </td>
                             <td>
-                                <a class="btn btn-danger" type="submit">下架</a>
+                                <button v-bind:value="item.restaurantId" v-on:click="deleteRestaurant" class="btn btn-danger" type="submit">下架</button>
                             </td>
                             <td>已上架</td>
                         </tr>
@@ -188,69 +229,156 @@
 </div>
 
 <script>
-    var vm = new Vue({
-        data: {
-            productList: [],
-            restaurantList: [],
-            ClinicList: []
-        },
-        mounted: function() {
-            var self = this;
-            fetch("/api/ProductManageAPI/GetProduct")
-                .then(response => response.json())
-                .then(result => {
-                    console.log("result", result)
-                    self.productList = result
+var vm = new Vue({
+    data: {
+        productList: [],
+        restaurantList: [],
+        ClinicList: []
+    },
+    mounted: function() {
+        var self = this;
+        fetch("/api/ProductManageAPI/GetProduct")
+            .then(response => response.json())
+            .then(result => {
+                console.log("result", result)
+                self.productList = result
+            })
+    },
+    methods: {
+        getMyRestaurant: function() {
+            $.ajax({
+                url: "/api/ProductManageAPI/GetRestaurant",
+                type: "GET"
+            })
+                .done(function(res) {
+                    vm.restaurantList = res
+                })
+                .fail(function(res) {
+                    console.log("res: ", res)
                 })
         },
-        methods: {
-            getMyRestaurant: function() {
-                $.ajax({
-                    url: "/api/ProductManageAPI/GetRestaurant",
-                    type: "GET"
-                })
-                    .done(function(res) {
-                        vm.restaurantList = res
+        deleteProduct: function(e) {
+            swal({
+                title: "確認刪除此餐廳嗎?",
+                text: "刪除餐廳後將無法復原",
+                icon: "warning",
+                buttons: [
+                    '取消',
+                    '確認'
+                ],
+                dangerMode: true
+            }).then((result) => {
+                if (result) {
+                    fetch("/Owner/DeleteProduct/" + e.target.value, {
+                        method: "DELETE"
                     })
-                    .fail(function(res) {
-                        console.log("res: ", res)
-                    })
-            },
-            deleteProduct: function(e) {
-                swal({
-                    title: "確認刪除此商品嗎?",
-                    text: "刪除商品後將無法復原",
-                    icon: "warning",
-                    buttons: [
-                        '取消',
-                        '確認'
-                    ],
-                    dangerMode: true
-                }).then((result) => {
-                    if (result) {
-                        fetch("/Owner/DeleteProduct/" + e.target.value, {
-                            method: "DELETE"
+                        .then(resp => {
+                            console.log("success", resp);
+                            if (resp) {
+                                swal({
+                                    title: '刪除餐廳',
+                                    text: '此餐廳已刪除',
+                                    type: 'success',
+                                    closeOnClickOutside: false,
+                                    icon: "success"
+                                }).then(() => {
+                                    this.reLoadData();
+                                });
+                                setTimeout("location.reload()", 5000)
+                            }
                         })
-                            .then(resp => {
-                                console.log("success", resp);
-                                if (resp) {
-                                    swal({
-                                        title: '刪除商品',
-                                        text: '此商品已刪除',
-                                        type: 'success',
-                                        closeOnClickOutside: false,
-                                        icon: "success"
-                                    }).then(() => {
-                                        this.reLoadData();
-                                    });
-                                    setTimeout("location.reload()", 5000)
-                                }
-                            })
-                            .catch(err => console.log("err", err))
-                            .then(response => console.log("response", response));
-                    }
-                });
-            }
+                        .catch(err => console.log("err", err))
+                        .then(response => console.log("response", response));
+                }
+            });
+        },
+        deleteRestaurant: function(e) {
+            swal({
+                title: "確認刪除此商品嗎?",
+                text: "刪除商品後將無法復原",
+                icon: "warning",
+                buttons: [
+                    '取消',
+                    '確認'
+                ],
+                dangerMode: true
+            }).then((result) => {
+                if (result) {
+                    fetch("/Owner/DeleteRestaurant/" + e.target.value, {
+                        method: "DELETE"
+                    })
+                        .then(resp => {
+                            console.log("success", resp);
+                            if (resp) {
+                                swal({
+                                    title: '刪除商品',
+                                    text: '此商品已刪除',
+                                    type: 'success',
+                                    closeOnClickOutside: false,
+                                    icon: "success"
+                                }).then(() => {
+                                    this.reLoadData();
+                                });
+                                setTimeout("location.reload()", 5000)
+                            }
+                        })
+                        .catch(err => console.log("err", err))
+                        .then(response => console.log("response", response))
+                }
+            });
         }
-    }).$mount('#ownerManage')
+    }
+}).$mount('#ownerManage')
+
+function orderProductPriceAsc(){
+    $.ajax({
+        url: '/api/ProductManageAPI/OrderByProductPriceAsc',
+        type: "GET"
+    })
+    .done(function(res) {
+        vm.productList = res;
+    })
+    .fail(function(err) {
+        console.log("err: ", err)
+    })
+}
+
+function orderProductPriceDesc(){
+    $.ajax({
+        url: '/api/ProductManageAPI/OrderByProductPriceDesc',
+        type: "GET"
+    })
+    .done(function(res) {
+        vm.productList = res;
+    })
+    .fail(function(err) {
+        console.log("err: ", err)
+    })
+}
+
+function orderProductUnitsInStockAsc(){
+    $.ajax({
+        url: '/api/ProductManageAPI/OrderByProductUnitsInStockAsc',
+        type: "GET"
+    })
+    .done(function(res) {
+        vm.productList = res;
+    })
+    .fail(function(err) {
+        console.log("err: ", err)
+    })
+}
+
+function orderProductUnitsInStockDesc(){
+    $.ajax({
+        url: '/api/ProductManageAPI/OrderByProductUnitsInStockDesc',
+        type: "GET"
+    })
+    .done(function(res) {
+        vm.productList = res;
+    })
+    .fail(function(err) {
+        console.log("err: ", err)
+    })
+}
 </script>

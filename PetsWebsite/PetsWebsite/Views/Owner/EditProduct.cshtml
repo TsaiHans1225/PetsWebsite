@@ -47,27 +47,6 @@
 </div>
 
 <script>
-
-$('#editProductForm').submit(function(e) {
-    e.preventDefault();
-    var formdata = new FormData(this);
-    $.ajax({
-        url: "/Owner/SaveEditedProduct/",
-        type: "POST",
-        data: formdata,
-        async: false,
-        cache: false,
-        contentType: false,
-        enctype: "multipart/form-data",
-        processData: false
-    }).done(function(resp) {
-        console.log("resp: ", resp)
-    }).fail(function(err) {
-        console.log("err: ", err)
-    })
-
-})
-
     function previewPic(e) {
         //var pic = document.getElementById('pic');
         var maxSize_2MB = 1 * 1024 * 1024;

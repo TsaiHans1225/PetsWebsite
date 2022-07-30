@@ -17,24 +17,39 @@ namespace PetsWebsite.Controllers.API
         {
             _petsDB = petsDB;
         }
-        public async Task<List<ProductViewModel>> GetProduct()
+        public List<Product> GetProduct()
         {
-            int CompanyId = 0;
-            return await _petsDB.Products.Where(p => p.CompanyId == CompanyId).Select(p => new ProductViewModel
-            {
-                ProductId = p.ProductId,
-                PhotoPath = p.PhotoPath,
-                ProductName = p.ProductName,
-                UnitPrice = p.UnitPrice,
-                UnitsInStock = p.UnitsInStock,
-                ProductDescription = p.Describe
-            }).ToListAsync();
+            return _petsDB.Products.Where(p => p.CompanyId == User.GetId()).Select(p => p).ToList();
         }
 
         public async Task<List<Restaurant>> GetRestaurant()
         {
             int CompanyId = User.GetId();
             return await _petsDB.Restaurants.Where(r => r.CompanyId == CompanyId).Select(r => r).ToListAsync();
+        }
+
+        // 依產品單價排序asc
+        public IEnumerable<Product> OrderByProductPriceAsc()
+        {
+            return _petsDB.Products.Where(p => p.CompanyId == User.GetId()).OrderBy(p => p.UnitPrice).ToList();
+        }
+
+        // 依產品單價排序desc
+        public IEnumerable<Product> OrderByProductPriceDesc()
+        {
+            return _petsDB.Products.Where(p => p.CompanyId == User.GetId()).OrderByDescending(p => p.UnitPrice).ToList();
+        }
+
+        // 依產品庫存排序asc
+        public IEnumerable<Product> OrderByProductUnitsInStockAsc()
+        {
+            return _petsDB.Products.Where(p => p.CompanyId == User.GetId()).OrderBy(p => p.UnitsInStock).ToList();
+        }
+
+        // 依產品庫存排序desc
+        public IEnumerable<Product> OrderByProductUnitsInStockDesc()
+        {
+            return _petsDB.Products.Where(p => p.CompanyId == User.GetId()).OrderByDescending(p => p.UnitsInStock).ToList();
         }
     }
 }

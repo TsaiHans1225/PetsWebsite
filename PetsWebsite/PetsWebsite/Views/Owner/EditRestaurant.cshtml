@@ -46,8 +46,8 @@
                         <div class="col col-12">
                             <label class="d-block" for="Photo">圖片(大小請勿超過2MB)</label>
                             <div class="mb-3">
-                                <input class="form-control" type="file" id="Photo" name="Photo" onchange="previewPic(this)" accept="image/*" required>
-                                <img id="pic" v-bind:src="'/images/Restaurant/' + editRestaurant.Photo" style="height: 30%; width: 30%;" />
+                                <input class="form-control" type="file" id="Photo" name="Photo" onchange="previewPic(this)" accept="image/*">
+                                <img id="pic" v-bind:src="'/images/Restaurant/' + editRestaurant.PhotoPath" style="height: 30%; width: 30%;" />
                             </div>
                         </div>
                         <hr class="mb-0">

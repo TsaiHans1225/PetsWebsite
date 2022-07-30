@@ -212,5 +212,15 @@ namespace PetsWebsite.Controllers
             await _dBContext.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+        // 刪除餐廳
+        [Route("Owner/DeleteRestaurant/{RestaurantId}")]
+        public bool DeleteRestaurant(int RestaurantId)
+        {
+            var query = _dBContext.Restaurants.First(r => r.RestaurantId == RestaurantId);
+            _dBContext.Remove(query);
+            _dBContext.SaveChanges();
+            return true;
+        }
     }
 }
