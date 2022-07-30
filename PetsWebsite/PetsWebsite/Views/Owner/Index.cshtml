@@ -8,7 +8,7 @@
             <button class="nav-link" id="restaurant-tab" data-bs-toggle="tab" data-bs-target="#restaurant" type="button" role="tab" aria-controls="restaurant" aria-selected="false" v-on:click="getMyRestaurant">我的餐廳</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="clinic-tab" data-bs-toggle="tab" data-bs-target="#clinic" type="button" role="tab" aria-controls="clinic" aria-selected="false">我的診所</button>
+            <button class="nav-link" id="clinic-tab" data-bs-toggle="tab" data-bs-target="#clinic" type="button" role="tab" aria-controls="clinic" aria-selected="false" v-on:click="GetMyClinic">我的診所</button>
         </li>
     </ul>
     <div class="tab-content" id="myTabContent">
@@ -165,6 +165,16 @@
         </div>
         <div class="tab-pane fade bg-light" id="clinic" role="tabpanel" aria-labelledby="clinic-tab">
             <div class="contanier mx-5 pt-5">
+                <div class="row">
+                    <a class="btn btn-outline-success col col-2 ms-4 mb-2" style="right: 5%;" href="/Owner/CreateClinic">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+                             viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+                        </svg>
+                        新增診所
+                    </a>
+                </div>
                 <table class="table table-light table-striped">
                     <thead>
                         <tr>
@@ -175,7 +185,6 @@
                             <th scope="col">地區</th>
                             <th scope="col">地址</th>
                             <th scope="col">診所簡述</th>
-                            <th scope="col">犬貓專科</th>
                             <th scope="col">急診</th>
                             <th scope="col">修改診所資訊</th>
                             <th scope="col">下架診所</th>
@@ -183,26 +192,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="">
+                        <tr class="" v-for="item in ClinicList">
                             <td scope="row">
                                 <img src="/images/Owner/動物醫院.png" style="width: 100px; height: 80px;" alt="">
                             </td>
-                            <td>寵物醫院</td>
-                            <td>02-22222222</td>
-                            <td>台北市</td>
-                            <td>大安區</td>
+                            <td>{{item.clinicName}}</td>
+                            <td>{{item.phone}}</td>
+                            <td>{{item.city}}</td>
+                            <td>{{item.region}}</td>
                             <td>
                                 <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
-                                    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                    {{item.address}}
                                 </p>
                             </td>
                             <td>
                                 <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
-                                    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                    {{item.describe}}
                                 </p>
                             </td>
-                            <td>否</td>
-                            <td>是</td>
+                            <td>{{item.emergency}}</td>
                             <td>
                                 <a class="btn btn-warning" type="submit">修改</a>
                             </td>
@@ -287,6 +295,7 @@ var vm = new Vue({
                                 setTimeout("location.reload()", 5000)
                             }
                         })
+<<<<<<< HEAD
                         .catch(err => console.log("err", err))
                         .then(response => console.log("response", response));
                 }
@@ -326,6 +335,39 @@ var vm = new Vue({
                         .then(response => console.log("response", response))
                 }
             });
+=======
+                            .then(resp => {
+                                console.log("success", resp);
+                                if (resp) {
+                                    swal({
+                                        title: '刪除商品',
+                                        text: '此商品已刪除',
+                                        type: 'success',
+                                        closeOnClickOutside: false,
+                                        icon: "success"
+                                    }).then(() => {
+                                        this.reLoadData();
+                                    });
+                                    setTimeout("location.reload()", 5000)
+                                }
+                            })
+                            .catch(err => console.log("err", err))
+                            .then(response => console.log("response", response));
+                    }
+                });
+            },
+            GetMyClinic: function(e) {
+                $.ajax({
+                    type: 'get',
+                    url: '/api/ProductManageAPI/GetOwnerClinic'
+                }).done(function(res) {
+                    vm.ClinicList = res;
+                    console.log(vm.ClinicList);
+                }).fail(function(res) {
+                    console.log("res: ", res);
+                })
+            }
+>>>>>>> b0ff7d81b9da4b4596d3a6eebe20d4eec22bdff1
         }
     }
 }).$mount('#ownerManage')

@@ -22,11 +22,11 @@
                 </thead>
                 <tbody>
                     <tr class="table-warning " align="center" v-for="(item,index) in DShopCarList">
-                        <th scope="row"><input type="checkbox" v-bind:value="index"/></th>
-                        <td><img style="width:25%" alt="圖片"></td>
-                        <td>{{item.productName}}</td>
-                        <td>NT$&nbsp:{{item.price}}</td>
-                        <td>
+                        <th scope="row" class="align-middle"><input v-bind:id="index" type="checkbox" v-bind:value="index"/></th>
+                        <td class="col-2 px-0"><img v-bind:src="'/images/Product/' + item.picturePath" style="width: 100px; height: 80px;" alt="圖片"></td>
+                        <td class="align-middle">{{item.productName}}</td>
+                        <td class="align-middle">NT$&nbsp:{{item.price}}</td>
+                        <td class="align-middle">
                             <div class="input-group container justify-content-center">
                                 <a class="btn btn-outline-dark p-0" type="button" style="width:32px;" v-on:click="ReductCount(item)">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle-fill" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z" /></svg>
@@ -37,7 +37,7 @@
                                 </a>
                             </div>
                         </td>
-                        <td>
+                        <td class="align-middle">
                             <button class="btn rounded-3" style="font-size: 15px;" type="submit" :value="item.shopCarId" v-on:click="DeleteShopCarProduct(item)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                     <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
@@ -51,7 +51,7 @@
                 <div class="col-4 mt-2 ">總金額:<span class="text-danger fs-3">NT$&nbsp:{{ProdcutSum}}</span></div>
                 <div class="col-2 my-1">
                     <div class="d-grid gap-2">
-                        <a asp-controller="CheckOut" asp-action="Index" class="btn btn-warning btn-lg">前往結帳</a>
+                        <a  class="btn btn-warning btn-lg" onclick="CheckoutCommodity()">前往結帳</a>
                     </div>
                 </div>
             </div>
@@ -172,8 +172,19 @@
             var CheckProducts = $("input:checkbox:checked");
             var PurchaseProduct = [];
             for (let i = 0; i < CheckProducts.length; i++) {
-                PurchaseProduct.push(CheckProducts[i].value);
+                var index =parseInt(CheckProducts[i].value);
+                PurchaseProduct.push(ShopCarDisply.DShopCarList[index].shopCarId);
             }
+            $.ajax({
+                type: "post",
+                url: '/Checkout',
+                data: { PurProductId: PurchaseProduct }
+            }).done(function(res) {
+                console.log(res);
+                window.location.href="/Checkout"
+            }).fail(function(err) {
+                console.log(err);
+            })
             console.log(PurchaseProduct);
         }
     </script>

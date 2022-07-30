@@ -23,7 +23,7 @@
                                     </tr>
                                     <tr>
                                         <td>運送方式</td>
-                                        <td>
+                                        <td colspan="2">
                                             <div class="form-check">
                                                 <input id="Expenses" name="tran-expenses" type="radio"
                                                        class="form-check-input">
@@ -31,21 +31,32 @@
                                             </div>
                                             <div class="form-check checkbox">
                                                 <input id="PostOffice" name="tran-expenses" type="radio"
-                                                       class="form-check-input" checked="">
+                                                       class="form-check-input">
                                                 <label class="form-check-label">郵局:NT$&nbsp;80</label>
                                             </div>
                                             <div class="form-check checkbox">
                                                 <input id="PostOffice" name="tran-expenses" type="radio"
-                                                       class="form-check-input" checked="">
+                                                       class="form-check-input">
                                                 <label class="form-check-label">黑貓:NT$&nbsp;100</label>
                                             </div>
                                         </td>
-                                        <td></td>
                                     </tr>
                                     <tr>
-                                        <td>總計</td>
-                                        <td></td>
-                                        <td>NT$&nbsp;1600</td>
+                                        <td>選擇付款方式</td>
+                                        <td colspan="2">
+                                            <div class="form-check">
+                                                <input id="creditcard" name="payment" type="radio" class="form-check-input">
+                                                <label class="form-check-label" for="creditcard">信用卡</label>
+                                            </div>
+                                            <div class="form-check checkbox">
+                                                <input id="cash" name="payment" type="radio" class="form-check-input">
+                                                <label class="form-check-label" for="cash">貨到付款</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">總計</td>
+                                        <td>NT$&nbsp;{{PreOrderPriceSum}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
@@ -69,7 +80,6 @@
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-primary">確認</button>
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -119,15 +129,21 @@
         var PurchaseOrder = new Vue({
             data: {
                 PreOrderList: [],
+                PreOrderPriceSum: 0,
             },
             mounted: function() {
+                var self = this;
                 $.ajax({
                     type: "get",
                     url: "/api/CheckOrder/GetPreferProductListInOrder"
                 }).done(function(res) {
                     console.log(res);
-                    PreOrderList = res;
-                    console.log("PreOrderList", PreOrderList);
+                    self.PreOrderList = res;
+                    for (let i = 0; i < res.length; i++) {
+                        self.PreOrderPriceSum += (res[i].price * res[i].count);
+                    }
+                    console.log("Sum:", self.PreOrderPriceSum)
+                    console.log("PreOrderList", self.PreOrderList);
                 }).fail(function(err) {
                     console.log(err);
                 })

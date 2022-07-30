@@ -19,12 +19,13 @@ namespace PetsWebsite.Models
         public decimal? UnitPrice { get; set; }
         public short? UnitsInStock { get; set; }
         public string? PhotoPath { get; set; }
-        public bool? Discontinued { get; set; }
         public string? Describe { get; set; }
         public DateTime? LaunchDate { get; set; }
         public DateTime? RemoveDate { get; set; }
         public int? CompanyId { get; set; }
         public bool? State { get; set; }
+        public string? Discount { get; set; }
+        public bool? Species { get; set; }
 
         public virtual Category? Category { get; set; }
         public virtual Company? Company { get; set; }
