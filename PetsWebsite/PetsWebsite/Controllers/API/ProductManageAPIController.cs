@@ -28,7 +28,6 @@ namespace PetsWebsite.Controllers.API
             int CompanyId = User.GetId();
             return await _petsDB.Restaurants.Where(r => r.CompanyId == CompanyId).Select(r => r).ToListAsync();
         }
-<<<<<<< HEAD
 
         // 依產品單價排序asc
         public IEnumerable<Product> OrderByProductPriceAsc()
@@ -52,7 +51,8 @@ namespace PetsWebsite.Controllers.API
         public IEnumerable<Product> OrderByProductUnitsInStockDesc()
         {
             return _petsDB.Products.Where(p => p.CompanyId == User.GetId()).OrderByDescending(p => p.UnitsInStock).ToList();
-=======
+        }
+
         [HttpGet]
         public List<ClinicManageViewModel> GetOwnerClinic()
         {
@@ -68,7 +68,6 @@ namespace PetsWebsite.Controllers.API
                 Describe = c.Describe,
                 Emergency=c.Emergency==true?"是":"否"
             }).ToList();
->>>>>>> b0ff7d81b9da4b4596d3a6eebe20d4eec22bdff1
         }
     }
 }
