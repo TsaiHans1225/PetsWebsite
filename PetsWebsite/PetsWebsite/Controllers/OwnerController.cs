@@ -226,5 +226,10 @@ namespace PetsWebsite.Controllers
             _dBContext.SaveChanges();
             return true;
         }
+        //編輯診所
+        public IActionResult EditClinic()
+        {
+            return View();
+        }
     }
 }

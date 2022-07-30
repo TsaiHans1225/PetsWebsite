@@ -39,6 +39,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\css\HansCSS\" />
+    <Folder Include="wwwroot\images\Clinic\" />
     <Folder Include="wwwroot\images\Restaurant\" />
   </ItemGroup>
 

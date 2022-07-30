@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using PetsWebsite.Extensions;
 using PetsWebsite.Models;
 using PetsWebsite.Models.ViewModel;
@@ -13,10 +14,12 @@ namespace PetsWebsite.Controllers.API
     public class ProductManageAPIController : ControllerBase
     {
         private readonly PetsDBContext _petsDB;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ProductManageAPIController(PetsDBContext petsDB)
+        public ProductManageAPIController(PetsDBContext petsDB, IWebHostEnvironment webHostEnvironment)
         {
             _petsDB = petsDB;
+            _webHostEnvironment = webHostEnvironment;
         }
         public List<Product> GetProduct()
         {
@@ -52,7 +55,7 @@ namespace PetsWebsite.Controllers.API
         {
             return _petsDB.Products.Where(p => p.CompanyId == User.GetId()).OrderByDescending(p => p.UnitsInStock).ToList();
         }
-
+        //廠商管理取得診所資料
         [HttpGet]
         public List<ClinicManageViewModel> GetOwnerClinic()
         {
@@ -66,8 +69,154 @@ namespace PetsWebsite.Controllers.API
                 Region = c.Region,
                 Address = c.Address,
                 Describe = c.Describe,
-                Emergency=c.Emergency==true?"是":"否"
+                Emergency = c.Emergency == true ? "是" : "否"
             }).ToList();
+        }
+        //新增診所
+        [HttpPost]
+        public bool NewClinic([FromForm] CreateClinicViewModel Ownerclinic)
+        {
+            // 取出圖片及名稱
+            var InputFile = HttpContext.Request.Form.Files[0];
+            var InputFilePath = "";
+            string PhotoPath;
+            if (InputFile == null)
+            {
+                PhotoPath = "clinic_Default";
+            }
+            else
+            {
+                // 儲存photo
+                var UniqueId = Guid.NewGuid().ToString("D");
+                var PhotoFormat = InputFile.FileName.Split(".")[1];
+                PhotoPath = $"{User.GetId()}_{UniqueId}.{PhotoFormat}";
+
+                InputFilePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Clinic", PhotoPath);
+                FileStream fs = new FileStream(InputFilePath, FileMode.Create);
+                InputFile.CopyTo(fs);
+                fs.Close();
+            }
+            Clinic newClinic = new Clinic()
+            {
+                CompanyId = User.GetId(),
+                ClinicName = Ownerclinic.ClinicName,
+                Phone = Ownerclinic.Phone,
+                City = Ownerclinic.City,
+                Region = Ownerclinic.Region,
+                Address = Ownerclinic.Address,
+                Describe = Ownerclinic.Describe,
+                Emergency = Ownerclinic.Emergency == "true" ? true : false,
+                PhotoPath = PhotoPath,
+            };
+            try
+            {
+                _petsDB.Clinics.Add(newClinic);
+                _petsDB.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            return true;
+        }
+        //編輯診所頁面顯示資料
+        [HttpGet]
+        [Route("{EditClinicId}")]
+        public bool EditClickData(int EditClinicId)
+        {
+            try
+            {
+                var EditClinic = _petsDB.Clinics.Where(c => c.ClinicId == EditClinicId && c.CompanyId == User.GetId()).Select(c => new EditClinicDataViewModels()
+                {
+                    ClinicId = c.ClinicId,
+                    ClinicName = c.ClinicName,
+                    Phone = c.Phone,
+                    City = c.City,
+                    Region = c.Region,
+                    Address = c.Address,
+                    Describe = c.Describe,
+                    Emergency = c.Emergency,
+                    PhotoPath = c.PhotoPath,
+                }).FirstOrDefault();
+                HttpContext.Session.SetString("EditClinicData", JsonConvert.SerializeObject(EditClinic));
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        //取得編輯診所資料
+        [HttpGet]
+        public EditClinicDataViewModels GetEditClickData()
+        {
+            return JsonConvert.DeserializeObject<EditClinicDataViewModels>(HttpContext.Session.GetString("EditClinicData"));
+        }
+        //編輯診所
+        [HttpPost]
+        public bool EditClinic([FromForm] AfterEditClinicViewModel AfterEditClinic)
+        {
+            var EditNewClinic = _petsDB.Clinics.FirstOrDefault(c => c.ClinicId == AfterEditClinic.ClinicId);
+            if (HttpContext.Request.Form.Files.Count != 0)
+            {
+                var oldPhoto = EditNewClinic.PhotoPath;
+                if (!string.IsNullOrEmpty(oldPhoto))
+                {
+                    var oldPhotoPath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Clinic", oldPhoto);
+                    System.IO.File.Delete(oldPhotoPath);
+                }
+                // 取出圖片及名稱
+                var InputFile = HttpContext.Request.Form.Files[0];
+                var InputFilePath = InputFile.FileName;
+                string PhotoPath;
+                // 儲存photo
+                var UniqueId = Guid.NewGuid().ToString("D");
+                var PhotoFormat = InputFile.FileName.Split(".")[1];
+                EditNewClinic.PhotoPath = $"{User.GetId()}_{UniqueId}.{PhotoFormat}";
+                InputFilePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Clinic", EditNewClinic.PhotoPath);
+                FileStream fs = new FileStream(InputFilePath, FileMode.Create);
+                InputFile.CopyTo(fs);
+                fs.Close();
+            }
+            EditNewClinic.ClinicName = AfterEditClinic.ClinicName;
+            EditNewClinic.Phone = AfterEditClinic.Phone;
+            EditNewClinic.City = AfterEditClinic.City;
+            EditNewClinic.Region = AfterEditClinic.Region;
+            EditNewClinic.Address = AfterEditClinic.Address;
+            EditNewClinic.Describe = AfterEditClinic.Describe;
+            EditNewClinic.Emergency = AfterEditClinic.Emergency == "true" ? true : false;
+            try
+            {
+                _petsDB.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
+        //刪除診所
+        [HttpDelete]
+        [Route("{DeleteClinicId}")]
+        public bool DeleteClinic(int DeleteClinicId)
+        {
+            var DeleteClinic = _petsDB.Clinics.FirstOrDefault(c => c.ClinicId == DeleteClinicId);
+            try
+            {
+                string PhotoPath = DeleteClinic.PhotoPath;
+                _petsDB.Remove(DeleteClinic);
+                _petsDB.SaveChanges();
+                if (!string.IsNullOrEmpty(PhotoPath))
+                {
+                    var oldPhotoPath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Clinic", PhotoPath);
+                    System.IO.File.Delete(oldPhotoPath);
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
