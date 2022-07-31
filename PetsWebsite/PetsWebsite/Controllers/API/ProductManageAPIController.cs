@@ -8,7 +8,7 @@ using PetsWebsite.Models.ViewModels;
 
 namespace PetsWebsite.Controllers.API
 {
-    [Route("api/[controller]/{action}")]
+    [Route("api/[controller]/{action}/{keyword?}")]
     [ApiController]
     public class ProductManageAPIController : ControllerBase
     {
@@ -20,7 +20,7 @@ namespace PetsWebsite.Controllers.API
         }
         public List<Product> GetProduct()
         {
-            return _petsDB.Products.Where(p => p.CompanyId == User.GetId()).Select(p => p).ToList();
+            return _petsDB.Products.Where(p => p.CompanyId == User.GetId()).OrderBy(p => p.State).Select(p => p).ToList();
         }
 
         public async Task<List<Restaurant>> GetRestaurant()
@@ -51,6 +51,20 @@ namespace PetsWebsite.Controllers.API
         public IEnumerable<Product> OrderByProductUnitsInStockDesc()
         {
             return _petsDB.Products.Where(p => p.CompanyId == User.GetId()).OrderByDescending(p => p.UnitsInStock).ToList();
+        }
+
+        // 依關鍵字搜尋產品
+        public List<Product> SearchProductByKeyword(string? keyword)
+        {
+            if(string.IsNullOrEmpty(keyword))
+            {
+                return _petsDB.Products.Where(p => p.CompanyId == User.GetId()).OrderBy(p => p.State).ToList();
+            }
+            else
+            {
+                string trimedKeyword = keyword.Trim();
+                return _petsDB.Products.Where(p => p.ProductName.Contains(trimedKeyword)).ToList();
+            }
         }
 
         [HttpGet]
