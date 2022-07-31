@@ -1,81 +1,46 @@
 ﻿@*審核商品頁面*@
-<div class="contanier mx-5 pt-5 h-100" id="ownerManage">
+<div class="contanier mx-5 pt-5 h-100" id="">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="product-tab" data-bs-toggle="tab" data-bs-target="#product"
                     type="button" role="tab" aria-controls="product" aria-selected="true">
-                我的商品
+                待審商品
             </button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="restaurant-tab" data-bs-toggle="tab" data-bs-target="#restaurant" type="button"
-                    role="tab" aria-controls="restaurant" aria-selected="false" v-on:click="getMyRestaurant">
-                我的餐廳
+                    role="tab" aria-controls="restaurant" aria-selected="false">
+                待審餐廳
             </button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="clinic-tab" data-bs-toggle="tab" data-bs-target="#clinic" type="button"
-                    role="tab" aria-controls="clinic" aria-selected="false" v-on:click="GetMyClinic">
-                我的診所
+                    role="tab" aria-controls="clinic" aria-selected="false">
+                待審診所
             </button>
         </li>
     </ul>
-    <div class="tab-content" id="myTabContent">
+    <div class="tab-content" id="auditProduct">
         <div class="tab-pane fade bg-light show active" id="product" role="tabpanel" aria-labelledby="product-tab">
             <div class="contanier mx-5 pt-5">
                 <div class="row mb-2 d-flex justify-content-around">
                     <h3 class="col col-5 text-danger d-flex justify-content-center">
-                        <strong v-bind:hidden="noProduct">未找到任何商品!</strong>
+                        <strong v-bind:hidden="showNoProduct">無待審核商品商品!</strong>
                     </h3>
                 </div>
-                <table class="table table-light table-striped">
+                <table class="table table-success table-striped">
                     <thead>
                         <tr>
                             <th scope="col">圖片</th>
                             <th scope="col">商品</th>
-                            <th scope="col">
-                                <button class="btn p-0 border-0" onclick="orderProductPriceAsc()">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                         class="bi bi-arrow-down-short" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                              d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z" />
-                                    </svg>
-                                </button>
-                                商品單價
-                                <button class="btn p-0 border-0" onclick="orderProductPriceDesc()">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                         class="bi bi-arrow-up-short" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                              d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z" />
-                                    </svg>
-                                </button>
-                            </th>
+                            <th scope="col">商品單價</th>
                             <th scope="col">商品折扣</th>
-                            <th scope="col">
-                                <button class="btn p-0 border-0" onclick="orderProductUnitsInStockAsc()">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                         class="bi bi-arrow-down-short" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                              d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z" />
-                                    </svg>
-                                </button>
-                                庫存量
-                                <button class="btn p-0 border-0" onclick="orderProductUnitsInStockDesc()">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                         class="bi bi-arrow-up-short" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                              d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z" />
-                                    </svg>
-                                </button>
-                            </th>
                             <th scope="col">商品描述</th>
-                            <th scope="col">修改商品資訊</th>
-                            <th scope="col">下架商品</th>
-                            <th scope="col">商品狀態</th>
+                            <th scope="col">審核</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr class="" v-for="item in productList">
+                    <tbody v-for="item in auditProductList">
+                        <tr class="">
                             <td scope="row">
                                 <img v-bind:src="'/images/Product/' + item.photoPath"
                                      style="width: 100px; height: 80px;" alt="">
@@ -85,36 +50,21 @@
                                 <p class="text-truncate" style="width: 200px;">名稱 : {{item.productName}}</p>
                             </td>
                             <td>
-                                <div class="d-flex justify-content-center">
-                                    {{item.unitPrice}}
-                                </div>
+                                {{item.unitPrice}}
                             </td>
                             <td>
-                                <div class="d-flex justify-content-center">
-                                    折扣
-                                </div>
+                                {{item.discount}}
                             </td>
                             <td>
-                                <div class="d-flex justify-content-center unitsInStock">
-                                    {{item.unitsInStock}}
-                                </div>
-                            </td>
-                            <td>
-                                <p class="text-truncate" style="width: 80px;" v-bind:title="item.describe">
+                                <p class="text-truncate" style="width: 80px;">
                                     {{item.describe}}
                                 </p>
                             </td>
                             <td>
-                                <a v-bind:href="'/Owner/EditProduct/' + item.productId" v-bind:value="item.productId"
-                                   class="btn btn-outline-warning" type="submit">修改</a>
+                                <a v-on:click="clickAuditProduct(item)" class="btn btn-outline-danger" type="submit">
+                                    開始審核
+                                </a>
                             </td>
-                            <td>
-                                <button v-bind:value="item.productId" v-on:click="deleteProduct" class="btn btn-outline-danger"
-                                        type="submit">
-                                    下架
-                                </button>
-                            </td>
-                            <td>{{item.state == true? "已上架" : "審核中..."}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -148,35 +98,31 @@
                             <th scope="col">餐廳狀態</th>
                         </tr>
                     </thead>
-                    <tbody v-for="item in restaurantList">
+                    <tbody>
                         <tr class="">
                             <td scope="row">
-                                <img v-bind:src="'/images/Restaurant/' + item.photoPath"
+                                <img v-bind:src="'/images/Restaurant/'"
                                      style="width: 100px; height: 80px;" alt="">
                             </td>
-                            <td>{{item.restaurantName}}</td>
-                            <td>{{item.phone}}</td>
-                            <td>{{item.city}}</td>
-                            <td>{{item.region}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td>
-                                <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;"
-                                   v-bind:title="item.address">
-                                    {{item.address}}
+                                <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
+
                                 </p>
                             </td>
                             <td>
-                                <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;"
-                                   v-bind:title="item.introduction">
-                                    {{item.introduction}}
+                                <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
+
                                 </p>
                             </td>
                             <td>
-                                <a v-bind:href="'/Owner/EditRestaurant/' + item.restaurantId" class="btn btn-warning"
-                                   type="submit">修改</a>
+                                <a class="btn btn-warning" type="submit">修改</a>
                             </td>
                             <td>
-                                <button v-bind:value="item.restaurantId" v-on:click="deleteRestaurant"
-                                        class="btn btn-danger" type="submit">
+                                <button class="btn btn-danger" type="submit">
                                     下架
                                 </button>
                             </td>
@@ -216,25 +162,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="" v-for="item in ClinicList">
+                        <tr class="">
                             <td scope="row">
                                 <img src="/images/Owner/動物醫院.png" style="width: 100px; height: 80px;" alt="">
                             </td>
-                            <td>{{item.clinicName}}</td>
-                            <td>{{item.phone}}</td>
-                            <td>{{item.city}}</td>
-                            <td>{{item.region}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td>
                                 <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
-                                    {{item.address}}
+
                                 </p>
                             </td>
                             <td>
                                 <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
-                                    {{item.describe}}
+
                                 </p>
                             </td>
-                            <td>{{item.emergency}}</td>
+                            <td></td>
                             <td>
                                 <a class="btn btn-warning" type="submit">修改</a>
                             </td>
@@ -260,3 +206,47 @@
         </div>
     </div>
 </div>
+
+<script>
+    var auditvm = new Vue({
+        el: "#auditProduct",
+        data: {
+            auditProductList: [],
+            showNoProduct: true
+        },
+        mounted: function() {
+            this.getAuditProduct();
+        },
+        methods: {
+            getAuditProduct: function() {
+                fetch('/Admin/GetAuditProduct')
+                    .then(function(response) {
+                        return response.json()
+                    })
+                    .then(function(result){
+                        if (result != null) {
+                            auditvm.auditProductList = result
+                            this.showNoProduct = true;
+                        }
+                        else{
+                            this.showNoProduct = false;
+                        }
+                    })
+            },
+            clickAuditProduct: function(item){
+                var productId = item.productId;
+                $.ajax({
+                    url: `/Admin/StartAuditProduct/${productId}`,
+                    type: 'GET'
+                })
+                .done(function(res) {
+                    if(res){
+                        window.location.href = "/Admin/AuditProductPage"
+                    }
+                }).fail(function(err) {
+                    console.log("err: ", err)
+                })
+            }
+        }
+    });
+</script>

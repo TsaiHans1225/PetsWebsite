@@ -234,5 +234,12 @@ namespace PetsWebsite.Controllers.API
             }
             return true;
         }
+
+        // 獲取上架失敗產品
+        [HttpGet]
+        public List<Product> GetPublishFailProducts()
+        {
+            return _petsDB.Products.Where(p => p.CompanyId == User.GetId() && p.State == false && p.AuditResult != null).Select(p => p).ToList();
+        }
     }
 }

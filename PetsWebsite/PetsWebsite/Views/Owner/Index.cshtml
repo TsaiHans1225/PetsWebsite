@@ -46,7 +46,7 @@
                                 <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
                             </svg>
                             審核通知
-                            <div class="rounded-circle text-dark" style="border: solid 1px #343A40; background-color: #eb6865; position: absolute; width: 30px; height: 30px; transform: translate(250%,-50%);" >1</div>
+                            <div class="rounded-circle text-secondary" style="border: solid 1px #eb6865; background-color: #eb6865; position: absolute; width: 30px; height: 30px; transform: translate(250%,-50%);">{{failProductCount}}</div>
                         </a>
                     </div>
                 </div>
@@ -281,60 +281,38 @@
             </div>
         </div>
     </div>
-</div>
-
-@*商品審核通知modal*@
-
-<!-- Modal -->
-<div class="modal fade" id="auditInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">商品審核通知</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <p class="col col-12">商品ID : </p>
-                    <p class="col col-12">商品名稱 : </p>
-                    <p class="col col-12">審核未通過原因: </p>
-                    <textarea class="form-control  mb-3" rows="3" disabled></textarea>
-                    <hr />
+    @*商品審核通知modal*@
+    <div class="modal fade" id="auditInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">商品審核通知</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="row">
-                    <p class="col col-12">商品ID : </p>
-                    <p class="col col-12">商品名稱 : </p>
-                    <p class="col col-12">審核未通過原因: </p>
-                    <textarea class="form-control  mb-3" rows="3" disabled></textarea>
-                    <hr />
-                </div>
-                <div class="row">
-                    <p class="col col-12">商品ID : </p>
-                    <p class="col col-12">商品名稱 : </p>
-                    <p class="col col-12">審核未通過原因: </p>
-                    <textarea class="form-control  mb-3" rows="3" disabled></textarea>
-                    <hr />
-                </div>
-                <div class="row">
-                    <p class="col col-12">商品ID : </p>
-                    <p class="col col-12">商品名稱 : </p>
-                    <p class="col col-12">審核未通過原因: </p>
-                    <textarea class="form-control  mb-3" rows="3" disabled></textarea>
-                    <hr />
+                <div class="modal-body">
+                    <div class="row" v-for="item in publishFailProducts">
+                        <p class="col col-12">商品ID : {{item.productId}}</p>
+                        <p class="col col-12">商品名稱 : {{item.productName}}</p>
+                        <p class="col col-12">審核未通過原因: </p>
+                        <textarea class="form-control mb-3 text-danger" rows="3" disabled>{{item.auditResult}}</textarea>
+                        <hr />
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-
-<script>
+@section Scripts{
+    <script>
     var vm = new Vue({
         data: {
             productList: [],
             restaurantList: [],
             ClinicList: [],
-            noProduct: true
+            noProduct: true,
+            publishFailProducts: [],
+            failProductCount: ""
         },
         mounted: function() {
             var self = this;
@@ -344,6 +322,7 @@
                     self.productList = result
                     this.dangerStock;
                 });
+            publishFailProduct();
         },
         methods: {
             getMyRestaurant: function() {
@@ -441,18 +420,18 @@
             },
             EditClinic: function(item) {
                 var index = item.clinicId;
-                 $.ajax({
+                $.ajax({
                     type: 'get',
                     url: `/api/ProductManageAPI/EditClickData/${index}`
-                }).done(function (res) {
+                }).done(function(res) {
                     if (res) {
-                        window.location.href="/Owner/EditClinic"
+                        window.location.href = "/Owner/EditClinic"
                     }
-                }).fail(function (res) {
+                }).fail(function(res) {
                     console.log("res: ", res);
                 })
             },
-            DeleteClinic: function (item) {
+            DeleteClinic: function(item) {
                 swal({
                     title: "確認刪除此診所資訊嗎?",
                     text: "診所資訊刪除後將無法復原",
@@ -567,4 +546,22 @@
                 console.log("err: ", err)
             });
     }
-</script>
+
+    // 取得上架失敗商品
+    function publishFailProduct(){
+        $.ajax({
+            url: '/api/ProductManageAPI/GetPublishFailProducts',
+            type: 'GET'
+        })
+        .done(function(res) {
+            console.log("failProducts: ", res)
+            vm.publishFailProducts = res;
+            vm.failProductCount = vm.publishFailProducts.length;
+
+        })
+        .fail(function(err){
+            console.log("err: ", err)
+        })
+    }
+    </script>
+}

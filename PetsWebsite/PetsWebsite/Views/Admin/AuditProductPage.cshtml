@@ -1,0 +1,155 @@
+﻿@*審核商品頁面*@
+<section id="auditProduct">
+    <div class="contanier m-5">
+        <form id="auditProductForm">
+            <div class="row align-items-center justify-content-center" style="height: 200px;">
+                <div class="col col-6">
+                    <div class="row g-3 bg-light rounded mb-3">
+                        <div class="col col-12">
+                            <label for="ProductId" class="form-label">商品ID: </label>
+                            <input type="text" class="form-control" v-bind:value="auditData.productId" id="ProductId" name="ProductId" readonly>
+                        </div>
+                        <div class="col col-6 was-validated">
+                            <label for="ProductName" class="form-label">商品名稱: </label>
+                            <input type="text" class="form-control" id="ProductName" name="ProductName" v-bind:value="auditData.productName" readonly>
+                        </div>
+                        <div class="col col-3 was-validated">
+                            <label for="UnitPrice" class="form-label">商品單價: </label>
+                            <input type="text" class="form-control" id="UnitPrice" name="UnitPrice" v-bind:value="auditData.unitPrice" readonly>
+                        </div>
+                        <div class="col col-3 was-validated">
+                            <label for="Phone" class="form-label">商品折扣: </label>
+                            <input type="text" class="form-control" id="UnitPrice" name="UnitPrice" v-bind:value="auditData.discount" readonly>
+                        </div>
+                        <div class="col col-12 was-validated">
+                            <label for="Describe">商品描述: </label>
+                            <textarea type="text" class="form-control" id="Describe" name="Describe" v-bind:value="auditData.describe" rows="3" readonly></textarea>
+                        </div>
+                        <div class="col col-12">
+                            <label class="d-block" for="Photo">圖片: </label>
+                            <div class="mb-3">
+                                <img id="pic" style="width: 30%; height: 30%" v-bind:src="'/images/Product/' + auditData.photoPath" />
+                            </div>
+                        </div>
+                        <hr class="mb-0">
+                        <div class="col col-12">
+                            <label class="d-block" for="Photo">修改建議: </label>
+                            <div class="mb-3">
+                                <textarea type="text" class="form-control text-danger" id="AuditResult" name="AuditResult" rows="3">{{auditData.auditResult}}</textarea>
+                            </div>
+                        </div>
+                        <div class="col col-6 d-flex my-3 justify-content-end">
+                            <button class="btn btn-warning" type="submit">提出修改建議</button>
+                        </div>
+                        <div class="col col-6 d-flex my-3 justify-content-start">
+                            <a class="btn btn-info" onclick="publishProduct()">允許上架</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+@section Scripts{
+    <script>
+        var vm = new Vue({
+            data: {
+                auditData: []
+            },
+            mounted: function() {
+                this.getCurrentAuditProduct();
+            },
+            methods: {
+                getCurrentAuditProduct: function() {
+                    fetch("/Admin/GetCurrentAuditProduct")
+                        .then(function(response) {
+                            return response.json();
+                        })
+                        .then(function(result) {
+                            vm.auditData = result;
+                        })
+                }
+            }
+        }).$mount("#auditProduct")
+
+        $("#auditProductForm").submit(function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                url: '/Admin/SaveAuditSuggest',
+                type: 'POST',
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                enctype: 'multipart/form-data',
+                processData: false,
+            })
+                .done(function(res) {
+                    if (res) {
+                        ActionSuccess();
+                    }
+                    else {
+                        ActionFalse();
+                    }
+                }).fail(function(err) {
+                    console.log("err: ", err)
+                })
+        });
+        function publishProduct() {
+            $.ajax({
+                url: '/Admin/AllowPublish/' + vm.auditData.productId,
+            }).done(function(res) {
+                if (res) {
+                    PublishSuccess();
+                }
+                else {
+                    PublishFalse();
+                }
+            }).fail(function(err) {
+                console.log("err: ", err)
+            })
+        };
+        function ActionSuccess() {
+            swal({
+                title: '已提出建議',
+                type: 'success',
+                closeOnClickOutside: false,
+                icon: "success",
+                timer: 1000,
+                button: false,
+            }).then(() => { window.location.href = "/Admin/AuditPage"; });
+        };
+        function ActionFalse() {
+            swal({
+                title: '提出建議失敗',
+                type: 'error',
+                closeOnClickOutside: false,
+                icon: "error",
+                timer: 1000,
+                button: false,
+            });
+        };
+        function PublishSuccess() {
+            swal({
+                title: '已成功上架',
+                type: 'success',
+                closeOnClickOutside: false,
+                icon: "success",
+                timer: 1000,
+                button: false,
+            }).then(() => { window.location.href = "/Admin/AuditPage"; });
+        };
+        function PublishFalse() {
+            swal({
+                title: '上架失敗',
+                type: 'error',
+                closeOnClickOutside: false,
+                icon: "error",
+                timer: 1000,
+                button: false,
+            });
+        };
+    </script>
+}
