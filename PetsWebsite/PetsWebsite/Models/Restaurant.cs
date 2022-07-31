@@ -13,6 +13,7 @@ namespace PetsWebsite.Models
         public string? Introduction { get; set; }
         public string? PhotoPath { get; set; }
         public string? Phone { get; set; }
+        public string? BusyTime { get; set; }
         public int? CompanyId { get; set; }
         public double? Longitude { get; set; }
         public double? Latitude { get; set; }

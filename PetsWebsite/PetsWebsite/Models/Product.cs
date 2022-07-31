@@ -26,6 +26,7 @@ namespace PetsWebsite.Models
         public bool? State { get; set; }
         public string? Discount { get; set; }
         public bool? Species { get; set; }
+        public string? AuditResult { get; set; }
 
         public virtual Category? Category { get; set; }
         public virtual Company? Company { get; set; }

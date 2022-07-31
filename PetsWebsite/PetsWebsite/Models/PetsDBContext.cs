@@ -257,6 +257,8 @@ namespace PetsWebsite.Models
             {
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
+                entity.Property(e => e.AuditResult).HasMaxLength(50);
+
                 entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
 
                 entity.Property(e => e.CompanyId).HasColumnName("CompanyID");
@@ -289,6 +291,8 @@ namespace PetsWebsite.Models
                 entity.Property(e => e.RestaurantId).HasColumnName("RestaurantID");
 
                 entity.Property(e => e.Address).HasMaxLength(20);
+
+                entity.Property(e => e.BusyTime).HasMaxLength(100);
 
                 entity.Property(e => e.City).HasMaxLength(10);
 
