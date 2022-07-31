@@ -13,27 +13,27 @@ namespace PetsWebsite.Controllers
         }
 
 
-        //排序
-        public async Task<IActionResult> Index(int id = 1)
+
+        public async Task<IActionResult> filter(int id = 1)
         {
 
             if (id == 1)
             {
-                var products =await ProductDBContext.Products
+                var products = await ProductDBContext.Products
                       .OrderBy(x => x.UnitPrice)
                       .ToListAsync();
                 return View(products);
 
-               
+
             }
             else if (id == 2)
             {
-                var products =await ProductDBContext.Products
+                var products = await ProductDBContext.Products
                     .OrderByDescending(x => x.UnitPrice)
                     .ToListAsync();
                 return View(products);
 
-                
+
             }
             else if (id == 3)
             {
@@ -53,7 +53,7 @@ namespace PetsWebsite.Controllers
             }
             else
             {
-                var products =await ProductDBContext.Products
+                var products = await ProductDBContext.Products
                       .OrderBy(x => x.UnitPrice)
                       .ToListAsync();
                 return View(products);
@@ -63,11 +63,22 @@ namespace PetsWebsite.Controllers
 
         }
 
+        public async Task<IActionResult> Index(int? pageNumber)
+        {
+            var products = await ProductDBContext.Products
+                      .OrderByDescending(x => x.UnitPrice)
+                      .ToListAsync();
+
+            int pageSize = 8;
+
+            return View(ShopPagedList<Product>.Create(products, pageNumber ?? 1, pageSize));
+        }
+
 
 
         //搜尋關鍵字
         [HttpPost]
-        public async Task<IActionResult> Index(string txtKeyword)
+        public async Task<IActionResult> ProductKeyword(string txtKeyword)
         {
 
             var products = await ProductDBContext.Products
