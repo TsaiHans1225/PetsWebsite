@@ -22,6 +22,10 @@
     <script src="/js/sweetalert.min.js"></script>
     <link rel="stylesheet" href="/css/Sweetalert/sweetalert.css" />
     <link rel="stylesheet" href="/css/PoweiCSS/BackToTop.css">
+    @*From FaceBook*@
+     <meta property="fb:app_id" content="1019193978794826" />
+    <meta property="fb:admins" content="100000655412970"/>
+
     @await RenderSectionAsync("Styles", required: false)
 </head>
 
@@ -73,7 +77,7 @@
                                 領養專區
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">犬貓專區</a></li>
+                                <li><a class="dropdown-item" asp-controller="PetsAboption" asp-action="PetsAboption">犬貓專區</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
