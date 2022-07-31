@@ -22,6 +22,10 @@
     <script src="/js/sweetalert.min.js"></script>
     <link rel="stylesheet" href="/css/Sweetalert/sweetalert.css" />
     <link rel="stylesheet" href="/css/PoweiCSS/BackToTop.css">
+    @*From FaceBook*@
+     <meta property="fb:app_id" content="1019193978794826" />
+    <meta property="fb:admins" content="100000655412970"/>
+
     @await RenderSectionAsync("Styles", required: false)
 </head>
 
@@ -57,19 +61,10 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown ms-2 me-2">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false">
+                         <li class="nav-item ms-2 me-2">
+                            <a class="nav-link text-dark" asp-controller="Shop" asp-action="Index">
                                 購物專區
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                                <li><a class="dropdown-item" asp-controller="Shop" asp-action="Index" asp-route-id="3">犬貓專區</a></li>
-
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" asp-controller="Shop" asp-action="Index" asp-route-id="4">非犬貓專區</a></li>
-                            </ul>
                         </li>
                         <li class="nav-item ms-2 me-2">
                             <a class="nav-link text-dark" asp-controller="Restaurants" asp-action="Restaurant">
@@ -82,7 +77,7 @@
                                 領養專區
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">犬貓專區</a></li>
+                                <li><a class="dropdown-item" asp-controller="PetsAboption" asp-action="PetsAboption">犬貓專區</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>

@@ -41,6 +41,10 @@ RestaurantService restaurantService = new RestaurantService();
 section.Bind(restaurantService);
 builder.Services.AddSingleton(restaurantService.GetType(), restaurantService);
 
+PetsAboptionResource petsRes = new PetsAboptionResource();
+builder.Configuration.GetSection("PetsAboptionResource").Bind(petsRes);
+builder.Services.AddSingleton(petsRes.GetType(), petsRes);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
