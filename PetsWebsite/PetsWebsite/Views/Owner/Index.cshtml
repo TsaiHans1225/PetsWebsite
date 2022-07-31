@@ -258,10 +258,10 @@
                             </td>
                             <td>{{item.emergency}}</td>
                             <td>
-                                <a class="btn btn-warning" type="submit">修改</a>
+                                <a class="btn btn-warning" type="submit" v-on:click="EditClinic(item)">修改</a>
                             </td>
                             <td>
-                                <a class="btn btn-danger" type="submit">下架</a>
+                                <a class="btn btn-danger" type="submit" v-on:click="DeleteClinic(item)">下架</a>
                             </td>
                             <td>已上架</td>
                         </tr>
@@ -438,6 +438,54 @@
                 }).fail(function(res) {
                     console.log("res: ", res);
                 })
+            },
+            EditClinic: function(item) {
+                var index = item.clinicId;
+                 $.ajax({
+                    type: 'get',
+                    url: `/api/ProductManageAPI/EditClickData/${index}`
+                }).done(function (res) {
+                    if (res) {
+                        window.location.href="/Owner/EditClinic"
+                    }
+                }).fail(function (res) {
+                    console.log("res: ", res);
+                })
+            },
+            DeleteClinic: function (item) {
+                swal({
+                    title: "確認刪除此診所資訊嗎?",
+                    text: "診所資訊刪除後將無法復原",
+                    icon: "warning",
+                    buttons: [
+                        '取消',
+                        '確認'
+                    ],
+                    dangerMode: true
+                }).then((result) => {
+                    if (result) {
+                        fetch(`/api/ProductManageAPI/DeleteClinic/${item.clinicId}`, {
+                            method: "DELETE"
+                        })
+                            .then(resp => {
+                                console.log("success", resp);
+                                if (resp) {
+                                    swal({
+                                        title: '刪除診所資訊',
+                                        text: '該診所資訊已刪除',
+                                        type: 'success',
+                                        closeOnClickOutside: false,
+                                        icon: "success"
+                                    }).then(() => {
+                                        this.reLoadData();
+                                    });
+                                    setTimeout("location.reload()", 3000)
+                                }
+                            })
+                            .catch(err => console.log("err", err))
+                            .then(response => console.log("response", response))
+                    }
+                });
             }
         }
     }).$mount('#ownerManage')

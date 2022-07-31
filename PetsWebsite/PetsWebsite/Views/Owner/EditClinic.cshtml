@@ -1,21 +1,25 @@
 ﻿@*新增診所頁面*@
-<section id="createClinic">
+<section id="editClinic">
     <div class="contanier m-5">
         <form id="ClinicForm">
             <div class="row align-items-center justify-content-center" style="height: 200px;">
                 <div class="col col-6">
                     <div class="row g-3 bg-light rounded mb-3">
+                        <div class="col col-12">
+                            <label for="RestaurantId" class="form-label">診所編號: </label>
+                            <input type="text" class="form-control" v-bind:value="EditClinicData.clinicId" id="ClinicId" name="ClinicId" readonly>
+                        </div>
                         <div class="col col-6 was-validated">
                             <label for="ClinicName" class="form-label">診所名稱: </label>
-                            <input type="text" class="form-control is-invalid" id="ClinicName" name="ClinicName" required>
+                            <input type="text" class="form-control is-invalid" id="ClinicName" name="ClinicName" v-model="EditClinicData.clinicName" required>
                         </div>
                         <div class="col col-3 was-validated">
                             <label for="Phone" class="form-label">連絡電話: </label>
-                            <input type="text" class="form-control is-invalid" id="Phone" name="Phone" required>
+                            <input type="text" class="form-control is-invalid" id="Phone" name="Phone" v-model="EditClinicData.phone" required>
                         </div>
                         <div class="col col-3 was-validated">
                             <label for="Emergency" class="form-label">是否提供急診服務: </label>
-                            <select class="form-select" id="Emergency" name="Emergency" aria-label="select example" required>
+                            <select class="form-select" id="Emergency" name="Emergency" aria-label="select example" v-model="EditClinicData.emergency" required>
                                 <option value="">-- 請選擇 --</option>
                                 <option value=true>是</option>
                                 <option value=false>否</option>
@@ -23,7 +27,7 @@
                         </div>
                         <div class="col col-6 was-validated">
                             <label for="City">所在城市: </label>
-                            <select class="form-select" id="City" name="City" v-on:change="cityChange" aria-label="select example" required>
+                            <select class="form-select" id="City" name="City" v-on:change="cityChange" aria-label="select example"  v-model="EditClinicData.city"  required>
                                 <option value="">-- 請選擇 --</option>
                                 <option value="臺北市">臺北市</option>
                                 <option value="新北市">新北市</option>
@@ -32,7 +36,7 @@
                         </div>
                         <div class="col col-6 was-validated">
                             <label for="Region">所在區域: </label>
-                            <select class="form-select" id="Region" name="Region" aria-label="select example" required>
+                            <select class="form-select" id="Region" name="Region" aria-label="select example" v-model="EditClinicData.region" required>
                                 <option value="">-- 請選擇 --</option>
                                 <option v-for="item in areaList" v-bind:value="item.AreaName">{{item.AreaName}}</option>
                             </select>
@@ -40,17 +44,17 @@
                         </div>
                         <div class="col col-12 was-validated">
                             <label for="Address" class="form-label">診所地址: </label>
-                            <input type="text" class="form-control is-invalid" id="Address" name="Address" required>
+                            <input type="text" class="form-control is-invalid" id="Address" name="Address" v-model="EditClinicData.address" required>
                         </div>
                         <div class="col col-12">
                             <label for="Describe">診所簡述: </label>
-                            <textarea class="form-control" id="Describe" name="Describe" rows="3"></textarea>
+                            <textarea class="form-control" id="Describe" name="Describe" rows="3" v-model="EditClinicData.describe" ></textarea>
                         </div>
                         <div class="col col-12">
                             <label class="d-block" for="Photo">圖片(大小請勿超過2MB)</label>
                             <div class="mb-3">
                                 <input class="form-control" type="file" id="Photo" name="PhotoPath" onchange="previewPic(this)" accept="image/*" required>
-                                <img id="pic" style="width: 30%; height: 30%" />
+                                <img id="pic" style="width: 30%; height: 30%" v-bind:src="'/images/Clinic/' + EditClinicData.photoPath"/>
                             </div>
                         </div>
                         <hr class="mb-0">
@@ -63,17 +67,18 @@
         </form>
     </div>
 </section>
-
 <script src="~/js/CityRegion.js"></script>
 @section Scripts{
     <script>
-        var crtClinic = new Vue({
+        var EdtidClinic = new Vue({
             data: {
                 cityRegion: [],
-                areaList: []
+                areaList: [],
+                EditClinicData: {},
             },
             mounted: function() {
                 this.cityRegion = JSON.parse(cityRegionSource);
+                this.GetClinicData();
             },
             methods: {
                 cityChange: function(e) {
@@ -83,15 +88,34 @@
                             break;
                         }
                     }
+                },
+                GetCityRegion: function(city) {
+                    for (let index = 0; index < this.cityRegion.length; index++) {
+                        if (this.cityRegion[index].CityName == city) {
+                            this.areaList = this.cityRegion[index].AreaList;
+                            break;
+                        }
+                    }
+                },
+                GetClinicData: function(e) {
+                    $.ajax({
+                    type:'get',
+                    url:'/api/ProductManageAPI/GetEditClickData'
+                }).done(function(res) {
+                    EdtidClinic.EditClinicData = res;
+                    EdtidClinic.GetCityRegion(res.city);
+                }).fail(function(err) {
+                    console.log(err);
+                })
                 }
             }
-        }).$mount('#createClinic');
+        }).$mount('#editClinic');
         $('#ClinicForm').submit(function(e) {
             e.preventDefault();
             var formdata = new FormData(this);
             console.log(e);
             $.ajax({
-                url: "/api/ProductManageAPI/NewClinic",
+                url: "/api/ProductManageAPI/EditClinic",
                 type: "POST",
                 data: formdata,
                 async: false,
@@ -116,7 +140,7 @@
         })
         function CreateSuccess() {
             swal({
-                title: '新增成功',
+                title: '更改成功',
                 type: 'success',
                 closeOnClickOutside: false,
                 icon: "success",
@@ -126,7 +150,7 @@
         };
         function CreateFalse() {
             swal({
-                title: '新增失敗',
+                title: '更改失敗',
                 type: 'error',
                 closeOnClickOutside: false,
                 icon: "error",
@@ -148,4 +172,3 @@
         }
     </script>
 }
-
