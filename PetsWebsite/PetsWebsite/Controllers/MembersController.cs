@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Mvc;
 using PetsWebsite.Models;
 using PetsWebsite.Models.ViewModels;
+using System.Security.Claims;
 
 namespace PetsWebsite.Controllers
 {
@@ -64,18 +65,6 @@ namespace PetsWebsite.Controllers
         public async Task<IActionResult> FacebookResponse()
         {
             var data = await HttpContext.AuthenticateAsync(FacebookDefaults.AuthenticationScheme);
-            var temp = data.Principal.Claims.Select(x => new
-            {
-                x.Type,
-                x.Value,
-                x.ValueType,
-                x.Issuer,
-                x.OriginalIssuer,
-                x.Properties
-            });
-            var LoginProvider = temp.Select(c => c.Issuer).First();
-            var Providerkey = temp.FirstOrDefault(c => c.Type.Contains("nameidentifier"))?.Value;
-
             return Redirect("/Home/Index");
         }
     }

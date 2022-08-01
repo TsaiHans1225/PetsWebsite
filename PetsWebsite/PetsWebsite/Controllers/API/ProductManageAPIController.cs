@@ -25,7 +25,6 @@ namespace PetsWebsite.Controllers.API
         {
             return _petsDB.Products.Where(p => p.CompanyId == User.GetId()).OrderBy(p => p.State).Select(p => p).ToList();
         }
-
         public async Task<List<Restaurant>> GetRestaurant()
         {
             int CompanyId = User.GetId();
@@ -240,6 +239,11 @@ namespace PetsWebsite.Controllers.API
         public List<Product> GetPublishFailProducts()
         {
             return _petsDB.Products.Where(p => p.CompanyId == User.GetId() && p.State == false && p.AuditResult != null).Select(p => p).ToList();
+        }
+        [HttpGet]
+        public List<Restaurant> GetPublishFailRestaurants()
+        {
+            return _petsDB.Restaurants.Where(r => r.CompanyId == User.GetId() && r.State == false && r.State != null).Select(r => r).ToList();
         }
     }
 }
