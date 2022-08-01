@@ -6,17 +6,19 @@
         }
     </style>
 }
-    <script>
-        document.getElementById('#fb')
-    </script>
-
     <div id="det">
         <div v-for="item in restFromID">
             <!-- 餐廳照片 -->
-            <div class="container">
+            <div class="container d-flex justify-content-start mb-2 mt-3" style="background-color:ivory;text-indent: 1rem;">
                 <div class="row" style="height:60%;">
-                    <img :src="item.photoPath" class="img-fluid" style="width: 100%;height: 210px;">
+                    <div class="col-6">
+                        <img :src="item.photoPath" class="img-fluid" style="width:500px;height: 210px;">
+                    </div>
+                    <div class="col-6 d-flex justify-content-end">
+                        {{item.introduction}}
+                    </div>
                 </div>
+               
             </div>
             <!--麵包屑-->
             <div class="container">
@@ -40,11 +42,7 @@
                 <div class="row">
                     <h3 style="text-align:center;">{{item.restaurantName}}<a href="" class="btn btn-outline-primary ms-1" style="border-radius: 20px;color: red;">前往預約</a></h3>
                 </div>
-                <div class="row mt-2">
-                    <div class="col-6" style="background-color:ivory;text-indent: 1rem;">
-                        {{item.introduction}}
-                    </div>
-                </div>
+                
             </div>
             <!-- -->
             <div class="container mt-2">
@@ -92,10 +90,6 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- <div id="map">
-            </div> -->
-
         </div>
 
     </div>
@@ -103,16 +97,14 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <div id="fb" class="fb-comments" data-href="https://pet.tgm101.club/Restaurants/RestaurantDetails/1" data-width="100%" data-numposts="5"></div>
+                <div id="fb" class="fb-comments" data-href="@Context.Request.Scheme://@Context.Request.Host/restaurants/restaurantdetails/@ViewBag.Id" data-width="100%" data-numposts="5"></div>
                 <div id="fb-root"></div>
             </div>
         </div>
     </div>
-
     @section Scripts{
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v14.0&appId=1019193978794826&autoLogAppEvents=1" nonce="5TIoxm6a"></script>
-        
     <script>
+    
         var vm = new Vue({
             data: {
                 restID: '',
