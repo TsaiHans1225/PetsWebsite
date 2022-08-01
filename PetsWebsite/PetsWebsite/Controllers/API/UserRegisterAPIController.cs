@@ -16,30 +16,32 @@ namespace PetsWebsite.Controllers.API
         {
             _PetsDB = petsDB;
         }
+        //會員註冊
         [HttpPost]
         public async Task<bool> MenberRegister(RegisterInfo users)
         {
-            var query = _PetsDB.UserAccounts.FirstOrDefault(a => a.Account == users.Account);
+            var query = _PetsDB.UserLogins.FirstOrDefault(a => a.ProviderKey == users.Account);
             if (query != null)
             {
                 return false;
             }
-            UserAccount userAccount = new UserAccount
+            UserLogin userAccount = new UserLogin
             {
-                Account = users.Account,
-                Password = users.Password,
+                LoginProvider = "cookies",
+                ProviderKey = users.Account,
                 User = new User
                 {
                     LastName = users.LastName,
                     FirstName = users.FirstName,
                     Email = users.Account,
-                    RoleId = 1
+                    RoleId = 1,
+                    Password=users.Password,
                 }
             };
 
             try
             {
-                _PetsDB.UserAccounts.Add(userAccount);
+                _PetsDB.UserLogins.Add(userAccount);
                 _PetsDB.SaveChanges();
             }
             catch (Exception e)
@@ -49,6 +51,7 @@ namespace PetsWebsite.Controllers.API
             }
             return true;
         }
+        //廠商註冊
         [HttpPost]
         public async Task<ActionResult<bool>> CompanyRegister(CompanyRegisterInfo register)
         {

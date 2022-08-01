@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Mvc;
 using PetsWebsite.Models;
 using PetsWebsite.Models.ViewModels;
@@ -16,12 +17,12 @@ namespace PetsWebsite.Controllers
         [HttpPost]
         public IActionResult Register(RegisterInfo users)
         {
-            var query = _PetsDB.UserAccounts.FirstOrDefault(a => a.Account == users.Account);
+            var query = _PetsDB.UserLogins.FirstOrDefault(a => a.Account == users.Account);
             if (query != null)
             {
                 return Redirect("/Home/Index");
             }
-            UserAccount userAccount = new UserAccount
+            UserLogin userAccount = new UserLogin
             {
                 Account = users.Account,
                 Password = users.Password,
@@ -36,7 +37,7 @@ namespace PetsWebsite.Controllers
 
             try
             {
-                _PetsDB.UserAccounts.Add(userAccount);
+                _PetsDB.UserLogins.Add(userAccount);
                 _PetsDB.SaveChanges();
             }
             catch (Exception e)
@@ -50,6 +51,31 @@ namespace PetsWebsite.Controllers
         public async Task<IActionResult> Logout()
         {
             HttpContext.SignOutAsync();
+            return Redirect("/Home/Index");
+        }
+        public IActionResult FacebookLogin()
+        {
+            var auth = new AuthenticationProperties()
+            {
+                RedirectUri = "Members/FacebookResponse"
+            };
+            return Challenge(auth, FacebookDefaults.AuthenticationScheme);
+        }
+        public async Task<IActionResult> FacebookResponse()
+        {
+            var data = await HttpContext.AuthenticateAsync(FacebookDefaults.AuthenticationScheme);
+            var temp = data.Principal.Claims.Select(x => new
+            {
+                x.Type,
+                x.Value,
+                x.ValueType,
+                x.Issuer,
+                x.OriginalIssuer,
+                x.Properties
+            });
+            var LoginProvider = temp.Select(c => c.Issuer).First();
+            var Providerkey = temp.FirstOrDefault(c => c.Type.Contains("nameidentifier"))?.Value;
+
             return Redirect("/Home/Index");
         }
     }

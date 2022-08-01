@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.EntityFrameworkCore;
 using PetsWebsite.Logic;
 using PetsWebsite.Models;
 using PetsWebsite.Models.Repository;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +25,25 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         opt.LoginPath = "/Members/Login";
         opt.AccessDeniedPath = "/Members/AccessDenied";
-    });
+    }).AddFacebook(opt =>
+    {
+        opt.AppId = "788179852360352";
+        opt.AppSecret = "4aca3eb028c6422ff9df319c6746d592";
+        //opt.Events = new OAuthEvents
+        //{
+        //    OnTicketReceived = ctx =>
+        //    {
+        //        // add claims
+        //        var claims = new List<Claim>
+        //    {
+        //        new Claim(ClaimTypes.Role, "Admin"),
+        //        new Claim("UserId","123")
+        //    };
+        //        ctx.Principal.Identities.First().AddClaims(claims);
+        //        return Task.CompletedTask;
+        //    },
+        //};
+    }); 
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();

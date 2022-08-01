@@ -31,7 +31,7 @@ namespace PetsWebsite.Models
         public virtual DbSet<Role> Roles { get; set; } = null!;
         public virtual DbSet<ShoppingCar> ShoppingCars { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
-        public virtual DbSet<UserAccount> UserAccounts { get; set; } = null!;
+        public virtual DbSet<UserLogin> UserLogins { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -346,9 +346,9 @@ namespace PetsWebsite.Models
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.Property(e => e.UserId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("UserID");
+                entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.Property(e => e.Account).HasMaxLength(20);
 
                 entity.Property(e => e.Address).HasMaxLength(30);
 
@@ -363,6 +363,8 @@ namespace PetsWebsite.Models
                 entity.Property(e => e.FirstName).HasMaxLength(20);
 
                 entity.Property(e => e.LastName).HasMaxLength(20);
+
+                entity.Property(e => e.Password).HasMaxLength(20);
 
                 entity.Property(e => e.Phone)
                     .HasMaxLength(20)
@@ -383,24 +385,30 @@ namespace PetsWebsite.Models
                     .HasForeignKey(d => d.RoleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Users_Roles1");
-
-                entity.HasOne(d => d.UserNavigation)
-                    .WithOne(p => p.User)
-                    .HasForeignKey<User>(d => d.UserId)
-                    .HasConstraintName("FK_Users_UserAccounts");
             });
 
-            modelBuilder.Entity<UserAccount>(entity =>
+            modelBuilder.Entity<UserLogin>(entity =>
             {
-                entity.HasKey(e => e.UserId);
+                entity.HasKey(e => new { e.UserId, e.LoginProvider, e.ProviderKey })
+                    .HasName("PK_UserLogins_1");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.Property(e => e.LoginProvider).HasMaxLength(50);
+
+                entity.Property(e => e.ProviderKey).HasMaxLength(50);
 
                 entity.Property(e => e.Account).HasMaxLength(20);
 
                 entity.Property(e => e.Password)
                     .HasMaxLength(20)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserLogins)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_UserLogins_Users");
             });
 
             OnModelCreatingPartial(modelBuilder);
