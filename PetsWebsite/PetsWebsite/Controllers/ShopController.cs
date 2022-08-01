@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PetsWebsite.Models;
+using PetsWebsite.Models.ViewModels;
 
 namespace PetsWebsite.Controllers
 {

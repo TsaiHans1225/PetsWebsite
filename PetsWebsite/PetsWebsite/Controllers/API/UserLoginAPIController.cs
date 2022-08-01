@@ -18,18 +18,19 @@ namespace PetsWebsite.Controllers.API
         {
             _PetsDB = petsDB;
         }
+        //會員登入
         [HttpPost]
         public async Task<bool> UserLogin(Login users)
         {
             //到資料庫找資料
-            var existUser =await _PetsDB.UserAccounts.Join(_PetsDB.Users,
+            var existUser =await _PetsDB.UserLogins.Join(_PetsDB.Users,
                 a => a.UserId,
                 u => u.UserId,
                 (a, u) => new
                 {
                     UserId = a.UserId,
-                    Account = a.Account,
-                    Password = a.Password,
+                    Account = a.ProviderKey,
+                    Password = u.Password,
                     RoleId = u.RoleId
                 }).Join(_PetsDB.Roles,
                 a => a.RoleId,
@@ -65,7 +66,7 @@ namespace PetsWebsite.Controllers.API
             return true;
 
         }
-
+        //廠商登入
         [HttpPost]
         public async Task<bool> CompanyLogin(Login users)
         {
