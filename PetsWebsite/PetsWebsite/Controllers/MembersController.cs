@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Facebook;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Mvc;
 using PetsWebsite.Models;
 using PetsWebsite.Models.ViewModels;
@@ -65,6 +66,19 @@ namespace PetsWebsite.Controllers
         public async Task<IActionResult> FacebookResponse()
         {
             var data = await HttpContext.AuthenticateAsync(FacebookDefaults.AuthenticationScheme);
+            return Redirect("/Home/Index");
+        }
+        public IActionResult GoogleLogin()
+        {
+            var auth = new AuthenticationProperties()
+            {
+                RedirectUri = "Members/GoogleResponse"
+            };
+            return Challenge(auth, GoogleDefaults.AuthenticationScheme);
+        }
+        public async Task<IActionResult> GoogleResponse()
+        {
+            await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
             return Redirect("/Home/Index");
         }
     }
