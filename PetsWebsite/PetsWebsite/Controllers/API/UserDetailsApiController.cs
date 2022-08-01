@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PetsWebsite.Extensions;
 using PetsWebsite.Models;
 using PetsWebsite.Models.ViewModel;
 using System.Collections.Generic;
@@ -12,34 +13,19 @@ namespace PetsWebsite.Controllers.API
     [ApiController]
     public class UserDetailsApiController : ControllerBase
     {
-
-        //UserDetailsViewModel data = new UserDetailsViewModel
-        //{
-        //    LastName = "Alex",
-        //    FirstName = "Wu",
-        //    Email = "andfwf@gmail.com",
-        //    Phone = "22222222",
-        //    Address = "XXXXXXXX",
-        //    Birthday = "1995/06/11"
-        //};
-
-        //List<UserDetailsViewModel> datalist = new List<UserDetailsViewModel>();
-
         private readonly PetsDBContext _dbContext;
         public UserDetailsApiController(PetsDBContext dbContext)
         {
             _dbContext = dbContext;
-            //datalist.Add(data);
         }
         [HttpGet]
         public async Task<ActionResult<UserDetailsViewModel>> GetUserDetails()
         {
-            int id = 5;
             if (_dbContext.Users == null)
             {
                 return NotFound();
             }
-            return _dbContext.Users.Where(u => u.UserId == id).ToArray().Select(u => new UserDetailsViewModel()
+            return _dbContext.Users.Where(u => u.UserId == User.GetId()).ToArray().Select(u => new UserDetailsViewModel()
             {
                 LastName = u.LastName,
                 FirstName = u.FirstName,
@@ -56,8 +42,7 @@ namespace PetsWebsite.Controllers.API
         [HttpPost]
         public void UpdateUserDetails(UserDetailsViewModel uDetails)
         {
-            int id = 5;
-            var query = _dbContext.Users.FirstOrDefault(u => u.UserId == id);
+            var query = _dbContext.Users.FirstOrDefault(u => u.UserId == User.GetId());
             query.LastName = uDetails.LastName;
             query.FirstName = uDetails.FirstName;
             query.Email = uDetails.Email;

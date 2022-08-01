@@ -76,6 +76,57 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                 return Task.CompletedTask;
             },
         };
+    }).AddGoogle(opt =>
+    {
+        opt.ClientId = builder.Configuration["oAuth:GoogleClientID"];
+        opt.ClientSecret = builder.Configuration["oAuth:GoogleClientSecret"];
+        opt.Events = new OAuthEvents
+        {
+            OnTicketReceived = ctx =>
+            {
+                var db = ctx.HttpContext.RequestServices.GetRequiredService<PetsDBContext>();
+                var email = ctx.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+                var LastName = ctx.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Surname)?.Value;
+                var FirstName = ctx.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.GivenName)?.Value;
+                var LoginProvider = ctx.Principal.Claims.Select(c => c.Issuer).First();
+                var ProviderKey = ctx.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+                var user = db.UserLogins.FirstOrDefault(x => x.User.Email == email);
+                if (user == null && string.IsNullOrEmpty(user?.ProviderKey))
+                {
+                    //create user info
+                    UserLogin Member = new UserLogin()
+                    {
+                        LoginProvider = LoginProvider,
+                        ProviderKey = ProviderKey,
+                        User = new User()
+                        {
+                            LastName = LastName,
+                            FirstName = FirstName,
+                            Email = email,
+                            RoleId = 1,
+                        }
+                    };
+                    db.UserLogins.Add(Member);
+                    db.SaveChanges();
+                    var NewMember = db.UserLogins.FirstOrDefault(x => x.ProviderKey == ProviderKey);
+                    user = NewMember;
+                }
+                else if (string.IsNullOrEmpty(user.ProviderKey))
+                {
+                    user.ProviderKey = ProviderKey;
+                    user.LoginProvider = LoginProvider;
+                    db.SaveChanges();
+                }
+                // add claims
+                var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Role, "Member"),
+                new Claim("UserID",user.UserId.ToString())
+            };
+                ctx.Principal.Identities.First().AddClaims(claims);
+                return Task.CompletedTask;
+            },
+        };
     }); 
 
 builder.Services.AddDistributedMemoryCache();
