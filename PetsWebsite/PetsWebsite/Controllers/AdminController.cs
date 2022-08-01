@@ -61,12 +61,19 @@ namespace PetsWebsite.Controllers
 
         // 存取修改建議
         [HttpPost]
-        public IActionResult SaveAuditSuggest(Product product)
+        public bool SaveAuditSuggest(Product product)
         {
             var query = _petsDB.Products.First(p => p.ProductId == product.ProductId);
             query.AuditResult = product.AuditResult;
-            _petsDB.SaveChanges();
-            return RedirectToAction("AuditPage");
+            try
+            {
+                _petsDB.SaveChanges();
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+            return true;
         }
 
         // 允許上架

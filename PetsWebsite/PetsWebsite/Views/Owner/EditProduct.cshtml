@@ -1,7 +1,7 @@
 ﻿@model PetsWebsite.Models.Product
 @*修改商品頁面*@
 <div class="contanier m-5">
-    <form id="editProductForm" action="@Url.Action("SaveEditedProduct", "Owner")" method="post" enctype="multipart/form-data">
+    <form id="editProductForm">
         <div class="row align-items-center justify-content-center" style="height: 200px;">
             <div class="col col-6">
                 <div class="row g-3 bg-light rounded mb-3">
@@ -38,7 +38,7 @@
                     </div>
                     <hr class="mb-0">
                     <div class="col col-12 d-flex my-3 justify-content-center">
-                        <button class="btn btn-outline-danger" type="submit">確認修改</button>
+                        <button class="btn btn-outline-danger" onclick="saveEditedProduct()" type="button">確認修改</button>
                     </div>
                 </div>
             </div>
@@ -46,16 +46,51 @@
     </form>
 </div>
 
-<script>
-    function previewPic(e) {
-        //var pic = document.getElementById('pic');
-        var maxSize_2MB = 1 * 1024 * 1024;
-        if (e.files[0].maxSize_2MB > maxSize_2MB) {
-            alert('圖片大小超過2MB！無法上傳');
-            e.value = "";
+@section Scripts{
+    <script>
+        function saveEditedProduct() {
+            //e.preventDefault;
+            var editProductData = $("#editProductForm")[0]
+            var formdata = new FormData(editProductData);
+            $.ajax({
+                url: '/Owner/SaveEditedProduct',
+                type: 'POST',
+                data: formdata,
+                contentType: false,
+                enctype: 'multipart/form-data',
+                processData: false
+            })
+                .done(function(res) {
+                    console.log(res)
+                    if (res) {
+                        swal({
+                            title: '已成功修改',
+                            type: 'success',
+                            closeOnClickOutside: false,
+                            icon: "success",
+                            timer: 1000,
+                            button: false
+                        }).then(() => window.location.href = "/Owner/Index");
+                    }
+                })
+                .fail(function(err) {
+                    console.log("err: ", err)
+                })
         }
-        else {
-            pic.src = URL.createObjectURL(e.files[0])
+        //$('#editProductForm').click(function(e) {
+
+
+        //})
+        function previewPic(e) {
+            //var pic = document.getElementById('pic');
+            var maxSize_2MB = 1 * 1024 * 1024;
+            if (e.files[0].maxSize_2MB > maxSize_2MB) {
+                alert('圖片大小超過2MB！無法上傳');
+                e.value = "";
+            }
+            else {
+                pic.src = URL.createObjectURL(e.files[0])
+            }
         }
-    }
-</script>
+    </script>
+}
