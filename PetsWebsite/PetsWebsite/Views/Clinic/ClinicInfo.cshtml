@@ -75,17 +75,16 @@
             <h1 class="mt-5 mb-5">服務項目</h1>
 
             <!-- 手風琴 -->
-
             <div class="accordion" id="accordionPanelsStayOpenExample" v-for="item in Clinicinfo">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                        <button class="accordion-button bg-primary" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                            <h4>診療項目</h4>
+                        <button class="accordion-button bg-primary " type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                            <h3>診療項目</h3>
                         </button>
                     </h2>
-                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                         <div class="accordion-body">
-                            <h5 class="text-danger">{{item.service}}</h5>
+                            <h5>{{item.service}}</h5>
                             <p>腫瘤是現在小動物常見的死因之一，包含皮膚表面的不明腫塊或內臟器官長出的腫瘤。腫瘤確診最重要的就是要先了解腫瘤的種類，判別的方式包括『細針採樣』及『病理切片診斷』，並與病理獸醫師討論做出專業的對應治療，而在狗貓腫瘤的治療方式，包含了手術治療、化學治療、放射線治療、標靶治療等。</p>
                         </div>
                     </div>
@@ -98,7 +97,9 @@
             <div class="col-md-12">
                 <div class="owl-carousel ">
                     <div class="item" v-for="item in ProductInfo">
-                        <img :src="'/images/Product/'+item.photoPath">
+                        <a href="~/Shop"><img :src="'/images/Product/'+item.photoPath"></a>
+                        <h5>商品名稱 : {{item.productName}}</h5>
+                        <span>商品售價 : {{item.unitPrice+"元"}}</span>
                     </div>
                 </div>
             </div>

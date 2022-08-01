@@ -60,7 +60,6 @@
                       :page-class="'page-item'">
                     </paginate>
                 </div>
- 
             </div>
         </div>
         <!-- 依...搜尋... -->
@@ -188,8 +187,8 @@
                     return Math.ceil(this.total.length / this.pageItem);
                 },
                 filterRest: function() {
-                    var max = this.currentPage * this.pageItem;
-                    var min = max - this.pageItem;
+                    var max = this.currentPage * this.pageItem; 
+                    var min = max - this.pageItem; 
                     return this.total.slice(min, max);
                 }
             },

@@ -84,18 +84,18 @@
         </div>
         <!-- 卡片 -->
         <div class="container" v-show="show">
-            <div class="row" >
-                <div class=" col-sm-4 my-3" v-for="(item,index) in ClinicList">
+            <div class="row">
+                <div class=" col-sm-4 my-3" v-for="(item,index) in filterRest">
                     <div class="card border-0">
                         <div id="Card">
                             <a :href="`Clinicinfo/${item.clinicId}`"><img class="card-img-top w-100" :src="item.photoPath"></a>
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hospital" viewBox="0 0 16 16">
-                                        <path d="M8.5 5.034v1.1l.953-.55.5.867L9 7l.953.55-.5.866-.953-.55v1.1h-1v-1.1l-.953.55-.5-.866L7 7l-.953-.55.5-.866.953.55v-1.1h1ZM13.25 9a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5ZM13 11.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5Zm.25 1.75a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5Zm-11-4a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5A.25.25 0 0 0 3 9.75v-.5A.25.25 0 0 0 2.75 9h-.5Zm0 2a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5ZM2 13.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5Z" />
-                                        <path d="M5 1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1a1 1 0 0 1 1 1v4h3a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h3V3a1 1 0 0 1 1-1V1Zm2 14h2v-3H7v3Zm3 0h1V3H5v12h1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3Zm0-14H6v1h4V1Zm2 7v7h3V8h-3Zm-8 7V8H1v7h3Z" />
-                                    </svg> {{item.clinicName}}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hospital" viewBox="0 0 16 16">
+                                    <path d="M8.5 5.034v1.1l.953-.55.5.867L9 7l.953.55-.5.866-.953-.55v1.1h-1v-1.1l-.953.55-.5-.866L7 7l-.953-.55.5-.866.953.55v-1.1h1ZM13.25 9a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5ZM13 11.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5Zm.25 1.75a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5Zm-11-4a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5A.25.25 0 0 0 3 9.75v-.5A.25.25 0 0 0 2.75 9h-.5Zm0 2a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5ZM2 13.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5Z" />
+                                    <path d="M5 1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1a1 1 0 0 1 1 1v4h3a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h3V3a1 1 0 0 1 1-1V1Zm2 14h2v-3H7v3Zm3 0h1V3H5v12h1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3Zm0-14H6v1h4V1Zm2 7v7h3V8h-3Zm-8 7V8H1v7h3Z" />
+                                </svg> {{item.clinicName}}
                                 </a>
                             </h5>
                             <p class="card-text">
@@ -130,72 +130,40 @@
                                     <h5 class="modal-title" id="staticBackdropLabel">{{item.clinicName}}</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">
-                                    <!-- map -->
-                                    <div class="container">
-                                        <div class="row">
-                                            <h2 id="h2Text" class="col-12 text-center text-danger mb-2">Map</h2>
-                                            <div class="col-12">
-                                                <iframe id="map"
-                                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.769612505944!2d121.52342931484193!3d25.041891483968584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a970a11a84ad%3A0x58e05f2528812097!2z5ZyL56uL6Ie65YyX5ZWG5qWt5aSn5a24!5e0!3m2!1szh-TW!2stw!4v1657415255330!5m2!1szh-TW!2stw"
-                                                        class="w-100" style="border:0;" allowfullscreen="" loading="lazy"
-                                                        referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- 評論 -->
-                                    <div class="container">
-                                        <div class="row">
-                                            <h1 id="titleH1" class="text-danger mt-5">評論</h1>
-                                        </div>
-                                        <div class="row">
-
-                                            <div class="form-floating mt-3">
-                                                <textarea class="form-control" placeholder="Leave a comment here"
-                                                          id="floatingTextarea2" style="height: 100px"></textarea>
-                                                <label for="floatingTextarea2">Comments</label>
-                                                <div class="d-flex justify-content-end mt-3">
-                                                    <a href="#" class="btn btn-info">提交</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer d-flex justify-content-between">
-                                    <div id="container" class="favorite">
-                                        <div class="circle" onclick="toggle()"></div>
-                                    </div>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+          <!-- 分頁 -->
+    <div class="container d-flex justify-content-center">
+        <div class="row">
+            <div class="col">
+                <paginate :page-count="totalPages" :click-handler="pageChange" :prev-text="'上一頁'" :next-text="'下一頁'"
+                          :page-range="5"
+                          :container-Class="'pagination'"
+                          :page-link-class="'page-link'"
+                          :prev-class="'page-item'"
+                          :next-class="'page-item'"
+                          :prev-link-class="'page-link'"
+                          :next-link-class="'page-link'"
+                          :page-class="'page-item'">
+                </paginate>
+            </div>
+        </div>
     </div>
 
-    <nav aria-label="...">
-        <ul class="pagination justify-content-center mt-5">
-            <li class="page-item disabled">
-                <span class="page-link">Previous</span>
-            </li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item " aria-current="page">
-                <span class="page-link">2</span>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
-    </nav>
+    </div>
 
 </body>
 
 @section Scripts{
     <script src="~/js/CityRegion.js"></script>
+    <script src="https://unpkg.com/vuejs-paginate@latest"></script>
+
     <script>
+        Vue.component('paginate', VuejsPaginate)
         var app = new Vue({
             data: {
                 selected: {
@@ -206,18 +174,20 @@
                 City: [],
                 Region: [],
                 show: false,
+                pageItem: 6,
+                currentPage: 1,
             },
-            mounted: function() {       //頁面渲染之前執行
-                this.City = JSON.parse(cityRegionSource);
-                fetch('/api/ClinicAPI/GetAll').then(res => { //網頁打開頁面顯示最初內容
-                    return res.json();
-                }).then(res => {
-                    console.log('抓到all', res)
-                    this.ClinicList = res
-                    this.show = true;
-                });
+            computed: {
+                totalPages: function() {
+                    return Math.ceil(this.ClinicList.length / this.pageItem);
+                },
+                filterRest: function() {
+                    var max = this.currentPage * this.pageItem;
+                    var min = max - this.pageItem;
+                    return this.ClinicList.slice(min, max);
+                }
             },
-            methods: {
+             methods: {
                 Getdata: async function(e) {
                     var city = this.City[this.selected.city].CityName; //抓到縣市
                     console.log(city, "縣市查詢")
@@ -241,13 +211,23 @@
                     this.Region = this.City[e.target.value].AreaList
                     this.selected.area = ""; //初始化地區資料
                 },
-            }
+                pageChange: function(currentPage) {
+                    this.currentPage = currentPage;
+                }
+            },
+            mounted: function() {       //頁面渲染之前執行
+                this.City = JSON.parse(cityRegionSource);
+                fetch('/api/ClinicAPI/GetAll').then(res => { //網頁打開頁面顯示最初內容
+                    return res.json();
+                }).then(res => {
+                    console.log('抓到all', res)
+                    this.ClinicList = res
+                    this.show = true;
+                });
+            },
         }).$mount("#Clinic")
 
-        function toggle() {
-            document.getElementById('container').classList.toggle('is-active') //收藏按鈕動畫效果
-        }
+      
     </script>
 }
 
-    @*    </html>*@
