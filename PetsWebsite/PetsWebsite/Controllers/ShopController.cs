@@ -21,7 +21,7 @@ namespace PetsWebsite.Controllers
             if (id == 1)
             {
                 var products = await ProductDBContext.Products
-                      .OrderBy(x => x.UnitPrice)
+                      .OrderBy(x => x.UnitPrice).Where(p => p.State == true)
                       .ToListAsync();
                 return View(products);
 
@@ -30,7 +30,7 @@ namespace PetsWebsite.Controllers
             else if (id == 2)
             {
                 var products = await ProductDBContext.Products
-                    .OrderByDescending(x => x.UnitPrice)
+                    .OrderByDescending(x => x.UnitPrice).Where(p => p.State == true)
                     .ToListAsync();
                 return View(products);
 
@@ -39,7 +39,7 @@ namespace PetsWebsite.Controllers
             else if (id == 3)
             {
                 var products = await ProductDBContext.Products
-                 .Where(m => m.Species == true)
+                 .Where(m => m.Species == true).Where(p => p.State == true)
                  .ToListAsync();
                 return View(products);
 
@@ -48,14 +48,14 @@ namespace PetsWebsite.Controllers
             else if (id == 4)
             {
                 var products = await ProductDBContext.Products
-                 .Where(m => m.Species == false)
+                 .Where(m => m.Species == false).Where(p => p.State == true)
                  .ToListAsync();
                 return View(products);
             }
             else
             {
                 var products = await ProductDBContext.Products
-                      .OrderBy(x => x.UnitPrice)
+                      .OrderBy(x => x.UnitPrice).Where(p => p.State == true)
                       .ToListAsync();
                 return View(products);
 
@@ -66,7 +66,7 @@ namespace PetsWebsite.Controllers
 
         public async Task<IActionResult> Index(int? pageNumber)
         {
-            var products = await ProductDBContext.Products
+            var products = await ProductDBContext.Products.Where(p => p.State == true)
                       .OrderByDescending(x => x.UnitPrice)
                       .ToListAsync();
 
@@ -83,7 +83,7 @@ namespace PetsWebsite.Controllers
         {
 
             var products = await ProductDBContext.Products
-                    .Where(m => m.ProductName.Contains(txtKeyword))
+                    .Where(m => m.ProductName.Contains(txtKeyword)).Where(p => p.State == true)
                     .ToListAsync();
 
             return View(products);
