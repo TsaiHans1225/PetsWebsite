@@ -3,32 +3,81 @@
 }
 
 
-
-<!-- Jumbotron -->
+ <style>
+        .img-wrapper{
+            position:relative;
+            overflow:hidden;
+        }
+       .img-wrapper > img {
+            display:block;
+            object-fit:cover;
+            object-position:center
+        }
+        .content {
+             position:absolute;
+             inset:0;
+             text-decoration:none;
+             font-size:2rem;
+             background:rgba(255,255,255,.4);
+             padding:1rem;
+             display:flex;
+             justify-content:center;
+             align-items:center;
+        }
+          .img-wrapper>a>img,
+          .img-wrapper>a>.content{
+             transition:200ms ease-in-out;
+         }
+         .img-wrapper:hover>a>img.blur{
+             filter:blur(2px);
+         }
+         .img-wrapper:hover>a>img.zoom{
+             transform: scale(1.1);
+         }
+         .img-wrapper>a>.content.fade{
+              opacity:0;
+          }
+          .img-wrapper:hover>a>.content.fade{
+              opacity:2;
+          }
+          
+</style>
+<!--首頁-->
 <body style="background-color:#f2cc8f;margin:0;padding:0">
     <header>
         <div style="background-color:#f2cc8f;display:flex;justify-content:center;">
             <img src="/images/pet-food.svg" class="img-fluid" style="width:120px;height:80px;"><h1>寵物任我行</h1>
         </div>
     </header>
-    <div class="container-fluid">
-        <div style="display:flex; flex-wrap:nowrap ">
+   <div class="container-fluid">
+    <div style="display:flex; flex-wrap:nowrap ">
+        <div class="img-wrapper">
+            <a asp-controller="PetsAboption" asp-action="PetsAboption">
+                <img class="zoom blur " src="/images/index/indexpet.jpg" style="width:100%;height:100%;">
+                <div class="content fade slide-left ">寵物領養</div>
+            </a>
+        </div>
 
-                <a asp-controller="Restaurants" asp-action="Restaurant" >
-                <img src="/images/Index/indexpet.jpg" style="width:100%;height:100%;display:inline-block">
-                </a>
+        <div class="img-wrapper">
+            <a asp-controller="Shop" asp-action="index">
+                <img class="blur zoom " src="/images/index/indexpet2.jpg" style="width:100%;height:100%;">
+                <div class="content fade ">寵物商品</div>
+            </a>
+        </div>
 
-                <a asp-controller="Shop" asp-action="Index">
-                <img src="/images/Index/indexpet2.jpg" style="width:100%;height:100%;display:inline-block">
-                </a>
+        <div class="img-wrapper">
+            <a asp-controller="Restaurants" asp-action="Restaurant">
+                <img class="blur zoom" src="/images/index/indexpet3.jpg" style="width:100%;height:100%;">
+                <div class="content fade ">寵物餐廳</div>
+            </a>
+        </div>
 
-                <a  asp-controller="Clinic" asp-action="Clinic">
-                <img src="/images/Index/indexpet3.jpg" style="width:100%;height:100%;display:inline-block">
-                </a>
-                <a asp-controller="PetsAboption" asp-action="PetsAboption">
-                <img src="/images/Index/indexpet4.jpg" style="width:100%;height:100%;display:inline-block">
-                </a>
-
-            </div>
+        <div class="img-wrapper">
+            <a asp-controller="Clinic" asp-action="Clinic">
+                <img class="blur zoom" src="/images/index/indexpet4.jpg" style="width:100%;height:100%;">
+                <div class="content fade ">寵物醫院</div>
+            </a>
+        </div>
     </div>
+</div>
 </body>

@@ -39,8 +39,8 @@
             <div class="container mt-3" v-for="item in Clinicinfo">
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">首頁</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><a href="#">醫療資訊</a> >{{item.clinicName}}</li>
+                        <li class="breadcrumb-item"><a href="~/Home/Index">首頁</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="~/Clinic/Clinic">醫療資訊</a> >{{item.clinicName}}</li>
                     </ol>
                 </nav>
                 <div class="container">
@@ -172,7 +172,6 @@
                     }.bind(self))
                 })
             },
-
         }).$mount('#allinfo')
     </script>
 
