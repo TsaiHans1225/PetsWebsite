@@ -2,15 +2,15 @@
 <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
 @section Scripts{
     <script defer src="/js/owl.carousel.js"></script>
+    <script defer src="/js//owl.autoheight.js"></script>
+    <script defer src="/js/owl.navigation.js"></script>
+    <script defer src="/js/owl.autoplay.js"></script>
 }
 
     <style>
         #info {
             justify-content: center;
         }
-
-
-
         #image {
             overflow: hidden
         }
@@ -69,11 +69,8 @@
                 <div>
                 </div>
             </div>
-            <h4 class="mt-5" v-for="item in Clinicinfo">
-                {{item.describe}}
-            </h4>
-            <h1 class="mt-5 mb-5">服務項目</h1>
 
+            <h1 class="mt-5 mb-5">服務項目</h1>
             <!-- 手風琴 -->
             <div class="accordion" id="accordionPanelsStayOpenExample" v-for="item in Clinicinfo">
                 <div class="accordion-item">
@@ -85,7 +82,7 @@
                     <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                         <div class="accordion-body">
                             <h5>{{item.service}}</h5>
-                            <p>腫瘤是現在小動物常見的死因之一，包含皮膚表面的不明腫塊或內臟器官長出的腫瘤。腫瘤確診最重要的就是要先了解腫瘤的種類，判別的方式包括『細針採樣』及『病理切片診斷』，並與病理獸醫師討論做出專業的對應治療，而在狗貓腫瘤的治療方式，包含了手術治療、化學治療、放射線治療、標靶治療等。</p>
+                            <p> {{item.describe}}</p>
                         </div>
                     </div>
                 </div>
@@ -95,7 +92,7 @@
         <h1 class="mt-5">推薦商品</h1>
         <div class="container">
             <div class="col-md-12">
-                <div class="owl-carousel ">
+                <div class="owl-carousel owl-theme" id="Prod">
                     <div class="item" v-for="item in ProductInfo">
                         <a href="~/Shop"><img :src="'/images/Product/'+item.photoPath"></a>
                         <h5>商品名稱 : {{item.productName}}</h5>
@@ -105,32 +102,29 @@
             </div>
         </div>
         <!--附近寵物友善餐廳-->
-        <h1 class="mt-5 mb-3">附近寵物友善餐廳</h1>
+        <h1 class="mt-5">附近寵物友善餐廳</h1>
         <div class="container">
-            <div class="owl-carousel">
-                <div class="mt-3" id="image">
-                    <div class="card bg-secondary border-0">
-                        <a href="~/Restaurant/RestaurantDetail"><img :src="item.photoPath" class="image" v-for="item in Clinicinfo"></a>
-                        <h5 class="card-title mt-3">Aaron寵物餐廳</h5>
-                        <div>
-                            <div mb-2 id="owlimage">
-                                <a class=" col " href="#" style="text-decoration:none"><span style="color: #337ab7;">來去看看</span></a>
-                            </div>
-                            <span class=" text-success"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>4.4(35000)</span> |
-                            <span class=" text-success">早午餐</span>
-                        </div>
+            <div class="col-md-12">
+                <div class="owl-carousel owl-theme" id="Rest">
+                    <div class="item" v-for="item in NearRest">
+                        <a href=""><img :src="item.photoPath" style="width:300px;height:250px"></a>
+                        <h5>餐廳名稱 : {{item.restaurants}}</h5>
+                        <span>餐廳地址 : {{item.city+item.region+item.address}}</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
     <script>
 
         var app = new Vue({
             data: {
                 Clinicinfo: [],
                 ClinicId: "",
-                ProductInfo: []
+                ProductInfo: [],
+                NearRest: []
             },
             mounted: function() {
                 let self = this;
@@ -145,26 +139,35 @@
                     console.log("抓到info", res)
                     console.log(self)
                     self.Clinicinfo = res;
-                })
+                });
+                fetch(`/api/ClinicAPI/GetNearRest/${self.ClinicId}`).then(res => {
+                    return res.json();
+                }).then(res => {
+                    console.log("抓到rest", res)
+                    self.NearRest = res;
+                    self.$nextTick(function() {
+                        $('#Rest').owlCarousel({
+                            items: 4,
+                            loop: true,
+                            margin: 10,
+                            autoplayHoverPause: true,
+                            autoWidth: true,
+                            autoHeight: true
+                        })
+                    }.bind(self))
+                });
                 fetch('/api/ClinicAPI/GetProductInfo').then(res => {
                     return res.json();
                 }).then(res => {
                     self.ProductInfo = res;
                     self.$nextTick(function() {
-                        $('.owl-carousel').owlCarousel({
+                        $('#Prod').owlCarousel({
+                            items: 4,
                             loop: true,
                             margin: 10,
-                            responsive: {
-                                0: {
-                                    items: 1
-                                },
-                                600: {
-                                    items: 3
-                                },
-                                1000: {
-                                    items: 5
-                                }
-                            }
+                            autoplay: true,
+                            autoplayTimeout: 3000,
+                            autoplayHoverPause: true
                         })
                     }.bind(self))
                 })
