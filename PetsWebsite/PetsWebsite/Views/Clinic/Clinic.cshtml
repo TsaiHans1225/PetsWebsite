@@ -15,19 +15,20 @@
         height: 272px !important;
     }
 
-    .card {
+    #Card {
         overflow-y: hidden;
         overflow-x: hidden;
         width: 100%;
     }
 
-        .card img {
-            transform: scale(1,1);
-            transition: all .5s ease-in;
+        #Card img {
+            transition: 200ms ease-in-out;
+            opacity:0.5;
         }
 
-            .card img:hover {
-                transform: scale(1.05);
+            #Card img:hover {
+                transform: scale(1.1);
+                opacity:2;
             }
 </style>
 
