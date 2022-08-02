@@ -1,0 +1,34 @@
+﻿@{
+    Layout = null;
+}
+
+
+
+<!-- Jumbotron -->
+<body style="background-color:#f2cc8f;margin:0;padding:0">
+    <header>
+        <div style="background-color:#f2cc8f;display:flex;justify-content:center;">
+            <img src="/images/pet-food.svg" class="img-fluid" style="width:120px;height:80px;"><h1>寵物任我行</h1>
+        </div>
+    </header>
+    <div class="container-fluid">
+        <div style="display:flex; flex-wrap:nowrap ">
+
+                <a asp-controller="Restaurants" asp-action="Restaurant" >
+                <img src="/images/Index/indexpet.jpg" style="width:100%;height:100%;display:inline-block">
+                </a>
+
+                <a asp-controller="Shop" asp-action="Index">
+                <img src="/images/Index/indexpet2.jpg" style="width:100%;height:100%;display:inline-block">
+                </a>
+
+                <a  asp-controller="Clinic" asp-action="Clinic">
+                <img src="/images/Index/indexpet3.jpg" style="width:100%;height:100%;display:inline-block">
+                </a>
+                <a asp-controller="PetsAboption" asp-action="PetsAboption">
+                <img src="/images/Index/indexpet4.jpg" style="width:100%;height:100%;display:inline-block">
+                </a>
+
+            </div>
+    </div>
+</body>
