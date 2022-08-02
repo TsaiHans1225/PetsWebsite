@@ -54,32 +54,28 @@ namespace PetsWebsite.Controllers.API
             return list;
         }
         [HttpGet]
-        public IEnumerable<RestaurantViewModel> GetClinicId(int ClinicId)
+        [Route("{id}")]
+        public IEnumerable<RestaurantViewModel> GetNearRest([FromRoute(Name ="id")]int ClinicId)
         {
             var center = _PetsDB.Clinics.FirstOrDefault(i => i.ClinicId == ClinicId);
-            if (center != null)
+            if (center == null) return Enumerable.Empty<RestaurantViewModel>();
+            if (!center.Longitude.HasValue && !center.Latitude.HasValue) return Enumerable.Empty<RestaurantViewModel>();
+            var coord = new GeoCoordinate(center.Latitude.Value, center.Longitude.Value);
+            var allRestaurants = _PetsDB.Restaurants.Where(x => x.Latitude != null && x.Longitude != null).ToList();
+            var temp = allRestaurants.Select(x => new RestaurantViewModel
             {
-                if (center.Longitude.HasValue && center.Latitude.HasValue)
-                {
-                    var coord = new GeoCoordinate(center.Latitude.Value, center.Longitude.Value);
-                    var allRestaurants = _PetsDB.Restaurants.Where(x => x.Latitude != null && x.Longitude != null).ToList();
-                    var temp = allRestaurants.Select(x => new RestaurantViewModel
-                    {
-                        PhotoPath = x.PhotoPath,
-                        City = x.City,
-                        Address = x.Address,
-                        Phone = x.Phone,
-                        Region = x.Region,
-                        Longitude = x.Longitude,
-                        Latitude = x.Latitude,
-                        Restaurants = x.RestaurantName,
-                        dist = coord.GetDistanceTo(new GeoCoordinate(x.Latitude.Value, x.Longitude.Value))
-                    }).Where(x => x.dist < 1000).ToList();
-                    return temp;
-                }
-              
-            }
-            return null;
+                PhotoPath = x.PhotoPath,
+                City = x.City,
+                Address = x.Address,
+                Phone = x.Phone,
+                Region = x.Region,
+                Longitude = x.Longitude,
+                Latitude = x.Latitude,
+                Restaurants = x.RestaurantName,
+                RestaurantsId=x.RestaurantId,
+                dist = coord.GetDistanceTo(new GeoCoordinate(x.Latitude.Value, x.Longitude.Value))
+            }).Where(x => x.dist < 10000).ToList();
+            return temp;
         }
     }
 }
