@@ -99,7 +99,7 @@
         });
         function publishProduct() {
             $.ajax({
-                url: '/Admin/AllowPublish/' + vm.auditData.productId,
+                url: '/Admin/AllowProductPublish/' + vm.auditData.productId,
             }).done(function(res) {
                 if (res) {
                     PublishSuccess();

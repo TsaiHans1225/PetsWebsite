@@ -42,7 +42,7 @@ namespace PetsWebsite.Controllers
             newProduct.CompanyId = User.GetId();
             newProduct.ProductName = newProduct.ProductName.Trim();
             newProduct.Describe = newProduct.Describe.Trim();
-            //newProduct.Discontinued = true;
+            newProduct.State = false;
             newProduct.LaunchDate = DateTime.Now;
 
             // 取出表單圖片及名稱
@@ -150,6 +150,7 @@ namespace PetsWebsite.Controllers
             newRestaurant.Address = newRestaurant.Address.Trim();
             newRestaurant.Introduction = newRestaurant.Introduction.Trim();
             newRestaurant.Phone = newRestaurant.Phone.Trim();
+            newRestaurant.State = false;
 
             // 取出圖片及名稱
             var InputFile = HttpContext.Request.Form.Files[0];

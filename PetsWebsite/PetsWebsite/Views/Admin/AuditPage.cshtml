@@ -125,18 +125,12 @@
         </div>
         <div class="tab-pane fade bg-light" id="clinic" role="tabpanel" aria-labelledby="clinic-tab">
             <div class="contanier mx-5 pt-5">
-                <div class="row">
-                    <a class="btn btn-outline-success col col-2 ms-4 mb-2" style="right: 5%;"
-                       href="/Owner/CreateClinic">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-plus-lg" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
-                        </svg>
-                        新增診所
-                    </a>
+                <div class="row mb-2 d-flex justify-content-around">
+                    <h3 class="col col-5 text-danger d-flex justify-content-center">
+                        <strong v-bind:hidden="showNoClinic">無待審診所!</strong>
+                    </h3>
                 </div>
-                <table class="table table-light table-striped">
+                <table class="table table-success table-striped">
                     <thead>
                         <tr>
                             <th scope="col">圖片</th>
@@ -147,52 +141,38 @@
                             <th scope="col">地址</th>
                             <th scope="col">診所簡述</th>
                             <th scope="col">急診</th>
-                            <th scope="col">修改診所資訊</th>
-                            <th scope="col">下架診所</th>
-                            <th scope="col">商品狀態</th>
+                            <th scope="col">審核</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody v-for="item in auditClinicList">
                         <tr class="">
                             <td scope="row">
-                                <img src="/images/Owner/動物醫院.png" style="width: 100px; height: 80px;" alt="">
+                                <img src="'/images/Clinic/ + item.photoPath'" style="width: 100px; height: 80px;" alt="">
                             </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>
+                                <p class="text-truncate" style="width: 200px;">ID : {{item.clinicId}}</p>
+                                <p class="text-truncate" style="width: 200px;">名稱 : {{item.clinicName}}</p>
+                            </td>
+                            <td>{{item.phone}}</td>
+                            <td>{{item.city}}</td>
+                            <td>{{item.region}}</td>
                             <td>
                                 <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
-
+                                    {{item.address}}
                                 </p>
                             </td>
                             <td>
                                 <p style="width: 80px; height: 20px; text-overflow: ellipsis; white-space: wrap; overflow: hidden;">
-
+                                    {{item.describe}}
                                 </p>
                             </td>
-                            <td></td>
+                            <td>{{item.emergency == true? "有" : "無"}}</td>
                             <td>
-                                <a class="btn btn-warning" type="submit">修改</a>
+                                <a class="btn btn-outline-danger" v-on:click="clickAuditClinic(item)">開始審核</a>
                             </td>
-                            <td>
-                                <a class="btn btn-danger" type="submit">下架</a>
-                            </td>
-                            <td>已上架</td>
                         </tr>
                     </tbody>
                 </table>
-                <div class="row">
-                    <a class="btn btn-primary position-absolute col col-1" style="right: 5%;" asp-action="CreateProduct"
-                       asp-controller="Owner">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-plus-lg" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
-                        </svg>
-                        新增診所
-                    </a>
-                </div>
             </div>
         </div>
     </div>
@@ -205,12 +185,15 @@
             data: {
                 auditProductList: [],
                 auditRestaurantList: [],
+                auditClinicList: [],
                 showNoProduct: true,
-                showNoRestaurant: true
+                showNoRestaurant: true,
+                showNoClinic: true
             },
             mounted: function() {
                 this.getAuditProduct();
                 this.getAuditRestaurant();
+                this.getAuditClinic();
             },
             methods: {
                 getAuditProduct: function() {
@@ -242,7 +225,22 @@
                             this.showNoRestaurant = false;
                         }
                     }).fail(function(err) {
-                        console.log("err: ", err)
+                        console.log("getAuditRestaurantErr: ", err)
+                    })
+                },
+                getAuditClinic: function() {
+                    $.ajax({
+                        url: '/Admin/GetAuditClinic',
+                        type: 'GET'
+                    }).done(function(res) {
+                        if (res != null) {
+                            auditvm.auditClinicList = res;
+                            this.showNoClinic = true;
+                        } else {
+                            this.showNoClinic = false;
+                        }
+                    }).fail(function(err) {
+                        console.log("getAuditClinicErr: ", err);
                     })
                 },
                 clickAuditProduct: function(item) {
@@ -256,7 +254,7 @@
                                 window.location.href = "/Admin/AuditProductPage"
                             }
                         }).fail(function(err) {
-                            console.log("err: ", err)
+                            console.log("clickAuditProductErr: ", err)
                         })
                 },
                 clickAuditRestaurant: function(item) {
@@ -267,10 +265,27 @@
                     })
                     .done(function(res) {
                         if (res) {
-                            window.location.href = "/Admin/AuditRestaurantPage" // TODO
+                            window.location.href = "/Admin/AuditRestaurantPage";
                         }
                     })
-                    .fail(function() { })
+                    .fail(function(err) {
+                        console.log("clickAuditRestaurantErr: ", err)
+                    })
+                },
+                clickAuditClinic: function(item) {
+                    var clinicId = item.clinicId;
+                    $.ajax({
+                        url: `/Admin/StartAuditClinic/${clinicId}`,
+                        type: 'GET'
+                    })
+                    .done(function(res) {
+                        if (res) {
+                            window.location.href = "/Admin/AuditClinicPage";
+                        }
+                    })
+                    .fail(function(err) {
+                        console.log("clickAuditClinicErr: ", err)
+                    })
                 }
             }
         });
