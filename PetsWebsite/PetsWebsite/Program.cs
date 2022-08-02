@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using PetsWebsite.Logic;
 using PetsWebsite.Models;
 using PetsWebsite.Models.Repository;
+using PetsWebsite.Utility;
 using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,7 @@ builder.Services.AddDbContext<PetsDBContext>(opt =>
 });
 builder.Services.AddTransient<IcommonLogic, CommonLogic>();
 builder.Services.AddTransient<RestaurantsRepository>();
+builder.Services.AddSingleton<Setting>();
 //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 // Add services to the container.
@@ -27,8 +29,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         opt.AccessDeniedPath = "/Members/AccessDenied";
     }).AddFacebook(opt =>
     {
-        opt.AppId = "788179852360352";
-        opt.AppSecret = "4aca3eb028c6422ff9df319c6746d592";
+        opt.AppId = builder.Configuration["oAuth:FacebookID"];
+        opt.AppSecret = builder.Configuration["oAuth:FacebookSecret"];
         opt.Events = new OAuthEvents
         {
             OnTicketReceived = ctx =>
@@ -40,7 +42,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                 var LoginProvider = ctx.Principal.Claims.Select(c => c.Issuer).First();
                 var ProviderKey = ctx.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
                 var user = db.UserLogins.FirstOrDefault(x => x.User.Email == email);
-                if (user == null && string.IsNullOrEmpty(user?.ProviderKey))
+                if (user == null)
                 {
                     //create user info
                     UserLogin Member = new UserLogin()
@@ -60,16 +62,21 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                     var NewMember = db.UserLogins.FirstOrDefault(x => x.ProviderKey == ProviderKey);
                     user = NewMember;
                 }
-                else if (string.IsNullOrEmpty(user.ProviderKey))
+                else if (user?.ProviderKey != ProviderKey)
                 {
-                    user.ProviderKey = ProviderKey;
-                    user.LoginProvider = LoginProvider;
+                    UserLogin FbLogin = new UserLogin()
+                    {
+                        ProviderKey = ProviderKey,
+                        LoginProvider = LoginProvider,
+                        UserId = user.UserId
+                    };
+                    db.UserLogins.Add(FbLogin);
                     db.SaveChanges();
                 }
                 // add claims
                 var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Role, "Member"),
+                new Claim(ClaimTypes.Role,"Member"),
                 new Claim("UserID",user.UserId.ToString())
             };
                 ctx.Principal.Identities.First().AddClaims(claims);
@@ -111,10 +118,15 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                     var NewMember = db.UserLogins.FirstOrDefault(x => x.ProviderKey == ProviderKey);
                     user = NewMember;
                 }
-                else if (string.IsNullOrEmpty(user.ProviderKey))
+                else if (user?.ProviderKey != ProviderKey)
                 {
-                    user.ProviderKey = ProviderKey;
-                    user.LoginProvider = LoginProvider;
+                    UserLogin GoogleLogin = new UserLogin()
+                    {
+                        ProviderKey = ProviderKey,
+                        LoginProvider = LoginProvider,
+                        UserId = user.UserId
+                    };
+                    db.UserLogins.Add(GoogleLogin);
                     db.SaveChanges();
                 }
                 // add claims
@@ -127,7 +139,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                 return Task.CompletedTask;
             },
         };
-    }); 
+    });
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();

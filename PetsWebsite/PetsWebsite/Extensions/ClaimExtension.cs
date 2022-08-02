@@ -8,5 +8,9 @@ namespace PetsWebsite.Extensions
         {
             return Convert.ToInt32(user.Claims.First(x => x.Type == "UserID").Value);
         }
+        public static string GetMail(this ClaimsPrincipal user)
+        {
+            return user.Claims.First(x => x.Type == ClaimTypes.Email).Value;
+        }
     }
 }

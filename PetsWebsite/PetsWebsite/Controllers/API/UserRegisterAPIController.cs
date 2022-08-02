@@ -119,13 +119,14 @@ namespace PetsWebsite.Controllers.API
                         Account = register.Account,
                         CompanyId=int.Parse(register.CompanyId),
                         Password = register.Password,
-                        Company =new Company
+                        Company = new Company
                         {
                             CompanyId = int.Parse(register.CompanyId),
-                            Email= register.Account,
-                            CompanyName=register.CompanyName,
+                            Email = register.Account,
+                            CompanyName = register.CompanyName,
                         }
-                    
+
+
                     };
                     _PetsDB.CompanyAccounts.Add(companyAccount);
                     _PetsDB.SaveChanges();

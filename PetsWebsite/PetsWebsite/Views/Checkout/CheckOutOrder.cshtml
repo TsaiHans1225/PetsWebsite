@@ -45,11 +45,15 @@
                                         <td>選擇付款方式</td>
                                         <td colspan="2">
                                             <div class="form-check">
-                                                <input id="creditcard" name="payment" type="radio" class="form-check-input">
+                                                <input id="creditcard" name="payment" type="radio" class="form-check-input" value="creditcard">
                                                 <label class="form-check-label" for="creditcard">信用卡</label>
                                             </div>
-                                            <div class="form-check checkbox">
-                                                <input id="cash" name="payment" type="radio" class="form-check-input">
+                                            <div class="form-check">
+                                                <input id="creditcard" name="payment" type="radio" class="form-check-input" value="webatm">
+                                                <label class="form-check-label" for="creditcard">WebATM</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input id="cash" name="payment" type="radio" class="form-check-input" value="cash">
                                                 <label class="form-check-label" for="cash">貨到付款</label>
                                             </div>
                                         </td>
@@ -86,7 +90,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="#" class="btn btn-warning btn-lg float-right">確定購買</a>
+                                            <a href="#" class="btn btn-warning btn-lg float-right" v-on:click="PayFlow">確定購買</a>
                                         </td>
                                     </tr>
                                 </tfoot>
@@ -130,6 +134,7 @@
             data: {
                 PreOrderList: [],
                 PreOrderPriceSum: 0,
+                PreOrderList: []
             },
             mounted: function() {
                 var self = this;
@@ -141,12 +146,30 @@
                     self.PreOrderList = res;
                     for (let i = 0; i < res.length; i++) {
                         self.PreOrderPriceSum += (res[i].price * res[i].count);
+                        var OrderInfo = {
+                            ProductName: res[i].productName,
+                            Count: res[i].count
+                        }
+                        self.PreOrderList.push(OrderInfo);
                     }
                     console.log("Sum:", self.PreOrderPriceSum)
                     console.log("PreOrderList", self.PreOrderList);
                 }).fail(function(err) {
                     console.log(err);
                 })
+            },
+            methods: {
+                PayFlow: function() {
+                    var OrderData = {
+                        OrderList: PurchaseOrder.PreOrderList,
+                        OrderSum: PurchaseOrder.PreOrderPriceSum
+                    }
+                    $.ajax({
+                        type: "post",
+                        url: "/PaymentFlow/GetPayFlowData",
+                        data: OrderData,
+                    })
+                }
             }
         }).$mount("#OrderInfo")
 

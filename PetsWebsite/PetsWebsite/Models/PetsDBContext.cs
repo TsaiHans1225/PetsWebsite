@@ -16,6 +16,7 @@ namespace PetsWebsite.Models
         {
         }
 
+        public virtual DbSet<Article> Articles { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Clinic> Clinics { get; set; } = null!;
         public virtual DbSet<Collection> Collections { get; set; } = null!;
@@ -47,6 +48,22 @@ namespace PetsWebsite.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Article>(entity =>
+            {
+                entity.ToTable("Article");
+
+                entity.Property(e => e.ArticleId).HasColumnName("ArticleID");
+
+                entity.Property(e => e.RestaurantId).HasColumnName("RestaurantID");
+
+                entity.Property(e => e.Title).HasMaxLength(30);
+
+                entity.HasOne(d => d.Restaurant)
+                    .WithMany(p => p.Articles)
+                    .HasForeignKey(d => d.RestaurantId)
+                    .HasConstraintName("FK_Article_Restaurants");
+            });
+
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.Property(e => e.CategoryId)
@@ -61,6 +78,8 @@ namespace PetsWebsite.Models
                 entity.Property(e => e.ClinicId).HasColumnName("ClinicID");
 
                 entity.Property(e => e.Address).HasMaxLength(20);
+
+                entity.Property(e => e.AuditResult).HasMaxLength(50);
 
                 entity.Property(e => e.City).HasMaxLength(10);
 
@@ -169,9 +188,13 @@ namespace PetsWebsite.Models
                     .ValueGeneratedNever()
                     .HasColumnName("CompanyID");
 
-                entity.Property(e => e.Account).HasMaxLength(20);
+                entity.Property(e => e.Account)
+                    .HasMaxLength(20)
+                    .UseCollation("Chinese_Taiwan_Stroke_CS_AS");
 
-                entity.Property(e => e.Password).HasMaxLength(20);
+                entity.Property(e => e.Password)
+                    .HasMaxLength(20)
+                    .UseCollation("Chinese_Taiwan_Stroke_CS_AS");
 
                 entity.HasOne(d => d.Company)
                     .WithOne(p => p.CompanyAccount)
@@ -292,6 +315,8 @@ namespace PetsWebsite.Models
 
                 entity.Property(e => e.Address).HasMaxLength(20);
 
+                entity.Property(e => e.AuditResult).HasMaxLength(50);
+
                 entity.Property(e => e.BusyTime).HasMaxLength(100);
 
                 entity.Property(e => e.City).HasMaxLength(10);
@@ -358,7 +383,7 @@ namespace PetsWebsite.Models
 
                 entity.Property(e => e.City).HasMaxLength(10);
 
-                entity.Property(e => e.Email).HasMaxLength(20);
+                entity.Property(e => e.Email).HasMaxLength(50);
 
                 entity.Property(e => e.FirstName).HasMaxLength(20);
 
@@ -396,7 +421,9 @@ namespace PetsWebsite.Models
 
                 entity.Property(e => e.LoginProvider).HasMaxLength(50);
 
-                entity.Property(e => e.ProviderKey).HasMaxLength(50);
+                entity.Property(e => e.ProviderKey)
+                    .HasMaxLength(50)
+                    .UseCollation("Chinese_Taiwan_Stroke_CS_AS");
 
                 entity.Property(e => e.Account).HasMaxLength(20);
 
