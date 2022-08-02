@@ -1,0 +1,99 @@
+﻿<section id="auditRestaurant">
+    <div class="contanier m-5">
+        <form id="auditRestaurantForm">
+            <div class="row align-items-center justify-content-center" style="height: 200px;">
+                <div class="col col-6">
+                    <div class="row g-3 bg-light rounded mb-3">
+                        <div class="col col-12">
+                            <label for="RestaurantId" class="form-label">餐廳ID: </label>
+                            <input type="text" class="form-control" v-bind:value="auditData.restaurantId" id="RestaurantId" name="RestaurantId" readonly>
+                        </div>
+                        <div class="col col-6">
+                            <label for="RestaurantName" class="form-label">餐廳名稱: </label>
+                            <input type="text" class="form-control" v-bind:value="auditData.restaurantName" id="RestaurantName" name="RestaurantName" disabled>
+                        </div>
+                        <div class="col col-6">
+                            <label for="Phone" class="form-label">連絡電話: </label>
+                            <input type="text" class="form-control" v-bind:value="auditData.phone" id="Phone" name="Phone" disabled>
+                        </div>
+                        <div class="col col-6">
+                            <label for="City">所在城市: </label>
+                            <input type="text" class="form-control" v-bind:value="auditData.city" id="City" name="City" disabled>
+                        </div>
+                        <div class="col col-6">
+                            <label for="Region">所在區域: </label>
+                            <input type="text" class="form-control" v-bind:value="auditData.region" id="Region" name="Region" disabled>
+                        </div>
+                        <div class="col col-12">
+                            <label for="Address" class="form-label">餐廳地址: </label>
+                            <input type="text" class="form-control" v-bind:value="auditData.address" id="Address" name="Address" disabled>
+                        </div>
+                        <div class="col col-12">
+                            <label for="Introduction">餐廳簡述: </label>
+                            <textarea class="form-control" v-bind:value="auditData.introduction" id="Introduction" name="Introduction" rows="3" disabled></textarea>
+                        </div>
+                        <div class="col col-12">
+                            <label class="d-block" for="Photo">圖片(大小請勿超過2MB)</label>
+                            <div class="mb-3">
+                                <img id="pic" v-bind:src="'/images/Restaurant/' + auditData.photoPath" style="height: 30%; width: 30%;" />
+                            </div>
+                        </div>
+                        <hr class="mb-0">
+                        <div class="col col-12">
+                            <label class="d-block" for="Photo">修改建議: </label>
+                            <div class="mb-3">
+                                <textarea type="text" class="form-control text-danger" id="AuditResult" name="AuditResult" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="col col-6 d-flex my-3 justify-content-end">
+                            <button class="btn btn-warning" type="submit">提出修改建議</button>
+                        </div>
+                        <div class="col col-6 d-flex my-3 justify-content-start">
+                            <a class="btn btn-info" onclick="publishProduct()">允許上架</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+@section Scripts{
+    <script>
+        var vm = new Vue({
+            data: {
+                auditData: []
+            },
+            mounted: function() {
+                this.getCurrentAuditRestaurant();
+            },
+            methods: {
+                getCurrentAuditRestaurant: function() {
+                    $.ajax({
+                        url: '/Admin/GetCurrentAuditRestaurant',
+                        type: 'GET'
+                    })
+                    .done(function(res) {
+                        vm.auditData = res;
+                    }).fail(function(err) {
+                        console.log("err: ", err);
+                    })
+                }
+            }
+        }).$mount('#auditRestaurant')
+
+$("#auditRestaurantForm").submit(function(e) {
+    e.preventDefault();
+    var formdata = new FormData(this);
+    $.ajax({
+        url: '/Admin/SaveRestaurantAuditSuggest',
+        type: 'POST',
+        data: formdata
+    }).done(function() {
+    
+    }).fail(function() {
+    
+    })
+})
+    </script>
+}
