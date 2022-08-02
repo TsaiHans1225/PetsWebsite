@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link href="@Url.Content("~/css/HansCSS/Shop.css")" rel="stylesheet" type="text/css" />
 
-<body>
+
     <div class="bg" style="position: fixed;top: 0;left: 0;bottom: 0; right: 0;z-index: -999;">
         <img src="/images/Product/bgp.jpg" style=" min-height: 100%;width: 100%;">
     </div>
@@ -25,32 +25,29 @@
                 </div>
             </div>
         </div>
+    </div>
 
 
 
 
-    <div class="container">
+<div class="container">
         <div class="row">
                 @*遞增遞減*@
-            <div class="col-5 justify-content-start ">
+            <div class="col-7 justify-content-start ">
                 <div class="input-group" style="border">
-                    <a asp-action="filter" asp-route-id="2" class="btn btn-primary">價格高到低 &nbsp<i class="fa-solid fa-circle-arrow-up"></i></a>
-                    <a asp-action="filter" asp-route-id="1" class="btn btn-primary">價格低到高 &nbsp<i class="fa-solid fa-circle-arrow-down"></i></a>
-                    <a asp-action="filter" asp-route-id="3" class="btn btn-primary">犬貓 &nbsp<i class="fa-solid fa-cat"></i></a>
-                    <a asp-action="filter" asp-route-id="4" class="btn btn-primary">非犬貓 &nbsp<i class="fa-solid fa-otter"></i></a>
+                    <a asp-action="filter" asp-route-id="2" class="btn btn-primary"  style="width:150px;height:40px;border:3px  orange double;">價格高到低 &nbsp<i class="fa-solid fa-circle-arrow-up"></i></a>
+                    <a asp-action="filter" asp-route-id="1" class="btn btn-primary"  style="width:150px;height:40px;border:3px orange double;">價格低到高 &nbsp<i class="fa-solid fa-circle-arrow-down"></i></a>
+                    <a asp-action="filter" asp-route-id="3" class="btn btn-primary"  style="width:150px;height:40px;border:3px orange double;">犬貓 &nbsp<i class="fa-solid fa-cat"></i></a>
+                    <a asp-action="filter" asp-route-id="4" class="btn btn-primary"  style="width:150px;height:40px;border:3px orange double;">非犬貓 &nbsp<i class="fa-solid fa-otter"></i></a>
 
                 </div>
             </div>
-            <div class="col-4  offset-3">
+            <div class="col-3  offset-2">
                 <form asp-action="ProductKeyword">
                     <div class="container">
                         <div class="row justify-content-end">
-
-                                @*查詢框*@
-                            <div class="col-12">
-                                <input type="text" class="form-control" name="txtKeyword" placeholder="請輸入商品關鍵字" required />
-                            </div>
-
+                                @*查詢框*@                          
+                                <input type="text" class="form-control" name="txtKeyword" placeholder="請輸入商品關鍵字"  style="width:250px;height:40px;border:3px;" required />                   
                         </div>
                     </div>
                 </form>
@@ -164,13 +161,14 @@
             }
     </div>
 <!--分頁-->
+<div class="container" style="text-align:center">
 <div class="row mt-3">
     <div class="col-1 ">
-        @{
-            var prevDisabled = !Model.HasPrevPage ? "disabled" : "";
-            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-        }
-                
+                    @{
+                        var prevDisabled = !Model.HasPrevPage ? "disabled" : "";
+                        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                    }
+
         <a asp-action="Index"
             asp-route-pageNumber="@(Model.PageIndex-1)"
             class="btn btn-primary btn-sm @prevDisabled">
@@ -178,20 +176,22 @@
         </a>
 
     </div>
-    <div class="col-2  offset-4 justify-content-end mt-2">
+
+    <div class="col-4 offset-3">
         <a>第@(Model.PageIndex)頁,共@(Model.PageTotal)頁</a>
     </div>
-
-    <div class="col-1  offset-4">
+    <div class="col-1  offset-3">
         <a asp-action="Index"
             asp-route-pageNumber="@(Model.PageIndex+1)"
             class="btn btn-primary btn-sm @nextDisabled">
             下一頁>>
         </a>
     </div>
+
+</div>
 </div>
 
-</body>
+
 @section Scripts{
             <script>
                 function AddShopCar(e) {
