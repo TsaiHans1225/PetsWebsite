@@ -1,5 +1,9 @@
 ﻿<link rel="stylesheet" href="~/css/owl_carousel/owl.carousel.min.css" />
+<link rel="stylesheet" href="~/css/owl_carousel/owl.theme.default.min.css" />
 <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+
+
+
 @section Scripts{
     <script defer src="/js/owl.carousel.js"></script>
     <script defer src="/js//owl.autoheight.js"></script>
@@ -11,6 +15,7 @@
         #info {
             justify-content: center;
         }
+
         #image {
             overflow: hidden
         }
@@ -91,7 +96,7 @@
         <!-- 推薦商品 -->
         <h1 class="mt-5">推薦商品</h1>
         <div class="container">
-            <div class="col-md-12">
+            <div class="col-12 col-md-12">
                 <div class="owl-carousel owl-theme" id="Prod">
                     <div class="item" v-for="item in ProductInfo">
                         <a href="~/Shop"><img :src="'/images/Product/'+item.photoPath"></a>
@@ -107,7 +112,7 @@
             <div class="col-md-12">
                 <div class="owl-carousel owl-theme" id="Rest">
                     <div class="item" v-for="item in NearRest">
-                        <a href=""><img :src="item.photoPath" style="width:300px;height:250px"></a>
+                        <a href=""><img :src="item.photoPath" ></a>
                         <h5>餐廳名稱 : {{item.restaurants}}</h5>
                         <span>餐廳地址 : {{item.city+item.region+item.address}}</span>
                     </div>
@@ -147,12 +152,17 @@
                     self.NearRest = res;
                     self.$nextTick(function() {
                         $('#Rest').owlCarousel({
-                            items: 4,
-                            loop: true,
+                            nav: true,
                             margin: 10,
-                            autoplayHoverPause: true,
-                            autoWidth: true,
-                            autoHeight: true
+                            responsive: {
+                                0: {
+                                    items: 1 // 螢幕大小為 0~600 顯示 1 個項目
+                                },
+                                1000: {
+                                    items: 4// 螢幕大小為 600~1000 顯示 3 個項目
+                                },
+
+                            }
                         })
                     }.bind(self))
                 });
@@ -162,12 +172,24 @@
                     self.ProductInfo = res;
                     self.$nextTick(function() {
                         $('#Prod').owlCarousel({
-                            items: 4,
+                            nav: true,
                             loop: true,
                             margin: 10,
+                            autowidth: true,
+                            autoheight: true,
                             autoplay: true,
                             autoplayTimeout: 3000,
-                            autoplayHoverPause: true
+                            responsive: {
+                                0: {
+                                    items: 1 // 螢幕大小為 0~600 顯示 1 個項目
+                                },
+                                600: {
+                                    items: 3 // 螢幕大小為 600~1000 顯示 3 個項目
+                                },
+                                1000: {
+                                    items: 4 // 螢幕大小為 1000 以上 顯示 5 個項目
+                                }
+                            }
                         })
                     }.bind(self))
                 })
