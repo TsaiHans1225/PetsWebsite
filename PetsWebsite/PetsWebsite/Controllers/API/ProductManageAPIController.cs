@@ -123,6 +123,7 @@ namespace PetsWebsite.Controllers.API
                 Describe = Ownerclinic.Describe,
                 Emergency = Ownerclinic.Emergency == "true" ? true : false,
                 PhotoPath = PhotoPath,
+                State = false
             };
             try
             {

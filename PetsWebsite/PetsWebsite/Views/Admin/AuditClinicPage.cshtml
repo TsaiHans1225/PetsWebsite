@@ -1,41 +1,46 @@
-﻿<section id="auditRestaurant">
+﻿@*審核診所頁面*@
+<section id="auditClinic">
     <div class="contanier m-5">
-        <form id="auditRestaurantForm">
+        <form id="auditClinicForm">
             <div class="row align-items-center justify-content-center" style="height: 200px;">
                 <div class="col col-6">
                     <div class="row g-3 bg-light rounded mb-3">
                         <div class="col col-12">
-                            <label for="RestaurantId" class="form-label">餐廳ID: </label>
-                            <input type="text" class="form-control" v-bind:value="auditData.restaurantId" id="RestaurantId" name="RestaurantId" readonly>
+                            <label for="ClinicId" class="form-label">診所ID: </label>
+                            <input type="text" class="form-control" v-bind:value="auditData.clinicId" id="ClinicId" name="ClinicId" readonly>
                         </div>
                         <div class="col col-6">
-                            <label for="RestaurantName" class="form-label">餐廳名稱: </label>
-                            <input type="text" class="form-control" v-bind:value="auditData.restaurantName" id="RestaurantName" name="RestaurantName" disabled>
+                            <label for="ClinicName" class="form-label">診所名稱: </label>
+                            <input type="text" class="form-control" v-bind:value="auditData.clinicName" id="ClinicName" name="ClinicName" disabled>
                         </div>
-                        <div class="col col-6">
+                        <div class="col col-3">
                             <label for="Phone" class="form-label">連絡電話: </label>
                             <input type="text" class="form-control" v-bind:value="auditData.phone" id="Phone" name="Phone" disabled>
+                        </div>
+                        <div class="col col-3">
+                            <label for="Emergency" class="form-label">是否提供急診服務: </label>
+                            <input type="text" class="form-control" v-bind:value="auditData.emergency == true? '是' : '否'" id="Emergency" name="Emergency" disabled>
                         </div>
                         <div class="col col-6">
                             <label for="City">所在城市: </label>
                             <input type="text" class="form-control" v-bind:value="auditData.city" id="City" name="City" disabled>
                         </div>
-                        <div class="col col-6">
+                        <div class="col col-6 was-validated">
                             <label for="Region">所在區域: </label>
                             <input type="text" class="form-control" v-bind:value="auditData.region" id="Region" name="Region" disabled>
                         </div>
                         <div class="col col-12">
-                            <label for="Address" class="form-label">餐廳地址: </label>
+                            <label for="Address" class="form-label">診所地址: </label>
                             <input type="text" class="form-control" v-bind:value="auditData.address" id="Address" name="Address" disabled>
                         </div>
                         <div class="col col-12">
-                            <label for="Introduction">餐廳簡述: </label>
-                            <textarea class="form-control" v-bind:value="auditData.introduction" id="Introduction" name="Introduction" rows="3" disabled></textarea>
+                            <label for="Describe">診所簡述: </label>
+                            <textarea class="form-control" id="Describe" name="Describe" rows="3" disabled>{{auditData.describe}}</textarea>
                         </div>
                         <div class="col col-12">
                             <label class="d-block" for="Photo">圖片</label>
                             <div class="mb-3">
-                                <img id="pic" v-bind:src="'/images/Restaurant/' + auditData.photoPath" style="height: 30%; width: 30%;" />
+                                <img id="pic" style="width: 30%; height: 30%" v-bind:src="'/images/Clinic/' + auditData.photoPath" />
                             </div>
                         </div>
                         <hr class="mb-0">
@@ -49,7 +54,7 @@
                             <button class="btn btn-warning" type="submit">提出修改建議</button>
                         </div>
                         <div class="col col-6 d-flex my-3 justify-content-start">
-                            <a class="btn btn-info" onclick="publishRestaurant()">允許上架</a>
+                            <a class="btn btn-info" onclick="publishClinic()">允許上架</a>
                         </div>
                     </div>
                 </div>
@@ -65,28 +70,28 @@
                 auditData: []
             },
             mounted: function() {
-                this.getCurrentAuditRestaurant();
+                this.getCurrentAuditClinic();
             },
             methods: {
-                getCurrentAuditRestaurant: function() {
+                getCurrentAuditClinic: function() {
                     $.ajax({
-                        url: '/Admin/GetCurrentAuditRestaurant',
+                        url: '/Admin/GetCurrentAuditClinic',
                         type: 'GET'
                     })
                         .done(function(res) {
                             vm.auditData = res;
                         }).fail(function(err) {
-                            console.log("getCurrentAuditRestaurantErr: ", err);
+                            console.log("getCurrentAuditClinicErr: ", err);
                         })
                 }
             }
-        }).$mount('#auditRestaurant')
+        }).$mount('#auditClinic')
 
-        $("#auditRestaurantForm").submit(function(e) {
+        $("#auditClinicForm").submit(function(e) {
             e.preventDefault();
             var formdata = new FormData(this);
             $.ajax({
-                url: '/Admin/SaveRestaurantAuditSuggest',
+                url: '/Admin/SaveClinicAuditSuggest',
                 type: 'POST',
                 data: formdata,
                 async: false,
@@ -102,12 +107,12 @@
                     ActionFalse();
                 }
             }).fail(function(err) {
-                console.log("auditRestaurantFormSubmitErr: ", err)
+                console.log("auditClinicFormSubmitErr: ", err)
             })
         });
-        function publishRestaurant() {
+        function publishClinic() {
             $.ajax({
-                url: '/Admin/AllowRestaurantPublish/' + vm.auditData.restaurantId,
+                url: '/Admin/AllowClinicPublish/' + vm.auditData.clinicId,
             }).done(function(res) {
                 if (res) {
                     PublishSuccess();
