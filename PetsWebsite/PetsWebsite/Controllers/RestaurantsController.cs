@@ -82,8 +82,13 @@ namespace PetsWebsite.Controllers
 
         [HttpGet]
 
-        public IActionResult RestaurantDetails()
+        public IActionResult RestaurantDetails(int? Id)
         {
+            if (!Id.HasValue)
+            {
+                return RedirectToAction("index", "home");
+            }
+            ViewBag.Id = Id.Value;
             return View();
         }
 

@@ -78,7 +78,7 @@ namespace PetsWebsite.Controllers
         }
 
         // 儲存修改商品
-        public async Task<IActionResult> SaveEditedProduct(Product editedProduct)
+        public bool SaveEditedProduct(Product editedProduct)
         {
             var query = _dBContext.Products.FirstOrDefault(p => p.ProductId == editedProduct.ProductId);
             editedProduct.CompanyId = User.GetId();
@@ -120,9 +120,15 @@ namespace PetsWebsite.Controllers
             query.UnitPrice = editedProduct.UnitPrice;
             query.Describe = editedProduct.Describe.Trim();
             query.LaunchDate = DateTime.Now;
-
-            await _dBContext.SaveChangesAsync();
-            return RedirectToAction("Index");
+            try
+            {
+                _dBContext.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         // 刪除商品

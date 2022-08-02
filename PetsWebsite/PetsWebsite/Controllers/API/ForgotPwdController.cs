@@ -29,7 +29,7 @@ namespace PetsWebsite.Controllers.API
             }
 
             // 檢查資料庫是否有這個帳號
-            var existUser = _dbContext.UserAccounts.FirstOrDefault(u => u.Account == email);
+            var existUser = _dbContext.UserLogins.FirstOrDefault(u => u.ProviderKey == email);
 
             if (existUser != null)
             {
@@ -141,10 +141,10 @@ namespace PetsWebsite.Controllers.API
                     //    result.Append(hash[i].ToString("X2"));
                     //}
                     //string NewPwd = result.ToString(); // 雜湊運算後密碼
-                    var query = _dbContext.UserAccounts.FirstOrDefault(u => u.Account == userEmail);
+                    var query = _dbContext.UserLogins.FirstOrDefault(u => u.ProviderKey == userEmail);
                     if (query != null)
                     {
-                        query.Password = newPwd;
+                        query.User.Password = newPwd;
                         _dbContext.SaveChanges();
                         return "已存取新密碼";
                     }

@@ -23,9 +23,9 @@ namespace PetsWebsite.Controllers.API
         }
         public List<Product> GetProduct()
         {
-            return _petsDB.Products.Where(p => p.CompanyId == User.GetId()).OrderBy(p => p.State).Select(p => p).ToList();
+            var query = _petsDB.Products.Where(p => p.CompanyId == User.GetId()).OrderBy(p => p.State).Select(p => p).ToList();
+            return query;
         }
-
         public async Task<List<Restaurant>> GetRestaurant()
         {
             int CompanyId = User.GetId();
@@ -240,6 +240,13 @@ namespace PetsWebsite.Controllers.API
         public List<Product> GetPublishFailProducts()
         {
             return _petsDB.Products.Where(p => p.CompanyId == User.GetId() && p.State == false && p.AuditResult != null).Select(p => p).ToList();
+        }
+
+        // 獲取上架失敗產品
+        [HttpGet]
+        public List<Restaurant> GetPublishFailRestaurants()
+        {
+            return _petsDB.Restaurants.Where(r => r.CompanyId == User.GetId() && r.State == false && r.State != null).Select(r => r).ToList();
         }
     }
 }

@@ -16,6 +16,7 @@ namespace PetsWebsite.Models
         {
         }
 
+        public virtual DbSet<Article> Articles { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Clinic> Clinics { get; set; } = null!;
         public virtual DbSet<Collection> Collections { get; set; } = null!;
@@ -31,7 +32,7 @@ namespace PetsWebsite.Models
         public virtual DbSet<Role> Roles { get; set; } = null!;
         public virtual DbSet<ShoppingCar> ShoppingCars { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
-        public virtual DbSet<UserAccount> UserAccounts { get; set; } = null!;
+        public virtual DbSet<UserLogin> UserLogins { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -47,6 +48,22 @@ namespace PetsWebsite.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Article>(entity =>
+            {
+                entity.ToTable("Article");
+
+                entity.Property(e => e.ArticleId).HasColumnName("ArticleID");
+
+                entity.Property(e => e.RestaurantId).HasColumnName("RestaurantID");
+
+                entity.Property(e => e.Title).HasMaxLength(30);
+
+                entity.HasOne(d => d.Restaurant)
+                    .WithMany(p => p.Articles)
+                    .HasForeignKey(d => d.RestaurantId)
+                    .HasConstraintName("FK_Article_Restaurants");
+            });
+
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.Property(e => e.CategoryId)
@@ -61,6 +78,8 @@ namespace PetsWebsite.Models
                 entity.Property(e => e.ClinicId).HasColumnName("ClinicID");
 
                 entity.Property(e => e.Address).HasMaxLength(20);
+
+                entity.Property(e => e.AuditResult).HasMaxLength(50);
 
                 entity.Property(e => e.City).HasMaxLength(10);
 
@@ -169,9 +188,13 @@ namespace PetsWebsite.Models
                     .ValueGeneratedNever()
                     .HasColumnName("CompanyID");
 
-                entity.Property(e => e.Account).HasMaxLength(20);
+                entity.Property(e => e.Account)
+                    .HasMaxLength(20)
+                    .UseCollation("Chinese_Taiwan_Stroke_CS_AS");
 
-                entity.Property(e => e.Password).HasMaxLength(20);
+                entity.Property(e => e.Password)
+                    .HasMaxLength(20)
+                    .UseCollation("Chinese_Taiwan_Stroke_CS_AS");
 
                 entity.HasOne(d => d.Company)
                     .WithOne(p => p.CompanyAccount)
@@ -292,6 +315,8 @@ namespace PetsWebsite.Models
 
                 entity.Property(e => e.Address).HasMaxLength(20);
 
+                entity.Property(e => e.AuditResult).HasMaxLength(50);
+
                 entity.Property(e => e.BusyTime).HasMaxLength(100);
 
                 entity.Property(e => e.City).HasMaxLength(10);
@@ -346,9 +371,9 @@ namespace PetsWebsite.Models
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.Property(e => e.UserId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("UserID");
+                entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.Property(e => e.Account).HasMaxLength(20);
 
                 entity.Property(e => e.Address).HasMaxLength(30);
 
@@ -358,11 +383,13 @@ namespace PetsWebsite.Models
 
                 entity.Property(e => e.City).HasMaxLength(10);
 
-                entity.Property(e => e.Email).HasMaxLength(20);
+                entity.Property(e => e.Email).HasMaxLength(50);
 
                 entity.Property(e => e.FirstName).HasMaxLength(20);
 
                 entity.Property(e => e.LastName).HasMaxLength(20);
+
+                entity.Property(e => e.Password).HasMaxLength(20);
 
                 entity.Property(e => e.Phone)
                     .HasMaxLength(20)
@@ -383,24 +410,32 @@ namespace PetsWebsite.Models
                     .HasForeignKey(d => d.RoleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Users_Roles1");
-
-                entity.HasOne(d => d.UserNavigation)
-                    .WithOne(p => p.User)
-                    .HasForeignKey<User>(d => d.UserId)
-                    .HasConstraintName("FK_Users_UserAccounts");
             });
 
-            modelBuilder.Entity<UserAccount>(entity =>
+            modelBuilder.Entity<UserLogin>(entity =>
             {
-                entity.HasKey(e => e.UserId);
+                entity.HasKey(e => new { e.UserId, e.LoginProvider, e.ProviderKey })
+                    .HasName("PK_UserLogins_1");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.Property(e => e.LoginProvider).HasMaxLength(50);
+
+                entity.Property(e => e.ProviderKey)
+                    .HasMaxLength(50)
+                    .UseCollation("Chinese_Taiwan_Stroke_CS_AS");
 
                 entity.Property(e => e.Account).HasMaxLength(20);
 
                 entity.Property(e => e.Password)
                     .HasMaxLength(20)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserLogins)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_UserLogins_Users");
             });
 
             OnModelCreatingPartial(modelBuilder);

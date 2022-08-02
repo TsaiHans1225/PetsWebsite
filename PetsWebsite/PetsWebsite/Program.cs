@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.EntityFrameworkCore;
 using PetsWebsite.Logic;
 using PetsWebsite.Models;
 using PetsWebsite.Models.Repository;
+using PetsWebsite.Utility;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +16,7 @@ builder.Services.AddDbContext<PetsDBContext>(opt =>
 });
 builder.Services.AddTransient<IcommonLogic, CommonLogic>();
 builder.Services.AddTransient<RestaurantsRepository>();
+builder.Services.AddSingleton<Setting>();
 //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 // Add services to the container.
@@ -23,6 +27,118 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         opt.LoginPath = "/Members/Login";
         opt.AccessDeniedPath = "/Members/AccessDenied";
+    }).AddFacebook(opt =>
+    {
+        opt.AppId = builder.Configuration["oAuth:FacebookID"];
+        opt.AppSecret = builder.Configuration["oAuth:FacebookSecret"];
+        opt.Events = new OAuthEvents
+        {
+            OnTicketReceived = ctx =>
+            {
+                var db = ctx.HttpContext.RequestServices.GetRequiredService<PetsDBContext>();
+                var email = ctx.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+                var LastName = ctx.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Surname)?.Value;
+                var FirstName = ctx.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.GivenName)?.Value;
+                var LoginProvider = ctx.Principal.Claims.Select(c => c.Issuer).First();
+                var ProviderKey = ctx.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+                var user = db.UserLogins.FirstOrDefault(x => x.User.Email == email);
+                if (user == null)
+                {
+                    //create user info
+                    UserLogin Member = new UserLogin()
+                    {
+                        LoginProvider = LoginProvider,
+                        ProviderKey = ProviderKey,
+                        User = new User()
+                        {
+                            LastName = LastName,
+                            FirstName = FirstName,
+                            Email = email,
+                            RoleId = 1,
+                        }
+                    };
+                    db.UserLogins.Add(Member);
+                    db.SaveChanges();
+                    var NewMember = db.UserLogins.FirstOrDefault(x => x.ProviderKey == ProviderKey);
+                    user = NewMember;
+                }
+                else if (user?.ProviderKey != ProviderKey)
+                {
+                    UserLogin FbLogin = new UserLogin()
+                    {
+                        ProviderKey = ProviderKey,
+                        LoginProvider = LoginProvider,
+                        UserId = user.UserId
+                    };
+                    db.UserLogins.Add(FbLogin);
+                    db.SaveChanges();
+                }
+                // add claims
+                var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Role,"Member"),
+                new Claim("UserID",user.UserId.ToString())
+            };
+                ctx.Principal.Identities.First().AddClaims(claims);
+                return Task.CompletedTask;
+            },
+        };
+    }).AddGoogle(opt =>
+    {
+        opt.ClientId = builder.Configuration["oAuth:GoogleClientID"];
+        opt.ClientSecret = builder.Configuration["oAuth:GoogleClientSecret"];
+        opt.Events = new OAuthEvents
+        {
+            OnTicketReceived = ctx =>
+            {
+                var db = ctx.HttpContext.RequestServices.GetRequiredService<PetsDBContext>();
+                var email = ctx.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+                var LastName = ctx.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Surname)?.Value;
+                var FirstName = ctx.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.GivenName)?.Value;
+                var LoginProvider = ctx.Principal.Claims.Select(c => c.Issuer).First();
+                var ProviderKey = ctx.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+                var user = db.UserLogins.FirstOrDefault(x => x.User.Email == email);
+                if (user == null && string.IsNullOrEmpty(user?.ProviderKey))
+                {
+                    //create user info
+                    UserLogin Member = new UserLogin()
+                    {
+                        LoginProvider = LoginProvider,
+                        ProviderKey = ProviderKey,
+                        User = new User()
+                        {
+                            LastName = LastName,
+                            FirstName = FirstName,
+                            Email = email,
+                            RoleId = 1,
+                        }
+                    };
+                    db.UserLogins.Add(Member);
+                    db.SaveChanges();
+                    var NewMember = db.UserLogins.FirstOrDefault(x => x.ProviderKey == ProviderKey);
+                    user = NewMember;
+                }
+                else if (user?.ProviderKey != ProviderKey)
+                {
+                    UserLogin GoogleLogin = new UserLogin()
+                    {
+                        ProviderKey = ProviderKey,
+                        LoginProvider = LoginProvider,
+                        UserId = user.UserId
+                    };
+                    db.UserLogins.Add(GoogleLogin);
+                    db.SaveChanges();
+                }
+                // add claims
+                var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Role, "Member"),
+                new Claim("UserID",user.UserId.ToString())
+            };
+                ctx.Principal.Identities.First().AddClaims(claims);
+                return Task.CompletedTask;
+            },
+        };
     });
 
 builder.Services.AddDistributedMemoryCache();

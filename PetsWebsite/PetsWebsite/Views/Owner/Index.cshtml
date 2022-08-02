@@ -41,7 +41,7 @@
                         <input class="form-control" onchange="searchProductByKeyword(this)" id="keyword" name="keyword" placeholder="請輸入關鍵字查詢商品..." />
                     </div>
                     <div class="col col-2">
-                        <a href="#" class="btn btn-info rounded d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#auditInfo">
+                        <a href="#" class="btn btn-info rounded d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#productAuditInfo">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
                                 <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
                             </svg>
@@ -144,9 +144,8 @@
         </div>
         <div class="tab-pane fade bg-light" id="restaurant" role="tabpanel" aria-labelledby="restaurant-tab">
             <div class="contanier mx-5 pt-5">
-                <div class="row">
-                    <a class="btn btn-outline-success col col-2 ms-4 mb-2" style="right: 5%;"
-                       href="/Owner/CreateRestaurant">
+                <div class="row mb-2 d-flex justify-content-between">
+                    <a class="btn btn-success col col-2 ms-4 mb-2" href="/Owner/CreateRestaurant">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-plus-lg" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
@@ -154,6 +153,15 @@
                         </svg>
                         新增餐廳
                     </a>
+                    <div class="col col-2">
+                        <a href="#" class="btn btn-info rounded d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#restaurantAuditInfo">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+                                <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
+                            </svg>
+                            審核通知
+                            <div class="rounded-circle text-secondary" style="border: solid 1px #eb6865; background-color: #eb6865; position: absolute; width: 30px; height: 30px; transform: translate(250%,-50%);">{{failRestaurantCount}}</div>
+                        </a>
+                    </div>
                 </div>
                 <table class="table table-light table-striped">
                     <thead>
@@ -202,7 +210,7 @@
                                     下架
                                 </button>
                             </td>
-                            <td>已上架</td>
+                            <td>{{item.state == true? "已上架" : "審核中..."}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -210,9 +218,8 @@
         </div>
         <div class="tab-pane fade bg-light" id="clinic" role="tabpanel" aria-labelledby="clinic-tab">
             <div class="contanier mx-5 pt-5">
-                <div class="row">
-                    <a class="btn btn-outline-success col col-2 ms-4 mb-2" style="right: 5%;"
-                       href="/Owner/CreateClinic">
+                <div class="row mb-2 d-flex justify-content-between">
+                    <a class="btn btn-success col col-2 ms-4 mb-2" href="/Owner/CreateClinic">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-plus-lg" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
@@ -220,6 +227,15 @@
                         </svg>
                         新增診所
                     </a>
+                    <div class="col col-2">
+                        <a href="#" class="btn btn-info rounded d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#auditInfo">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+                                <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
+                            </svg>
+                            審核通知
+                            <div class="rounded-circle text-secondary" style="border: solid 1px #eb6865; background-color: #eb6865; position: absolute; width: 30px; height: 30px; transform: translate(250%,-50%);"></div>
+                        </a>
+                    </div>
                 </div>
                 <table class="table table-light table-striped">
                     <thead>
@@ -263,39 +279,50 @@
                             <td>
                                 <a class="btn btn-danger" type="submit" v-on:click="DeleteClinic(item)">下架</a>
                             </td>
-                            <td>已上架</td>
+                            <td>{{item.state == true? "已上架" : "審核中..."}}</td>
                         </tr>
                     </tbody>
                 </table>
-                <div class="row">
-                    <a class="btn btn-primary position-absolute col col-1" style="right: 5%;" asp-action="CreateProduct"
-                       asp-controller="Owner">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-plus-lg" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
-                        </svg>
-                        新增診所
-                    </a>
-                </div>
             </div>
         </div>
     </div>
     @*商品審核通知modal*@
-    <div class="modal fade" id="auditInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="productAuditInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content">
+            <div class="modal-content bg-secondary">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">商品審核通知</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><strong>商品審核通知</strong></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row" v-for="item in publishFailProducts">
-                        <p class="col col-12">商品ID : {{item.productId}}</p>
-                        <p class="col col-12">商品名稱 : {{item.productName}}</p>
-                        <p class="col col-12">審核未通過原因: </p>
-                        <textarea class="form-control mb-3 text-danger" rows="3" disabled>{{item.auditResult}}</textarea>
-                        <hr />
+                        <a v-bind:href="'/Owner/EditProduct/' + item.productId" v-bind:value="item.productId" class="text-dark bg-secondary p-3 mb-3 border border-dark rounded" style="text-decoration: none;">
+                            <p class="col col-12">商品ID : <span class="text-danger">{{item.productId}}</span></p>
+                            <img v-bind:src="'/images/Product/' + item.photoPath" style="width: 50%; height: 50%;"/>
+                            <p class="col col-12">審核未通過原因: </p>
+                            <p class=" form-control text-danger bg-secondary m-0" disabled>{{item.auditResult}}</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*餐廳審核通知modal*@
+    <div class="modal fade" id="restaurantAuditInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content bg-secondary">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><strong>餐廳審核通知</strong></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row" v-for="item in publishFailRestaurants">
+                        <a v-bind:href="'/Owner/EditRestaurant/' + item.restaurantId" v-bind:value="item.restaurantId" class="text-dark bg-secondary p-3 mb-3 border border-dark rounded" style="text-decoration: none;">
+                            <p class="col col-12">商品ID : <span class="text-danger">{{item.restaurantId}}</span></p>
+                            <img v-bind:src="'/images/Restaurant/' + item.photoPath" style="width: 50%; height: 50%;"/>
+                            <p class="col col-12">審核未通過原因: </p>
+                            <p class=" form-control text-danger bg-secondary m-0" disabled>{{item.auditResult}}</p>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -303,265 +330,284 @@
     </div>
 </div>
 
+
 @section Scripts{
     <script>
-    var vm = new Vue({
-        data: {
-            productList: [],
-            restaurantList: [],
-            ClinicList: [],
-            noProduct: true,
-            publishFailProducts: [],
-            failProductCount: ""
-        },
-        mounted: function() {
-            var self = this;
-            fetch("/api/ProductManageAPI/GetProduct")
-                .then(response => response.json())
-                .then(result => {
-                    self.productList = result
-                    this.dangerStock;
-                });
-            publishFailProduct();
-        },
-        methods: {
-            getMyRestaurant: function() {
-                $.ajax({
-                    url: "/api/ProductManageAPI/GetRestaurant",
-                    type: "GET"
-                })
-                    .done(function(res) {
-                        vm.restaurantList = res
+        var vm = new Vue({
+            data: {
+                productList: [],
+                restaurantList: [],
+                ClinicList: [],
+                noProduct: true,
+                publishFailProducts: [],
+                publishFailRestaurants: [],
+                failProductCount: "",
+                failRestaurantCount: ""
+            },
+            mounted: function() {
+                var self = this;
+                fetch("/api/ProductManageAPI/GetProduct")
+                    .then(response => response.json())
+                    .then(result => {
+                        self.productList = result
+                        this.dangerStock;
+                    });
+                publishFailProduct();
+                publishFailRestaurant();
+            },
+            methods: {
+                getMyRestaurant: function() {
+                    $.ajax({
+                        url: "/api/ProductManageAPI/GetRestaurant",
+                        type: "GET"
                     })
-                    .fail(function(err) {
-                        console.log("err: ", err)
+                        .done(function(res) {
+                            vm.restaurantList = res
+                        })
+                        .fail(function(err) {
+                            console.log("err: ", err)
+                        })
+                },
+                deleteProduct: function(e) {
+                    swal({
+                        title: "確認刪除此餐廳嗎?",
+                        text: "刪除餐廳後將無法復原",
+                        icon: "warning",
+                        buttons: [
+                            '取消',
+                            '確認'
+                        ],
+                        dangerMode: true
+                    }).then((result) => {
+                        if (result) {
+                            fetch("/Owner/DeleteProduct/" + e.target.value, {
+                                method: "DELETE"
+                            })
+                                .then(resp => {
+                                    console.log("success", resp);
+                                    if (resp) {
+                                        swal({
+                                            title: '刪除餐廳',
+                                            text: '此餐廳已刪除',
+                                            type: 'success',
+                                            closeOnClickOutside: false,
+                                            icon: "success"
+                                        }).then(() => {
+                                            this.reLoadData();
+                                        });
+                                        setTimeout("location.reload()", 5000)
+                                    }
+                                })
+                                .catch(err => console.log("err", err))
+                                .then(response => console.log("response", response));
+                        }
+                    });
+                },
+                deleteRestaurant: function(e) {
+                    swal({
+                        title: "確認刪除此商品嗎?",
+                        text: "刪除商品後將無法復原",
+                        icon: "warning",
+                        buttons: [
+                            '取消',
+                            '確認'
+                        ],
+                        dangerMode: true
+                    }).then((result) => {
+                        if (result) {
+                            fetch("/Owner/DeleteRestaurant/" + e.target.value, {
+                                method: "DELETE"
+                            })
+                                .then(resp => {
+                                    console.log("success", resp);
+                                    if (resp) {
+                                        swal({
+                                            title: '刪除商品',
+                                            text: '此商品已刪除',
+                                            type: 'success',
+                                            closeOnClickOutside: false,
+                                            icon: "success"
+                                        }).then(() => {
+                                            this.reLoadData();
+                                        });
+                                        setTimeout("location.reload()", 5000)
+                                    }
+                                })
+                                .catch(err => console.log("err", err))
+                                .then(response => console.log("response", response))
+                        }
+                    });
+                },
+                GetMyClinic: function(e) {
+                    $.ajax({
+                        type: 'get',
+                        url: '/api/ProductManageAPI/GetOwnerClinic'
+                    }).done(function(res) {
+                        vm.ClinicList = res;
+                        console.log(vm.ClinicList);
+                    }).fail(function(res) {
+                        console.log("res: ", res);
                     })
-            },
-            deleteProduct: function(e) {
-                swal({
-                    title: "確認刪除此餐廳嗎?",
-                    text: "刪除餐廳後將無法復原",
-                    icon: "warning",
-                    buttons: [
-                        '取消',
-                        '確認'
-                    ],
-                    dangerMode: true
-                }).then((result) => {
-                    if (result) {
-                        fetch("/Owner/DeleteProduct/" + e.target.value, {
-                            method: "DELETE"
-                        })
-                            .then(resp => {
-                                console.log("success", resp);
-                                if (resp) {
-                                    swal({
-                                        title: '刪除餐廳',
-                                        text: '此餐廳已刪除',
-                                        type: 'success',
-                                        closeOnClickOutside: false,
-                                        icon: "success"
-                                    }).then(() => {
-                                        this.reLoadData();
-                                    });
-                                    setTimeout("location.reload()", 5000)
-                                }
+                },
+                EditClinic: function(item) {
+                    var index = item.clinicId;
+                    $.ajax({
+                        type: 'get',
+                        url: `/api/ProductManageAPI/EditClickData/${index}`
+                    }).done(function(res) {
+                        if (res) {
+                            window.location.href = "/Owner/EditClinic"
+                        }
+                    }).fail(function(res) {
+                        console.log("res: ", res);
+                    })
+                },
+                DeleteClinic: function(item) {
+                    swal({
+                        title: "確認刪除此診所資訊嗎?",
+                        text: "診所資訊刪除後將無法復原",
+                        icon: "warning",
+                        buttons: [
+                            '取消',
+                            '確認'
+                        ],
+                        dangerMode: true
+                    }).then((result) => {
+                        if (result) {
+                            fetch(`/api/ProductManageAPI/DeleteClinic/${item.clinicId}`, {
+                                method: "DELETE"
                             })
-                            .catch(err => console.log("err", err))
-                            .then(response => console.log("response", response));
-                    }
-                });
-            },
-            deleteRestaurant: function(e) {
-                swal({
-                    title: "確認刪除此商品嗎?",
-                    text: "刪除商品後將無法復原",
-                    icon: "warning",
-                    buttons: [
-                        '取消',
-                        '確認'
-                    ],
-                    dangerMode: true
-                }).then((result) => {
-                    if (result) {
-                        fetch("/Owner/DeleteRestaurant/" + e.target.value, {
-                            method: "DELETE"
-                        })
-                            .then(resp => {
-                                console.log("success", resp);
-                                if (resp) {
-                                    swal({
-                                        title: '刪除商品',
-                                        text: '此商品已刪除',
-                                        type: 'success',
-                                        closeOnClickOutside: false,
-                                        icon: "success"
-                                    }).then(() => {
-                                        this.reLoadData();
-                                    });
-                                    setTimeout("location.reload()", 5000)
-                                }
-                            })
-                            .catch(err => console.log("err", err))
-                            .then(response => console.log("response", response))
-                    }
-                });
-            },
-            GetMyClinic: function(e) {
-                $.ajax({
-                    type: 'get',
-                    url: '/api/ProductManageAPI/GetOwnerClinic'
-                }).done(function(res) {
-                    vm.ClinicList = res;
-                    console.log(vm.ClinicList);
-                }).fail(function(res) {
-                    console.log("res: ", res);
-                })
-            },
-            EditClinic: function(item) {
-                var index = item.clinicId;
-                $.ajax({
-                    type: 'get',
-                    url: `/api/ProductManageAPI/EditClickData/${index}`
-                }).done(function(res) {
-                    if (res) {
-                        window.location.href = "/Owner/EditClinic"
-                    }
-                }).fail(function(res) {
-                    console.log("res: ", res);
-                })
-            },
-            DeleteClinic: function(item) {
-                swal({
-                    title: "確認刪除此診所資訊嗎?",
-                    text: "診所資訊刪除後將無法復原",
-                    icon: "warning",
-                    buttons: [
-                        '取消',
-                        '確認'
-                    ],
-                    dangerMode: true
-                }).then((result) => {
-                    if (result) {
-                        fetch(`/api/ProductManageAPI/DeleteClinic/${item.clinicId}`, {
-                            method: "DELETE"
-                        })
-                            .then(resp => {
-                                console.log("success", resp);
-                                if (resp) {
-                                    swal({
-                                        title: '刪除診所資訊',
-                                        text: '該診所資訊已刪除',
-                                        type: 'success',
-                                        closeOnClickOutside: false,
-                                        icon: "success"
-                                    }).then(() => {
-                                        this.reLoadData();
-                                    });
-                                    setTimeout("location.reload()", 3000)
-                                }
-                            })
-                            .catch(err => console.log("err", err))
-                            .then(response => console.log("response", response))
-                    }
-                });
+                                .then(resp => {
+                                    console.log("success", resp);
+                                    if (resp) {
+                                        swal({
+                                            title: '刪除診所資訊',
+                                            text: '該診所資訊已刪除',
+                                            type: 'success',
+                                            closeOnClickOutside: false,
+                                            icon: "success"
+                                        }).then(() => {
+                                            this.reLoadData();
+                                        });
+                                        setTimeout("location.reload()", 3000)
+                                    }
+                                })
+                                .catch(err => console.log("err", err))
+                                .then(response => console.log("response", response))
+                        }
+                    });
+                }
             }
+        }).$mount('#ownerManage')
+
+        // 依商品單價排列asc
+        function orderProductPriceAsc() {
+            $.ajax({
+                url: '/api/ProductManageAPI/OrderByProductPriceAsc',
+                type: "GET"
+            })
+                .done(function(res) {
+                    vm.productList = res;
+                })
+                .fail(function(err) {
+                    console.log("err: ", err)
+                })
         }
-    }).$mount('#ownerManage')
 
-    // 依商品單價排列asc
-    function orderProductPriceAsc() {
-        $.ajax({
-            url: '/api/ProductManageAPI/OrderByProductPriceAsc',
-            type: "GET"
-        })
-            .done(function(res) {
-                vm.productList = res;
+        // 依商品單價排列desc
+        function orderProductPriceDesc() {
+            $.ajax({
+                url: '/api/ProductManageAPI/OrderByProductPriceDesc',
+                type: "GET"
             })
-            .fail(function(err) {
-                console.log("err: ", err)
-            })
-    }
-
-    // 依商品單價排列desc
-    function orderProductPriceDesc() {
-        $.ajax({
-            url: '/api/ProductManageAPI/OrderByProductPriceDesc',
-            type: "GET"
-        })
-            .done(function(res) {
-                vm.productList = res;
-            })
-            .fail(function(err) {
-                console.log("err: ", err)
-            })
-    }
-
-    // 依庫存量排列asc
-    function orderProductUnitsInStockAsc() {
-        $.ajax({
-            url: '/api/ProductManageAPI/OrderByProductUnitsInStockAsc',
-            type: "GET"
-        })
-            .done(function(res) {
-                vm.productList = res;
-            })
-            .fail(function(err) {
-                console.log("err: ", err)
-            })
-    }
-
-    // 依庫存量排列desc
-    function orderProductUnitsInStockDesc() {
-        $.ajax({
-            url: '/api/ProductManageAPI/OrderByProductUnitsInStockDesc',
-            type: "GET"
-        })
-            .done(function(res) {
-                vm.productList = res;
-            })
-            .fail(function(err) {
-                console.log("err: ", err)
-            })
-    }
-
-    // 商品名稱關鍵字查詢
-    function searchProductByKeyword(e) {
-        var key = document.getElementById('keyword').value
-        $.ajax({
-            url: '/api/ProductManageAPI/SearchProductByKeyword/' + key,
-            type: "GET"
-        })
-            .done(function(res) {
-                if (res.length == 0) {
-                    vm.noProduct = false;
+                .done(function(res) {
                     vm.productList = res;
-                }
-                else {
-                    vm.productList = res;
-                    vm.noProduct = true;
-                }
+                })
+                .fail(function(err) {
+                    console.log("err: ", err)
+                })
+        }
+
+        // 依庫存量排列asc
+        function orderProductUnitsInStockAsc() {
+            $.ajax({
+                url: '/api/ProductManageAPI/OrderByProductUnitsInStockAsc',
+                type: "GET"
             })
-            .fail(function(err) {
-                console.log("err: ", err)
-            });
-    }
+                .done(function(res) {
+                    vm.productList = res;
+                })
+                .fail(function(err) {
+                    console.log("err: ", err)
+                })
+        }
 
-    // 取得上架失敗商品
-    function publishFailProduct(){
-        $.ajax({
-            url: '/api/ProductManageAPI/GetPublishFailProducts',
-            type: 'GET'
-        })
-        .done(function(res) {
-            console.log("failProducts: ", res)
-            vm.publishFailProducts = res;
-            vm.failProductCount = vm.publishFailProducts.length;
+        // 依庫存量排列desc
+        function orderProductUnitsInStockDesc() {
+            $.ajax({
+                url: '/api/ProductManageAPI/OrderByProductUnitsInStockDesc',
+                type: "GET"
+            })
+                .done(function(res) {
+                    vm.productList = res;
+                })
+                .fail(function(err) {
+                    console.log("err: ", err)
+                })
+        }
 
-        })
-        .fail(function(err){
-            console.log("err: ", err)
-        })
-    }
+        // 商品名稱關鍵字查詢
+        function searchProductByKeyword(e) {
+            var key = document.getElementById('keyword').value
+            $.ajax({
+                url: '/api/ProductManageAPI/SearchProductByKeyword/' + key,
+                type: "GET"
+            })
+                .done(function(res) {
+                    if (res.length == 0) {
+                        vm.noProduct = false;
+                        vm.productList = res;
+                    }
+                    else {
+                        vm.productList = res;
+                        vm.noProduct = true;
+                    }
+                })
+                .fail(function(err) {
+                    console.log("err: ", err)
+                });
+        }
+
+        // 取得上架失敗商品
+        function publishFailProduct() {
+            $.ajax({
+                url: '/api/ProductManageAPI/GetPublishFailProducts',
+                type: 'GET'
+            })
+                .done(function(res) {
+                    vm.publishFailProducts = res;
+                    vm.failProductCount = vm.publishFailProducts.length;
+
+                })
+                .fail(function(err) {
+                    console.log("err: ", err)
+                })
+        }
+        // 取得上架失敗餐廳
+        function publishFailRestaurant() {
+            $.ajax({
+                url: '/api/ProductManageAPI/GetPublishFailRestaurants',
+                type: 'GET'
+            })
+                .done(function(res) {
+                    console.log("failRestaurants: ", res)
+                    vm.publishFailRestaurants = res;
+                    vm.failRestaurantCount = vm.publishFailRestaurants.length;
+
+                })
+                .fail(function(err) {
+                    console.log("err: ", err)
+                })
+        }
     </script>
 }
