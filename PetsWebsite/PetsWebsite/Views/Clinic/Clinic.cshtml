@@ -52,7 +52,6 @@
         <div class="jumbotron  d-flex align-items-center" id="Jumbotron">
             <h1 class="display-4">醫療資訊</h1>
             <p class="lead">這邊可以提供您想查詢的醫療資訊</p>
-            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
         </div>
     </div>
 
@@ -73,6 +72,18 @@
             </div>
         </form>
     </div>
+    <!-- 關鍵字查詢 -->
+        <div class="container d-flex justify-content-end">
+            <div class="row">
+                <div class=" ">
+                        <div class="  col-12">
+                            <div class="col-12 me-1 mt-2">
+                                <input type="text" placeholder="請輸入關鍵字.." class="form-control mb-2 me-1" v-model="search"  v-on:change="Searchresult"/>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
     <!-- 卡片 -->
     <div class="container" v-show="show">
         <div class="row">
@@ -164,6 +175,8 @@
                 ClinicList: [],
                 City: [],
                 Region: [],
+               
+                search:'',
                 show: false,
                 pageItem: 6,
                 currentPage: 1,
@@ -204,6 +217,15 @@
                 },
                 pageChange: function(currentPage) {
                     this.currentPage = currentPage;
+                },
+                Searchresult: function() {
+                    let self = this;
+                    var url=`/api/ClinicAPI/Searchstr/${self.search}`
+                    fetch(url).then(res=>{
+                        return res.json();
+                    }).then(res => {
+                        self.ClinicList = res;
+                    })
                 }
             },
             mounted: function() {       //頁面渲染之前執行

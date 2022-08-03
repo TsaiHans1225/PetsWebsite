@@ -39,6 +39,14 @@
                             <label for="Address" class="form-label">餐廳地址: </label>
                             <input type="text" class="form-control is-invalid" v-bind:value="editRestaurant.Address" id="Address" name="Address" placeholder="餐廳地址..." required>
                         </div>
+                        <div class="col col-12=">
+                            <label for="Reserve" class="form-label">餐廳預約網址(選填): </label>
+                            <input type="text" class="form-control" v-bind:value="editRestaurant.Reserve" id="Reserve" name="Reserve">
+                        </div>
+                        <div class="col col-12">
+                            <label for="BusyTime">餐廳營業時間: </label>
+                            <textarea class="form-control" id="BusyTime" v-bind:value="editRestaurant.BusyTime" name="BusyTime" rows="3" required></textarea>
+                        </div>
                         <div class="col col-12">
                             <label for="Introduction">餐廳簡述: </label>
                             <textarea class="form-control" id="Introduction" name="Introduction" rows="3">{{editRestaurant.Introduction}}</textarea>

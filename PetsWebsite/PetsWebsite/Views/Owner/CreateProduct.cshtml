@@ -13,11 +13,40 @@
                             <label for="UnitPrice" class="form-label">商品單價: </label>
                             <input type="text" class="form-control is-invalid" id="UnitPrice" name="UnitPrice" required>
                         </div>
-                        <div class="col col-6">
+                        <div class="col col-4">
                             <label for="Discount">商品折扣: </label>
-                            <input type="text" class="form-control" id="Discount">
+                            <select class="form-select" id="Discount" name="Discount" aria-label="select example" required>
+                                <option value="">-- 請選擇 --</option>
+                                <option value="1">無</option>
+                                <option value="0.95">95 折</option>
+                                <option value="0.9">9 折</option>
+                                <option value="0.85">85 折</option>
+                                <option value="0.8">8 折</option>
+                                <option value="0.75">75 折</option>
+                                <option value="0.7">7 折</option>
+                                <option value="0.65">65 折</option>
+                                <option value="0.6">6 折</option>
+                                <option value="0.55">55 折</option>
+                                <option value="0.5">5 折</option>
+                                <option value="0.45">45 折</option>
+                                <option value="0.4">4 折</option>
+                                <option value="0.35">35 折</option>
+                                <option value="0.3">3 折</option>
+                                <option value="0.25">25 折</option>
+                                <option value="0.2">2 折</option>
+                                <option value="0.15">15 折</option>
+                                <option value="0.1">1 折</option>
+                            </select>
                         </div>
-                        <div class="col col-6">
+                        <div class="col col-4">
+                            <label for="Species">商品分類: </label>
+                            <select class="form-select" id="Species" name="Species" aria-label="select example" required>
+                                <option value="">-- 請選擇 --</option>
+                                <option value="0">犬貓</option>
+                                <option value="1">非犬貓</option>
+                            </select>
+                        </div>
+                        <div class="col col-4">
                             <label for="UnitsInStock">商品庫存: </label>
                             <input type="text" class="form-control" id="UnitsInStock" name="UnitsInStock">
                         </div>

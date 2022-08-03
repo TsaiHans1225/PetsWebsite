@@ -243,11 +243,18 @@ namespace PetsWebsite.Controllers.API
             return _petsDB.Products.Where(p => p.CompanyId == User.GetId() && p.State == false && p.AuditResult != null).Select(p => p).ToList();
         }
 
-        // 獲取上架失敗產品
+        // 獲取上架失敗餐廳
         [HttpGet]
         public List<Restaurant> GetPublishFailRestaurants()
         {
-            return _petsDB.Restaurants.Where(r => r.CompanyId == User.GetId() && r.State == false && r.State != null).Select(r => r).ToList();
+            return _petsDB.Restaurants.Where(r => r.CompanyId == User.GetId() && r.State == false && r.AuditResult != null).Select(r => r).ToList();
+        }
+
+        // 獲取上架失敗診所
+        [HttpGet]
+        public List<Clinic> GetPublishFailClinics()
+        {
+            return _petsDB.Clinics.Where(c => c.CompanyId == User.GetId() && c.State == false && c.AuditResult != null).Select(c => c).ToList();
         }
     }
 }
