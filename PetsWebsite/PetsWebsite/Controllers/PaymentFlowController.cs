@@ -19,15 +19,36 @@ namespace PetsWebsite.Controllers
             _setting = setting;
         }
         [HttpPost]
-        public IActionResult GetPayFlowData(OrderInfo orderInfo)
+        public async Task<IActionResult> GetPayFlowData(OrderInfo orderInfo)
         {
+            string OrderNo = $"T{User.GetId()}_{DateTime.Now.ToString("yyyyMMddHHmm")}";
+            _petsDB.Orders.Add(new Order()
+            {
+                OrderId = OrderNo,
+                UserId = User.GetId(),
+                OrderDate = DateTime.Now,
+                Email = User.GetMail(),
+                OrderStatusNumber=0
+            });
+
+            foreach (var item in orderInfo.OrderList)
+            {
+               await _petsDB.OrderDetails.AddAsync(new OrderDetail()
+                {
+                    OrderId = OrderNo,
+                    ProductId = item.ProductId,
+                    UnitPrice = item.Price,
+                    Counts = item.Count,
+                });
+            }
+            _petsDB.SaveChanges();
             TradeInfo tradeInfo = new TradeInfo()
             {
                 MerchantID = _setting.MerchantID,
                 RespondType = "String",
                 TimeStamp = DateTimeOffset.Now.ToOffset(new TimeSpan(8, 0, 0)).ToUnixTimeSeconds().ToString(),
                 Version = _setting.Version,
-                MerchantOrderNo = $"T{User.GetId()}_{DateTime.Now.ToString("yyyyMMddHHmm")}",
+                MerchantOrderNo = OrderNo,
                 Amt = orderInfo.OrderSum,
                 ItemDesc = orderInfo.OrderDesc,
                 ExpireDate = null,
@@ -66,11 +87,18 @@ namespace PetsWebsite.Controllers
         [HttpPost]
         public IActionResult CallbackReturn()
         {
-            string HashKey = _setting.HashKey;
-            string HashIV = _setting.HashIV;
-            string TradeInfoDecrypt = CryptoUtil.DecryptAESHex(Request.Form["TradeInfo"], HashKey, HashIV);
+            string TradeInfoDecrypt = CryptoUtil.DecryptAESHex(Request.Form["TradeInfo"], _setting.HashKey, _setting.HashIV);
             NameValueCollection decryptTradeCollection = HttpUtility.ParseQueryString(TradeInfoDecrypt);
-            //SpgatewayOutputDataModel convertModel = LambdaUtil.DictionaryToObject<SpgatewayOutputDataModel>(decryptTradeCollection.AllKeys.ToDictionary(k => k, k => decryptTradeCollection[k]));
+            var Status = decryptTradeCollection.GetValues(0)[0];
+            var Amt = decryptTradeCollection.GetValues(3)[0];
+            var OrderID = decryptTradeCollection.GetValues(5)[0];
+            var PayTime = decryptTradeCollection.GetValues(11)[0];
+            if(Status!= "SUCCESS")
+            {
+                return View();
+            }
+            _petsDB.Orders.Find(OrderID).OrderStatusNumber = 1;
+            _petsDB.SaveChanges();
             return Redirect("/home/index");
         }
     }

@@ -148,7 +148,9 @@
                     for (let i = 0; i < res.length; i++) {
                         self.PreOrderPriceSum += (res[i].price * res[i].count);
                         var OrderInfo = {
+                            ProductId:res[i].productId,
                             ProductName: res[i].productName,
+                            Price:res[i].price,
                             Count: res[i].count
                         }
                         var str= `商品名稱:${OrderInfo.ProductName} x ${OrderInfo.Count}\n`                        

@@ -5,7 +5,7 @@ namespace PetsWebsite.Models
 {
     public partial class OrderDetail
     {
-        public int OrderId { get; set; }
+        public string OrderId { get; set; } = null!;
         public int ProductId { get; set; }
         public decimal? UnitPrice { get; set; }
         public int? Counts { get; set; }

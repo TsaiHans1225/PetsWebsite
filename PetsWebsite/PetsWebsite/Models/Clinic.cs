@@ -20,6 +20,7 @@ namespace PetsWebsite.Models
         public double? Latitude { get; set; }
         public bool? State { get; set; }
         public string? AuditResult { get; set; }
+        public string? ClinicMap { get; set; }
 
         public virtual Company? Company { get; set; }
     }

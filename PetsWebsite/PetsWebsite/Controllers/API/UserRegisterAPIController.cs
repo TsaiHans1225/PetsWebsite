@@ -26,78 +26,88 @@ namespace PetsWebsite.Controllers.API
         [HttpPost]
         public async Task<bool> MenberRegister(RegisterInfo users)
         {
-            var query = _PetsDB.UserLogins.FirstOrDefault(a => a.ProviderKey == users.Account);
-            if (query != null)
+            var query = _PetsDB.UserLogins.FirstOrDefault(a => a.User.Email == users.Account);
+            if (query == null)
             {
-                return false;
-            }
-            UserLogin userAccount = new UserLogin
-            {
-                LoginProvider = "cookies",
-                ProviderKey = users.Account,
-                User = new User
+                UserLogin userAccount = new UserLogin
                 {
-                    LastName = users.LastName,
-                    FirstName = users.FirstName,
-                    Email = users.Account,
-                    RoleId = 1,
-                    Password=users.Password,
-                }
-            };
-
-            try
-            {
-                _PetsDB.UserLogins.Add(userAccount);
-                _PetsDB.SaveChanges();
-                // 寄送驗證信
-                if (users.Account != null)
-                {
-                    // 取出驗證信箱
-                    string verifyEmail = users.Account;
-                    // 取出寄信系統金鑰
-                    string SecretKey = _configuration.GetValue<string>("Email:SecretKey");
-                    // 產生帳號+時間驗證碼
-                    string sVerify = $"{verifyEmail} | {DateTime.Now:yyyy/MM/dd HH:mm:ss}";
-                    // ....
-                    // 將加密後的密碼使用網址編碼處理
-                    sVerify = HttpUtility.UrlEncode(sVerify);
-                    // 網站網址
-                    string webPath = "https://localhost:62898/";
-                    // 從信件連結回本站首頁
-                    string receivePage = "Home/Index";
-                    // 信件內容範本
-                    string mailContent = "點擊以下連結以驗證信箱，驗證後請返回本網站進行登入。謝謝。<br><br>";
-                    mailContent = $"{mailContent}<a href={webPath}{receivePage}?verify={sVerify}>點此連結驗證信箱</a>";
-                    // 信件title
-                    string mailSubject = "EVERYPETS網站驗證信";
-
-                    // google發信帳號密碼
-                    string GoogleMailUserId = _configuration.GetValue<string>("Email:MailUserID");
-                    string GoogleMailUserPassword = _configuration.GetValue<string>("Email:MailUserPwd");
-
-                    // 使用google mail server發信
-                    string SmtpServer = _configuration.GetValue<string>("Email:SmtpServer");
-                    int SmtpPort = _configuration.GetValue<int>("Email:SmtpPort");
-                    MailMessage mms = new MailMessage();
-                    mms.From = new MailAddress(GoogleMailUserId);
-                    mms.Subject = mailSubject;
-                    mms.Body = mailContent;
-                    mms.IsBodyHtml = true;
-                    mms.SubjectEncoding = Encoding.UTF8;
-                    mms.To.Add(new MailAddress(verifyEmail));
-                    using (SmtpClient smtpClient = new SmtpClient(SmtpServer, SmtpPort))
+                    LoginProvider = "cookies",
+                    ProviderKey = users.Account,
+                    User = new User
                     {
-                        smtpClient.EnableSsl = true;
-                        smtpClient.Credentials = new NetworkCredential(GoogleMailUserId, GoogleMailUserPassword); // 寄信帳密
-                        smtpClient.Send(mms);
+                        LastName = users.LastName,
+                        FirstName = users.FirstName,
+                        Email = users.Account,
+                        RoleId = 1,
+                        Password = users.Password,
+                    }
+                };
+                try
+                {
+                    _PetsDB.UserLogins.Add(userAccount);
+                    _PetsDB.SaveChanges();
+                    // 寄送驗證信
+                    if (users.Account != null)
+                    {
+                        // 取出驗證信箱
+                        string verifyEmail = users.Account;
+                        // 取出寄信系統金鑰
+                        string SecretKey = _configuration.GetValue<string>("Email:SecretKey");
+                        // 產生帳號+時間驗證碼
+                        string sVerify = $"{verifyEmail} | {DateTime.Now:yyyy/MM/dd HH:mm:ss}";
+                        // ....
+                        // 將加密後的密碼使用網址編碼處理
+                        sVerify = HttpUtility.UrlEncode(sVerify);
+                        // 網站網址
+                        string webPath = "https://localhost:62898/";
+                        // 從信件連結回本站首頁
+                        string receivePage = "Home/Index";
+                        // 信件內容範本
+                        string mailContent = "點擊以下連結以驗證信箱，驗證後請返回本網站進行登入。謝謝。<br><br>";
+                        mailContent = $"{mailContent}<a href={webPath}{receivePage}?verify={sVerify}>點此連結驗證信箱</a>";
+                        // 信件title
+                        string mailSubject = "EVERYPETS網站驗證信";
+
+                        // google發信帳號密碼
+                        string GoogleMailUserId = _configuration.GetValue<string>("Email:MailUserID");
+                        string GoogleMailUserPassword = _configuration.GetValue<string>("Email:MailUserPwd");
+
+                        // 使用google mail server發信
+                        string SmtpServer = _configuration.GetValue<string>("Email:SmtpServer");
+                        int SmtpPort = _configuration.GetValue<int>("Email:SmtpPort");
+                        MailMessage mms = new MailMessage();
+                        mms.From = new MailAddress(GoogleMailUserId);
+                        mms.Subject = mailSubject;
+                        mms.Body = mailContent;
+                        mms.IsBodyHtml = true;
+                        mms.SubjectEncoding = Encoding.UTF8;
+                        mms.To.Add(new MailAddress(verifyEmail));
+                        using (SmtpClient smtpClient = new SmtpClient(SmtpServer, SmtpPort))
+                        {
+                            smtpClient.EnableSsl = true;
+                            smtpClient.Credentials = new NetworkCredential(GoogleMailUserId, GoogleMailUserPassword); // 寄信帳密
+                            smtpClient.Send(mms);
+                        }
                     }
                 }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    return false;
+                }
             }
-            catch (Exception e)
+            else if (query.LoginProvider == "cookies")
             {
-                Console.WriteLine(e);
                 return false;
             }
+            UserLogin CookieLogin = new UserLogin()
+            {
+                ProviderKey = "cookies",
+                LoginProvider = users.Account,
+                UserId = query.UserId,
+            };
+            _PetsDB.UserLogins.Add(CookieLogin);
+            _PetsDB.SaveChanges();
             return true;
         }
         //廠商註冊
@@ -105,7 +115,7 @@ namespace PetsWebsite.Controllers.API
         public async Task<ActionResult<bool>> CompanyRegister(CompanyRegisterInfo register)
         {
             bool Isregst = true;
-            var query =await _PetsDB.CompanyAccounts.FirstOrDefaultAsync(a => a.Account == register.Account);
+            var query = await _PetsDB.CompanyAccounts.FirstOrDefaultAsync(a => a.Account == register.Account);
             if (query != null)
             {
                 Isregst = false;
@@ -117,7 +127,7 @@ namespace PetsWebsite.Controllers.API
                     CompanyAccount companyAccount = new CompanyAccount
                     {
                         Account = register.Account,
-                        CompanyId=int.Parse(register.CompanyId),
+                        CompanyId = int.Parse(register.CompanyId),
                         Password = register.Password,
                         Company = new Company
                         {
@@ -131,12 +141,12 @@ namespace PetsWebsite.Controllers.API
                     _PetsDB.CompanyAccounts.Add(companyAccount);
                     _PetsDB.SaveChanges();
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Isregst = false;
                 }
-                }
-            
+            }
+
             return Isregst;
         }
 
