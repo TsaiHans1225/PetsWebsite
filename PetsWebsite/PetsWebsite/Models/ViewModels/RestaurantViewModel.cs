@@ -12,5 +12,6 @@
         public string Restaurants { get;  set; }
         public string? PhotoPath { get;  set; }
         public int RestaurantsId { get; internal set; }
+        public string? RestTime { get; internal set; }
     }
 }

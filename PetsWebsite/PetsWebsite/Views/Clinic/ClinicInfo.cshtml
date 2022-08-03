@@ -53,12 +53,10 @@
                 </div>
             </div>
         </div>
-
-
         <div>
             <div class="row mb-2 g-0 position-relative" id="info" v-for="item in Clinicinfo">
                 <div class="col-md-6">
-                    <img :src="item.photoPath">
+                    <img :src="item.photoPath" style="width:100%">
                 </div>
                 <div class="col-md-6" style="background:#f2cc8f;" v-for="item in Clinicinfo">
                     <ul class="mt-3 mb-4">
@@ -68,7 +66,7 @@
                         <li>有無急診 : {{item.emergency==false?"無急診":"有急診"}}</li>
                     </ul>
                     <div class="container">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.762718190244!2d121.51610596500642!3d25.04212538396851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a973c658b995%3A0xfde0dc33b0bfb0ff!2z6Ie65aSn6Yar6Zmi!5e0!3m2!1szh-TW!2stw!4v1658629428113!5m2!1szh-TW!2stw" width="450" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.762718190244!2d121.51610596500642!3d25.04212538396851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a973c658b995%3A0xfde0dc33b0bfb0ff!2z6Ie65aSn6Yar6Zmi!5e0!3m2!1szh-TW!2stw!4v1658629428113!5m2!1szh-TW!2stw" width="450" height="200" style="border:0; width:100%" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
                 <div>
@@ -112,9 +110,11 @@
             <div class="col-md-12">
                 <div class="owl-carousel owl-theme" id="Rest">
                     <div class="item" v-for="item in NearRest">
-                        <a href=""><img :src="item.photoPath" ></a>
+                        <a :href="`/Restaurants/RestaurantDetails/${item.restaurantsId}`"><img :src="item.photoPath" ></a>
                         <h5>餐廳名稱 : {{item.restaurants}}</h5>
                         <span>餐廳地址 : {{item.city+item.region+item.address}}</span>
+                        </br>
+                        <sapn>營業時間 : {{item.restTime}}</sapn>
                     </div>
                 </div>
             </div>
