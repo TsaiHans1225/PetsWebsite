@@ -1,5 +1,5 @@
 ﻿@section Styles{
-    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+<link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
 }
 
 <div id="PetsAbo">
@@ -26,14 +26,9 @@
         <div class="row">
             <div class="col">
                 <paginate :page-count="totalPages" :click-handler="pageChange" :prev-text="'<<'" :next-text="'>>'"
-                  :page-range="10"
-                  :container-Class="'pagination'"
-                  :page-link-class="'page-link'"
-                  :prev-class="'page-item'"
-                  :next-class="'page-item'"
-                  :prev-link-class="'page-link'"
-                  :next-link-class="'page-link'"
-                  :page-class="'page-item'">
+                    :page-range="10" :container-Class="'pagination'" :page-link-class="'page-link'"
+                    :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
+                    :next-link-class="'page-link'" :page-class="'page-item'">
                 </paginate>
             </div>
 
@@ -43,19 +38,19 @@
     <br>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-3" v-for="p in filterRest" style="width:300px;height:500px;">
-                    <div>
-                        <div class="card">
-                            <img :src="p.album_file" class="card-img-top" style="width:100%;height:200px;">
-                            <div class="card-body">
-                                <p class="card-text">品種:{{p.animal_Variety}}</p>
-                                <p class="card-text">類別:{{p.animal_kind}}</p>
-                                <p class="card-text">性別:{{p.animal_sex}}</p>
-                                <p class="card-text">來源:{{p.animal_foundplace}}</p>
-                                <p class="card-text">我在:{{p.animal_place}}</p>
-                            </div>
-                      </div>
+            <div class="col-3" v-for="p in petDataAll" style="width:300px;height:500px;">
+                <div>
+                    <div class="card">
+                        <img :src="p.album_file" class="card-img-top" style="width:100%;height:200px;">
+                        <div class="card-body">
+                            <p class="card-text">品種:{{p.animal_Variety}}</p>
+                            <p class="card-text">類別:{{p.animal_kind}}</p>
+                            <p class="card-text">性別:{{p.animal_sex}}</p>
+                            <p class="card-text">來源:{{p.animal_foundplace}}</p>
+                            <p class="card-text">我在:{{p.animal_place}}</p>
+                        </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>
@@ -63,44 +58,49 @@
 
 
 @section Scripts{
-    <script src="https://unpkg.com/vuejs-paginate@latest"></script>
-    <script>
-        Vue.component('paginate', VuejsPaginate)
-        var vmm = new Vue({
-            data:{
-                petDataAll:[],
-                pageItem:28,
-                currentPage :1,
+<script src="https://unpkg.com/vuejs-paginate@latest"></script>
+<script>
+    Vue.component('paginate', VuejsPaginate)
+    var vmm = new Vue({
+        data: {
+            petDataAll: [],
+            pageItem: 20,
+            currentPage: 1,
+            totalPageCount:6441
 
+        },
+
+        computed: {
+            totalPages: function () {
+                return Math.ceil(this.totalPageCount / this.pageItem);
             },
-            computed: {
-                totalPages: function() {
-                    return Math.ceil(this.petDataAll.length / this.pageItem);
-                },
-                filterRest: function() {
-                    var max = this.currentPage * this.pageItem;
-                    var min = max - this.pageItem;
-                    return this.petDataAll.slice(min, max);
-                }
-            },
-            methods:{
-                pageChange: function(currentPage) {
-                    this.currentPage = currentPage;
-                }
-            },
-            mounted:function(){
-                let url = '/api/PetsAboptionAPI/GetPets';
-                let that = this;
-                axios.get(url)
-                .then(res => {
-                    console.log(res)
-                    that.petDataAll = res.data;
-                })
-                .catch(err => {
-                    console.error(err); 
-                })
+
+        },
+        methods: {
+            pageChange: function (currentPage) {
+                this.currentPage = currentPage;
+                axios.get('/api/PetsAboptionAPI/GetPage', { params: { curPage: `${this.currentPage}`, showPage: `${this.pageItem}` } })
+                    .then(res => {
+                        console.log(res)
+                        this.petDataAll = res.data;
+                        
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    })
             }
-        });
-        vmm.$mount('#PetsAbo');
-    </script>
+        },
+        mounted: function () {
+             axios.get('/api/PetsAboptionAPI/GetPage', { params: { curPage: `${this.currentPage}`, showPage: `${this.pageItem}` } })
+                    .then(res => {
+                        console.log(res)
+                        this.petDataAll = res.data;
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    })
+        }
+    });
+    vmm.$mount('#PetsAbo');
+</script>
 }

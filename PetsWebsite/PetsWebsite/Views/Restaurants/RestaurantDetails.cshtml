@@ -9,16 +9,18 @@
     <div id="det">
         <div v-for="item in restFromID">
             <!-- 餐廳照片 -->
-            <div class="container d-flex justify-content-start mb-2 mt-3" style="background-color:ivory;text-indent: 1rem;">
-                <div class="row" style="height:60%;">
-                    <div class="col-6">
-                        <img :src="item.photoPath" class="img-fluid" style="width:500px;height: 210px;">
-                    </div>
-                    <div class="col-6 d-flex justify-content-end">
-                        {{item.introduction}}
+            <div class="container">
+                <div class="row">
+                    <div id="bgImgDiv">
+                        <img :src="item.photoPath" id="bgImgO">
+                        <div class="container" style="color: #000;">
+                            <h1 class="display-3"><strong>{{item.restaurantName}}</strong></h1>
+                            <p style="text-indent:1rem;">
+                                {{item.introduction}}
+                            </p>
+                        </div>
                     </div>
                 </div>
-               
             </div>
             <!--麵包屑-->
             <div class="container">
@@ -38,21 +40,22 @@
                     </nav>
                 </div>
             </div>
-            <div class="container">
+           <div class="container d-flex justify-content-end">
                 <div class="row">
-                    <h3 style="text-align:center;">{{item.restaurantName}}<a href="" class="btn btn-outline-primary ms-1" style="border-radius: 20px;color: red;">前往預約</a></h3>
+                    <div class="col">
+                        <a :href="item.reserve" title="按我按我" class="btn btn-outline-primary ms-1" style="border-radius: 20px;color: red;">前往預約</a>
+                    </div>
                 </div>
-                
-            </div>
-            <!-- -->
+           </div>
+            <!--熱門文章-->
             <div class="container mt-2">
                 <div class="row">
-                    <div class="col" style="background-color:antiquewhite ;">
-                        好評文分享:
+                    <div class="col" style="padding: 15px;">
+                        <h3 class="text-danger"><strong>好評文分享:</strong></h3>
                         <div class="accordion mb-2" id="accordionPanelsStayOpenExample">
                             <div class="accordion-item">
                               <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                <button class="accordion-button bg-danger text-light" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
                                  熱門文章Top1
                                 </button>
                               </h2>
