@@ -55,7 +55,7 @@ namespace PetsWebsite.Controllers.API
         }
         [HttpGet]
         [Route("{id}")]
-        public IEnumerable<RestaurantViewModel> GetNearRest([FromRoute(Name ="id")]int ClinicId)
+        public IEnumerable<RestaurantViewModel> GetNearRest([FromRoute(Name = "id")] int ClinicId)
         {
             var center = _PetsDB.Clinics.FirstOrDefault(i => i.ClinicId == ClinicId);
             if (center == null) return Enumerable.Empty<RestaurantViewModel>();
@@ -72,10 +72,17 @@ namespace PetsWebsite.Controllers.API
                 Longitude = x.Longitude,
                 Latitude = x.Latitude,
                 Restaurants = x.RestaurantName,
-                RestaurantsId=x.RestaurantId,
+                RestaurantsId = x.RestaurantId,
+                RestTime = x.BusyTime,
                 dist = coord.GetDistanceTo(new GeoCoordinate(x.Latitude.Value, x.Longitude.Value))
             }).Where(x => x.dist < 10000).ToList();
             return temp;
+        }
+        [HttpGet]
+        [Route("{Key}")]
+        public async Task<ActionResult<IEnumerable<Clinic>>> Searchstr([FromRoute(Name ="Key")] string Key)
+        {
+            return await _PetsDB.Clinics.Where(c => c.ClinicName.Contains(Key) || c.Region.Contains(Key) || c.City.Contains(Key)  || c.Service.Contains(Key)).ToListAsync();
         }
     }
 }
