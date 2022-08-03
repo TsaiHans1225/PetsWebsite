@@ -49,16 +49,12 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto me-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown ms-2 me-2">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false">
+                        <li class="nav-item ms-2 me-2">
+                            <a class="nav-link text-dark" href="/Clinic/Clinic" id="navbarDropdown" role="button"
+                               data-bs-toggle="" aria-expanded="false">
                                 醫療資訊
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item rounded" href="/Clinic/Clinic">一般醫療</a></li>
-                            </ul>
                         </li>
-                        <li class="nav-item dropdown ms-2 me-2">
                         <li class="nav-item ms-2 me-2">
                             <a class="nav-link text-dark" asp-controller="Shop" asp-action="Index">
                                 購物專區
@@ -70,17 +66,10 @@
                             </a>
                         </li>
                         <li class="nav-item dropdown ms-2 me-2">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link text-dark" asp-controller="PetsAboption" asp-action="PetsAboption" id="navbarDropdown" role="button"
+                               data-bs-toggle="" aria-expanded="false">
                                 領養專區
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" asp-controller="PetsAboption" asp-action="PetsAboption">犬貓專區</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">非犬貓專區</a></li>
-                            </ul>
                         </li>
                     </ul>
                     @{
@@ -263,7 +252,6 @@
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control rounded-3" id="floatingInput" name="Account" v-model="Account" required>
                             <label for="floatingInput">電子郵件</label>
-                            <a class="text-info">信箱驗證</a>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="password" class="form-control rounded-3" id="floatingPassword" name="Password" v-model="Password" required>
@@ -559,8 +547,8 @@
 
     function ErrorVerify() {
         swal({
-            title: '驗證信箱',
-            text: '信箱未驗證',
+            title: '未驗證信箱',
+            text: '電子郵件未驗證',
             type: 'error',
             closeOnClickOutside: false,
             icon: "error",
@@ -582,7 +570,7 @@
     function ErrorRegister() {
         swal({
             title: '註冊失敗',
-            text: '請重新填寫內容',
+            text: '此信箱已註冊',
             type: 'error',
             closeOnClickOutside: false,
             icon: "error",
@@ -606,6 +594,7 @@
     function SuccessRegister() {
         swal({
             title: '帳號註冊成功',
+            text: '請前往信箱驗證郵件!',
             type: 'success',
             closeOnClickOutside: false,
             icon: "success",
@@ -643,7 +632,6 @@
                     })
                 })
                     .then(res => res.json())
-                    .catch(error => console.error('Error:', error))
                     .then(response => {
                         console.log('Success:', response);
                         if (response) {
@@ -651,7 +639,8 @@
                         } else {
                             ErrorRegister();
                         }
-                    });
+                    })
+                    .catch(error => console.error('Error:', error));
             }
         }
     }).$mount("#modalUserSignUp");
