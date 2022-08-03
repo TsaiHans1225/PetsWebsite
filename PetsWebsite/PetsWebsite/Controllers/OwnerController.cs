@@ -9,11 +9,13 @@ namespace PetsWebsite.Controllers
     {
         private readonly PetsDBContext _dBContext;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly GoogleMapService _googleMapService;
 
-        public OwnerController(PetsDBContext dBContext, IWebHostEnvironment webHostEnvironment)
+        public OwnerController(PetsDBContext dBContext, IWebHostEnvironment webHostEnvironment, GoogleMapService googleMapService)
         {
             _dBContext = dBContext;
             _webHostEnvironment = webHostEnvironment;
+            _googleMapService = googleMapService;
         }
         public IActionResult Index()
         {
@@ -90,7 +92,7 @@ namespace PetsWebsite.Controllers
                 var oldPhoto = _dBContext.Products.Where(p => p.ProductId == editedProduct.ProductId).Select(p => p.PhotoPath).Single();
 
                 // 判斷是否為null
-                if(!string.IsNullOrEmpty(oldPhoto))
+                if (!string.IsNullOrEmpty(oldPhoto))
                 {
                     var oldPhotoPath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Product", oldPhoto);
                     // 刪除舊圖
@@ -136,8 +138,21 @@ namespace PetsWebsite.Controllers
         public bool DeleteProduct(int ProductId)
         {
             var query = _dBContext.Products.First(p => p.ProductId == ProductId);
-            _dBContext.Remove(query);
-            _dBContext.SaveChanges();
+            try
+            {
+                var OldPhoto = query.PhotoPath;
+                _dBContext.Remove(query);
+                _dBContext.SaveChanges();
+                if (!string.IsNullOrEmpty(OldPhoto))
+                {
+                    var OldPhotoPath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Product", OldPhoto);
+                    System.IO.File.Delete(OldPhotoPath);
+                }
+            }
+            catch(Exception)
+            {
+                return false;
+            }
             return true;
         }
 
@@ -152,6 +167,11 @@ namespace PetsWebsite.Controllers
             newRestaurant.Phone = newRestaurant.Phone.Trim();
             newRestaurant.State = false;
 
+            //GoogleMapService googleMapService = new GoogleMapService();
+            var result = _googleMapService.GetLatLngByAddr($"{newRestaurant.City}{newRestaurant.Region}{newRestaurant.Address}");
+            newRestaurant.Latitude = Convert.ToDouble(result.lat);
+            newRestaurant.Longitude = Convert.ToDouble(result.lng);
+
             // 取出圖片及名稱
             var InputFile = HttpContext.Request.Form.Files[0];
             var InputFilePath = "";
@@ -164,7 +184,7 @@ namespace PetsWebsite.Controllers
                 // 儲存photo
                 var UniqueId = Guid.NewGuid().ToString("D");
                 var PhotoFormat = InputFile.FileName.Split(".")[1];
-                newRestaurant.PhotoPath= $"{newRestaurant.CompanyId}_{UniqueId}.{PhotoFormat}";
+                newRestaurant.PhotoPath = $"{newRestaurant.CompanyId}_{UniqueId}.{PhotoFormat}";
 
                 InputFilePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Restaurant", newRestaurant.PhotoPath);
                 FileStream fs = new FileStream(InputFilePath, FileMode.Create);
@@ -229,8 +249,21 @@ namespace PetsWebsite.Controllers
         public bool DeleteRestaurant(int RestaurantId)
         {
             var query = _dBContext.Restaurants.First(r => r.RestaurantId == RestaurantId);
-            _dBContext.Remove(query);
-            _dBContext.SaveChanges();
+            try
+            {
+                var OldPhoto = query.PhotoPath;
+                _dBContext.Remove(query);
+                _dBContext.SaveChanges();
+                if (!string.IsNullOrEmpty(OldPhoto))
+                {
+                    var OldPhotoPath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Restaurant", OldPhoto);
+                    System.IO.File.Delete(OldPhotoPath);
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
             return true;
         }
         //編輯診所
