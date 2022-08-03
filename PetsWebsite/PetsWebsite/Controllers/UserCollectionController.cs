@@ -1,12 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using PetsWebsite.Models;
 
 namespace PetsWebsite.Controllers
 {
     public class UserCollectionController : Controller
     {
-        public IActionResult Index()
+        private readonly PetsDBContext _petsDB;
+        public UserCollectionController(PetsDBContext petsDB)
         {
-            return View();
+            _petsDB = petsDB;
+        }
+        public async Task<IActionResult> Index()
+        {
+            var products = await _petsDB.Products
+                      .OrderBy(x => x.UnitPrice).Where(p => p.State == true)
+                      .ToListAsync();
+
+            return View(products);
         }
     }
 }

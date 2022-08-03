@@ -78,26 +78,26 @@
         }
     }).$mount('#createRestaurant');
 
-    $('#restaurantForm').submit(function(e) {
-        e.preventDefault();
-        var formdata = new FormData(this);
-        $.ajax({
-            url: "/Owner/NewRestaurant",
-            type: "POST",
-            data: formdata,
-            async: false,
-            cache: false,
-            contentType: false,
-            enctype: "multipart/form-data",
-            process: false
-        })
-            .done(function(resp) {
-                console.log("resp", resp)
-            })
-            .fail(function(err) {
-                console.log("err", err)
-            })
-    })
+    //$('#restaurantForm').submit(function(e) {
+    //    e.preventDefault();
+    //    var formdata = new FormData(this);
+    //    $.ajax({
+    //        url: "/Owner/NewRestaurant",
+    //        type: "POST",
+    //        data: formdata,
+    //        async: false,
+    //        cache: false,
+    //        contentType: false,
+    //        enctype: "multipart/form-data",
+    //        process: false
+    //    })
+    //        .done(function(resp) {
+    //            console.log("resp", resp)
+    //        })
+    //        .fail(function(err) {
+    //            console.log("err", err)
+    //        })
+    //})
 
     // 預覽圖片
     function previewPic(e) {
