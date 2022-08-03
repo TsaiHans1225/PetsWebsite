@@ -428,9 +428,9 @@
                                             closeOnClickOutside: false,
                                             icon: "success"
                                         }).then(() => {
-                                            this.reLoadData();
+                                            location.reload();
                                         });
-                                        setTimeout("location.reload()", 5000)
+                                        setTimeout("location.reload()", 3000)
                                     }
                                 })
                                 .catch(err => console.log("err", err))

@@ -63,7 +63,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                     var NewMember = db.UserLogins.FirstOrDefault(x => x.ProviderKey == ProviderKey);
                     user = NewMember;
                 }
-                else if (user?.ProviderKey != ProviderKey)
+                else if (user?.ProviderKey != ProviderKey && user?.LoginProvider == LoginProvider)
                 {
                     UserLogin FbLogin = new UserLogin()
                     {
@@ -99,7 +99,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                 var LoginProvider = ctx.Principal.Claims.Select(c => c.Issuer).First();
                 var ProviderKey = ctx.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
                 var user = db.UserLogins.FirstOrDefault(x => x.User.Email == email);
-                if (user == null && string.IsNullOrEmpty(user?.ProviderKey))
+                if (user == null)
                 {
                     //create user info
                     UserLogin Member = new UserLogin()
@@ -119,7 +119,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                     var NewMember = db.UserLogins.FirstOrDefault(x => x.ProviderKey == ProviderKey);
                     user = NewMember;
                 }
-                else if (user?.ProviderKey != ProviderKey)
+                else if (user?.ProviderKey != ProviderKey && user?.LoginProvider == LoginProvider)
                 {
                     UserLogin GoogleLogin = new UserLogin()
                     {

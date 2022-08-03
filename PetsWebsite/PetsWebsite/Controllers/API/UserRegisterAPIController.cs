@@ -63,8 +63,8 @@ namespace PetsWebsite.Controllers.API
                     sVerify = HttpUtility.UrlEncode(sVerify);
                     // 網站網址
                     string webPath = "https://localhost:62898/";
-                    // 從信件連結回本站首頁
-                    string receivePage = "Home/Index";
+                    // 從信件連結傳回verify給後端做處理後導頁
+                    string receivePage = "Members/GetGoogleVerify";
                     // 信件內容範本
                     string mailContent = "點擊以下連結以驗證信箱，驗證後請返回本網站進行登入。謝謝。<br><br>";
                     mailContent = $"{mailContent}<a href={webPath}{receivePage}?verify={sVerify}>點此連結驗證信箱</a>";

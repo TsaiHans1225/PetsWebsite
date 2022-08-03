@@ -20,7 +20,7 @@ namespace PetsWebsite.Controllers.API
         }
         //會員登入
         [HttpPost]
-        public async Task<bool> UserLogin(Login users)
+        public async Task<int> UserLogin(Login users)
         {
             //到資料庫找資料
             var existUser =await _PetsDB.UserLogins.Join(_PetsDB.Users,
@@ -31,7 +31,8 @@ namespace PetsWebsite.Controllers.API
                     UserId = a.UserId,
                     Account = a.ProviderKey,
                     Password = u.Password,
-                    RoleId = u.RoleId
+                    RoleId = u.RoleId,
+                    Verification = a.Verification
                 }).Join(_PetsDB.Roles,
                 a => a.RoleId,
                 r => r.RoleId,
@@ -41,12 +42,17 @@ namespace PetsWebsite.Controllers.API
                     UserId=a.UserId,
                     Account = a.Account,
                     Password = a.Password,
-                    Role = r.Role1
+                    Role = r.Role1,
+                    Verification = a.Verification
                 }
                 ).FirstOrDefaultAsync(x => x.Account == users.Account && x.Password == users.Password);
             if (existUser == null)
             {
-                return false;
+                return 1;
+            }
+            else if (existUser.Verification == false)
+            {
+                return 2;
             }
             //給予身分
             var claims = new List<Claim>
@@ -63,7 +69,7 @@ namespace PetsWebsite.Controllers.API
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal
                 );
-            return true;
+            return 3;
 
         }
         //廠商登入
