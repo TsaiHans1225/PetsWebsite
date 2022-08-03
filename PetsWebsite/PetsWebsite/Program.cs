@@ -17,6 +17,7 @@ builder.Services.AddDbContext<PetsDBContext>(opt =>
 builder.Services.AddTransient<IcommonLogic, CommonLogic>();
 builder.Services.AddTransient<RestaurantsRepository>();
 builder.Services.AddSingleton<Setting>();
+builder.Services.AddSingleton<GoogleMapService>();
 //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 // Add services to the container.
