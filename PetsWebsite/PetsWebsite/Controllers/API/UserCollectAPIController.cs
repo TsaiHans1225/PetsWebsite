@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PetsWebsite.Extensions;
 using PetsWebsite.Models;
+using PetsWebsite.Models.ViewModels;
 
 namespace PetsWebsite.Controllers.API
 {
@@ -19,6 +20,17 @@ namespace PetsWebsite.Controllers.API
         public List<int> GetUserCollectId()
         {
             return _petsDB.Collections.Where(c => c.UserId == User.GetId()).Select(c => c.ProductId).ToList();
+        }
+        [HttpGet]
+        public List<FavoriteViewModel> GetUserCollectItem()
+        {
+            return _petsDB.Collections.Where(c => c.UserId == User.GetId()).Select(c => new FavoriteViewModel()
+            {
+                ProductId=c.ProductId,
+                ProductName=c.Product.ProductName,
+                Price=c.Product.UnitPrice,
+                PhotoPath=c.Product.PhotoPath
+            }).ToList();
         }
         [HttpGet]
         [Route("{CollecProdoctId}")]

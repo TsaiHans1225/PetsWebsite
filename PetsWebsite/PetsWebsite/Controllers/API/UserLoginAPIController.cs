@@ -31,7 +31,8 @@ namespace PetsWebsite.Controllers.API
                     UserId = a.UserId,
                     Account = a.ProviderKey,
                     Password = u.Password,
-                    RoleId = u.RoleId
+                    RoleId = u.RoleId,
+                    Email=u.Email,
                 }).Join(_PetsDB.Roles,
                 a => a.RoleId,
                 r => r.RoleId,
@@ -41,7 +42,8 @@ namespace PetsWebsite.Controllers.API
                     UserId=a.UserId,
                     Account = a.Account,
                     Password = a.Password,
-                    Role = r.Role1
+                    Role = r.Role1,
+                    Email = a.Email,
                 }
                 ).FirstOrDefaultAsync(x => x.Account == users.Account && x.Password == users.Password);
             if (existUser == null)
@@ -53,7 +55,8 @@ namespace PetsWebsite.Controllers.API
             {
                 new Claim(ClaimTypes.Name,existUser.Account),
                 new Claim(ClaimTypes.Role,existUser.Role),
-                new Claim("UserID",existUser.UserId.ToString())
+                new Claim("UserID",existUser.UserId.ToString()),
+                new Claim(ClaimTypes.Email,existUser.Email),
             };
            
             var claimsIndntity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
