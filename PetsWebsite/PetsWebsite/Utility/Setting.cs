@@ -5,12 +5,12 @@ namespace PetsWebsite.Utility
     public class Setting
     {
         private readonly IConfiguration _configuration;
-        private readonly SystemModel _obj;
+        private readonly SystemModel _obj = new SystemModel();
 
         public Setting(IConfiguration configuration)
         {
             _configuration = configuration;
-            _obj=_configuration.GetValue<SystemModel>("NewebPay");
+            _configuration.GetSection("NewebPay").Bind(_obj);
         }
         public string? MerchantID => _obj.MerchantID;
         public string? HashKey => _obj.HashKey;
@@ -19,6 +19,6 @@ namespace PetsWebsite.Utility
         public string? NotifyURL => _obj.NotifyURL;
         public string? CustomerURL => _obj.CustomerURL;
         public string? AuthUrl => _obj.AuthUrl;
-        public string? version => _obj.Version;
+        public string? Version => _obj.Version;
     }
 }

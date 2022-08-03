@@ -3,6 +3,9 @@ using PetsWebsite.Extensions;
 using PetsWebsite.Models;
 using PetsWebsite.Models.ViewModels;
 using PetsWebsite.Utility;
+using System.Collections.Specialized;
+using System.Text;
+using System.Web;
 
 namespace PetsWebsite.Controllers
 {
@@ -17,16 +20,16 @@ namespace PetsWebsite.Controllers
         }
         [HttpPost]
         public IActionResult GetPayFlowData(OrderInfo orderInfo)
-        {      
+        {
             TradeInfo tradeInfo = new TradeInfo()
             {
                 MerchantID = _setting.MerchantID,
                 RespondType = "String",
                 TimeStamp = DateTimeOffset.Now.ToOffset(new TimeSpan(8, 0, 0)).ToUnixTimeSeconds().ToString(),
-                Version = _setting.version,
+                Version = _setting.Version,
                 MerchantOrderNo = $"T{User.GetId()}_{DateTime.Now.ToString("yyyyMMddHHmm")}",
                 Amt = orderInfo.OrderSum,
-                ItemDesc = "商品資訊(自行修改)",
+                ItemDesc = orderInfo.OrderDesc,
                 ExpireDate = null,
                 ReturnURL = _setting.ReturnURL,
                 NotifyURL = _setting.NotifyURL,
@@ -55,23 +58,20 @@ namespace PetsWebsite.Controllers
                 MerchantID = _setting.MerchantID,
                 TradeInfo = TradeInfo,
                 TradeSha = TradeSha,
-                Version = _setting.version
+                Version = _setting.Version
             };         
             // 將model 轉換為List<KeyValuePair<string, string>>, null值不轉
             return Json(NewebPayData);
         }
-    }
-
-    public class OrderInfo
-    {
-        public List<OrderViewModle> OrderList { get; set; }
-        public int OrderSum { get; set; }
-        public string Payment { get; set; }
-    }
-
-    public class OrderViewModle
-    {
-        public string ProductName { get; set; }
-        public int Count { get; set; }
+        [HttpPost]
+        public IActionResult CallbackReturn()
+        {
+            string HashKey = _setting.HashKey;
+            string HashIV = _setting.HashIV;
+            string TradeInfoDecrypt = CryptoUtil.DecryptAESHex(Request.Form["TradeInfo"], HashKey, HashIV);
+            NameValueCollection decryptTradeCollection = HttpUtility.ParseQueryString(TradeInfoDecrypt);
+            //SpgatewayOutputDataModel convertModel = LambdaUtil.DictionaryToObject<SpgatewayOutputDataModel>(decryptTradeCollection.AllKeys.ToDictionary(k => k, k => decryptTradeCollection[k]));
+            return Redirect("/home/index");
+        }
     }
 }

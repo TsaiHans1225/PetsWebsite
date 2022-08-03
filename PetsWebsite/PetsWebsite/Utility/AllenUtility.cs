@@ -4,9 +4,10 @@
     {
         public static List<KeyValuePair<string, string>> ToKvpList<T>(this T model)
         {
-           return model.GetType().GetProperties()
+            return model.GetType().GetProperties()
+                .Where(x => x.GetValue(model) != null)
                 .Select(x => new KeyValuePair<string, string>(x.Name, x.GetValue(model).ToString()))
-                .Where(x=>x.Value.ToLower()!="null").ToList();
+                .ToList();
         }
         public static byte[] ToByteArray(this string source)
         {
