@@ -47,8 +47,16 @@
                             <input type="text" class="form-control is-invalid" id="Address" name="Address" v-model="EditClinicData.address" required>
                         </div>
                         <div class="col col-12">
+                            <label for="ClinicMap" class="form-label">診所googleMap網址: </label>
+                            <input type="text" class="form-control" v-model="EditClinicData.clinicMap" id="ClinicMap" name="ClinicMap">
+                        </div>
+                        <div class="col col-12">
+                            <label for="Service">診所提供服務項目: </label>
+                            <textarea class="form-control" v-model="EditClinicData.service" id="Service" name="Service" rows="3"></textarea>
+                        </div>
+                        <div class="col col-12">
                             <label for="Describe">診所簡述: </label>
-                            <textarea class="form-control" id="Describe" name="Describe" rows="3" v-model="EditClinicData.describe" ></textarea>
+                            <textarea class="form-control" id="Describe" name="Describe" rows="3">{{EditClinicData.describe}}</textarea>
                         </div>
                         <div class="col col-12">
                             <label class="d-block" for="Photo">圖片(大小請勿超過2MB)</label>

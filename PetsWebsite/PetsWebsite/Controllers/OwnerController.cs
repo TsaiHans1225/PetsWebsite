@@ -250,6 +250,9 @@ namespace PetsWebsite.Controllers
                 query.PhotoPath = editedRestaurant.PhotoPath;
             }
 
+            // 存取地址轉經緯度
+            var result = _googleMapService.GetLatLngByAddr($"{editedRestaurant.City}{editedRestaurant.Region}{editedRestaurant.Address}");
+
             query.RestaurantName = editedRestaurant.RestaurantName.Trim();
             query.Phone = editedRestaurant.Phone.Trim();
             query.City = editedRestaurant.City;
@@ -258,6 +261,8 @@ namespace PetsWebsite.Controllers
             query.Reserve = editedRestaurant.Reserve.Trim();
             query.BusyTime = editedRestaurant.BusyTime.Trim();
             query.Introduction = editedRestaurant.Introduction.Trim();
+            query.Latitude = Convert.ToDouble(result.lat);
+            query.Longitude = Convert.ToDouble(result.lng);
             await _dBContext.SaveChangesAsync();
             return RedirectToAction("Index");
         }
