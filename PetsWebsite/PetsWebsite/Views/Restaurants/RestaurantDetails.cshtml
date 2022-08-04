@@ -7,16 +7,16 @@
     </style>
 }
     <div id="det">
-        <div v-for="item in restFromID">
+        <div>
             <!-- 餐廳照片 -->
             <div class="container">
                 <div class="row">
                     <div id="bgImgDiv">
-                        <img :src="item.photoPath" id="bgImgO">
+                        <img :src="`/images/Restaurant/${restPhoto}`" id="bgImgO">
                         <div class="container" style="color: #000;">
-                            <h1 class="display-3"><strong>{{item.restaurantName}}</strong></h1>
+                            <h1 class="display-3"><strong>{{restName}}</strong></h1>
                             <p style="text-indent:1rem;">
-                                {{item.introduction}}
+                                {{restIndurtion}}
                             </p>
                         </div>
                     </div>
@@ -33,63 +33,45 @@
                                style="text-decoration:none;">寵物友善餐廳</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a :href="`${item.restaurantId}`" id="bread"
-                               style="text-decoration:none;">{{item.restaurantName}}</a>
+                                <a :href="`/Restaurants/RestaurantDetails/${restID}`" id="bread"
+                               style="text-decoration:none;">{{restName}}</a>
                             </li>
                         </ol>
                     </nav>
                 </div>
             </div>
-           <div class="container d-flex justify-content-end">
+            <div class="container d-flex justify-content-end">
                 <div class="row">
                     <div class="col">
-                        <a :href="item.reserve" title="按我按我" class="btn btn-outline-primary ms-1" style="border-radius: 20px;color: red;">前往預約</a>
+                        <a :href="restReverse" title="按我按我" class="btn btn-outline-primary ms-1" style="border-radius: 20px;color: red;">前往預約</a>
                     </div>
                 </div>
-           </div>
+            </div>
             <!--熱門文章-->
-            <div class="container mt-2">
+            <div class="container mt-2" >
                 <div class="row">
                     <div class="col" style="padding: 15px;">
                         <h3 class="text-danger"><strong>好評文分享:</strong></h3>
-                        <div class="accordion mb-2" id="accordionPanelsStayOpenExample">
-                            <div class="accordion-item">
-                              <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                                <button class="accordion-button bg-danger text-light" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                                 熱門文章Top1
-                                </button>
-                              </h2>
-                              <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-                                <div class="accordion-body">
-                                  <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                        <div v-for="(item,index) in restFromID">
+                            <div class="accordion mb-2" id="accordionPanelsStayOpenExample">
+                                <div class="accordion-item" >
+                                    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                        <button class="accordion-button bg-danger text-light" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne" style="font-size: 20px;">
+                                            <span>{{item.title}}</span>
+                                        </button>
+                                    </h2>
+                                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                                        <div class="accordion-body" style="text-indent: 1rem;">
+                                            <b style="color: olivedrab;">{{item.contents}}</b>
+                                            <div class=" d-flex justify-content-end">
+                                                <a href="" class="btn btn-outline-secondary" style="border: 0px;border-radius: 10px;">點我看更多...</a>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
                                 </div>
-                              </div>
                             </div>
-                            <div class="accordion-item">
-                              <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                                  熱門文章Top2
-                                </button>
-                              </h2>
-                              <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-                                <div class="accordion-body">
-                                  <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                                </div>
-                              </div>
-                            </div>
-                            <div class="accordion-item">
-                              <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                                 熱門文章Top3
-                                </button>
-                              </h2>
-                              <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-                                <div class="accordion-body">
-                                  <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -107,11 +89,16 @@
     </div>
     @section Scripts{
     <script>
-    
+
         var vm = new Vue({
             data: {
                 restID: '',
                 restFromID: [],
+                restName: '',
+                restPhoto: '',
+                restIndurtion: '',
+                restReverse: ''
+
 
             },
             methods: {
@@ -127,10 +114,16 @@
                     .then(res => {
                         console.log(res)
                         that.restFromID = res.data;
+                        this.restID = res.data[0].restID;
+                        that.restName =res.data[0].restName;
+                        that.restPhoto = res.data[0].restPhotoPath;
+                        that.restIndurtion = res.data[0].restIntroduction;
+                        that.restReverse = res.data[0].restReserve;
                     })
                     .catch(err => {
                         console.error(err);
                     })
+
             }
         });
         vm.$mount('#det');
