@@ -74,6 +74,7 @@ namespace PetsWebsite.Controllers.API
                 Restaurants = x.RestaurantName,
                 RestaurantsId = x.RestaurantId,
                 RestTime = x.BusyTime,
+                describe=x.Introduction,
                 dist = coord.GetDistanceTo(new GeoCoordinate(x.Latitude.Value, x.Longitude.Value))
             }).Where(x => x.dist < 10000).ToList();
             return temp;
