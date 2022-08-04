@@ -42,14 +42,15 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                 var FirstName = ctx.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.GivenName)?.Value;
                 var LoginProvider = ctx.Principal.Claims.Select(c => c.Issuer).First();
                 var ProviderKey = ctx.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
-                var user = db.UserLogins.FirstOrDefault(x => x.User.Email == email);
-                if (user == null)
+                var user = db.UserLogins.Where(x => x.User.Email == email).ToList();
+                if (!user.Any())
                 {
                     //create user info
                     UserLogin Member = new UserLogin()
                     {
                         LoginProvider = LoginProvider,
                         ProviderKey = ProviderKey,
+                        Verification=true,
                         User = new User()
                         {
                             LastName = LastName,
@@ -61,15 +62,16 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                     db.UserLogins.Add(Member);
                     db.SaveChanges();
                     var NewMember = db.UserLogins.FirstOrDefault(x => x.ProviderKey == ProviderKey);
-                    user = NewMember;
+                    user.Add(NewMember);
                 }
-                else if (user?.ProviderKey != ProviderKey && user?.LoginProvider == LoginProvider)
+                else if (user.FirstOrDefault(u=>u.ProviderKey == ProviderKey)==null)
                 {
                     UserLogin FbLogin = new UserLogin()
                     {
                         ProviderKey = ProviderKey,
                         LoginProvider = LoginProvider,
-                        UserId = user.UserId
+                        UserId = user.First().UserId,
+                        Verification = true,
                     };
                     db.UserLogins.Add(FbLogin);
                     db.SaveChanges();
@@ -78,7 +80,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                 var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Role,"Member"),
-                new Claim("UserID",user.UserId.ToString())
+                new Claim("UserID",user.First().UserId.ToString())
             };
                 ctx.Principal.Identities.First().AddClaims(claims);
                 return Task.CompletedTask;
@@ -98,14 +100,15 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                 var FirstName = ctx.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.GivenName)?.Value;
                 var LoginProvider = ctx.Principal.Claims.Select(c => c.Issuer).First();
                 var ProviderKey = ctx.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
-                var user = db.UserLogins.FirstOrDefault(x => x.User.Email == email);
-                if (user == null)
+                var user = db.UserLogins.Where(x => x.User.Email == email).ToList();
+                if (!user.Any())
                 {
                     //create user info
                     UserLogin Member = new UserLogin()
                     {
                         LoginProvider = LoginProvider,
                         ProviderKey = ProviderKey,
+                        Verification = true,
                         User = new User()
                         {
                             LastName = LastName,
@@ -117,15 +120,16 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                     db.UserLogins.Add(Member);
                     db.SaveChanges();
                     var NewMember = db.UserLogins.FirstOrDefault(x => x.ProviderKey == ProviderKey);
-                    user = NewMember;
+                    user.Add(NewMember);
                 }
-                else if (user?.ProviderKey != ProviderKey && user?.LoginProvider == LoginProvider)
+                else if (user.FirstOrDefault(u=>u.ProviderKey != ProviderKey)==null)
                 {
                     UserLogin GoogleLogin = new UserLogin()
                     {
                         ProviderKey = ProviderKey,
                         LoginProvider = LoginProvider,
-                        UserId = user.UserId
+                        UserId = user.First().UserId,
+                        Verification = true,
                     };
                     db.UserLogins.Add(GoogleLogin);
                     db.SaveChanges();
@@ -134,7 +138,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                 var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Role, "Member"),
-                new Claim("UserID",user.UserId.ToString())
+                new Claim("UserID",user.First().UserId.ToString())
             };
                 ctx.Principal.Identities.First().AddClaims(claims);
                 return Task.CompletedTask;

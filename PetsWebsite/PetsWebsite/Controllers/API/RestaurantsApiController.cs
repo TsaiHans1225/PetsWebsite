@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PetsWebsite.Models;
 using PetsWebsite.Models.ViewModel;
+using PetsWebsite.Models.ViewModels;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -96,9 +97,24 @@ namespace PetsWebsite.Controllers.API
 
         [HttpGet]
         [Route("Details/rawdata/{id}")]
-        public async Task<ActionResult<IEnumerable<Restaurant>>> DetailPage([FromRoute(Name = "id")] int id)
+        public IEnumerable<RestArticlesViewModel> DetailPage([FromRoute(Name = "id")] int id)
         {
-            return await _petsDBContext.Restaurants.Where(d => d.RestaurantId == id).ToListAsync();
+            //return await _petsDBContext.Restaurants.Where(d => d.RestaurantId == id).ToListAsync();
+            return _petsDBContext.Articles.Include("Restaurant").Where(x=>x.RestaurantId == id).Select(x=>new RestArticlesViewModel
+            {
+                RestID = x.Restaurant.RestaurantId,
+                RestName = x.Restaurant.RestaurantName,
+                RestPhone = x.Restaurant.Phone,
+                RestPhotoPath = x.Restaurant.PhotoPath,
+                RestIntroduction = x.Restaurant.Introduction,
+                RestCity = x.Restaurant.City,
+                RestRegion = x.Restaurant.Region,
+                RestAddress = x.Restaurant.Address,
+                RestTime = x.Restaurant.BusyTime,
+                RestReserve = x.Restaurant.Reserve,
+                Title = x.Title,
+                Contents = x.Contents
+            });
         }
 
     }
