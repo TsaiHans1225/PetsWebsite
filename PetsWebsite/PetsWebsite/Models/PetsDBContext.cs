@@ -56,8 +56,6 @@ namespace PetsWebsite.Models
 
                 entity.Property(e => e.RestaurantId).HasColumnName("RestaurantID");
 
-                entity.Property(e => e.Title).HasMaxLength(30);
-
                 entity.HasOne(d => d.Restaurant)
                     .WithMany(p => p.Articles)
                     .HasForeignKey(d => d.RestaurantId)
@@ -377,7 +375,7 @@ namespace PetsWebsite.Models
             {
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
-                entity.Property(e => e.Account).HasMaxLength(20);
+                entity.Property(e => e.Account).HasMaxLength(50);
 
                 entity.Property(e => e.Address).HasMaxLength(30);
 

@@ -4,9 +4,7 @@
     #Jumbotron {
         flex-direction: column;
         opacity: 0.6;
-        background: #f6bd60;
         border-radius: 30px;
-        box-shadow: 5px 5px 5px #E36414;
         padding: 3rem
     }
 
@@ -49,22 +47,22 @@
     </div>
     <!--jumbotron-->
     <div class="container">
-        <div class="jumbotron  d-flex align-items-center" id="Jumbotron">
-            <h1 class="display-4">醫療資訊</h1>
-            <p class="lead">這邊可以提供您想查詢的醫療資訊</p>
+        <div class="jumbotron bg-light  d-flex align-items-center" id="Jumbotron">
+            <h1 class="display-4" style="font-weight:900">醫療資訊</h1>
+            <p class="lead" style="font-weight:900">這邊可以提供您想查詢的醫療資訊</p>
         </div>
     </div>
 
     <!--下拉選取 -->
     <div class="container mt-3">
         <form class="row  flex-row-reverse" v-on:change="Getdata">
-            <div class="col-2">
+            <div class="col-6">
                 <select id="inputState" class="form-select" v-model="selected.area">
                     <option selected disabled value="">請選擇地區</option>
                     <option v-for="area in Region" v-bind:value="area.AreaName">{{area.AreaName}}</option>
                 </select>
             </div>
-            <div class="col-2">
+            <div class="col-6">
                 <select id="inputCity" class="form-select" v-model="selected.city" v-on:change="GetRegion">
                     <option selected disabled value="">請選擇縣市</option>
                     <option v-for="(city, index) in City" v-bind:value="index">{{city.CityName}}</option>
@@ -73,27 +71,25 @@
         </form>
     </div>
     <!-- 關鍵字查詢 -->
-        <div class="container d-flex justify-content-end">
-            <div class="row">
-                <div class=" ">
-                        <div class="  col-12">
-                            <div class="col-12 me-1 mt-2">
-                                <input type="text" placeholder="請輸入關鍵字.." class="form-control mb-2 me-1" v-model="search"  v-on:change="Searchresult"/>
-                            </div>
-                        </div>
+    <div class="container d-flex justify-content-end">
+        <div class="row">
+            <div class=" ">
+                <div class="col-12 me-1 mt-2">
+                    <input type="text" placeholder="請輸入關鍵字.." class="form-control mb-2 me-1" v-model="search" v-on:change="Searchresult" />
                 </div>
             </div>
         </div>
+    </div>
     <!-- 卡片 -->
     <div class="container" v-show="show">
         <div class="row">
             <div class=" col-12 col-md-4 my-3" v-for="(item,index) in filterRest">
                 <div class="card border-0">
                     <div id="Card">
-                        <a :href="`Clinicinfo/${item.clinicId}`"><img class="card-img-top w-100" :src="item.photoPath"></a>
+                        <a :href="`Clinicinfo/${item.clinicId}`"><img class="card-img-top w-100" :src="'/images/Clinic/'+item.photoPath"></a>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">
+                        <h5 class="card-title" style="color:#f2cc8f;font-weight:900">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hospital" viewBox="0 0 16 16">
                                 <path d="M8.5 5.034v1.1l.953-.55.5.867L9 7l.953.55-.5.866-.953-.55v1.1h-1v-1.1l-.953.55-.5-.866L7 7l-.953-.55.5-.866.953.55v-1.1h1ZM13.25 9a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5ZM13 11.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5Zm.25 1.75a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5Zm-11-4a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5A.25.25 0 0 0 3 9.75v-.5A.25.25 0 0 0 2.75 9h-.5Zm0 2a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5ZM2 13.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5Z" />
                                 <path d="M5 1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1a1 1 0 0 1 1 1v4h3a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h3V3a1 1 0 0 1 1-1V1Zm2 14h2v-3H7v3Zm3 0h1V3H5v12h1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3Zm0-14H6v1h4V1Zm2 7v7h3V8h-3Zm-8 7V8H1v7h3Z" />
@@ -175,8 +171,8 @@
                 ClinicList: [],
                 City: [],
                 Region: [],
-               
-                search:'',
+
+                search: '',
                 show: false,
                 pageItem: 6,
                 currentPage: 1,
@@ -220,8 +216,8 @@
                 },
                 Searchresult: function() {
                     let self = this;
-                    var url=`/api/ClinicAPI/Searchstr/${self.search}`
-                    fetch(url).then(res=>{
+                    var url = `/api/ClinicAPI/Searchstr/${self.search}`
+                    fetch(url).then(res => {
                         return res.json();
                     }).then(res => {
                         self.ClinicList = res;

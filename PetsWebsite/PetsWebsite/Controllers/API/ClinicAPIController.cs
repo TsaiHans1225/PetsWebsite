@@ -74,6 +74,7 @@ namespace PetsWebsite.Controllers.API
                 Restaurants = x.RestaurantName,
                 RestaurantsId = x.RestaurantId,
                 RestTime = x.BusyTime,
+                describe=x.Introduction,
                 dist = coord.GetDistanceTo(new GeoCoordinate(x.Latitude.Value, x.Longitude.Value))
             }).Where(x => x.dist < 10000).ToList();
             return temp;
@@ -82,7 +83,7 @@ namespace PetsWebsite.Controllers.API
         [Route("{Key}")]
         public async Task<ActionResult<IEnumerable<Clinic>>> Searchstr([FromRoute(Name ="Key")] string Key)
         {
-            return await _PetsDB.Clinics.Where(c => c.ClinicName.Contains(Key) || c.Region.Contains(Key) || c.City.Contains(Key)  || c.Service.Contains(Key)).ToListAsync();
+            return await _PetsDB.Clinics.Where(c => c.ClinicName.Contains(Key) || c.Region.Contains(Key) || c.City.Contains(Key)||c.Address.Contains(Key)  || c.Service.Contains(Key)).ToListAsync();
         }
     }
 }
