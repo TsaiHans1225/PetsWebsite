@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PetsWebsite.Models;
@@ -20,7 +19,7 @@ namespace PetsWebsite.Controllers.API
         }
         //會員登入
         [HttpPost]
-        public async Task<bool> UserLogin(Login users)
+        public async Task<int> UserLogin(Login users)
         {
             //到資料庫找資料
             var existUser =await _PetsDB.UserLogins.Join(_PetsDB.Users,
@@ -31,7 +30,9 @@ namespace PetsWebsite.Controllers.API
                     UserId = a.UserId,
                     Account = a.ProviderKey,
                     Password = u.Password,
-                    RoleId = u.RoleId
+                    RoleId = u.RoleId,
+                    Verification = a.Verification,
+                    Email=u.Email,
                 }).Join(_PetsDB.Roles,
                 a => a.RoleId,
                 r => r.RoleId,
@@ -41,19 +42,26 @@ namespace PetsWebsite.Controllers.API
                     UserId=a.UserId,
                     Account = a.Account,
                     Password = a.Password,
-                    Role = r.Role1
+                    Role = r.Role1,
+                    Verification = a.Verification,
+                    Email = a.Email,
                 }
                 ).FirstOrDefaultAsync(x => x.Account == users.Account && x.Password == users.Password);
             if (existUser == null)
             {
-                return false;
+                return 1;
+            }
+            else if (existUser.Verification == false)
+            {
+                return 2;
             }
             //給予身分
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name,existUser.Account),
                 new Claim(ClaimTypes.Role,existUser.Role),
-                new Claim("UserID",existUser.UserId.ToString())
+                new Claim("UserID",existUser.UserId.ToString()),
+                new Claim(ClaimTypes.Email,existUser.Email),
             };
            
             var claimsIndntity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -63,7 +71,7 @@ namespace PetsWebsite.Controllers.API
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal
                 );
-            return true;
+            return 3;
 
         }
         //廠商登入

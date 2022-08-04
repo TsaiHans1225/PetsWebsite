@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PetsWebsite.Extensions;
 using PetsWebsite.Models;
+using PetsWebsite.Models.ViewModels;
 
 namespace PetsWebsite.Controllers
 {
@@ -37,36 +38,41 @@ namespace PetsWebsite.Controllers
         }
 
         // 新增商品
-        public IActionResult NewProduct(Product newProduct)
+        public IActionResult NewProduct(ProductViewModel newProduct)
         {
             // 整理資料
-            newProduct.CategoryId = 1;
-            newProduct.CompanyId = User.GetId();
-            newProduct.ProductName = newProduct.ProductName.Trim();
-            newProduct.Describe = newProduct.Describe.Trim();
-            newProduct.State = false;
-            newProduct.LaunchDate = DateTime.Now;
+            Product product = new Product();
+            product.CategoryId = 1;
+            product.CompanyId = User.GetId();
+            product.ProductName = newProduct.ProductName.Trim();
+            product.UnitPrice = newProduct.UnitPrice;
+            product.UnitsInStock = newProduct.UnitsInStock;
+            product.Describe = newProduct.Describe.Trim();
+            product.State = false;
+            product.LaunchDate = DateTime.Now;
+            product.Discount = newProduct.Discount;
+            product.Species = newProduct.Species == "0" ? true : false;
 
             // 取出表單圖片及名稱
             var InputFile = HttpContext.Request.Form.Files[0]; // 在深層自動變數的地方
             var InputFilePath = "";
             if (InputFile == null)
             {
-                newProduct.PhotoPath = "product_Default";
+                product.PhotoPath = "product_Default";
             }
             else
             {
                 // 儲存photo
                 var UniqueId = Guid.NewGuid().ToString("D");
                 var PhotoFormat = InputFile.FileName.Split(".")[1];
-                newProduct.PhotoPath = $"{newProduct.CompanyId}_{UniqueId}.{PhotoFormat}";
+                product.PhotoPath = $"{product.CompanyId}_{UniqueId}.{PhotoFormat}";
 
-                InputFilePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Product", newProduct.PhotoPath);
+                InputFilePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Product", product.PhotoPath);
                 FileStream fs = new FileStream(InputFilePath, FileMode.Create);
                 InputFile.CopyToAsync(fs); // 將圖片放入指定位置
                 fs.Close();
             }
-            _dBContext.Products.AddAsync(newProduct);
+            _dBContext.Products.AddAsync(product);
             _dBContext.SaveChangesAsync();
             return RedirectToAction("Index");
         }
@@ -76,7 +82,15 @@ namespace PetsWebsite.Controllers
         public IActionResult EditProduct(int ProductId)
         {
             var query = _dBContext.Products.First(x => x.ProductId == ProductId);
-            return View(query);
+            ProductViewModel product = new ProductViewModel();
+            product.ProductId = query.ProductId;
+            product.ProductName = query.ProductName;
+            product.UnitPrice = query.UnitPrice;
+            product.UnitsInStock = query.UnitsInStock;
+            product.PhotoPath = query.PhotoPath;
+            product.Describe = query.Describe;
+            product.Species = query.Species == true? "0" : "1";
+            return View(product);
         }
 
         // 儲存修改商品
@@ -164,6 +178,8 @@ namespace PetsWebsite.Controllers
             newRestaurant.RestaurantName = newRestaurant.RestaurantName.Trim();
             newRestaurant.Address = newRestaurant.Address.Trim();
             newRestaurant.Introduction = newRestaurant.Introduction.Trim();
+            newRestaurant.Reserve = newRestaurant.Reserve.Trim();
+            newRestaurant.BusyTime = newRestaurant.BusyTime.Trim();
             newRestaurant.Phone = newRestaurant.Phone.Trim();
             newRestaurant.State = false;
 
@@ -234,12 +250,19 @@ namespace PetsWebsite.Controllers
                 query.PhotoPath = editedRestaurant.PhotoPath;
             }
 
+            // 存取地址轉經緯度
+            var result = _googleMapService.GetLatLngByAddr($"{editedRestaurant.City}{editedRestaurant.Region}{editedRestaurant.Address}");
+
             query.RestaurantName = editedRestaurant.RestaurantName.Trim();
             query.Phone = editedRestaurant.Phone.Trim();
             query.City = editedRestaurant.City;
             query.Region = editedRestaurant.Region;
             query.Address = editedRestaurant.Address.Trim();
-            query.Introduction = editedRestaurant.Introduction;
+            query.Reserve = editedRestaurant.Reserve.Trim();
+            query.BusyTime = editedRestaurant.BusyTime.Trim();
+            query.Introduction = editedRestaurant.Introduction.Trim();
+            query.Latitude = Convert.ToDouble(result.lat);
+            query.Longitude = Convert.ToDouble(result.lng);
             await _dBContext.SaveChangesAsync();
             return RedirectToAction("Index");
         }

@@ -11,5 +11,7 @@
         public string Describe { get; set; }
         public bool? Emergency { get; set; }
         public string PhotoPath { get; set; }
+        public string? Service { get; set; }
+        public string? ClinicMap { get; set; }
     }
 }

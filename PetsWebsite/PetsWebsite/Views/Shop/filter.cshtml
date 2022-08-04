@@ -27,9 +27,9 @@
 
 
 <div class="container">
-        <div class="row">
+        <div class="row justify-content-between">
                 @*遞增遞減*@
-            <div class="col-7 justify-content-start ">
+            <div class="col-12 col-sm-7 col-md-7 col-lg-7 col-xl-7 col-xxl-7">
                 <div class="input-group" style="border">
                     <a asp-action="filter" asp-route-id="2" class="btn btn-primary"  style="width:150px;height:40px;border:3px  orange double;">價格高到低 &nbsp<i class="fa-solid fa-circle-arrow-up"></i></a>
                     <a asp-action="filter" asp-route-id="1" class="btn btn-primary"  style="width:150px;height:40px;border:3px orange double;">價格低到高 &nbsp<i class="fa-solid fa-circle-arrow-down"></i></a>
@@ -38,18 +38,18 @@
 
                 </div>
             </div>
-            <div class="col-3  offset-2">
+            <div class="col-12  col-sm-5 col-md-5 col-lg-5 col-xl-5 col-xxl-5">
                 <form asp-action="ProductKeyword">
                     <div class="container">
                         <div class="row justify-content-end">
-                                @*查詢框*@                          
-                                <input type="text" class="form-control" name="txtKeyword" placeholder="請輸入商品關鍵字"  style="width:250px;height:40px;border:3px;" required />                   
+                                @*查詢框*@                               
+                                <input type="text" class="form-control" name="txtKeyword" placeholder="請輸入商品關鍵字"   required />                   
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-    </div>
+</div>
 
 
 
@@ -67,12 +67,12 @@
                                 <div class="col-12 col-md-3 mt-3 border border-0">
                                     <div class="img-thumbnail cardlight border border-0">
                                         <img src="~/images/Product/@item.PhotoPath" style="width:100%" alt="目前無圖片，請稍後再試" />
-                                        <div class="row mt-1 ms-2">
+                                        <div class="row mt-3 me-1">
                                             <div class="col-6">
                                                 <h4 class="text-danger" style="font-weight:bold;">$&nbsp;@UnitPrice</h4>
                                             </div>
 
-                                            <div class="col-3 offset-3 mt-1">                              
+                                            <div class="col-2 offset-3 mt-1 my-3">                               
                                                  <label class="heart-switch">
                                                      <input type="checkbox" value="@item.ProductId">
                                                     <svg viewBox="0 0 33 23" fill="white">

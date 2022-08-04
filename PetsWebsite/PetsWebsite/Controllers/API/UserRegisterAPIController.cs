@@ -26,8 +26,8 @@ namespace PetsWebsite.Controllers.API
         [HttpPost]
         public async Task<bool> MenberRegister(RegisterInfo users)
         {
-            var query = _PetsDB.UserLogins.FirstOrDefault(a => a.ProviderKey == users.Account);
-            if (query != null)
+            var query = _PetsDB.UserLogins.FirstOrDefault(a => a.User.Email == users.Account);
+            if (query == null)
             {
                 return false;
             }
@@ -41,7 +41,7 @@ namespace PetsWebsite.Controllers.API
                     FirstName = users.FirstName,
                     Email = users.Account,
                     RoleId = 1,
-                    Password=users.Password,
+                    Password = users.Password,
                 }
             };
 
@@ -63,8 +63,8 @@ namespace PetsWebsite.Controllers.API
                     sVerify = HttpUtility.UrlEncode(sVerify);
                     // 網站網址
                     string webPath = "https://localhost:62898/";
-                    // 從信件連結回本站首頁
-                    string receivePage = "Home/Index";
+                    // 從信件連結傳回verify給後端做處理後導頁
+                    string receivePage = "Members/GetGoogleVerify";
                     // 信件內容範本
                     string mailContent = "點擊以下連結以驗證信箱，驗證後請返回本網站進行登入。謝謝。<br><br>";
                     mailContent = $"{mailContent}<a href={webPath}{receivePage}?verify={sVerify}>點此連結驗證信箱</a>";
@@ -100,12 +100,13 @@ namespace PetsWebsite.Controllers.API
             }
             return true;
         }
+
         //廠商註冊
         [HttpPost]
         public async Task<ActionResult<bool>> CompanyRegister(CompanyRegisterInfo register)
         {
             bool Isregst = true;
-            var query =await _PetsDB.CompanyAccounts.FirstOrDefaultAsync(a => a.Account == register.Account);
+            var query = await _PetsDB.CompanyAccounts.FirstOrDefaultAsync(a => a.Account == register.Account);
             if (query != null)
             {
                 Isregst = false;
@@ -117,7 +118,7 @@ namespace PetsWebsite.Controllers.API
                     CompanyAccount companyAccount = new CompanyAccount
                     {
                         Account = register.Account,
-                        CompanyId=int.Parse(register.CompanyId),
+                        CompanyId = int.Parse(register.CompanyId),
                         Password = register.Password,
                         Company = new Company
                         {
@@ -131,14 +132,14 @@ namespace PetsWebsite.Controllers.API
                     _PetsDB.CompanyAccounts.Add(companyAccount);
                     _PetsDB.SaveChanges();
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Isregst = false;
                 }
-                }
-            
+            }
+
             return Isregst;
         }
-
     }
 }
+

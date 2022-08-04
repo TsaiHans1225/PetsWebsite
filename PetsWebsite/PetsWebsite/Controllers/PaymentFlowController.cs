@@ -3,6 +3,9 @@ using PetsWebsite.Extensions;
 using PetsWebsite.Models;
 using PetsWebsite.Models.ViewModels;
 using PetsWebsite.Utility;
+using System.Collections.Specialized;
+using System.Text;
+using System.Web;
 
 namespace PetsWebsite.Controllers
 {
@@ -16,17 +19,38 @@ namespace PetsWebsite.Controllers
             _setting = setting;
         }
         [HttpPost]
-        public IActionResult GetPayFlowData(OrderInfo orderInfo)
-        {      
+        public async Task<IActionResult> GetPayFlowData(OrderInfo orderInfo)
+        {
+            string OrderNo = $"T{User.GetId()}_{DateTime.Now.ToString("yyyyMMddHHmm")}";
+            _petsDB.Orders.Add(new Order()
+            {
+                OrderId = OrderNo,
+                UserId = User.GetId(),
+                OrderDate = DateTime.Now,
+                Email = User.GetMail(),
+                OrderStatusNumber=0
+            });
+
+            foreach (var item in orderInfo.OrderList)
+            {
+               await _petsDB.OrderDetails.AddAsync(new OrderDetail()
+                {
+                    OrderId = OrderNo,
+                    ProductId = item.ProductId,
+                    UnitPrice = item.Price,
+                    Counts = item.Count,
+                });
+            }
+            _petsDB.SaveChanges();
             TradeInfo tradeInfo = new TradeInfo()
             {
                 MerchantID = _setting.MerchantID,
                 RespondType = "String",
                 TimeStamp = DateTimeOffset.Now.ToOffset(new TimeSpan(8, 0, 0)).ToUnixTimeSeconds().ToString(),
-                Version = _setting.version,
-                MerchantOrderNo = $"T{User.GetId()}_{DateTime.Now.ToString("yyyyMMddHHmm")}",
+                Version = _setting.Version,
+                MerchantOrderNo = OrderNo,
                 Amt = orderInfo.OrderSum,
-                ItemDesc = "商品資訊(自行修改)",
+                ItemDesc = orderInfo.OrderDesc,
                 ExpireDate = null,
                 ReturnURL = _setting.ReturnURL,
                 NotifyURL = _setting.NotifyURL,
@@ -55,23 +79,27 @@ namespace PetsWebsite.Controllers
                 MerchantID = _setting.MerchantID,
                 TradeInfo = TradeInfo,
                 TradeSha = TradeSha,
-                Version = _setting.version
+                Version = _setting.Version
             };         
             // 將model 轉換為List<KeyValuePair<string, string>>, null值不轉
             return Json(NewebPayData);
         }
-    }
-
-    public class OrderInfo
-    {
-        public List<OrderViewModle> OrderList { get; set; }
-        public int OrderSum { get; set; }
-        public string Payment { get; set; }
-    }
-
-    public class OrderViewModle
-    {
-        public string ProductName { get; set; }
-        public int Count { get; set; }
+        [HttpPost]
+        public IActionResult CallbackReturn()
+        {
+            string TradeInfoDecrypt = CryptoUtil.DecryptAESHex(Request.Form["TradeInfo"], _setting.HashKey, _setting.HashIV);
+            NameValueCollection decryptTradeCollection = HttpUtility.ParseQueryString(TradeInfoDecrypt);
+            var Status = decryptTradeCollection.GetValues(0)[0];
+            var Amt = decryptTradeCollection.GetValues(3)[0];
+            var OrderID = decryptTradeCollection.GetValues(5)[0];
+            var PayTime = decryptTradeCollection.GetValues(11)[0];
+            if(Status!= "SUCCESS")
+            {
+                return View();
+            }
+            _petsDB.Orders.Find(OrderID).OrderStatusNumber = 1;
+            _petsDB.SaveChanges();
+            return Redirect("/home/index");
+        }
     }
 }

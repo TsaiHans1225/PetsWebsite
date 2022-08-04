@@ -213,7 +213,9 @@ namespace PetsWebsite.Models
 
             modelBuilder.Entity<Order>(entity =>
             {
-                entity.Property(e => e.OrderId).HasColumnName("OrderID");
+                entity.Property(e => e.OrderId)
+                    .HasMaxLength(50)
+                    .HasColumnName("OrderID");
 
                 entity.Property(e => e.Address).HasMaxLength(25);
 
@@ -240,7 +242,9 @@ namespace PetsWebsite.Models
             {
                 entity.HasKey(e => new { e.OrderId, e.ProductId });
 
-                entity.Property(e => e.OrderId).HasColumnName("OrderID");
+                entity.Property(e => e.OrderId)
+                    .HasMaxLength(50)
+                    .HasColumnName("OrderID");
 
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
 

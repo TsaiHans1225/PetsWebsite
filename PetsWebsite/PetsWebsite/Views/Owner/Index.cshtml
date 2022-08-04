@@ -46,7 +46,7 @@
                                 <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
                             </svg>
                             審核通知
-                            <div class="rounded-circle text-secondary" style="border: solid 1px #eb6865; background-color: #eb6865; position: absolute; width: 30px; height: 30px; transform: translate(250%,-50%);">{{failProductCount}}</div>
+                            <div class="rounded-circle text-secondary" style="border: solid 1px #eb6865; background-color: #eb6865; position: absolute; width: 30px; height: 30px; transform: translate(280%,-50%);">{{failProductCount}}</div>
                         </a>
                     </div>
                 </div>
@@ -159,7 +159,7 @@
                                 <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
                             </svg>
                             審核通知
-                            <div class="rounded-circle text-secondary" style="border: solid 1px #eb6865; background-color: #eb6865; position: absolute; width: 30px; height: 30px; transform: translate(250%,-50%);">{{failRestaurantCount}}</div>
+                            <div class="rounded-circle text-secondary" style="border: solid 1px #eb6865; background-color: #eb6865; position: absolute; width: 30px; height: 30px; transform: translate(280%,-50%);">{{failRestaurantCount}}</div>
                         </a>
                     </div>
                 </div>
@@ -228,12 +228,12 @@
                         新增診所
                     </a>
                     <div class="col col-2">
-                        <a href="#" class="btn btn-info rounded d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#auditInfo">
+                        <a href="#" class="btn btn-info rounded d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#clinicAuditInfo">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
                                 <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
                             </svg>
                             審核通知
-                            <div class="rounded-circle text-secondary" style="border: solid 1px #eb6865; background-color: #eb6865; position: absolute; width: 30px; height: 30px; transform: translate(250%,-50%);"></div>
+                            <div class="rounded-circle text-secondary" style="border: solid 1px #eb6865; background-color: #eb6865; position: absolute; width: 30px; height: 30px; transform: translate(280%,-50%);">{{failClinicCount}}</div>
                         </a>
                     </div>
                 </div>
@@ -256,7 +256,7 @@
                     <tbody>
                         <tr class="" v-for="item in ClinicList">
                             <td scope="row">
-                                <img src="/images/Owner/動物醫院.png" style="width: 100px; height: 80px;" alt="">
+                                <img v-bind:src="'/images/Clinic/' + item.photoPath" style="width: 100px; height: 80px;" alt="">
                             </td>
                             <td>{{item.clinicName}}</td>
                             <td>{{item.phone}}</td>
@@ -298,7 +298,7 @@
                     <div class="row" v-for="item in publishFailProducts">
                         <a v-bind:href="'/Owner/EditProduct/' + item.productId" v-bind:value="item.productId" class="text-dark bg-secondary p-3 mb-3 border border-dark rounded" style="text-decoration: none;">
                             <p class="col col-12">商品ID : <span class="text-danger">{{item.productId}}</span></p>
-                            <img v-bind:src="'/images/Product/' + item.photoPath" style="width: 50%; height: 50%;"/>
+                            <img v-bind:src="'/images/Product/' + item.photoPath" style="width: 50%; height: 50%;" />
                             <p class="col col-12">審核未通過原因: </p>
                             <p class=" form-control text-danger bg-secondary m-0" disabled>{{item.auditResult}}</p>
                         </a>
@@ -319,7 +319,28 @@
                     <div class="row" v-for="item in publishFailRestaurants">
                         <a v-bind:href="'/Owner/EditRestaurant/' + item.restaurantId" v-bind:value="item.restaurantId" class="text-dark bg-secondary p-3 mb-3 border border-dark rounded" style="text-decoration: none;">
                             <p class="col col-12">商品ID : <span class="text-danger">{{item.restaurantId}}</span></p>
-                            <img v-bind:src="'/images/Restaurant/' + item.photoPath" style="width: 50%; height: 50%;"/>
+                            <img v-bind:src="'/images/Restaurant/' + item.photoPath" style="width: 50%; height: 50%;" />
+                            <p class="col col-12">審核未通過原因: </p>
+                            <p class=" form-control text-danger bg-secondary m-0" disabled>{{item.auditResult}}</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*診所審核通知modal*@
+    <div class="modal fade" id="clinicAuditInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content bg-secondary">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><strong>診所審核通知</strong></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row" v-for="item in publishFailClinics">
+                        <a v-on:click="EditClinic(item)" class="text-dark bg-secondary p-3 mb-3 border border-dark rounded" style="text-decoration: none;">
+                            <p class="col col-12">商品ID : <span class="text-danger">{{item.clinicId}}</span></p>
+                            <img v-bind:src="'/images/Clinic/' + item.photoPath" style="width: 50%; height: 50%;" />
                             <p class="col col-12">審核未通過原因: </p>
                             <p class=" form-control text-danger bg-secondary m-0" disabled>{{item.auditResult}}</p>
                         </a>
@@ -329,6 +350,7 @@
         </div>
     </div>
 </div>
+
 
 
 @section Scripts{
@@ -341,8 +363,10 @@
                 noProduct: true,
                 publishFailProducts: [],
                 publishFailRestaurants: [],
+                publishFailClinics: [],
                 failProductCount: "",
-                failRestaurantCount: ""
+                failRestaurantCount: "",
+                failClinicCount: ""
             },
             mounted: function() {
                 var self = this;
@@ -354,6 +378,7 @@
                     });
                 publishFailProduct();
                 publishFailRestaurant();
+                publishFailClinic();
             },
             methods: {
                 getMyRestaurant: function() {
@@ -387,8 +412,8 @@
                                     console.log("success", resp);
                                     if (resp) {
                                         swal({
-                                            title: '刪除餐廳',
-                                            text: '此餐廳已刪除',
+                                            title: '刪除商品',
+                                            text: '此商品已刪除',
                                             type: 'success',
                                             closeOnClickOutside: false,
                                             icon: "success"
@@ -422,15 +447,15 @@
                                     console.log("success", resp);
                                     if (resp) {
                                         swal({
-                                            title: '刪除商品',
-                                            text: '此商品已刪除',
+                                            title: '刪除餐廳',
+                                            text: '此餐廳已刪除',
                                             type: 'success',
                                             closeOnClickOutside: false,
                                             icon: "success"
                                         }).then(() => {
-                                            this.reLoadData();
+                                            location.reload();
                                         });
-                                        setTimeout("location.reload()", 5000)
+                                        setTimeout("location.reload()", 3000)
                                     }
                                 })
                                 .catch(err => console.log("err", err))
@@ -444,7 +469,6 @@
                         url: '/api/ProductManageAPI/GetOwnerClinic'
                     }).done(function(res) {
                         vm.ClinicList = res;
-                        console.log(vm.ClinicList);
                     }).fail(function(res) {
                         console.log("res: ", res);
                     })
@@ -590,7 +614,7 @@
 
                 })
                 .fail(function(err) {
-                    console.log("err: ", err)
+                    console.log("publishFailProductErr: ", err)
                 })
         }
         // 取得上架失敗餐廳
@@ -606,7 +630,23 @@
 
                 })
                 .fail(function(err) {
-                    console.log("err: ", err)
+                    console.log("publishFailRestaurantErr: ", err)
+                })
+        }
+        // 取得上架失敗餐廳
+        function publishFailClinic() {
+            $.ajax({
+                url: '/api/ProductManageAPI/GetPublishFailClinics',
+                type: 'GET'
+            })
+                .done(function(res) {
+                    console.log("failClinics: ", res)
+                    vm.publishFailClinics = res;
+                    vm.failClinicCount = vm.publishFailClinics.length;
+
+                })
+                .fail(function(err) {
+                    console.log("publishFailClinicErr: ", err)
                 })
         }
     </script>

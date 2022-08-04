@@ -10,7 +10,7 @@ namespace PetsWebsite.Models
             OrderDetails = new HashSet<OrderDetail>();
         }
 
-        public int OrderId { get; set; }
+        public string OrderId { get; set; } = null!;
         public int UserId { get; set; }
         public DateTime? OrderDate { get; set; }
         public string? Phone { get; set; }
