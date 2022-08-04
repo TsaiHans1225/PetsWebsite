@@ -25,7 +25,7 @@
     <div class="container" v-show="isShow">
         <h3>請輸入查詢條件</h3>
         <div class="row mt-2">
-            <div class="col">
+            <div class="col" v-on:change="pageChange(vmm.currentPage,$event)">
                 <input type="radio" value="狗" name="animal" v-model="radioList">
                 <label>犬</label>
                 <input type="radio" value="貓" name="animal" class="ms-3" v-model="radioList">
@@ -44,7 +44,7 @@
                     <div class="  col-12">
                         <div class="col-12 me-1">
                             <input type="text" placeholder="請輸入關鍵字.." class="form-control mb-2 me-1" v-model="search"
-                                v-on:change="pageChange">
+                                v-on:change="pageChange(vmm.currentPage,$event)">
                         </div>
                     </div>
                 </div>
@@ -142,21 +142,12 @@
                 axios.get('/api/PetsAboptionAPI/GetPage', { params: { curPage: `${this.currentPage}`, showPage: `${this.pageItem}`, kinds: `${this.radioList}`,key:`${this.search}` } })
                     .then(res => {
                         console.log(res)
-                        this.petDataAll = res.data;
+                        this.petDataAll = res.data.petsAdoptions;
+                        this.totalPageCount = res.data.count;
                     })
                     .catch(err => {
                         console.error(err);
                     })
-            },
-            pageCountAxios: function () {
-                axios.get('/api/PetsAboptionAPI/GetCount')
-                .then(res => {
-                    console.log(res)
-                    this.totalPageCount = res.data;
-                })
-                .catch(err => {
-                    console.error(err); 
-                })
             },
             clickShow: function () {
                 if (this.isShow == false) {
@@ -175,8 +166,6 @@
         },
         mounted: function () {
             this.pageChange(this.currentPage);
-            this.pageCountAxios();
-
         }
     });
     vmm.$mount('#PetsAbo');
