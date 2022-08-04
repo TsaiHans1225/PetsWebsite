@@ -34,7 +34,7 @@ namespace PetsWebsite.Controllers.API
             if (existUser != null)
             {
                 // 取出會員信箱
-                string UserEmail = existUser.Account;
+                string UserEmail = existUser.ProviderKey;
 
                 // 取出系統自訂金鑰 => 在appsettings.json設定
                 string SecretKey = _configuration.GetValue<string>("Email:SecretKey");

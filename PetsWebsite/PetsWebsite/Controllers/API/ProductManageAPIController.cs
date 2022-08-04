@@ -215,7 +215,7 @@ namespace PetsWebsite.Controllers.API
             EditNewClinic.Service = AfterEditClinic.Service;
             EditNewClinic.ClinicMap = AfterEditClinic.ClinicMap;
             EditNewClinic.Latitude = Convert.ToDouble(result.lat);
-            EditNewClinic.Longitude = Convert.ToDouble(result.lng);
+            EditNewClinic.Longitude = Convert.ToDouble(result.lng); 
             EditNewClinic.Emergency = AfterEditClinic.Emergency == "true" ? true : false;
             try
             {
