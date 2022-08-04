@@ -1,10 +1,12 @@
 ﻿@model IEnumerable<PetsWebsite.Models.Product>
 @using System.Security.Claims
 
+
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link href="@Url.Content("~/css/HansCSS/Shop.css")" rel="stylesheet" type="text/css" />
 
-<body>
+<div class="container">
     <div class="bg" style="position: fixed;top: 0;left: 0;bottom: 0; right: 0;z-index: -999;">
         <img src="/images/Product/bgp.jpg" style=" min-height: 100%;width: 100%;">
     </div>
@@ -22,19 +24,20 @@
                 </div>
             </div>
         </div>
+    </div>
 
 
 
 
-<div class="container">
+    <div class="container">
         <div class="row justify-content-between">
-                @*遞增遞減*@
+            @*遞增遞減*@
             <div class="col-12 col-sm-7 col-md-7 col-lg-7 col-xl-7 col-xxl-7">
                 <div class="input-group" style="border">
-                    <a asp-action="filter" asp-route-id="2" class="btn btn-primary"  style="width:150px;height:40px;border:3px  orange double;">價格高到低 &nbsp<i class="fa-solid fa-circle-arrow-up"></i></a>
-                    <a asp-action="filter" asp-route-id="1" class="btn btn-primary"  style="width:150px;height:40px;border:3px orange double;">價格低到高 &nbsp<i class="fa-solid fa-circle-arrow-down"></i></a>
-                    <a asp-action="filter" asp-route-id="3" class="btn btn-primary"  style="width:150px;height:40px;border:3px orange double;">犬貓 &nbsp<i class="fa-solid fa-cat"></i></a>
-                    <a asp-action="filter" asp-route-id="4" class="btn btn-primary"  style="width:150px;height:40px;border:3px orange double;">非犬貓 &nbsp<i class="fa-solid fa-otter"></i></a>
+                    <a asp-action="filter" asp-route-id="2" class="btn btn-primary" style="width:150px;height:40px;border:3px  orange double;border-radius: 10px;">價格高到低 &nbsp<i class="fa-solid fa-circle-arrow-up"></i></a>&nbsp
+                    <a asp-action="filter" asp-route-id="1" class="btn btn-primary" style="width:150px;height:40px;border:3px orange double;border-radius: 10px;">價格低到高 &nbsp<i class="fa-solid fa-circle-arrow-down"></i></a>&nbsp
+                    <a asp-action="filter" asp-route-id="3" class="btn btn-primary" style="width:150px;height:40px;border:3px orange double;border-radius: 10px;">犬貓 &nbsp<i class="fa-solid fa-cat"></i></a>&nbsp
+                    <a asp-action="filter" asp-route-id="4" class="btn btn-primary" style="width:150px;height:40px;border:3px orange double;border-radius: 10px;">非犬貓 &nbsp<i class="fa-solid fa-otter"></i></a>
 
                 </div>
             </div>
@@ -42,195 +45,195 @@
                 <form asp-action="ProductKeyword">
                     <div class="container">
                         <div class="row justify-content-end">
-                                @*查詢框*@                               
-                                <input type="text" class="form-control" name="txtKeyword" placeholder="請輸入商品關鍵字"   required />                   
+                            @*查詢框*@
+                            <input type="text" class="form-control" name="txtKeyword" placeholder="請輸入商品關鍵字" style="border-radius: 10px;" required />
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-</div>
+    </div>
 
 
 
 
 
     <div class="row">
-            @{
-                int index = 0;
-            }
-            @foreach (var item in Model)
-            {
-                @*modal的id++，單價去小數*@
-                index++;
-                int UnitPrice = Convert.ToInt32(item.UnitPrice);
-                                <div class="col-12 col-md-3 mt-3 border border-0">
-                                    <div class="img-thumbnail cardlight border border-0">
-                                        <img src="~/images/Product/@item.PhotoPath" style="width:100%" alt="目前無圖片，請稍後再試" />
-                                        <div class="row mt-3 me-1">
-                                            <div class="col-6">
-                                                <h4 class="text-danger" style="font-weight:bold;">$&nbsp;@UnitPrice</h4>
-                                            </div>
+        @{
+            int index = 0;
+        }
+        @foreach (var item in Model)
+        {
+            @*modal的id++，單價去小數*@
+            index++;
+            int UnitPrice = Convert.ToInt32(item.UnitPrice);
+            <div class="col-12 col-md-3 mt-3 border border-0">
+                <div class="img-thumbnail cardlight border border-0 border-radius: 30px;">
+                    <img src="~/images/Product/@item.PhotoPath" style="width:100%" alt="目前無圖片，請稍後再試" />
+                    <div class="row mt-3 me-1">
+                        <div class="col-6">
+                            <h4 class="text-danger" style="font-weight:bold;">&nbsp $&nbsp;@UnitPrice</h4>
+                        </div>
 
-                                            <div class="col-2 offset-3 mt-1 my-3">                               
-                                                 <label class="heart-switch">
-                                                     <input type="checkbox" value="@item.ProductId">
-                                                    <svg viewBox="0 0 33 23" fill="white">
-                                                     <path d="M23.5,0.5 C28.4705627,0.5 32.5,4.52943725 32.5,9.5 C32.5,16.9484448 21.46672,22.5 16.5,22.5 C11.53328,22.5 0.5,16.9484448 0.5,9.5 C0.5,4.52952206 4.52943725,0.5 9.5,0.5 C12.3277083,0.5 14.8508336,1.80407476 16.5007741,3.84362242 C18.1491664,1.80407476 20.6722917,0.5 23.5,0.5 Z"></path>
-                                                    </svg>
-                                                 </label>                                
-                                            </div>
-                                            <p class="fs-6 text-wrap" style="display" > @item.ProductName</p>
+                        <div class="col-2 offset-3 mt-1 my-3">
+                            <label class="heart-switch">
+                                <input type="checkbox" value="@item.ProductId">
+                                <svg viewBox="0 0 33 23" fill="white">
+                                    <path d="M23.5,0.5 C28.4705627,0.5 32.5,4.52943725 32.5,9.5 C32.5,16.9484448 21.46672,22.5 16.5,22.5 C11.53328,22.5 0.5,16.9484448 0.5,9.5 C0.5,4.52952206 4.52943725,0.5 9.5,0.5 C12.3277083,0.5 14.8508336,1.80407476 16.5007741,3.84362242 C18.1491664,1.80407476 20.6722917,0.5 23.5,0.5 Z"></path>
+                                </svg>
+                            </label>
+                        </div>
+                        <p class="fs-6 text-wrap" style="display">&nbsp @item.ProductName</p>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="d-grid gap-2 mt-1">
+                                <button class="btn btn-warning btn-sm" value=@item.ProductId onclick="AddShopCar(event)"><i class="fa-solid fa-cart-plus"></i> &nbsp放入購物車</button>
+                            </div>
+                            <div class="d-grid gap-2 mt-1">
+                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#myModal_@index"><i class="fa-solid fa-circle-info"></i> &nbsp詳細資訊</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="myModal_@index">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header bg-primary">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6">
+                                        <h3 class="modal-title align-content-center" align="center" style="font-weight:900;font-size:xx-large;">@item.ProductName </h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6">
+                                        <img class="card-img-top" src="~/images/Product/@item.PhotoPath" style="width:85%" alt="目前無圖片，請稍後再試" />
+                                    </div>
+
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6">
+                                        <h2 for="Describe" align="center" style="font-weight:700">商品描述: </h2>
+                                        <textarea class="form-control" id="Describe" name="Describe" rows="9" style="font-size:27px;border-color:#FFAF60;border-style:solid;border-width:3px 6px 9px 12px;padding:30px;border-radius:10px;resize: none;" disabled>@item.Describe</textarea>
+                                    </div>
+
+                                    <div class="row  align-items-end justify-content-end mt-3">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3 offset-lg-6 offset-xl-6 offset-xxl-6" style="font-weight:bold;">
+                                            <h2 class="text-danger" align="center">
+                                                單價:$&nbsp;@UnitPrice
+                                            </h2>
                                         </div>
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="d-grid gap-2 mt-1">
-                                                    <button class="btn btn-warning btn-sm" value=@item.ProductId onclick="AddShopCar(event)"><i class="fa-solid fa-cart-plus"></i> &nbsp放入購物車</button>
-                                                </div>
-                                                <div class="d-grid gap-2 mt-1">
-                                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#myModal_@index"><i class="fa-solid fa-circle-info"></i> &nbsp詳細資訊</button>
-                                                </div>
-                                            </div>
+                                        <div class="col-12  col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3">
+                                            <h3 align="center">
+                                                庫存:@item.UnitsInStock 件
+                                            </h3>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="modal fade" id="myModal_@index">
-                                    <div class="modal-dialog modal-xl">
-                                        <div class="modal-content">
-
-                                            <!-- Modal Header -->
-                                            <div class="modal-header bg-primary">
-                                                <div class="container">
-                                                    <div class="row">
-                                                        <div class="col-6 offset-4">
-                                                            <h3 class="modal-title align-content-center text-nowrap" style="font-weight:900;font-size:xx-large;" >@item.ProductName </h3>                                           
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Modal body -->
-                                            <div class="modal-body">
-                                                <div class="container">
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <img class="card-img-top" src="~/images/Product/@item.PhotoPath" style="width:85%" alt="目前無圖片，請稍後再試" />
-                                                        </div>
-
-                                                        <div class="col col-6">
-                                                            <h2 for="Describe">商品描述: </h2>
-                                                             <textarea class="form-control" id="Describe" name="Describe" rows="9" style="font-size:27px;border-color:#FFAF60;border-style:solid;border-width:3px 6px 9px 12px;padding:30px;border-radius:10px;resize: none;" disabled>@item.Describe</textarea>
-                                                        </div>
-
-                                                        <div class="row  align-items-end justify-content-end mt-3">
-                                                        <div class="col-3 offset-4" style="font-weight:bold;">
-                                                            <h2 class="text-danger" align="left">
-                                                                單價:$&nbsp;@UnitPrice
-                                                            </h2>
-                                                        </div>
-                                                        <div class="col-2 me-3">
-                                                            <h3 align="center">
-                                                                庫存:@item.UnitsInStock 件
-                                                            </h3>
-                                                        </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Modal footer -->
-                                            <div class="modal-footer">
-                                                <div class="container">
-                                                    <div class="row">
-                                                        <div class="col-3 d-grid gap-2 mt-1 offset-6" >
-                                                            <button class="btn btn-primary btn-sm text-light" value=@item.ProductId onclick="CheckoutShopCar(event)">直接結帳</button>
-                                                        </div>
-                                                        <div class="col-3 d-grid gap-2 mt-1">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> &nbsp<i class="fa-solid fa-circle-xmark"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
+                            </div>
+                        </div>
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-3 d-grid gap-2 mt-1 offset-6">
+                                        <button class="btn btn-primary btn-sm text-light" value=@item.ProductId onclick="CheckoutShopCar(event)">直接結帳</button>
+                                    </div>
+                                    <div class="col-3 d-grid gap-2 mt-1">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> &nbsp<i class="fa-solid fa-circle-xmark"></i></button>
                                     </div>
                                 </div>
-            }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 
+</div>
 
-</body>
+
 @section Scripts{
-            <script>
-                function AddShopCar(e) {
-                    fetch("/api/ShoppingCar/AddShopCar/" + e.target.value)
-                        .then(res => res.json())
-                        .then(result => {
-                            if (result) {
-                                ShopCar.reLoadData();
-                                swal({
-                                    title: '已加入購物車',
-                                    type: 'success',
-                                    closeOnClickOutside: false,
-                                    icon: "success",
-                                    timer: 1000,
-                                    button: false,
-                                });
-                            }
-                        })
-                }
-                function CheckoutShopCar(e) {
-                    fetch("/api/ShoppingCar/AddShopCar/" + e.target.value)
-                        .then(res => res.json())
-                        .then(result => {
-                            if (result) {
-                                ShopCar.reLoadData();
-                                window.location.href = `/ShoppingCart/Index`;
-                            }
-                        })
-                }
-                $("input[type=checkbox]").on("click", function(e) {         
-                    var index = e.target.value;
-                     console.log(index)
-                    var Iscollect = $(this).prop("checked");
-                    if (Iscollect) {
-                        $.ajax({
-                            type: "get",
-                            url: `/api/UserCollect/AddCollect/${index}`
-                        }).done(function(res) {
-                            console.log(res);
-                        }).fail(function(err) {
-                            console.log(err);
-                        });
-                    } else {
-                        $.ajax({
-                            type: "delete",
-                            url: `/api/UserCollect/DeleteCollect/${index}`
-                        }).done(function(res) {
-                            console.log(res);
-                        }).fail(function(err) {
-                            console.log(err);
-                            console.log(err);
+    <script>
+        function AddShopCar(e) {
+            fetch("/api/ShoppingCar/AddShopCar/" + e.target.value)
+                .then(res => res.json())
+                .then(result => {
+                    if (result) {
+                        ShopCar.reLoadData();
+                        swal({
+                            title: '已加入購物車',
+                            type: 'success',
+                            closeOnClickOutside: false,
+                            icon: "success",
+                            timer: 1000,
+                            button: false,
                         });
                     }
                 })
-                function ConfirmCollect() {
-                    $.ajax({
-                        type: "get",
-                        url: `/api/UserCollect/GetUserCollectId`
-                    }).done(function(res) {
-                        var UserHaveCollect = $("input[type=checkbox]");
-                        for (let i = 0; i < UserHaveCollect.length; i++) {
-                            if (res.includes(parseInt(UserHaveCollect[i].value))) {
-                                UserHaveCollect[i].setAttribute("checked", "");
-                            }
-                        }
-                    }).fail(function(err) {
-                        console.log(err);
-                    });
-                };
-                if("@User.Claims.FirstOrDefault(X => X.Type == ClaimTypes.Role)?.Value" == "Member")
-                {
-                    ConfirmCollect();
-                }     
-            </script>
+        }
+        function CheckoutShopCar(e) {
+            fetch("/api/ShoppingCar/AddShopCar/" + e.target.value)
+                .then(res => res.json())
+                .then(result => {
+                    if (result) {
+                        ShopCar.reLoadData();
+                        window.location.href = `/ShoppingCart/Index`;
+                    }
+                })
+        }
+        $("input[type=checkbox]").on("click", function(e) {
+            var index = e.target.value;
+            console.log(index)
+            var Iscollect = $(this).prop("checked");
+            if (Iscollect) {
+                $.ajax({
+                    type: "get",
+                    url: `/api/UserCollect/AddCollect/${index}`
+                }).done(function(res) {
+                    console.log(res);
+                }).fail(function(err) {
+                    console.log(err);
+                });
+            } else {
+                $.ajax({
+                    type: "delete",
+                    url: `/api/UserCollect/DeleteCollect/${index}`
+                }).done(function(res) {
+                    console.log(res);
+                }).fail(function(err) {
+                    console.log(err);
+                    console.log(err);
+                });
+            }
+        })
+        function ConfirmCollect() {
+            $.ajax({
+                type: "get",
+                url: `/api/UserCollect/GetUserCollectId`
+            }).done(function(res) {
+                var UserHaveCollect = $("input[type=checkbox]");
+                for (let i = 0; i < UserHaveCollect.length; i++) {
+                    if (res.includes(parseInt(UserHaveCollect[i].value))) {
+                        UserHaveCollect[i].setAttribute("checked", "");
+                    }
+                }
+            }).fail(function(err) {
+                console.log(err);
+            });
+        };
+        if ("@User.Claims.FirstOrDefault(X => X.Type == ClaimTypes.Role)?.Value" == "Member") {
+            ConfirmCollect();
+        }
+    </script>
 }
