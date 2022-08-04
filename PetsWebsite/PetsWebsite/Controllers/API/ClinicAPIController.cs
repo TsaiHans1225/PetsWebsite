@@ -82,7 +82,7 @@ namespace PetsWebsite.Controllers.API
         [Route("{Key}")]
         public async Task<ActionResult<IEnumerable<Clinic>>> Searchstr([FromRoute(Name ="Key")] string Key)
         {
-            return await _PetsDB.Clinics.Where(c => c.ClinicName.Contains(Key) || c.Region.Contains(Key) || c.City.Contains(Key)  || c.Service.Contains(Key)).ToListAsync();
+            return await _PetsDB.Clinics.Where(c => c.ClinicName.Contains(Key) || c.Region.Contains(Key) || c.City.Contains(Key)||c.Address.Contains(Key)  || c.Service.Contains(Key)).ToListAsync();
         }
     }
 }
