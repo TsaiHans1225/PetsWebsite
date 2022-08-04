@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using PetsWebsite.Extensions;
 using PetsWebsite.Models;
-using PetsWebsite.Models.ViewModel;
 using PetsWebsite.Models.ViewModels;
 
 namespace PetsWebsite.Controllers.API
@@ -15,11 +13,13 @@ namespace PetsWebsite.Controllers.API
     {
         private readonly PetsDBContext _petsDB;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly GoogleMapService _googleMapService;
 
-        public ProductManageAPIController(PetsDBContext petsDB, IWebHostEnvironment webHostEnvironment)
+        public ProductManageAPIController(PetsDBContext petsDB, IWebHostEnvironment webHostEnvironment, GoogleMapService googleMapService)
         {
             _petsDB = petsDB;
             _webHostEnvironment = webHostEnvironment;
+            _googleMapService = googleMapService;
         }
         public List<Product> GetProduct()
         {
@@ -112,6 +112,10 @@ namespace PetsWebsite.Controllers.API
                 InputFile.CopyTo(fs);
                 fs.Close();
             }
+
+            // 存取地址轉經緯度
+            var result = _googleMapService.GetLatLngByAddr($"{Ownerclinic.City}{Ownerclinic.Region}{Ownerclinic.Address}");
+
             Clinic newClinic = new Clinic()
             {
                 CompanyId = User.GetId(),
@@ -123,6 +127,8 @@ namespace PetsWebsite.Controllers.API
                 Describe = Ownerclinic.Describe,
                 Emergency = Ownerclinic.Emergency == "true" ? true : false,
                 PhotoPath = PhotoPath,
+                Latitude = Convert.ToDouble(result.lat),
+                Longitude = Convert.ToDouble(result.lng),
                 State = false
             };
             try
@@ -154,6 +160,8 @@ namespace PetsWebsite.Controllers.API
                     Describe = c.Describe,
                     Emergency = c.Emergency,
                     PhotoPath = c.PhotoPath,
+                    Service = c.Service,
+                    ClinicMap = c.ClinicMap
                 }).FirstOrDefault();
                 HttpContext.Session.SetString("EditClinicData", JsonConvert.SerializeObject(EditClinic));
                 return true;
@@ -195,12 +203,19 @@ namespace PetsWebsite.Controllers.API
                 InputFile.CopyTo(fs);
                 fs.Close();
             }
+            // 存取地址轉經緯度
+            var result = _googleMapService.GetLatLngByAddr($"{AfterEditClinic.City}{AfterEditClinic.Region}{AfterEditClinic.Address}");
+
             EditNewClinic.ClinicName = AfterEditClinic.ClinicName;
             EditNewClinic.Phone = AfterEditClinic.Phone;
             EditNewClinic.City = AfterEditClinic.City;
             EditNewClinic.Region = AfterEditClinic.Region;
             EditNewClinic.Address = AfterEditClinic.Address;
             EditNewClinic.Describe = AfterEditClinic.Describe;
+            EditNewClinic.Service = AfterEditClinic.Service;
+            EditNewClinic.ClinicMap = AfterEditClinic.ClinicMap;
+            EditNewClinic.Latitude = Convert.ToDouble(result.lat);
+            EditNewClinic.Longitude = Convert.ToDouble(result.lng);
             EditNewClinic.Emergency = AfterEditClinic.Emergency == "true" ? true : false;
             try
             {

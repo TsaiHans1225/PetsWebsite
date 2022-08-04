@@ -10,5 +10,7 @@
         public string Address { get; set; }
         public string? Describe { get; set; }
         public string Emergency { get; set; }
+        public string? Service { get; set; }
+        public string? ClinicMap { get; set; }
     }
 }
