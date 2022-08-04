@@ -195,56 +195,82 @@
 
 @section Scripts{
     <script>
+        var UserCharacter = "@User.Claims.FirstOrDefault(X => X.Type == ClaimTypes.Role)?.Value";
+        function LoginWarning() {
+            swal({
+                title: '請登入會員',
+                type: 'warning',
+                closeOnClickOutside: false,
+                icon: "warning",
+                timer: 1000,
+                button: false,
+            });
+        };
         function AddShopCar(e) {
-            fetch("/api/ShoppingCar/AddShopCar/" + e.target.value)
-                .then(res => res.json())
-                .then(result => {
-                    if (result) {
-                        ShopCar.reLoadData();
-                        swal({
-                            title: '已加入購物車',
-                            type: 'success',
-                            closeOnClickOutside: false,
-                            icon: "success",
-                            timer: 1000,
-                            button: false,
-                        });
-                    }
-                })
+            if (UserCharacter == "Member" || UserCharacter == "Admin") {
+                fetch("/api/ShoppingCar/AddShopCar/" + e.target.value)
+                    .then(res => res.json())
+                    .then(result => {
+                        if (result) {
+                            ShopCar.reLoadData();
+                            swal({
+                                title: '已加入購物車',
+                                type: 'success',
+                                closeOnClickOutside: false,
+                                icon: "success",
+                                timer: 1000,
+                                button: false,
+                            });
+                        }
+                    })
+            } else {
+                LoginWarning();
+            }
+
         }
         function CheckoutShopCar(e) {
-            fetch("/api/ShoppingCar/AddShopCar/" + e.target.value)
-                .then(res => res.json())
-                .then(result => {
-                    if (result) {
-                        ShopCar.reLoadData();
-                        window.location.href = `/ShoppingCart/Index`;
-                    }
-                })
+            if (UserCharacter == "Member" || UserCharacter == "Admin") {
+                fetch("/api/ShoppingCar/AddShopCar/" + e.target.value)
+                    .then(res => res.json())
+                    .then(result => {
+                        if (result) {
+                            ShopCar.reLoadData();
+                            window.location.href = `/ShoppingCart/Index`;
+                        }
+                    })
+            } else {
+                LoginWarning();
+            }
+
         }
+
         $("input[type=checkbox]").on("click", function(e) {
             var index = e.target.value;
-            console.log(index)
             var Iscollect = $(this).prop("checked");
-            if (Iscollect) {
-                $.ajax({
-                    type: "get",
-                    url: `/api/UserCollect/AddCollect/${index}`
-                }).done(function(res) {
-                    console.log(res);
-                }).fail(function(err) {
-                    console.log(err);
-                });
+            if (UserCharacter == "Member" || UserCharacter == "Admin") {
+                if (Iscollect) {
+                    $.ajax({
+                        type: "get",
+                        url: `/api/UserCollect/AddCollect/${index}`
+                    }).done(function(res) {
+                        console.log(res);
+                    }).fail(function(err) {
+                        console.log(err);
+                    });
+                } else {
+                    $.ajax({
+                        type: "delete",
+                        url: `/api/UserCollect/DeleteCollect/${index}`
+                    }).done(function(res) {
+                        console.log(res);
+                    }).fail(function(err) {
+                        console.log(err);
+                        console.log(err);
+                    });
+                }
             } else {
-                $.ajax({
-                    type: "delete",
-                    url: `/api/UserCollect/DeleteCollect/${index}`
-                }).done(function(res) {
-                    console.log(res);
-                }).fail(function(err) {
-                    console.log(err);
-                    console.log(err);
-                });
+                $(this).prop("checked", "");
+                LoginWarning();
             }
         })
         function ConfirmCollect() {
@@ -262,7 +288,7 @@
                 console.log(err);
             });
         };
-        if ("@User.Claims.FirstOrDefault(X => X.Type == ClaimTypes.Role)?.Value" == "Member") {
+        if (UserCharacter == "Member" || UserCharacter == "Admin") {
             ConfirmCollect();
         }
     </script>
