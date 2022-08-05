@@ -28,7 +28,9 @@ namespace PetsWebsite.Controllers
                 UserId = User.GetId(),
                 OrderDate = DateTime.Now,
                 Email = User.GetMail(),
-                OrderStatusNumber=0
+                OrderStatusNumber=0,
+                Amount=orderInfo.OrderSum,
+                PaymentWay=orderInfo.Payment
             });
 
             foreach (var item in orderInfo.OrderList)
@@ -89,17 +91,22 @@ namespace PetsWebsite.Controllers
         {
             string TradeInfoDecrypt = CryptoUtil.DecryptAESHex(Request.Form["TradeInfo"], _setting.HashKey, _setting.HashIV);
             NameValueCollection decryptTradeCollection = HttpUtility.ParseQueryString(TradeInfoDecrypt);
-            var Status = decryptTradeCollection.GetValues(0)[0];
-            var Amt = decryptTradeCollection.GetValues(3)[0];
-            var OrderID = decryptTradeCollection.GetValues(5)[0];
-            var PayTime = decryptTradeCollection.GetValues(11)[0];
-            if(Status!= "SUCCESS")
+            var Status = decryptTradeCollection["Status"];
+            var Amt = decryptTradeCollection["Amt"];
+            var OrderID = decryptTradeCollection["MerchantOrderNo"];
+            var TradeNo= decryptTradeCollection["TradeNo"]; 
+            var PayTime = decryptTradeCollection["PayTime"];
+            HttpContext.Session.SetString("TraderOrderNo", OrderID);
+            if (Status != "SUCCESS")
             {
                 return View();
             }
-            _petsDB.Orders.Find(OrderID).OrderStatusNumber = 1;
+            var MemberOrder=_petsDB.Orders.Find(OrderID);
+            MemberOrder.OrderStatusNumber = 1;
+            MemberOrder.PayDate= DateTime.Parse(PayTime);
+            MemberOrder.MerchantId = TradeNo;
             _petsDB.SaveChanges();
-            return Redirect("/home/index");
+            return Redirect("/PayResult/PayResult");
         }
     }
 }
