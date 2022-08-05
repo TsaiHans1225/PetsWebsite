@@ -171,6 +171,20 @@
                 height:50px;
                 margin-top: 6px;
             }
+            .d_items>a>img,
+            .d_items>a>.content{
+                
+                transition: 1000ms ease-in-out;
+            }
+            .d_items:hover>a>img.blur{
+                filter:blur(2px);
+            }
+            .d_items:hover>a>img.zoom{
+                transform: scale(1.1);
+            }
+            .d_items:hover>a>.content.fade{
+                opacity:0;
+            }
         }
 
             
