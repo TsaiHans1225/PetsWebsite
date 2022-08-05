@@ -58,7 +58,7 @@ namespace PetsWebsite.Controllers.API
                 sVerify = HttpUtility.UrlEncode(sVerify);
 
                 // 網站網址
-                string webPath = "https://localhost:62898/";
+                string webPath = "https://pet.tgm101.club/";
 
                 // 從信件連結回到重設密碼頁面
                 string receivePage = "ResetPwd/ResetPwdIndex";

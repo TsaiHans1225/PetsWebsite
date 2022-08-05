@@ -147,7 +147,7 @@
                     <tbody v-for="item in auditClinicList">
                         <tr class="">
                             <td scope="row">
-                                <img src="'/images/Clinic/ + item.photoPath'" style="width: 100px; height: 80px;" alt="">
+                                <img v-bind:src="'/images/Clinic/' + item.photoPath" style="width: 100px; height: 80px;" alt="">
                             </td>
                             <td>
                                 <p class="text-truncate" style="width: 200px;">ID : {{item.clinicId}}</p>
