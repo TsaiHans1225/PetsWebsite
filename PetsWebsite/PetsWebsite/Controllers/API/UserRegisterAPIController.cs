@@ -59,7 +59,7 @@ namespace PetsWebsite.Controllers.API
                         // 將加密後的密碼使用網址編碼處理
                         sVerify = HttpUtility.UrlEncode(sVerify);
                         // 網站網址
-                        string webPath = "https://localhost:62898/";
+                        string webPath = "https://pet.tgm101.club/";
                         // 從信件連結傳回verify給後端做處理後導頁
                         string receivePage = "Members/GetGoogleVerify";
                         // 信件內容範本
