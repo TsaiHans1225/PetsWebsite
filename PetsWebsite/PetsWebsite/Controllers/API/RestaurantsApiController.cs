@@ -5,7 +5,6 @@ using PetsWebsite.Models.ViewModel;
 using PetsWebsite.Models.ViewModels;
 
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace PetsWebsite.Controllers.API
 {
@@ -22,7 +21,6 @@ namespace PetsWebsite.Controllers.API
             Console.WriteLine(this._petsDBContext);
         }
 
-        //規劃查詢指定City
         [HttpGet]
         [Route("QryByCityRegion/{city}/rawdata")]
         public List<Restaurant> RestaurantQryByCity([FromRoute(Name = "city")] string city)
@@ -34,8 +32,7 @@ namespace PetsWebsite.Controllers.API
             return query;
 
         }
-        //=============================================================================
-        //規劃查詢Region
+
         [HttpGet]
         [Route("QryByRegion/{region}/rawdata")]
         public List<Restaurant> RestaurantQryByRegion([FromRoute(Name = "region")] string region)
@@ -43,8 +40,7 @@ namespace PetsWebsite.Controllers.API
             var query = (_petsDBContext.Restaurants).Where(r => r.Region == region).ToList<Restaurant>();
             return query;
         }
-        //=============================================================================
-        //規劃查詢City&Region
+
         [HttpGet]
         [Route("QryByCityRegion/{city}/{region?}/rawdata")]
         public async Task<ActionResult<IEnumerable<Restaurant>>> RestaurantQryCityRegion([FromRoute(Name = "city")] string? city, [FromRoute(Name = "region")] string? region)
@@ -69,25 +65,6 @@ namespace PetsWebsite.Controllers.API
             return await _petsDBContext.Restaurants.ToListAsync();
         }
 
-        //[HttpGet]
-        //[Route("Com/rawdata")]
-        //public IEnumerable<RestCommentVM> Comment([FromBody]RestCommentVM vm) 
-        //{
-        //    var query = _petsDBContext.Restaurants.Join(_petsDBContext.Comments,
-        //        r => r.RestaurantId,
-        //        c => c.CommentId,
-        //        (r, c) => new RestCommentVM()
-        //        {
-
-        //           RestName = r.RestaurantName,
-        //            CommTitle = c.Title,
-        //            CommentContent = c.Content,
-        //            CreateDate =c.SubmitTime,
-        //            NowDate =c.PublicDate
-        //        });
-        //    return query;
-        //}
-
         [HttpGet]
         [Route("Search/rawdata")]
         public async Task<ActionResult<IEnumerable<Restaurant>>> SearchKey([FromQuery] string key)
@@ -99,7 +76,6 @@ namespace PetsWebsite.Controllers.API
         [Route("Details/rawdata/{id}")]
         public IEnumerable<RestArticlesViewModel> DetailPage([FromRoute(Name = "id")] int id)
         {
-            //return await _petsDBContext.Restaurants.Where(d => d.RestaurantId == id).ToListAsync();
             return _petsDBContext.Articles.Include("Restaurant").Where(x=>x.RestaurantId == id).Select(x=>new RestArticlesViewModel
             {
                 RestID = x.Restaurant.RestaurantId,
