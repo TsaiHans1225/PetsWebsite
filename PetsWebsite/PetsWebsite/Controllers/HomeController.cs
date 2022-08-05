@@ -15,7 +15,7 @@ namespace PetsWebsite.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View("index copy");
         }
 
         public IActionResult Privacy()
