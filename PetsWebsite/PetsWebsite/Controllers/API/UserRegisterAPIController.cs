@@ -27,7 +27,7 @@ namespace PetsWebsite.Controllers.API
         public async Task<bool> MenberRegister(RegisterInfo users)
         {
             var query = _PetsDB.UserLogins.Where(a => a.User.Email == users.Account).ToList();
-            if (query == null)
+            if (!query.Any())
             {
                 UserLogin userAccount = new UserLogin
                 {
