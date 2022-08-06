@@ -128,10 +128,10 @@
                             </td>
                             <td>
                                 <a v-bind:href="'/Owner/EditProduct/' + item.productId" v-bind:value="item.productId"
-                                   class="btn btn-outline-warning" type="submit">修改</a>
+                                   class="btn btn-warning" type="submit">修改</a>
                             </td>
                             <td>
-                                <button v-bind:value="item.productId" v-on:click="deleteProduct" class="btn btn-outline-danger"
+                                <button v-bind:value="item.productId" v-on:click="deleteProduct" class="btn btn-danger"
                                         type="submit">
                                     下架
                                 </button>

@@ -1,8 +1,21 @@
 ﻿@*新增商品頁面*@
-
 <section id="createProduct">
     <div class="d-flex align-items-center mt-3 justify-content-center">
-                <h2 class="mb-0 d-inline-block"><strong>新增商品</strong></h2>
+        <h2 class="mb-0 d-inline-block"><strong>新增商品</strong></h2>
+    </div>
+    <div class="container">
+        <div class="row">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb my-2 justify-content-center">
+                    <li class="breadcrumb-item">
+                        <a href="~/Owner/Index" style="text-decoration:none;">管理商品</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>新增商品資訊</a>
+                    </li>
+                </ol>
+            </nav>
+        </div>
     </div>
     <div class="contanier">
         <form id="productForm" action="@Url.Action("NewProduct","Owner")" method="post" enctype="multipart/form-data">
@@ -62,7 +75,7 @@
                             <label class="d-block" for="">圖片(大小請勿超過2MB)</label>
                             <div class="mb-3">
                                 <input class="form-control" type="file" id="PhotoPath" name="PhotoPath" onchange="previewPic(this)" accept="image/*" required>
-                                <img id="pic" style="width: 50%; height: 50%"/>
+                                <img id="pic" style="width: 50%; height: 50%" />
                             </div>
                         </div>
                         <hr class="mb-0">
