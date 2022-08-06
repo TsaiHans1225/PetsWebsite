@@ -1,184 +1,200 @@
 ﻿@section Styles{
-<link rel="stylesheet" href="~/css/AaronCSS/index.css" />
-<link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
-<style>
-     #petCute{
+    <link rel="stylesheet" href="~/css/AaronCSS/index.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+    <style>
+        .card {
+            overflow-y: hidden;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        #petCute {
             transition: 200ms ease-in-out;
-            opacity:0.5;
+            opacity: 0.5;
         }
 
             #petCute:hover {
                 transform: scale(1.1);
-                opacity:2;
+                opacity: 2;
             }
-</style>
+         @@media screen and (max-width: 550px){
+            .pagination {
+            --bs-pagination-padding-x: 0.3rem;
+            --bs-pagination-padding-y: 0.05rem;
+            }   
+         }
+            
+    </style>
 }
 
-<div id="PetsAbo">
-    <div class="container mt-2">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="~/Home/Index" style="text-decoration:none;">首頁</a></li>
-                <li class="breadcrumb-item">
-                    <a href="~/PetsAboption/PetsAboption" id="bread" style="text-decoration:none;">愛心領養</a>
-                </li>
-            </ol>
-        </nav>
-    </div>
-    <div class="container d-flex justify-content-end mt-5">
-        <div class="row ">
-            <div class="col">
-                <button class="btn button-primary" v-on:click="clickShow">搜尋 <i
-                        class="fa-solid fa-magnifying-glass"></i></button>
+    <div id="PetsAbo">
+        <div class="container mt-2">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="~/Home/Index" style="text-decoration:none;">首頁</a></li>
+                    <li class="breadcrumb-item">
+                        <a href="~/PetsAboption/PetsAboption" id="bread" style="text-decoration:none;">愛心領養</a>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+        <div class="container d-flex justify-content-end mt-5">
+            <div class="row ">
+                <div class="col">
+                    <button class="btn button-primary" v-on:click="clickShow">
+                        搜尋 <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container" v-show="isShow">
-        <h3>請輸入查詢條件</h3>
-        <div class="row mt-2">
-            <div class="col" v-on:change="pageChange(vmm.currentPage,$event)">
-                <input type="radio" value="狗" name="animal" v-model="radioList">
-                <label>犬</label>
-                <input type="radio" value="貓" name="animal" class="ms-3" v-model="radioList">
-                <label>貓</label>
-                <input type="radio" value="" name="animal" class="ms-3" v-model="radioList">
-                <label>種類不拘</label>
-                <div>您選擇的是 : {{radioList}}</div>
+        <div class="container" v-show="isShow">
+            <h3>請輸入查詢條件</h3>
+            <div class="row mt-2">
+                <div class="col" v-on:change="pageChange(vmm.currentPage,$event)">
+                    <input type="radio" value="狗" name="animal" v-model="radioList">
+                    <label>犬</label>
+                    <input type="radio" value="貓" name="animal" class="ms-3" v-model="radioList">
+                    <label>貓</label>
+                    <input type="radio" value="" name="animal" class="ms-3" v-model="radioList">
+                    <label>種類不拘</label>
+                    <div>您選擇的是 : {{radioList}}</div>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- 關鍵字查詢 -->
-    <div class="container d-flex justify-content-end">
-        <div class="row">
-            <div class=" ">
-                <div>
-                    <div class="  col-12">
-                        <div class="col-12 me-1">
-                            <input type="text" placeholder="請輸入關鍵字.." class="form-control mb-2 me-1" v-model="search"
-                                v-on:change="pageChange(vmm.currentPage,$event)">
+        <!-- 關鍵字查詢 -->
+        <div class="container d-flex justify-content-end">
+            <div class="row">
+                <div class=" ">
+                    <div>
+                        <div class="  col-12">
+                            <div class="col-12 me-1">
+                                <input type="text" placeholder="請輸入關鍵字.." class="form-control mb-2 me-1" v-model="search"
+                                   v-on:change="pageChange(vmm.currentPage,$event)">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <hr>
-    <br>
-    <!-- 分頁 -->
-    <div class="container d-flex justify-content-center" >
-        <div class="row row-cols-1">
-            <div>
-                <paginate :page-count="totalPages" :click-handler="pageChange" :prev-text="'<<'" :next-text="'>>'"
-                    :page-range="10" :container-Class="'pagination'" :page-link-class="'page-link'"
-                    :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
-                    :next-link-class="'page-link'" :page-class="'page-item'">
-                </paginate>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-6 col-sm-4 col-md-3 mb-3" v-for="p in petDataAll">
+        <hr>
+        <br>
+        <!-- 分頁 -->
+        <div class="container d-flex justify-content-center">
+            <div class="row row-cols-1">
                 <div>
-                    <div class="card" id="cardContent">
-                        <a
-                            :href="`https://asms.coa.gov.tw/Amlapp/App/AnnounceList.aspx?Id=${p.animal_id}&AcceptNum=${p.animal_subid}&PageType=Adopt`">
+                    <paginate :page-count="totalPages" :click-handler="pageChange" :prev-text="'<<'" :next-text="'>>'"
+                          :page-range="10" :container-Class="'pagination'" :page-link-class="'page-link'"
+                          :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
+                          :next-link-class="'page-link'" :page-class="'page-item'">
+                    </paginate>
+                </div>
 
-                            <img :src="p.album_file" id="petCute" class="card-img-top" style="width:100%;height:200px;">
-                        </a>
-                        <div class="card-body">
-                            <i class="fa-solid fa-paw"></i> <b class="card-text" v-html="highLight(p.animal_Variety)">
-                                {{p.animal_Variety}}</b>
-                            <br>
-                            <i class="fa-solid fa-heart"></i> <b class="card-text" v-html="highLight(p.animal_kind)">
-                                {{p.animal_kind}}</b>
-                            <br>
-                            <i class="fa-solid fa-shirt"></i> <b class="card-text"> {{p.animal_sex}}</b>
-                            <br>
-                            <i class="fa-solid fa-map"></i> <b class="card-text"
-                                v-html="highLight(p.animal_foundplace)"> {{p.animal_foundplace}}</b>
-                            <br>
-                            <i class="fa-solid fa-location-dot"></i> <b class="card-text"
-                                v-html="highLight(p.animal_place)"> {{p.animal_place}}</b>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-sm-4 col-md-3 mb-3" v-for="p in petDataAll">
+                    <div>
+                        <div class="card h-100" id="cardContent">
+                            <a :href="`https://asms.coa.gov.tw/Amlapp/App/AnnounceList.aspx?Id=${p.animal_id}&AcceptNum=${p.animal_subid}&PageType=Adopt`">
+
+                                <img :src="p.album_file" id="petCute" class="card-img-top" style="width:100%;height:200px;">
+                            </a>
+                            <div class="card-body">
+                                <i class="fa-solid fa-paw"></i> <b class="card-text" v-html="highLight(p.animal_Variety)" style="color: cornflowerblue;">
+                                    {{p.animal_Variety}}
+                                </b>
+                                <br>
+                                <i class="fa-solid fa-heart"></i> <b class="card-text" v-html="highLight(p.animal_kind)" style="color: chocolate;">
+                                    {{p.animal_kind}}
+                                </b>
+                                <br>
+                                <i class="fa-solid fa-shirt"></i> <b class="card-text" style="color:darkcyan;"> {{p.animal_colour}}</b>
+                                <br>
+                                <i class="fa-solid fa-map"></i> <b class="card-text"
+                                                               v-html="highLight(p.animal_foundplace)" style="color: coral;"> {{p.animal_foundplace}}</b>
+                                <br>
+                                <i class="fa-solid fa-location-dot"></i> <b class="card-text"
+                                                                        v-html="highLight(p.animal_place)" style="color: sienna;"> {{p.animal_place}}</b>
+                            </div>
                         </div>
                     </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- 底部分頁 -->
+        <div class="container d-flex justify-content-center">
+            <div class="row">
+                <div class="col">
+                    <paginate :page-count="totalPages" :click-handler="pageChange" :prev-text="'<<'" :next-text="'>>'"
+                          :page-range="10" :container-Class="'pagination'" :page-link-class="'page-link'"
+                          :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
+                          :next-link-class="'page-link'" :page-class="'page-item'">
+                    </paginate>
                 </div>
 
             </div>
         </div>
     </div>
-    <!-- 底部分頁 -->
-    <div class="container d-flex justify-content-center">
-        <div class="row">
-            <div class="col">
-                <paginate :page-count="totalPages" :click-handler="pageChange" :prev-text="'<<'" :next-text="'>>'"
-                    :page-range="10" :container-Class="'pagination'" :page-link-class="'page-link'"
-                    :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
-                    :next-link-class="'page-link'" :page-class="'page-item'">
-                </paginate>
-            </div>
-
-        </div>
-    </div>
-</div>
 
 
-@section Scripts{
-<script src="https://unpkg.com/vuejs-paginate@latest"></script>
-<script>
-    Vue.component('paginate', VuejsPaginate)
-    var vmm = new Vue({
-        data: {
-            petDataAll: [],
-            pageItem: 200,
-            currentPage: 1,
-            totalPageCount:'',
-            radioList: '',
-            isShow: false,
-            search: ''
+    @section Scripts{
+    <script src="https://unpkg.com/vuejs-paginate@latest"></script>
+    <script>
+        Vue.component('paginate', VuejsPaginate)
+        var vmm = new Vue({
+            data: {
+                petDataAll: [],
+                pageItem: 28,
+                currentPage: 1,
+                totalPageCount: '',
+                radioList: '',
+                isShow: false,
+                search: ''
 
-        },
-
-        computed: {
-            totalPages: function () {
-                return Math.ceil(this.totalPageCount / this.pageItem);
             },
 
-        },
-        methods: {
-            pageChange: function (currentPage, event) {
-                this.currentPage = currentPage;
-                axios.get('/api/PetsAboptionAPI/GetPage', { params: { curPage: `${this.currentPage}`, showPage: `${this.pageItem}`, kinds: `${this.radioList}`,key:`${this.search}` } })
-                    .then(res => {
-                        console.log(res)
-                        this.petDataAll = res.data.petsAdoptions;
-                        this.totalPageCount = res.data.count;
-                    })
-                    .catch(err => {
-                        console.error(err);
-                    })
+            computed: {
+                totalPages: function() {
+                    return Math.ceil(this.totalPageCount / this.pageItem);
+                },
+
             },
-            clickShow: function () {
-                if (this.isShow == false) {
-                    this.isShow = true;
-                } else {
-                    this.isShow = false;
+            methods: {
+                pageChange: function(currentPage, event) {
+                    this.currentPage = currentPage;
+                    axios.get('/api/PetsAboptionAPI/GetPage', { params: { curPage: `${this.currentPage}`, showPage: `${this.pageItem}`, kinds: `${this.radioList}`, key: `${this.search}` } })
+                        .then(res => {
+                            console.log(res)
+                            this.petDataAll = res.data.petsAdoptions;
+                            this.totalPageCount = res.data.count;
+                            document.documentElement.scrollTop = 0;
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        })
+                },
+                clickShow: function() {
+                    if (this.isShow == false) {
+                        this.isShow = true;
+                    } else {
+                        this.isShow = false;
+                    }
+                },
+                highLight: function(title) {
+                    if (title.includes(this.search)) {
+                        return title = title.replace(this.search, `<font style="color:red!important;">${this.search}</font>`);
+                    } else {
+                        return title;
+                    }
                 }
             },
-            highLight: function (title) {
-                if (title.includes(this.search)) {
-                    return title = title.replace(this.search, `<font style="color:red!important;">${this.search}</font>`);
-                } else {
-                    return title;
-                }
+            mounted: function() {
+                this.pageChange(this.currentPage);
             }
-        },
-        mounted: function () {
-            this.pageChange(this.currentPage);
-        }
-    });
-    vmm.$mount('#PetsAbo');
-</script>
+        });
+        vmm.$mount('#PetsAbo');
+    </script>
 }

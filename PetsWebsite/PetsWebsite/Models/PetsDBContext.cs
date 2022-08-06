@@ -215,13 +215,23 @@ namespace PetsWebsite.Models
                     .HasMaxLength(50)
                     .HasColumnName("OrderID");
 
-                entity.Property(e => e.Address).HasMaxLength(25);
+                entity.Property(e => e.Address).HasMaxLength(50);
+
+                entity.Property(e => e.Amount).HasColumnType("money");
 
                 entity.Property(e => e.Email)
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
+                entity.Property(e => e.MerchantId)
+                    .HasMaxLength(50)
+                    .HasColumnName("MerchantID");
+
                 entity.Property(e => e.OrderDate).HasColumnType("datetime");
+
+                entity.Property(e => e.PayDate).HasColumnType("datetime");
+
+                entity.Property(e => e.PaymentWay).HasMaxLength(50);
 
                 entity.Property(e => e.Phone)
                     .HasMaxLength(20)
