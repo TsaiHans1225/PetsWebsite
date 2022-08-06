@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PetsWebsite.Extensions;
 using PetsWebsite.Models;
 using PetsWebsite.Models.ViewModels;
 
@@ -53,11 +54,12 @@ namespace PetsWebsite.Controllers.API
         [HttpGet]
         public List<OrderHistory> GetMemberOrderHistory()
         {
-            var query = _petsDB.Orders.Where(o => o.UserId == 4).Select(o => new OrderHistory()
+            var query = _petsDB.Orders.Where(o => o.UserId == User.GetId()).Select(o => new OrderHistory()
             {
                 OrderId = o.OrderId,
                 OrderDate = DateTime.Parse(o.OrderDate.ToString()).ToString(),
                 OrderWay = o.PaymentWay,
+                Amount=o.Amount,
                 OrderStatus = o.OrderStatusNumber,
                 OrderDetails = o.OrderDetails.ToList().Select(x => new OrderProduct
                 {
@@ -69,12 +71,14 @@ namespace PetsWebsite.Controllers.API
             return query;
         }
     }
+
     public class OrderHistory
     {
 
         public string OrderId { get; set; }
         public string OrderDate { get; set; }
         public string OrderWay { get; set; }
+        public decimal? Amount { get; set; }
         public int? OrderStatus { get; set; }
         public IEnumerable<OrderProduct> OrderDetails { get; set; }
     }
