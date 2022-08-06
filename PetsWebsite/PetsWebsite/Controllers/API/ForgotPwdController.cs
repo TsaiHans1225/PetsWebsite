@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PetsWebsite.Models;
 using System.Net;
 using System.Net.Mail;
@@ -20,12 +21,12 @@ namespace PetsWebsite.Controllers.API
             _configuration = configuration;
         }
         
-        public string SendMailToken(string email)
+        public bool SendMailToken(string email)
         {
             // 檢查來源
             if (string.IsNullOrEmpty(email))
             {
-                return "請輸入郵件";
+                return false;
             }
 
             // 檢查資料庫是否有這個帳號
@@ -59,6 +60,7 @@ namespace PetsWebsite.Controllers.API
 
                 // 網站網址
                 string webPath = "https://pet.tgm101.club/";
+                //string webPath = "https://localhost:62898/";
 
                 // 從信件連結回到重設密碼頁面
                 string receivePage = "ResetPwd/ResetPwdIndex";
@@ -91,15 +93,15 @@ namespace PetsWebsite.Controllers.API
                     smtpClient.Credentials = new NetworkCredential(GoogleMailUserID, GoogleMailUserPassword); // 寄信帳密
                     smtpClient.Send(mms);
                 }
-                return "請於 30 分鐘內至你的信箱點擊連結重新設定密碼，逾期將無效";
+                return true;
             }
             else
             {
-                return "查無此帳號";
+                return false;
             }
         }
 
-        public string DoResetPwd(string newPwd, string confirmPwd)
+        public async Task<string> DoResetPwd(string newPwd, string confirmPwd)
         {
             //DoResetPwdOut outModel = new DoResetPwdOut();
 
@@ -122,6 +124,7 @@ namespace PetsWebsite.Controllers.API
             if (newPwd != null && confirmPwd != null)
             {
                 var userEmail = HttpContext.Session.GetString("ResetPwdEmail");
+                var queryUsers = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == userEmail);
                 if(userEmail == null || userEmail.Length == 0)
                 {
                     //outModel.ErrMsg = "無修改帳號";
@@ -141,10 +144,9 @@ namespace PetsWebsite.Controllers.API
                     //    result.Append(hash[i].ToString("X2"));
                     //}
                     //string NewPwd = result.ToString(); // 雜湊運算後密碼
-                    var query = _dbContext.UserLogins.FirstOrDefault(u => u.ProviderKey == userEmail);
-                    if (query != null)
+                    if (queryUsers != null)
                     {
-                        query.User.Password = newPwd;
+                        queryUsers.Password = newPwd;
                         _dbContext.SaveChanges();
                         return "已存取新密碼";
                     }

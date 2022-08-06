@@ -33,6 +33,7 @@ namespace PetsWebsite.Controllers.API
                 {
                     LoginProvider = "cookies",
                     ProviderKey = users.Account,
+                    Verification = false,
                     User = new User
                     {
                         LastName = users.LastName,
@@ -60,6 +61,7 @@ namespace PetsWebsite.Controllers.API
                         sVerify = HttpUtility.UrlEncode(sVerify);
                         // 網站網址
                         string webPath = "https://pet.tgm101.club/";
+                        //string webPath = "https://localhost:62898/";
                         // 從信件連結傳回verify給後端做處理後導頁
                         string receivePage = "Members/GetGoogleVerify";
                         // 信件內容範本
