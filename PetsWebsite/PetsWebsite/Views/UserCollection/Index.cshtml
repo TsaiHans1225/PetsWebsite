@@ -27,40 +27,40 @@
 <div>
 
 
-<div class="row" id="favorite" >
-    <div class="w-100 d-flex justify-content-center">
-        <div class="card mb-3 col col-12 " style="max-width: 800px;"  >
-            <div class="row row-cols-3 g-0 align-items-center justify-content-evenly position-relative"
-                 style="max-width: 800px; height: 250px" v-for="item in CollectList">
-                <img v-bind:src="'/images/Product/' + item.photoPath" style="width:25%" alt="目前無圖片，請稍後再試" />
-                <div class="col">
-                    <div class="card-body">
-                        <h4 class="card-title text-nowrap mt-0"> {{item.productName}}</h4>
-                        <label class="card-text mt-4 text-nowrap" style="font-size: 20px">單價:$&nbsp;{{item.price}}</label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card-body mt-5">
-                        <div class="d-grid gap-2 mt-1">
-                            <button class="btn btn-outline-warning btn-sm" v-bind:value=item.productId
-                                    onclick="AddShopCar(event)">
-                                <i class="fa-solid fa-cart-plus"></i>
-                                &nbsp放入購物車
-                            </button>
+    <div class="row" id="favorite">
+        <div class="w-100 d-flex justify-content-center">
+            <div class="card mb-3 col col-12 " style="max-width: 800px;">
+                <div class="row row-cols-3 g-0 align-items-center justify-content-evenly position-relative"
+                     style="max-width: 800px; height: 250px" v-for="item in CollectList">
+                    <img v-bind:src="'/images/Product/' + item.photoPath" style="width:25%" alt="目前無圖片，請稍後再試" />
+                    <div class="col">
+                        <div class="card-body">
+                            <h4 class="card-title text-nowrap mt-0"> {{item.productName}}</h4>
+                            <label class="card-text mt-4 text-nowrap" style="font-size: 20px">單價:$&nbsp;{{item.price}}</label>
                         </div>
-                        <div class="d-grid gap-2 mt-1">
-                            <button class="btn btn-outline-danger btn-sm" v-bind:value=item.productId
-                                    onclick="AddShopCar(event)">
-                                <i class="fa-solid fa-heart-crack"></i>
-                                &nbsp取消收藏
-                            </button>
+                    </div>
+                    <div class="col">
+                        <div class="card-body mt-5">
+                            <div class="d-grid gap-2 mt-1">
+                                <button class="btn btn-outline-warning btn-sm" v-bind:value=item.productId
+                                        onclick="AddShopCar(event)">
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                    &nbsp放入購物車
+                                </button>
+                            </div>
+                            <div class="d-grid gap-2 mt-1">
+                                <button class="btn btn-outline-danger btn-sm" v-bind:value=item.productId
+                                        v-on:click="RemoveFavorite(item)">
+                                    <i class="fa-solid fa-heart-crack"></i>
+                                    &nbsp取消收藏
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 @section Scripts{
     <script>
@@ -81,16 +81,7 @@
                     }
                 })
         }
-        function CheckoutShopCar(e) {
-            fetch("/api/ShoppingCar/AddShopCar/" + e.target.value)
-                .then(res => res.json())
-                .then(result => {
-                    if (result) {
-                        ShopCar.reLoadData();
-                        window.location.href = `/ShoppingCart/Index`;
-                    }
-                })
-        }
+
         $("input[type=checkbox]").on("click", function(e) {
             var index = e.target.value;
             console.log(index)
@@ -116,27 +107,9 @@
                 });
             }
         })
-        function ConfirmCollect() {
-            $.ajax({
-                type: "get",
-                url: `/api/UserCollect/GetUserCollectId`
-            }).done(function(res) {
-                var UserHaveCollect = $("input[type=checkbox]");
-                for (let i = 0; i < UserHaveCollect.length; i++) {
-                    if (res.includes(parseInt(UserHaveCollect[i].value))) {
-                        UserHaveCollect[i].setAttribute("checked", "");
-                    }
-                }
-            }).fail(function(err) {
-                console.log(err);
-            });
-        };
-        if ("@User.Claims.FirstOrDefault(X => X.Type == ClaimTypes.Role)?.Value" == "Member") {
-            ConfirmCollect();
-        }
     </script>
     <script>
-                var MemberFavorite = new Vue({
+        var MemberFavorite = new Vue({
             data: {
                 CollectList: []
             },
@@ -148,9 +121,23 @@
                         }).catch(err => {
                             console.log(err);
                         })
+                },
+                RemoveFavorite: function(item) {
+                    var index = item.productId;
+                    $.ajax({
+                        type: "delete",
+                        url: `/api/UserCollect/DeleteCollect/${index}`
+                    }).done(function(res) {
+                        console.log(res);
+                        if (res) {
+                            MemberFavorite.LoadCollection();
+                        }
+                    }).fail(function(err) {
+                        console.log(err);
+                        console.log(err);
+                    });
                 }
             },
-
             mounted: function() {
                 this.LoadCollection();
             }
