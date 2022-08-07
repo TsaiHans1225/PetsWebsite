@@ -1,4 +1,28 @@
-﻿
+﻿<style>
+        table {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    .table:hover{
+        background-color:#e5e5e5
+    }
+
+    thead th:first-child {
+        border-top-left-radius: 12px;
+    }
+
+    thead th:last-child {
+        border-top-right-radius: 12px;
+    }
+
+    tbody tr:last-child :first-child {
+        border-bottom-left-radius: 12px;
+    }
+
+    tbody tr:last-child :last-child {
+        border-bottom-right-radius: 12px;
+    }
+</style>
 <div class="container-fluid">
     <div class="row">
         <section class="page-content">
@@ -8,8 +32,8 @@
                     <!-- 您的訂單/start -->
                     <div class="col-12 col-md-6" id="OrderInfo">
                         <h2>訂單資訊</h2>
-                        <div class="table-responsive-sm">
-                            <table class="table table-bordered table-striped">
+                        <div class="table-responsive-sm ">
+                            <table class="table bg-success">
                                 <tbody>
                                     <tr>
                                         <td>商品</td>
@@ -62,12 +86,10 @@
                                         <td colspan="2">總計</td>
                                         <td>NT$&nbsp;{{PreOrderPriceSum}}</td>
                                     </tr>
-                                </tbody>
-                                <tfoot>
                                     <tr>
                                         <td colspan="2">
                                             <!-- Button trigger modal -->
-                                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <button type="button" class="btn btn-info rounded-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                 使用折扣券
                                             </button>
                                             <!-- Modal -->
@@ -90,10 +112,10 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="#" class="btn btn-warning btn-lg float-right" v-on:click="PayFlow">確定購買</a>
+                                            <a href="#" class="btn-info btn btn-lg float-right rounded-2 border-0" v-on:click="PayFlow">確定購買</a>
                                         </td>
                                     </tr>
-                                </tfoot>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -101,7 +123,7 @@
                     <!-- 訂購人資訊/start -->
                     <div class="col-12 col-md-6 mb-3">
                         <h2>訂購人資訊</h2>
-                        <table class="table table-bordered table-striped " id="CustomerInfo">
+                        <table class="table   bg-success" id="CustomerInfo">
                             <tbody>
                                 <tr>
                                     <th scope="row">姓名:</th>
@@ -109,15 +131,15 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">E-mail：</th>
-                                    <td>{{Email}}</td>
+                                       <td colspan="2"><input type="text" class="rounded-0 border-0" :value="Email"/></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">手機號碼：</th>
-                                    <td colspan="2">{{Phone}}</td>
+                                    <td colspan="2"><input type="text" class="rounded-0 border-0" :value="Phone"/></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">地址：</th>
-                                    <td colspan="2">{{Address}}</td>
+                                    <td colspan="2" >{{Address}}</td>
                                 </tr>
                             </tbody>
                         </table>

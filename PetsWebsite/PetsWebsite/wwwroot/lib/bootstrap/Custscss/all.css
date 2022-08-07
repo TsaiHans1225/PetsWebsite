@@ -1877,8 +1877,8 @@ progress {
   --bs-table-striped-color: #000;
   --bs-table-active-bg: #e6dbb9;
   --bs-table-active-color: #000;
-  --bs-table-hover-bg: #ece1be;
-  --bs-table-hover-color: #000;
+  --bs-table-hover-bg: #f2cc8f;
+  --bs-table-hover-color: red;
   color: var(--bs-table-color);
   border-color: var(--bs-table-border-color);
 }
