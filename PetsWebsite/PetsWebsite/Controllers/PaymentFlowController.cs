@@ -21,6 +21,11 @@ namespace PetsWebsite.Controllers
         [HttpPost]
         public async Task<IActionResult> GetPayFlowData(OrderInfo orderInfo)
         {
+            var DeleteCollect = _petsDB.ShoppingCars.Where(p => orderInfo.OrderList.Select(o => o.ProductId).ToList().Contains(p.ProductId)&&p.UserId==User.GetId()).ToList();
+            foreach (var item in DeleteCollect)
+            {
+            _petsDB.Remove(item);
+            }
             string OrderNo = $"T{User.GetId()}_{DateTime.Now.ToString("yyyyMMddHHmm")}";
             _petsDB.Orders.Add(new Order()
             {

@@ -89,7 +89,8 @@ namespace PetsWebsite.Controllers.API
                 RestTime = x.Restaurant.BusyTime,
                 RestReserve = x.Restaurant.Reserve,
                 Title = x.Title,
-                Contents = x.Contents
+                Contents = x.Contents,
+                FromPlace = x.FromPlace
             });
         }
 
