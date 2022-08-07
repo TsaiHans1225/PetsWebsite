@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PetsWebsite.Extensions;
 using PetsWebsite.Models;
 using PetsWebsite.Models.ViewModels;
@@ -67,26 +68,24 @@ namespace PetsWebsite.Controllers.API
                     Price = x.Product.UnitPrice,
                     Count = x.Counts
                 })
-            }).ToList();
+            }).OrderByDescending(o => o.OrderId).ToList();
             return query;
         }
-    }
-
-    public class OrderHistory
-    {
-
-        public string OrderId { get; set; }
-        public string OrderDate { get; set; }
-        public string OrderWay { get; set; }
-        public decimal? Amount { get; set; }
-        public int? OrderStatus { get; set; }
-        public IEnumerable<OrderProduct> OrderDetails { get; set; }
-    }
-
-    public class OrderProduct
-    {
-        public string ProductName { get; set; }
-        public decimal? Price { get; set; }
-        public int? Count { get; set; }
+        [HttpGet]
+        [Route("{OrderId}")]
+        public bool PurchaseOrderAgain(string OrderId)
+        {
+            var Product=_petsDB.OrderDetails.Where(o=>o.OrderId== OrderId).Select(p => new CheckOutOrderViewModle()
+                {
+                    UserId = p.Order.UserId,
+                    ProductId = p.ProductId,
+                    ProductName = p.Product.ProductName,
+                    Count = p.Counts,
+                    Price = p.Product.UnitPrice,
+                    PhotoPath = p.Product.PhotoPath
+                }).ToList();
+            HttpContext.Session.SetString("PreOrder", JsonConvert.SerializeObject(Product));
+            return true;
+        }
     }
 }
