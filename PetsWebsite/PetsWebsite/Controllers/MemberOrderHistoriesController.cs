@@ -8,5 +8,9 @@ namespace PetsWebsite.Controllers
         {
             return View();
         }
+        public IActionResult MemberOrderHistory()
+        {
+            return View();
+        }
     }
 }
