@@ -2,14 +2,12 @@
     <link rel="stylesheet" href="~/css/AaronCSS/index.css" />
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
     <style>
-         @@media screen and (max-width: 550px){
-            .pagination{
-                --bs-pagination-padding-x: 0.6rem;
-                --bs-pagination-padding-y: 0.05rem;
+        @@media screen and (max-width: 550px) {
+            .pagination {
+                --bs-pagination-padding-x: 3.3px;
+                --bs-pagination-padding-y: 5px;
+            }
         }
-         }
-       
-           
     </style>
 }
 
@@ -29,7 +27,7 @@
         </div>
         <!--麵包屑-->
         <div class="container">
-            <nav aria-label="breadcrumb">
+            <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="~/Home/Index" style="text-decoration:none;">首頁</a></li>
                     <li class="breadcrumb-item">
@@ -58,15 +56,15 @@
         <div class="container d-flex justify-content-center">
             <div class="row">
                 <div class="col">
-                    <paginate :page-count="totalPages" :click-handler="pageChange" :prev-text="'<<'" :next-text="'>>'"
-                      :page-range="10"
-                      :container-Class="'pagination'"
-                      :page-link-class="'page-link'"
-                      :prev-class="'page-item'"
-                      :next-class="'page-item'"
-                      :prev-link-class="'page-link'"
-                      :next-link-class="'page-link'"
-                      :page-class="'page-item'">
+                    <paginate :page-count="totalPages" :click-handler="pageChange" :prev-text="'▲'" :next-text="'▼'"
+                          :page-range="10"
+                          :container-Class="'pagination'"
+                          :page-link-class="'page-link'"
+                          :prev-class="'page-item'"
+                          :next-class="'page-item'"
+                          :prev-link-class="'page-link'"
+                          :next-link-class="'page-link'"
+                          :page-class="'page-item'">
                     </paginate>
                 </div>
             </div>
@@ -105,7 +103,7 @@
                 <div id="inCard" v-for="(card,index) in filterRest" v-if="isShow">
                     <div class="card h-100" id="cardContent">
                         <a :href="`RestaurantDetails/${card.restaurantId}`">
-                            <img :src="`/images/Restaurant/${card.photoPath}`" class="card-img-top">      
+                            <img :src="`/images/Restaurant/${card.photoPath}`" class="card-img-top">
                         </a>
                         <div class="card-body">
                             <h4 class="card-title" v-html="highLight(card.restaurantName)" id="cardRestName">
@@ -144,10 +142,10 @@
             data: {
                 items: [],
                 isShow: true,
-                pageItem:3,
+                pageItem: 3,
                 regions: [],
                 total: {},
-                currentPage :1,
+                currentPage: 1,
                 selected: {
                     city: '',
                     area: '',
@@ -159,8 +157,8 @@
                     return Math.ceil(this.total.length / this.pageItem);
                 },
                 filterRest: function() {
-                    var max = this.currentPage * this.pageItem; 
-                    var min = max - this.pageItem; 
+                    var max = this.currentPage * this.pageItem;
+                    var min = max - this.pageItem;
                     return this.total.slice(min, max);
                 }
             },
@@ -244,7 +242,7 @@
                 pageChange: function(currentPage) {
                     this.currentPage = currentPage;
                 }
-                
+
             },
             mounted: async function() {
                 console.log('掛載完成');
@@ -260,7 +258,7 @@
                     .catch(err => {
                         console.error(err);
                     })
-                    
+
             }
         });
         app.$mount('#Rest')

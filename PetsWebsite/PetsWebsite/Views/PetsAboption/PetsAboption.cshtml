@@ -17,19 +17,19 @@
                 transform: scale(1.1);
                 opacity: 2;
             }
-         @@media screen and (max-width: 550px){
+
+        @@media screen and (max-width: 550px) {
             .pagination {
-            --bs-pagination-padding-x: 0.3rem;
-            --bs-pagination-padding-y: 0.05rem;
-            }   
-         }
-            
+                --bs-pagination-padding-x: 3.3px;
+                --bs-pagination-padding-y: 5px;
+            }
+        }
     </style>
 }
 
     <div id="PetsAbo">
         <div class="container mt-2">
-            <nav aria-label="breadcrumb">
+            <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="~/Home/Index" style="text-decoration:none;">首頁</a></li>
                     <li class="breadcrumb-item">
@@ -82,7 +82,7 @@
         <div class="container d-flex justify-content-center">
             <div class="row row-cols-1">
                 <div>
-                    <paginate :page-count="totalPages" :click-handler="pageChange" :prev-text="'<<'" :next-text="'>>'"
+                    <paginate :page-count="totalPages" :click-handler="pageChange" :prev-text="'▲'" :next-text="'▼'"
                           :page-range="10" :container-Class="'pagination'" :page-link-class="'page-link'"
                           :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
                           :next-link-class="'page-link'" :page-class="'page-item'">
