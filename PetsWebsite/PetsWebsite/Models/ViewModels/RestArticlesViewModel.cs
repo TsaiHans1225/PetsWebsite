@@ -14,5 +14,6 @@
         public string RestReserve { get; set; }
         public string Title { get; set; }
         public string Contents { get; set; }
+        public string FromPlace { get; set; }
     }
 }

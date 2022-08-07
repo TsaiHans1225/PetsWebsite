@@ -5,6 +5,7 @@ using PetsWebsite.Models.ViewModels;
 
 namespace PetsWebsite.Controllers
 {
+
     public class ShopController : Controller
     {
         private readonly PetsDBContext ProductDBContext;
@@ -63,7 +64,7 @@ namespace PetsWebsite.Controllers
 
 
         }
-        [Route("{pageNumber}")]
+
         public async Task<IActionResult> Index(int? pageNumber)
         {
             var products = await ProductDBContext.Products.Where(p => p.State == true)
