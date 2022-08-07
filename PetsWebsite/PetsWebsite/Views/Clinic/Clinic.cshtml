@@ -36,23 +36,23 @@
 
 
 <div class="containers " id="Clinic">
-    <!--麵包屑-->
-    <div class="container">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="~/Home/Index" style="text-decoration:none;">首頁</a></li>
-                <li class="breadcrumb-item"><a href="~/Clinic/Clinic" class="Clinic" style="text-decoration:none;">醫療資訊</a></li>
-            </ol>
-        </nav>
-    </div>
+   
     <!--jumbotron-->
-    <div class="container">
+    <div class="container mt-2">
         <div class="jumbotron bg-light  d-flex align-items-center" id="Jumbotron">
             <h1 class="display-4" style="font-weight:900">醫療資訊</h1>
             <p class="lead" style="font-weight:900">這邊可以提供您想查詢的醫療資訊</p>
         </div>
     </div>
-
+     <!--麵包屑-->
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mt-3">
+                <li class="breadcrumb-item"><a href="~/Home/Index" style="text-decoration:none;">首頁</a></li>
+                <li class="breadcrumb-item"><a href="~/Clinic/Clinic" class="Clinic" style="text-decoration:none;">醫療資訊</a></li>
+            </ol>
+        </nav>
+    </div>
     <!--下拉選取 -->
     <div class="container mt-3">
         <form class="row  flex-row-reverse" v-on:change="Getdata">
@@ -84,9 +84,9 @@
     <div class="container" v-show="show">
         <div class="row">
             <div class=" col-12 col-md-4 my-3" v-for="(item,index) in filterRest">
-                <div class="card border-0">
+                <div class="card border-0 h-100">
                     <div id="Card">
-                        <a :href="`Clinicinfo/${item.clinicId}`"><img class="card-img-top w-100" :src="'/images/Clinic/'+item.photoPath"></a>
+                        <a :href="`Clinicinfo/${item.clinicId}`"><img class="card-img-top w-100 h-100" :src="'/images/Clinic/'+item.photoPath"></a>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title" style="color:#f2cc8f;font-weight:900">
