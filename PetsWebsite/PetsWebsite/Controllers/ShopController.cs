@@ -64,7 +64,7 @@ namespace PetsWebsite.Controllers
 
 
         }
-
+        [Route("[controller]/Index/{pageNumber?}")]
         public async Task<IActionResult> Index(int? pageNumber)
         {
             var products = await ProductDBContext.Products.Where(p => p.State == true)
