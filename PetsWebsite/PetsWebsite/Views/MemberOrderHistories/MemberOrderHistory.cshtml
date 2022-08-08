@@ -3,9 +3,9 @@
 </div>
 <div class="container">
     <div class="accordion" id="accordionPanelsStayOpenExample">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                <button class="accordion-button pb-0" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+        <div class="accordion-item" v-for="(item,index) in OrderList">
+            <div class="accordion-header" v-bind:id="index">
+                <button class="accordion-button pb-0 collapsed" type="button" data-bs-toggle="collapse" v-bind:data-bs-target="'#panelsStayOpen'+index" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
                     <table class="table table-striped table-no-bordered" style="border: 1px solid transparent !important;">
                         <thead>
                             <tr>
@@ -18,112 +18,28 @@
                         <tbody>
                             <tr class="">
                                 <td>
-                                    2022080700001
+                                    {{item.orderId}}
                                 </td>
                                 <td>
-                                    2022/08/07
+                                    {{item.orderDate}}
                                 </td>
                                 <td>
-                                    2400
+                                    {{item.amount}}
                                 </td>
                                 <td>
-                                    已付款
+                                    <div class="text-danger" v-if="item.orderStatus==0">
+                                        <strong>尚未付款</strong>
+                                    </div>
+                                    <div class="text-success" v-else>
+                                        <strong>已付款</strong>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </button>
-            </h2>
-            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-                <div class="accordion-body bg-success">
-                    <div class="row">
-                        <div class="col col-4">
-                            商品名稱
-                        </div>
-                        <div class="col col-4">
-                            商品單價
-                        </div>
-                        <div class="col col-4">
-                            商品數量
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col col-4">
-                            貴賓成犬 1.5公斤 (狗飼料)
-                        </div>
-                        <div class="col col-4">
-                            562
-                        </div>
-                        <div class="col col-4">
-                            3
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col col-4">
-                            小型成犬 8公斤 (狗飼料)
-                        </div>
-                        <div class="col col-4">
-                            1640
-                        </div>
-                        <div class="col col-4">
-                            1
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col col-4">
-                            理想體態貓 2公斤 (貓飼料)
-                        </div>
-                        <div class="col col-4">
-                            648
-                        </div>
-                        <div class="col col-4">
-                            1
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col offset-10">
-                            <button class="btn btn-info justify-content-end">
-                                再次訂購
-                            </button>
-                        </div>
-                    </div>
-                </div>
             </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                <button class="accordion-button pb-0" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
-                    <table class="table table-striped table-no-bordered" style="border: 1px solid transparent !important;">
-                        <thead>
-                            <tr>
-                                <th scope="col">訂單編號</th>
-                                <th scope="col">訂購日期</th>
-                                <th scope="col">應付總額</th>
-                                <th scope="col">付款狀態</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="">
-                                <td>
-                                    2022080700001
-                                </td>
-                                <td>
-                                    2022/08/07
-                                </td>
-                                <td>
-                                    2400
-                                </td>
-                                <td>
-                                    已付款
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </button>
-            </h2>
-            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
+            <div v-bind:id="'panelsStayOpen'+index" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne" data-bs-parent="#accordionPanelsStayOpenExample">
                 <div class="accordion-body bg-success">
                     <div class="row">
                         <div class="col col-4">
@@ -137,99 +53,21 @@
                         </div>
                     </div>
                     <hr />
-                    <div class="row">
+                    <div class="row" v-for="ProductInfo in item.orderDetails">
                         <div class="col col-4">
-                            貴賓成犬 1.5公斤 (狗飼料)
+                            {{ProductInfo.productName}}
                         </div>
                         <div class="col col-4">
-                            562
+                            {{ProductInfo.price}}
                         </div>
                         <div class="col col-4">
-                            3
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col col-4">
-                            小型成犬 8公斤 (狗飼料)
-                        </div>
-                        <div class="col col-4">
-                            1640
-                        </div>
-                        <div class="col col-4">
-                            1
+                            {{ProductInfo.count}}
                         </div>
                     </div>
                     <hr />
                     <div class="row">
                         <div class="col offset-10">
-                            <button class="btn btn-info justify-content-end">
-                                再次訂購
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                <button class="accordion-button pb-0" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true" aria-controls="panelsStayOpen-collapseThree">
-                    <table class="table table-striped table-no-bordered" style="border: 1px solid transparent !important;">
-                        <thead>
-                            <tr>
-                                <th scope="col">訂單編號</th>
-                                <th scope="col">訂購日期</th>
-                                <th scope="col">應付總額</th>
-                                <th scope="col">付款狀態</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="">
-                                <td>
-                                    2022080700001
-                                </td>
-                                <td>
-                                    2022/08/07
-                                </td>
-                                <td>
-                                    2400
-                                </td>
-                                <td>
-                                    已付款
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </button>
-            </h2>
-            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
-                <div class="accordion-body bg-success">
-                    <div class="row">
-                        <div class="col col-4">
-                            商品名稱
-                        </div>
-                        <div class="col col-4">
-                            商品單價
-                        </div>
-                        <div class="col col-4">
-                            商品數量
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col col-4">
-                            貴賓成犬 1.5公斤 (狗飼料)
-                        </div>
-                        <div class="col col-4">
-                            562
-                        </div>
-                        <div class="col col-4">
-                            3
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col offset-10">
-                            <button class="btn btn-info justify-content-end">
+                            <button class="btn btn-warning justify-content-end" v-on:click="PurchaseAgain(item)">
                                 再次訂購
                             </button>
                         </div>
@@ -239,3 +77,41 @@
         </div>
     </div>
 </div>
+@section Scripts{
+    <script>
+        var MemberOrderHistory = new Vue({
+            data: {
+                OrderList: []
+            },
+            methods: {
+                GetMemberOrderInfo: function() {
+                    $.ajax({
+                        type: "get",
+                        url: "/api/MemberOder/GetMemberOrderHistory"
+                    })
+                        .done(res => {
+                            console.log(res);
+                            MemberOrderHistory.OrderList = res;
+                        })
+                        .fail(err => console.log(err))
+                },
+                PurchaseAgain: function(item) {
+                    $.ajax({
+                        type: "get",
+                        url: `/api/MemberOder/PurchaseOrderAgain/${item.orderId}`
+                    })
+                        .done(res => {
+                            console.log(res);
+                            if (res) {
+                                window.location.href = "/Checkout";
+                            }
+                        })
+                        .fail(err => console.log(err))
+                }
+            },
+            mounted: function() {
+                this.GetMemberOrderInfo();
+            }
+        }).$mount("#accordionPanelsStayOpenExample")
+    </script>
+}

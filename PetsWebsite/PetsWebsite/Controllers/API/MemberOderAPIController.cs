@@ -30,9 +30,9 @@ namespace PetsWebsite.Controllers.API
                     OrderId= o.OrderId,
                     TradeNo= o.MerchantId,
                     Amount= o.Amount,
-                    PaymentDate= DateTime.Parse(o.PayDate.ToString()).ToString("G"),
+                    PaymentDate= o.PayDate.Value.ToString("G"),
                     PaymentWay= o.PaymentWay,
-                    OrderDate= DateTime.Parse(o.OrderDate.ToString()).ToString("G")
+                    OrderDate= o.OrderDate.Value.ToString("G")
                 }).FirstOrDefault();
             return OrderInfo;
         }
@@ -58,7 +58,7 @@ namespace PetsWebsite.Controllers.API
             var query = _petsDB.Orders.Where(o => o.UserId == User.GetId()).Select(o => new OrderHistory()
             {
                 OrderId = o.OrderId,
-                OrderDate = DateTime.Parse(o.OrderDate.ToString()).ToString(),
+                OrderDate = o.OrderDate.Value.ToString("G"),
                 OrderWay = o.PaymentWay,
                 Amount=o.Amount,
                 OrderStatus = o.OrderStatusNumber,

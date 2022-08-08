@@ -59,7 +59,7 @@ namespace PetsWebsite.Controllers
                 Amt = orderInfo.OrderSum,
                 ItemDesc = orderInfo.OrderDesc,
                 ExpireDate = null,
-                ReturnURL = _setting.ReturnURL,
+                ReturnURL = new StringBuilder().Append(HttpContext.Request.Scheme).Append("://").Append(HttpContext.Request.Host).ToString()+_setting.ReturnURL,
                 NotifyURL = _setting.NotifyURL,
                 CustomerURL = _setting.CustomerURL,
                 ClientBackURL = null,
