@@ -19,7 +19,7 @@
 <section id="auditClinic">
     <div class="contanier mt-4">
         <form id="auditClinicForm">
-            <div class="row justify-content-center" style="height: 900px;">
+            <div class="row justify-content-center" style="height: 1200px;">
                 <div class="col col-6">
                     <div class="row g-3 bg-light rounded mb-3">
                         <div class="col col-12">
@@ -49,6 +49,14 @@
                         <div class="col col-12">
                             <label for="Address" class="form-label">診所地址: </label>
                             <input type="text" class="form-control" v-bind:value="auditData.address" id="Address" name="Address" disabled>
+                        </div>
+                        <div class="col col-12">
+                            <label for="ClinicMap" class="form-label">診所googleMap網址: </label>
+                            <input type="text" class="form-control" v-model="auditData.clinicMap" id="ClinicMap" name="ClinicMap" disabled>
+                        </div>
+                        <div class="col col-12">
+                            <label for="Service">診所提供服務項目: </label>
+                            <textarea class="form-control" v-model="auditData.service" id="Service" name="Service" rows="3" disabled></textarea>
                         </div>
                         <div class="col col-12">
                             <label for="Describe">診所簡述: </label>
