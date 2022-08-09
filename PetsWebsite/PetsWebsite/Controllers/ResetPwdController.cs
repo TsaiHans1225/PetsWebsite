@@ -117,7 +117,7 @@ namespace PetsWebsite.Controllers
             }
 
             // 驗證碼成功，加入Session
-            HttpContext.Session.SetString("ResetPwdEmail", email);
+            HttpContext.Session.SetString("ResetComPwdEmail", email);
             return View();
         }
     }

@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using PetsWebsite.Models;
 using PetsWebsite.Models.ViewModels;
 using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace PetsWebsite.Controllers.API
 {
@@ -21,6 +23,18 @@ namespace PetsWebsite.Controllers.API
         [HttpPost]
         public async Task<int> UserLogin(Login users)
         {
+            //將新密碼使用 SHA256 雜湊運算(不可逆)
+            string salt = users.Account.Split("@")[0]; //使用p當作密碼鹽
+            SHA256 sha256 = SHA256.Create();
+            byte[] bytes = Encoding.UTF8.GetBytes(salt + users.Password); //將密碼鹽及新密碼組合
+            byte[] hash = sha256.ComputeHash(bytes);
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < hash.Length; i++)
+            {
+                result.Append(hash[i].ToString("X2"));
+            }
+            string NewPwd = result.ToString(); // 雜湊運算後密碼
+
             //到資料庫找資料
             var existUser =await _PetsDB.UserLogins.Join(_PetsDB.Users,
                 a => a.UserId,
@@ -46,7 +60,7 @@ namespace PetsWebsite.Controllers.API
                     Verification = a.Verification,
                     Email = a.Email,
                 }
-                ).FirstOrDefaultAsync(x => x.Account == users.Account && x.Password == users.Password);
+                ).FirstOrDefaultAsync(x => x.Account == users.Account && x.Password == NewPwd);
             if (existUser == null)
             {
                 return 1;
@@ -78,8 +92,18 @@ namespace PetsWebsite.Controllers.API
         [HttpPost]
         public async Task<bool> CompanyLogin(Login users)
         {
+            string salt = users.Account.Split("@")[0];
+            SHA256 sha256 = SHA256.Create();
+            byte[] bytes = Encoding.UTF8.GetBytes(salt + users.Password);
+            byte[] hash = sha256.ComputeHash(bytes);
+            StringBuilder result = new StringBuilder();
+            for(int i = 0; i < hash.Length; i++)
+            {
+                result.Append(hash[i].ToString("X2"));
+            }
+            string Password = result.ToString();
             //到資料庫找資料
-            var existUser = await _PetsDB.CompanyAccounts.FirstOrDefaultAsync(x => x.Account == users.Account && x.Password == users.Password);
+            var existUser = await _PetsDB.CompanyAccounts.FirstOrDefaultAsync(x => x.Account == users.Account && x.Password == Password);
             if (existUser == null)
             {
                 return false;
