@@ -122,7 +122,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                     var NewMember = db.UserLogins.FirstOrDefault(x => x.ProviderKey == ProviderKey);
                     user.Add(NewMember);
                 }
-                else if (user.FirstOrDefault(u=>u.ProviderKey != ProviderKey)==null)
+                else if (user.FirstOrDefault(u=>u.ProviderKey == ProviderKey)==null)
                 {
                     UserLogin GoogleLogin = new UserLogin()
                     {
