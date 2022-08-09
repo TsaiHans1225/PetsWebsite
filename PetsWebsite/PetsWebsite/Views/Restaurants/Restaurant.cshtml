@@ -103,7 +103,7 @@
                 <div id="inCard" v-for="(card,index) in filterRest" v-if="isShow">
                     <div class="card h-100" id="cardContent">
                         <a :href="`RestaurantDetails/${card.restaurantId}`">
-                            <img :src="`/images/Restaurant/${card.photoPath}`" class="card-img-top">
+                            <img :src="`/images/Restaurant/${card.photoPath}`" class="cardImgTop">
                         </a>
                         <div class="card-body">
                             <h4 class="card-title" v-html="highLight(card.restaurantName)" id="cardRestName">
