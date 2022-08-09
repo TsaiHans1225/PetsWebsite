@@ -826,8 +826,30 @@
                     })
                     .then(function(res) {
                         console.log("res = ", res);
+                        if (res == "true") {
+                            swal({
+                                title: '寄送驗證信',
+                                text: '驗證信已寄送，請至信箱確認',
+                                type: 'success',
+                                closeOnClickOutside: false,
+                                icon: "success",
+                                button: "確定"
+                            }).then(() => {
+                                location.reload();
+                            });
+                            setTimeout("location.reload()", 5000)
+                        }
+                        else {
+                            swal({
+                                title: '查無此信箱',
+                                text: '請重新確認輸入信箱是否正確',
+                                type: 'warning',
+                                closeOnClickOutside: false,
+                                icon: "warning",
+                                button: "確定"
+                            })
+                        }
                     });
-                alert("驗證信已寄送，請至您的信箱收信，謝謝")
             }
         }
     }).$mount('#modalOwnerForgotPassword');

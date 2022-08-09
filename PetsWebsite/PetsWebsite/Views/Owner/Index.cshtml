@@ -395,8 +395,8 @@
                 },
                 deleteProduct: function(e) {
                     swal({
-                        title: "確認刪除此餐廳嗎?",
-                        text: "刪除餐廳後將無法復原",
+                        title: "確認下架商品此嗎?",
+                        text: "下架商品後將無法復原",
                         icon: "warning",
                         buttons: [
                             '取消',
@@ -412,15 +412,15 @@
                                     console.log("success", resp);
                                     if (resp) {
                                         swal({
-                                            title: '刪除商品',
-                                            text: '此商品已刪除',
+                                            title: '下架商品',
+                                            text: '商品已下架',
                                             type: 'success',
                                             closeOnClickOutside: false,
                                             icon: "success"
                                         }).then(() => {
                                             this.reLoadData();
                                         });
-                                        setTimeout("location.reload()", 5000)
+                                        setTimeout("location.reload()", 2000)
                                     }
                                 })
                                 .catch(err => console.log("err", err))
@@ -430,8 +430,8 @@
                 },
                 deleteRestaurant: function(e) {
                     swal({
-                        title: "確認刪除此商品嗎?",
-                        text: "刪除商品後將無法復原",
+                        title: "確認下架此餐廳嗎?",
+                        text: "下架餐廳後將無法復原",
                         icon: "warning",
                         buttons: [
                             '取消',
@@ -447,15 +447,15 @@
                                     console.log("success", resp);
                                     if (resp) {
                                         swal({
-                                            title: '刪除餐廳',
-                                            text: '此餐廳已刪除',
+                                            title: '下架餐廳',
+                                            text: '餐廳已下架',
                                             type: 'success',
                                             closeOnClickOutside: false,
                                             icon: "success"
                                         }).then(() => {
                                             location.reload();
                                         });
-                                        setTimeout("location.reload()", 3000)
+                                        setTimeout("location.reload()", 2000)
                                     }
                                 })
                                 .catch(err => console.log("err", err))
@@ -488,8 +488,8 @@
                 },
                 DeleteClinic: function(item) {
                     swal({
-                        title: "確認刪除此診所資訊嗎?",
-                        text: "診所資訊刪除後將無法復原",
+                        title: "確認下架此診所資訊嗎?",
+                        text: "診所資訊下架後將無法復原",
                         icon: "warning",
                         buttons: [
                             '取消',
@@ -505,15 +505,15 @@
                                     console.log("success", resp);
                                     if (resp) {
                                         swal({
-                                            title: '刪除診所資訊',
-                                            text: '該診所資訊已刪除',
+                                            title: '下架診所資訊',
+                                            text: '診所資訊已下架',
                                             type: 'success',
                                             closeOnClickOutside: false,
                                             icon: "success"
                                         }).then(() => {
                                             this.reLoadData();
                                         });
-                                        setTimeout("location.reload()", 3000)
+                                        setTimeout("location.reload()", 2000)
                                     }
                                 })
                                 .catch(err => console.log("err", err))

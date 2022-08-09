@@ -22,12 +22,12 @@ namespace PetsWebsite.Controllers.API
         }
         [HttpGet]
         [Route("{email}")]
-        public string SendMailToken(string email)
+        public bool SendMailToken(string email)
         {
             // 檢查來源
             if (string.IsNullOrEmpty(email))
             {
-                return "請輸入郵件";
+                return false;
             }
 
             // 檢查資料庫是否有這個帳號
@@ -60,8 +60,8 @@ namespace PetsWebsite.Controllers.API
                 sVerify = HttpUtility.UrlEncode(sVerify);
 
                 // 網站網址
-                string webPath = "https://pet.tgm101.club/";
-                //string webPath = "https://localhost:62898/";
+                //string webPath = "https://pet.tgm101.club/";
+                string webPath = "https://localhost:5500/";
 
                 // 從信件連結回到重設密碼頁面
                 string receivePage = "ResetPwd/ResetCmpPwdIndex";
@@ -94,11 +94,11 @@ namespace PetsWebsite.Controllers.API
                     smtpClient.Credentials = new NetworkCredential(GoogleMailUserID, GoogleMailUserPassword); // 寄信帳密
                     smtpClient.Send(mms);
                 }
-                return "請於 30 分鐘內至你的信箱點擊連結重新設定密碼，逾期將無效";
+                return true;
             }
             else
             {
-                return "查無此帳號";
+                return false;
             }
         }
 
