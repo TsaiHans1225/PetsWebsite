@@ -53,6 +53,7 @@ namespace PetsWebsite.Controllers.API
                 Count=x.Count,
                 Price=x.Product.UnitPrice,
                 ShopCarId=x.ProductId,
+                UnitsInStock=x.Product.UnitsInStock,
             }).ToList();
 
         }
