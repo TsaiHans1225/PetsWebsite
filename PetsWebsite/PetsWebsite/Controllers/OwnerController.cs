@@ -178,7 +178,7 @@ namespace PetsWebsite.Controllers
             newRestaurant.RestaurantName = newRestaurant.RestaurantName.Trim();
             newRestaurant.Address = newRestaurant.Address.Trim();
             newRestaurant.Introduction = newRestaurant.Introduction.Trim();
-            newRestaurant.Reserve = newRestaurant.Reserve.Trim();
+            newRestaurant.Reserve = newRestaurant.Reserve?.Trim();
             newRestaurant.BusyTime = newRestaurant.BusyTime.Trim();
             newRestaurant.Phone = newRestaurant.Phone.Trim();
             newRestaurant.State = false;
