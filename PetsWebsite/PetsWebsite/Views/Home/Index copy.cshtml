@@ -100,7 +100,7 @@
           display:flex;
           justify-content:center;
           align-items:center;
-          color: darkred;
+          color: dimgray;
      }
        .d_items>a>img,
        .d_items>a>.content{
@@ -134,6 +134,9 @@
            width:120px;
            height:80px;
        }
+       a{
+           height:100%;
+       }
 
         @@media screen and (max-width: 1099px){
             .d_header {
@@ -146,9 +149,17 @@
 
 
         
-        @@media screen and (max-width: 976px){
+        @@media screen and (max-width: 1290px){
             .d_items {
                 width: 32%;
+            }
+             .svgLogo{
+                width:120px;
+                height:80px;
+            }
+            .d_img{
+                    height: 380px;
+                    width: 100%;
             }
         }
         @@media screen and (max-width: 1099px){
@@ -167,8 +178,8 @@
                 width:100%;
             }
             .svgLogo{
-                width:50px;
-                height:50px;
+                width:50px!important;
+                height:50px!important;
                 margin-top: 6px;
             }
             .d_items>a>img,
@@ -185,7 +196,23 @@
             .d_items:hover>a>.content.fade{
                 opacity:0;
             }
+             .d_items>a>.content {
+                 position:absolute;
+                 inset:0;
+                 text-decoration:none;
+                 font-size:2rem;
+                 background:rgba(255,255,255,.4);
+                 padding:1rem;
+                 display:flex;
+                 justify-content:center;
+                 align-items:center;
+                 color: dimgray;
+                 font-size: 25px;
+                 font-weight: 600;
+             }
+            
         }
+       
 
             
     </style>
@@ -195,25 +222,25 @@
 <body style="">
     <header>
         <div class="d_header" style="display:flex;justify-content:center;">
-            <img src="/images/pet-food.svg" class="svgLogo"><h1 style="margin-top: 1rem;"><strong >EveryPets</strong></h1>
+            <img src="/images/pet-food.svg" class="svgLogo" style="width:120px;height:80px"><h1 style="margin-top: 1rem;"><strong >EveryPets</strong></h1>
         </div>
         
     </header>
     <div class="d_wrap" style="background-color:#f2cc8f;">
 
         <div class="d_items">
-            <a asp-controller="Clinic" asp-action="Clinic" style="color:#333" title="醫療資訊">
+            <a asp-controller="Clinic" asp-action="Clinic" style="color:#333" title="醫療資訊"  >
                 <strong class="content fade" >醫療資訊</strong> 
                 <i></i>
                 <img src="/images/index/indexpet4.jpg" data-src="no-img.jpg" class="img-fluid d_img lazyload blur zoom phoneImg"
-                    alt="醫療資訊">
+                    alt="醫療資訊" style="height:100%!important;">
             </a>
         </div>
 
         <div class="d_items">
-            <a asp-controller="Shop" asp-action="index" style="color:#333" class="active" title="購物專區">
+            <a asp-controller="Shop" asp-action="index" style="color:#333" class="active" title="購物專區"  style="height:100%!important;">
               <i></i>
-                <img src="/images/index/Petshop.jpg" data-src="no-img.jpg" class="img-fluid d_img lazyload blur zoom phoneImg" alt="購物專區">
+                <img src="/images/index/Petshop.jpg" data-src="no-img.jpg" class="img-fluid d_img lazyload blur zoom phoneImg" alt="購物專區" style="height:100%;">
                 <strong class="content fade">購物專區</strong>
             </a>
         </div>
@@ -221,7 +248,7 @@
         <div class="d_items">
             <a asp-controller="Restaurants" asp-action="Restaurant" style="color:#333" title="寵物餐廳" class="h-100">
                 <i></i>
-                <img src="/images/index/PetRest.jpg" data-src="no-img.jpg" class="img-fluid d_img lazyload blur zoom phoneImg" alt="寵物餐廳" style="height:100%">
+                <img src="/images/index/PetRest.jpg" data-src="no-img.jpg" class="img-fluid d_img lazyload blur zoom phoneImg" alt="寵物餐廳" style="height:100%!important;">
                 <strong class="content fade">寵物餐廳</strong>
             </a>
         </div>

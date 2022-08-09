@@ -47,7 +47,7 @@ namespace PetsWebsite.Controllers
             product.ProductName = newProduct.ProductName.Trim();
             product.UnitPrice = newProduct.UnitPrice;
             product.UnitsInStock = newProduct.UnitsInStock;
-            product.Describe = newProduct.Describe.Trim();
+            product.Describe = newProduct.Describe?.Trim();
             product.State = false;
             product.LaunchDate = DateTime.Now;
             product.Discount = newProduct.Discount;
@@ -178,7 +178,7 @@ namespace PetsWebsite.Controllers
             newRestaurant.RestaurantName = newRestaurant.RestaurantName.Trim();
             newRestaurant.Address = newRestaurant.Address.Trim();
             newRestaurant.Introduction = newRestaurant.Introduction.Trim();
-            newRestaurant.Reserve = newRestaurant.Reserve.Trim();
+            newRestaurant.Reserve = newRestaurant.Reserve?.Trim();
             newRestaurant.BusyTime = newRestaurant.BusyTime.Trim();
             newRestaurant.Phone = newRestaurant.Phone.Trim();
             newRestaurant.State = false;

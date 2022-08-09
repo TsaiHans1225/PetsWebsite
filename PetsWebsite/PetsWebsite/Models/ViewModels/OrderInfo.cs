@@ -6,6 +6,8 @@
         public int OrderSum { get; set; }
         public string? Payment { get; set; }
         public string OrderDesc { get; set; }
+        public string Address { get; set; }
+        public string Phone { get; set; }
     }
     public class OrderViewModle
     {
