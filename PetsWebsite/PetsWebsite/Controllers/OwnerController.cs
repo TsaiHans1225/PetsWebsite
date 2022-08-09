@@ -47,7 +47,7 @@ namespace PetsWebsite.Controllers
             product.ProductName = newProduct.ProductName.Trim();
             product.UnitPrice = newProduct.UnitPrice;
             product.UnitsInStock = newProduct.UnitsInStock;
-            product.Describe = newProduct.Describe.Trim();
+            product.Describe = newProduct.Describe?.Trim();
             product.State = false;
             product.LaunchDate = DateTime.Now;
             product.Discount = newProduct.Discount;
