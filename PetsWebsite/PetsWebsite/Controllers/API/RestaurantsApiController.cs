@@ -27,6 +27,7 @@ namespace PetsWebsite.Controllers.API
         {
             var query = (from c in _petsDBContext.Restaurants
                          where c.City == city
+                         where c.State == true
                          select c).ToList<Restaurant>();
 
             return query;
@@ -37,7 +38,7 @@ namespace PetsWebsite.Controllers.API
         [Route("QryByRegion/{region}/rawdata")]
         public List<Restaurant> RestaurantQryByRegion([FromRoute(Name = "region")] string region)
         {
-            var query = (_petsDBContext.Restaurants).Where(r => r.Region == region).ToList<Restaurant>();
+            var query = (_petsDBContext.Restaurants).Where(r => r.Region == region).Where(r=>r.State==true).ToList<Restaurant>();
             return query;
         }
 
@@ -50,7 +51,7 @@ namespace PetsWebsite.Controllers.API
                 return await _petsDBContext.Restaurants.Where(c => c.City == city).ToListAsync<Restaurant>();
             }
             return await (_petsDBContext.Restaurants)
-                .Where(c => c.City == city && c.Region == region).ToListAsync<Restaurant>(); ;
+                .Where(c => c.City == city && c.Region == region).Where(c=>c.State==true).ToListAsync<Restaurant>(); ;
         }
 
         [HttpGet]
@@ -62,22 +63,25 @@ namespace PetsWebsite.Controllers.API
             {
                 return NotFound();
             }
-            return await _petsDBContext.Restaurants.ToListAsync();
+            return await _petsDBContext.Restaurants.Where(x=>x.State == true).ToListAsync();
         }
 
         [HttpGet]
         [Route("Search/rawdata")]
         public async Task<ActionResult<IEnumerable<Restaurant>>> SearchKey([FromQuery] string key)
         {
-            return await _petsDBContext.Restaurants.Where(s => s.RestaurantName.Contains(key) || s.City.Contains(key) || s.Region.Contains(key) || s.Address.Contains(key)).ToListAsync();
+            return await _petsDBContext.Restaurants.Where(s => s.RestaurantName.Contains(key) || s.City.Contains(key) || s.Region.Contains(key) || s.Address.Contains(key)).Where(s=>s.State==true).ToListAsync();
         }
 
         [HttpGet]
         [Route("Details/rawdata/{id}")]
         public IEnumerable<RestArticlesViewModel> DetailPage([FromRoute(Name = "id")] int id)
         {
-            return _petsDBContext.Articles.Include("Restaurant").Where(x=>x.RestaurantId == id).Select(x=>new RestArticlesViewModel
-            {
+            return _petsDBContext.Articles.Include("Restaurant")
+                .Where(x=>x.RestaurantId == id)
+                .Where(x=>x.Restaurant.State==true)
+                .Select(x=>new RestArticlesViewModel
+                {
                 RestID = x.Restaurant.RestaurantId,
                 RestName = x.Restaurant.RestaurantName,
                 RestPhone = x.Restaurant.Phone,
@@ -91,7 +95,7 @@ namespace PetsWebsite.Controllers.API
                 Title = x.Title,
                 Contents = x.Contents,
                 FromPlace = x.FromPlace
-            });
+                 });
         }
 
     }
