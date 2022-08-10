@@ -11,14 +11,14 @@
     </style>
 }
 
-    <div id="Rest">
+    <div id="Rest" v-cloak>
         <!-- Jumbotron -->
         <div class="container">
             <div class="row">
-                <div class="jumbotron bg-light">
+                <div class="jumbotron bg-light mt-2">
                     <div class="container">
-                        <h1 class="display-3"><strong>寵物友善餐廳</strong></h1>
-                        <p>
+                        <h1 class="display-4" style="font-weight: 900;text-align: center;">寵物友善餐廳</h1>
+                        <p style="font-weight: 900;text-align: -webkit-center;font-size: 1.25rem;">
                             歡迎來到寵物友善餐廳，這裡收錄了"新北市"與"臺北市"的友善餐廳，歡迎預約訂位唷!!
                         </p>
                     </div>
@@ -103,7 +103,7 @@
                 <div id="inCard" v-for="(card,index) in filterRest" v-if="isShow">
                     <div class="card h-100" id="cardContent">
                         <a :href="`RestaurantDetails/${card.restaurantId}`">
-                            <img :src="`/images/Restaurant/${card.photoPath}`" class="card-img-top">
+                            <img :src="`/images/Restaurant/${card.photoPath}`" class="cardImgTop">
                         </a>
                         <div class="card-body">
                             <h4 class="card-title" v-html="highLight(card.restaurantName)" id="cardRestName">

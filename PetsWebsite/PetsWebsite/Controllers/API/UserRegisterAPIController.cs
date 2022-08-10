@@ -5,6 +5,7 @@ using PetsWebsite.Models;
 using PetsWebsite.Models.ViewModels;
 using System.Net;
 using System.Net.Mail;
+using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
@@ -29,6 +30,18 @@ namespace PetsWebsite.Controllers.API
             var query = _PetsDB.UserLogins.Where(a => a.User.Email == users.Account).ToList();
             if (!query.Any())
             {
+                //將密碼使用 SHA256 雜湊運算(不可逆)
+                string salt = users.Account.Split("@")[0]; //使用信箱@符號前面字串當作密碼鹽
+                SHA256 sha256 = SHA256.Create();
+                byte[] bytes = Encoding.UTF8.GetBytes(salt + users.Password); //將密碼鹽及密碼組合
+                byte[] hash = sha256.ComputeHash(bytes);
+                StringBuilder result = new StringBuilder();
+                for (int i = 0; i < hash.Length; i++)
+                {
+                    result.Append(hash[i].ToString("X2"));
+                }
+                string NewPwd = result.ToString(); // 雜湊運算後密碼
+
                 UserLogin userAccount = new UserLogin
                 {
                     LoginProvider = "cookies",
@@ -40,7 +53,7 @@ namespace PetsWebsite.Controllers.API
                         FirstName = users.FirstName,
                         Email = users.Account,
                         RoleId = 1,
-                        Password = users.Password,
+                        Password = NewPwd,
                     }
                 };
                 try
@@ -61,7 +74,7 @@ namespace PetsWebsite.Controllers.API
                         sVerify = HttpUtility.UrlEncode(sVerify);
                         // 網站網址
                         string webPath = "https://pet.tgm101.club/";
-                        //string webPath = "https://localhost:62898/";
+                        //string webPath = "https://localhost:5500/";
                         // 從信件連結傳回verify給後端做處理後導頁
                         string receivePage = "Members/GetGoogleVerify";
                         // 信件內容範本
@@ -132,11 +145,23 @@ namespace PetsWebsite.Controllers.API
             {
                 try
                 {
+                    //將密碼使用 SHA256 雜湊運算(不可逆)
+                    string salt = register.Account.Split('@')[0]; //使用信箱@符號前面字串當作密碼鹽
+                    SHA256 sha256 = SHA256.Create();
+                    byte[] bytes = Encoding.UTF8.GetBytes(salt + register.Password); //將密碼鹽及密碼組合
+                    byte[] hash = sha256.ComputeHash(bytes);
+                    StringBuilder result = new StringBuilder();
+                    for (int i = 0; i < hash.Length; i++)
+                    {
+                        result.Append(hash[i].ToString("X2"));
+                    }
+                    string NewPwd = result.ToString();
+
                     CompanyAccount companyAccount = new CompanyAccount
                     {
                         Account = register.Account,
                         CompanyId = int.Parse(register.CompanyId),
-                        Password = register.Password,
+                        Password = NewPwd,
                         Company = new Company
                         {
                             CompanyId = int.Parse(register.CompanyId),

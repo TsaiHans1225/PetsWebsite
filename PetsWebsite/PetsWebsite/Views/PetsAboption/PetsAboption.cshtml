@@ -27,7 +27,7 @@
     </style>
 }
 
-    <div id="PetsAbo">
+    <div id="PetsAbo" v-cloak>
         <div class="container mt-2">
             <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);">
                 <ol class="breadcrumb">
@@ -94,7 +94,7 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-6 col-sm-4 col-md-3 mb-3" v-for="p in petDataAll">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3" v-for="p in petDataAll">
                     <div>
                         <div class="card h-100" id="cardContent">
                             <a :href="`https://asms.coa.gov.tw/Amlapp/App/AnnounceList.aspx?Id=${p.animal_id}&AcceptNum=${p.animal_subid}&PageType=Adopt`">
@@ -128,7 +128,7 @@
         <div class="container d-flex justify-content-center">
             <div class="row">
                 <div class="col">
-                    <paginate :page-count="totalPages" :click-handler="pageChange" :prev-text="'<<'" :next-text="'>>'"
+                    <paginate :page-count="totalPages" :click-handler="pageChange" :prev-text="'▲'" :next-text="'▼'"
                           :page-range="10" :container-Class="'pagination'" :page-link-class="'page-link'"
                           :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
                           :next-link-class="'page-link'" :page-class="'page-item'">

@@ -7,5 +7,6 @@
         public int? Count { get; set; }
         public decimal? Price { get; set; }
         public int ShopCarId { get; set; }
+        public short? UnitsInStock { get; set; }
     }
 }

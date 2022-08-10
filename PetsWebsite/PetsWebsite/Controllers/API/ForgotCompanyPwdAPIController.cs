@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PetsWebsite.Models;
 using System.Net;
 using System.Net.Mail;
+using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
@@ -22,12 +23,12 @@ namespace PetsWebsite.Controllers.API
         }
         [HttpGet]
         [Route("{email}")]
-        public string SendMailToken(string email)
+        public bool SendMailToken(string email)
         {
             // 檢查來源
             if (string.IsNullOrEmpty(email))
             {
-                return "請輸入郵件";
+                return false;
             }
 
             // 檢查資料庫是否有這個帳號
@@ -61,7 +62,7 @@ namespace PetsWebsite.Controllers.API
 
                 // 網站網址
                 string webPath = "https://pet.tgm101.club/";
-                //string webPath = "https://localhost:62898/";
+                //string webPath = "https://localhost:5500/";
 
                 // 從信件連結回到重設密碼頁面
                 string receivePage = "ResetPwd/ResetCmpPwdIndex";
@@ -94,11 +95,11 @@ namespace PetsWebsite.Controllers.API
                     smtpClient.Credentials = new NetworkCredential(GoogleMailUserID, GoogleMailUserPassword); // 寄信帳密
                     smtpClient.Send(mms);
                 }
-                return "請於 30 分鐘內至你的信箱點擊連結重新設定密碼，逾期將無效";
+                return true;
             }
             else
             {
-                return "查無此帳號";
+                return false;
             }
         }
 
@@ -124,7 +125,7 @@ namespace PetsWebsite.Controllers.API
             //}
             if (newPwd != null && confirmPwd != null)
             {
-                var userEmail = HttpContext.Session.GetString("ResetPwdEmail");
+                var userEmail = HttpContext.Session.GetString("ResetComPwdEmail");
                 if (userEmail == null || userEmail.Length == 0)
                 {
                     //outModel.ErrMsg = "無修改帳號";
@@ -133,21 +134,21 @@ namespace PetsWebsite.Controllers.API
                 }
                 else
                 {
-                    // 將新密碼使用 SHA256 雜湊運算(不可逆)
-                    //string salt = Session["ResetPwdUserId"].ToString().Substring(0, 1).ToLower(); //使用帳號前一碼當作密碼鹽
-                    //SHA256 sha256 = SHA256.Create();
-                    //byte[] bytes = Encoding.UTF8.GetBytes(salt + inModel.NewUserPwd); //將密碼鹽及新密碼組合
-                    //byte[] hash = sha256.ComputeHash(bytes);
-                    //StringBuilder result = new StringBuilder();
-                    //for (int i = 0; i < hash.Length; i++)
-                    //{
-                    //    result.Append(hash[i].ToString("X2"));
-                    //}
-                    //string NewPwd = result.ToString(); // 雜湊運算後密碼
+                    //將新密碼使用 SHA256 雜湊運算(不可逆)
+                    string salt = userEmail.Split("@")[0]; //使用信箱@符號前面字串當作密碼鹽
+                    SHA256 sha256 = SHA256.Create();
+                    byte[] bytes = Encoding.UTF8.GetBytes(salt + newPwd); //將密碼鹽及新密碼組合
+                    byte[] hash = sha256.ComputeHash(bytes);
+                    StringBuilder result = new StringBuilder();
+                    for (int i = 0; i < hash.Length; i++)
+                    {
+                        result.Append(hash[i].ToString("X2"));
+                    }
+                    string NewPwd = result.ToString(); // 雜湊運算後密碼
                     var query = _dbContext.CompanyAccounts.FirstOrDefault(u => u.Account == userEmail);
                     if (query != null)
                     {
-                        query.Password = newPwd;
+                        query.Password = NewPwd;
                         _dbContext.SaveChanges();
                         return "已存取新密碼";
                     }

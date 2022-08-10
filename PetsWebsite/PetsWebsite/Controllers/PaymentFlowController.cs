@@ -22,10 +22,7 @@ namespace PetsWebsite.Controllers
         public async Task<IActionResult> GetPayFlowData(OrderInfo orderInfo)
         {
             var DeleteCollect = _petsDB.ShoppingCars.Where(p => orderInfo.OrderList.Select(o => o.ProductId).ToList().Contains(p.ProductId)&&p.UserId==User.GetId()).ToList();
-            foreach (var item in DeleteCollect)
-            {
-            _petsDB.Remove(item);
-            }
+            _petsDB.RemoveRange(DeleteCollect);
             string OrderNo = $"T{User.GetId()}_{DateTime.Now.ToString("yyyyMMddHHmm")}";
             _petsDB.Orders.Add(new Order()
             {
@@ -35,9 +32,10 @@ namespace PetsWebsite.Controllers
                 Email = User.GetMail(),
                 OrderStatusNumber=0,
                 Amount=orderInfo.OrderSum,
-                PaymentWay=orderInfo.Payment
+                PaymentWay=orderInfo.Payment,
+                Address=orderInfo.Address,
+                Phone=orderInfo.Phone,
             });
-
             foreach (var item in orderInfo.OrderList)
             {
                await _petsDB.OrderDetails.AddAsync(new OrderDetail()
@@ -59,7 +57,7 @@ namespace PetsWebsite.Controllers
                 Amt = orderInfo.OrderSum,
                 ItemDesc = orderInfo.OrderDesc,
                 ExpireDate = null,
-                ReturnURL = _setting.ReturnURL,
+                ReturnURL = new StringBuilder().Append(HttpContext.Request.Scheme).Append("://").Append(HttpContext.Request.Host).ToString()+_setting.ReturnURL,
                 NotifyURL = _setting.NotifyURL,
                 CustomerURL = _setting.CustomerURL,
                 ClientBackURL = null,
@@ -102,14 +100,15 @@ namespace PetsWebsite.Controllers
             var TradeNo= decryptTradeCollection["TradeNo"]; 
             var PayTime = decryptTradeCollection["PayTime"];
             HttpContext.Session.SetString("TraderOrderNo", OrderID);
+            var MemberOrder=_petsDB.Orders.Find(OrderID);
+            MemberOrder.MerchantId = TradeNo;
             if (Status != "SUCCESS")
             {
-                return View();
+                _petsDB.SaveChanges();
+                return Redirect("/PayResult/PayFalse");
             }
-            var MemberOrder=_petsDB.Orders.Find(OrderID);
+            MemberOrder.PayDate = DateTime.Parse(PayTime);
             MemberOrder.OrderStatusNumber = 1;
-            MemberOrder.PayDate= DateTime.Parse(PayTime);
-            MemberOrder.MerchantId = TradeNo;
             _petsDB.SaveChanges();
             return Redirect("/PayResult/PayResult");
         }

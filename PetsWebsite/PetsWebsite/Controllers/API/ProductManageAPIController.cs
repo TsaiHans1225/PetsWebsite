@@ -85,7 +85,8 @@ namespace PetsWebsite.Controllers.API
                 Region = c.Region,
                 Address = c.Address,
                 Describe = c.Describe,
-                Emergency = c.Emergency == true ? "是" : "否"
+                Emergency = c.Emergency == true ? "是" : "否",
+                State = (bool)c.State
             }).ToList();
         }
         //新增診所

@@ -10,8 +10,9 @@
         border-radius: 9px;
         overflow: hidden
     }
-    .table:hover{
-        background-color:#e5e5e5
+
+    .table:hover {
+        background-color: #e5e5e5
     }
 
     thead th:first-child {
@@ -38,7 +39,7 @@
             <table class="table table-hover table-responsive">
                 <thead>
                     <tr class="table bg-primary" align="center">
-                        <th scope="col"></th>
+                        <th scope="col"><input id="AllPickUp" type="checkbox" />全選</th>
                         <th scope="col">圖片</th>
                         <th scope="col">名稱</th>
                         <th scope="col">價格</th>
@@ -55,17 +56,17 @@
                         <td class="align-middle">
                             <div class="input-group container justify-content-center">
                                 <a class="" type="button" style="width:32px;" v-on:click="ReductCount(item)">
-                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16"><path d="M400 288h-352c-17.69 0-32-14.32-32-32.01s14.31-31.99 32-31.99h352c17.69 0 32 14.3 32 31.99S417.7 288 400 288z"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16"><path d="M400 288h-352c-17.69 0-32-14.32-32-32.01s14.31-31.99 32-31.99h352c17.69 0 32 14.3 32 31.99S417.7 288 400 288z" /></svg>
                                 </a>
                                 <input type="text" style="width: 40px; font-size: 5px; text-align: center;" :value="item.count" v-on:change="PurchaseCount($event,index)">
-                                <a class=""  type="button" style="width:32px;" v-on:click="AddCount(item)">
-                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16"><path d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z"/></svg>
+                                <a class="" type="button" style="width:32px;" v-on:click="AddCount(item)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16"><path d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z" /></svg>
                                 </a>
                             </div>
                         </td>
                         <td class="align-middle">
                             <button style="font-size: 15px;" class=" border-0 rounded-0 btn" type="submit" :value="item.shopCarId" v-on:click="DeleteShopCarProduct(item)">
-                                <svg class="rounded-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16"><path d="M135.2 17.69C140.6 6.848 151.7 0 163.8 0H284.2C296.3 0 307.4 6.848 312.8 17.69L320 32H416C433.7 32 448 46.33 448 64C448 81.67 433.7 96 416 96H32C14.33 96 0 81.67 0 64C0 46.33 14.33 32 32 32H128L135.2 17.69zM31.1 128H416V448C416 483.3 387.3 512 352 512H95.1C60.65 512 31.1 483.3 31.1 448V128zM111.1 208V432C111.1 440.8 119.2 448 127.1 448C136.8 448 143.1 440.8 143.1 432V208C143.1 199.2 136.8 192 127.1 192C119.2 192 111.1 199.2 111.1 208zM207.1 208V432C207.1 440.8 215.2 448 223.1 448C232.8 448 240 440.8 240 432V208C240 199.2 232.8 192 223.1 192C215.2 192 207.1 199.2 207.1 208zM304 208V432C304 440.8 311.2 448 320 448C328.8 448 336 440.8 336 432V208C336 199.2 328.8 192 320 192C311.2 192 304 199.2 304 208z"/></svg>
+                                <svg class="rounded-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16"><path d="M135.2 17.69C140.6 6.848 151.7 0 163.8 0H284.2C296.3 0 307.4 6.848 312.8 17.69L320 32H416C433.7 32 448 46.33 448 64C448 81.67 433.7 96 416 96H32C14.33 96 0 81.67 0 64C0 46.33 14.33 32 32 32H128L135.2 17.69zM31.1 128H416V448C416 483.3 387.3 512 352 512H95.1C60.65 512 31.1 483.3 31.1 448V128zM111.1 208V432C111.1 440.8 119.2 448 127.1 448C136.8 448 143.1 440.8 143.1 432V208C143.1 199.2 136.8 192 127.1 192C119.2 192 111.1 199.2 111.1 208zM207.1 208V432C207.1 440.8 215.2 448 223.1 448C232.8 448 240 440.8 240 432V208C240 199.2 232.8 192 223.1 192C215.2 192 207.1 199.2 207.1 208zM304 208V432C304 440.8 311.2 448 320 448C328.8 448 336 440.8 336 432V208C336 199.2 328.8 192 320 192C311.2 192 304 199.2 304 208z" /></svg>
                             </button>
                         </td>
                     </tr>
@@ -124,6 +125,11 @@
                 },
                 AddCount: function(item) {
                     item.count += 1;
+                    if (item.count > item.unitsInStock) {
+                        item.count--;
+                        OverStockWarn();
+                        return;
+                    }
                     var NewCount = {
                         ProductId: item.shopCarId,
                         Count: item.count
@@ -148,10 +154,13 @@
                     if (PurCount < 1) {
                         PurCount = 1;
                     } else if (isNaN(PurCount)) {
-                        PurCount = this.DShopCarList[index].count;
-                    } else {
-                        this.DShopCarList[index].count = PurCount;
+                        e.target.value = this.DShopCarList[index].count;
+                        return;
+                    } else if(PurCount > this.DShopCarList[index].unitsInStock){
+                        PurCount = this.DShopCarList[index].unitsInStock;
+                        OverStockWarn();
                     }
+                    this.DShopCarList[index].count = PurCount;
                     var NewCount = {
                         ProductId: this.DShopCarList[index].shopCarId,
                         Count: PurCount
@@ -159,7 +168,7 @@
                     this.SaveShopCarCount(NewCount);
                 },
                 CalculateSum: function() {
-                    var CheckProducts = $("input:checkbox:checked");
+                    var CheckProducts = $("input:checkbox[id!=AllPickUp]:checked");
                     var Sum = 0;
                     for (let i = 0; i < CheckProducts.length; i++) {
                         var index = CheckProducts[i].value;
@@ -191,9 +200,38 @@
                 this.ReloadShopCarData();
             },
         })
+        function OverStockWarn() {
+            swal({
+                title: '商品庫存量不足',
+                type: 'warning',
+                closeOnClickOutside: false,
+                icon: "warning",
+                button: false,
+                timer: 1000
+            })
+        };
 
+        $("#AllPickUp").click(function() {
+            if (this.checked) {
+                $("input:checkbox").prop("checked", "true");
+            } else {
+                $("input:checkbox").prop("checked", "");
+            }
+
+        })
         function CheckoutCommodity() {
-            var CheckProducts = $("input:checkbox:checked");
+            var CheckProducts = $("input:checkbox[id!=AllPickUp]:checked");
+            if (CheckProducts.length == 0) {
+                swal({
+                    title: '請選擇商品',
+                    type: 'warning',
+                    closeOnClickOutside: false,
+                    icon: "warning",
+                    button: false,
+                    timer: 1000
+                })
+                return;
+            }
             var PurchaseProduct = [];
             for (let i = 0; i < CheckProducts.length; i++) {
                 var index = parseInt(CheckProducts[i].value);
