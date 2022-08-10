@@ -125,6 +125,11 @@
                 },
                 AddCount: function(item) {
                     item.count += 1;
+                    if (item.count > item.unitsInStock) {
+                        item.count--;
+                        OverStockWarn();
+                        return;
+                    }
                     var NewCount = {
                         ProductId: item.shopCarId,
                         Count: item.count
@@ -149,10 +154,13 @@
                     if (PurCount < 1) {
                         PurCount = 1;
                     } else if (isNaN(PurCount)) {
-                        PurCount = this.DShopCarList[index].count;
-                    } else {
-                        this.DShopCarList[index].count = PurCount;
+                        e.target.value = this.DShopCarList[index].count;
+                        return;
+                    } else if(PurCount > this.DShopCarList[index].unitsInStock){
+                        PurCount = this.DShopCarList[index].unitsInStock;
+                        OverStockWarn();
                     }
+                    this.DShopCarList[index].count = PurCount;
                     var NewCount = {
                         ProductId: this.DShopCarList[index].shopCarId,
                         Count: PurCount
@@ -192,11 +200,22 @@
                 this.ReloadShopCarData();
             },
         })
+        function OverStockWarn() {
+            swal({
+                title: '商品庫存量不足',
+                type: 'warning',
+                closeOnClickOutside: false,
+                icon: "warning",
+                button: false,
+                timer: 1000
+            })
+        };
+
         $("#AllPickUp").click(function() {
             if (this.checked) {
                 $("input:checkbox").prop("checked", "true");
             } else {
-                 $("input:checkbox").prop("checked", "");
+                $("input:checkbox").prop("checked", "");
             }
 
         })

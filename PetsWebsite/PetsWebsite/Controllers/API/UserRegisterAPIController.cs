@@ -112,7 +112,7 @@ namespace PetsWebsite.Controllers.API
                 }
                 return true;
             }
-            else if (query.FirstOrDefault(o => o.LoginProvider != "cookies"? o.LoginProvider == "cookies" : false ) == null)
+            else if (query.FirstOrDefault(o => o.LoginProvider != "cookies" ? o.LoginProvider == "cookies" : false ) == null && query.FirstOrDefault(o => o.LoginProvider == "cookies") == null)
             {
                 var UserInfo = _PetsDB.Users.FirstOrDefault(u => u.Email == users.Account);
                 UserInfo.Password = users.Password;

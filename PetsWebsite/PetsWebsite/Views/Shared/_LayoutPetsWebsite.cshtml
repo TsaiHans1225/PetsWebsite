@@ -28,8 +28,8 @@
     @await RenderSectionAsync("Styles", required: false)
     <style>
         body {
-                overflow-y: scroll;
-                overflow-x: hidden;
+            overflow-y: scroll;
+            overflow-x: hidden;
         }
     </style>
 </head>
@@ -78,91 +78,91 @@
                     @{
                         if (!User.Identity.IsAuthenticated)
                         {
-                                    <div class="dropdown">
-                                        <button class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            登入
-                                        </button>
-                                        <div style="position: relative; right: 80%">
-                                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                                <li>
-                                                    <a class="dropdown-item" data-bs-toggle="modal"
-                                                   data-bs-target="#modalUserSignin" href="#">使用者</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" data-bs-toggle="modal"
-                                                   data-bs-target="#modalOwnerSignin" href="#">廠商</a>
-                                                </li>
-                                            </ul>
+                                        <div class="dropdown">
+                                            <button class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                登入
+                                            </button>
+                                            <div style="position: relative; right: 80%">
+                                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                                    <li>
+                                                        <a class="dropdown-item" data-bs-toggle="modal"
+                                                       data-bs-target="#modalUserSignin" href="#">使用者</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" data-bs-toggle="modal"
+                                                       data-bs-target="#modalOwnerSignin" href="#">廠商</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                    </div>
                         }
                         else
                         {
                             if (User.Claims.FirstOrDefault(X => X.Type == ClaimTypes.Role)?.Value != "Company")
                             {
-                                        <a class="text-dark text-decoration-none" type="button"
-                                   data-bs-toggle="offcanvas" data-bs-target="#shoppingCart" aria-controls="shoppingCart">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                         class="bi bi-cart" viewBox="0 0 16 16">
-                                                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                                            </svg>
-                                            購物車
-                                        </a>
+                                            <a class="text-dark text-decoration-none" type="button"
+                                       data-bs-toggle="offcanvas" data-bs-target="#shoppingCart" aria-controls="shoppingCart">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                             class="bi bi-cart" viewBox="0 0 16 16">
+                                                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                                                </svg>
+                                                購物車
+                                            </a>
                                 if (User.Claims.FirstOrDefault(X => X.Type == ClaimTypes.Role)?.Value != "Admin")
                                 {
 
-                                            <div class="dropdown">
-                                                <a type="button" class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
-                                       data-bs-toggle="dropdown" aria-expanded="false">
-                                                    會員資訊
-                                                </a>
-                                                <div style="position: relative; right: -5%">
-                                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                                        <li><a class="dropdown-item" asp-controller="UserDetails" asp-action="Index">會員資料</a></li>
-                                                        <li><a class="dropdown-item" asp-controller="UserCollection" asp-action="Index">我的最愛</a></li>
-                                                        <li><a class="dropdown-item" asp-controller="MemberOrderHistories" asp-action="MemberOrderHistory">歷史訂單</a></li>
-                                                        <li>
-                                                            <hr class="dropdown-divider">
-                                                        </li>
-                                                        <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
-                                                    </ul>
+                                                <div class="dropdown">
+                                                    <a type="button" class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                                           data-bs-toggle="dropdown" aria-expanded="false">
+                                                        會員資訊
+                                                    </a>
+                                                    <div style="position: relative; right: -5%">
+                                                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                                            <li><a class="dropdown-item" asp-controller="UserDetails" asp-action="Index">會員資料</a></li>
+                                                            <li><a class="dropdown-item" asp-controller="UserCollection" asp-action="Index">我的最愛</a></li>
+                                                            <li><a class="dropdown-item" asp-controller="MemberOrderHistories" asp-action="MemberOrderHistory">歷史訂單</a></li>
+                                                            <li>
+                                                                <hr class="dropdown-divider">
+                                                            </li>
+                                                            <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                            </div>
                                 }
                                 else
                                 {
-                                            <div class="dropdown">
-                                                <a type="button" class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
-                                       data-bs-toggle="dropdown" aria-expanded="false">
-                                                    管理者資訊
-                                                </a>
-                                                <div style="position: relative; right: -5%">
-                                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="AuditPage">審核商品</a></li>
-                                                        <li>
-                                                            <hr class="dropdown-divider">
-                                                        </li>
-                                                        <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
-                                                    </ul>
+                                                <div class="dropdown">
+                                                    <a type="button" class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2"
+                                           data-bs-toggle="dropdown" aria-expanded="false">
+                                                        管理者資訊
+                                                    </a>
+                                                    <div style="position: relative; right: -5%">
+                                                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                                            <li><a class="dropdown-item" asp-controller="Admin" asp-action="AuditPage">審核商品</a></li>
+                                                            <li>
+                                                                <hr class="dropdown-divider">
+                                                            </li>
+                                                            <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                            </div>
                                 }
                             }
                             else
                             {
-                                        <div class="dropdown">
-                                            <a type="button" class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                                廠商資訊
-                                            </a>
-                                            <div style="position: relative; right: -5%">
-                                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                                    <li><a class="dropdown-item" asp-controller="Owner" asp-action="Index">管理商品</a></li>
-                                                    <li> <hr class="dropdown-divider"></li>
-                                                    <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
-                                                </ul>
+                                            <div class="dropdown">
+                                                <a type="button" class="btn btnPrimary mx-3 dropdown-toggle" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    廠商資訊
+                                                </a>
+                                                <div style="position: relative; right: -5%">
+                                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                                        <li><a class="dropdown-item" asp-controller="Owner" asp-action="Index">管理商品</a></li>
+                                                        <li> <hr class="dropdown-divider"></li>
+                                                        <li><a class="dropdown-item" href="/Members/Logout">登出</a></li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </div>
                             }
                         }
                     }
@@ -521,11 +521,11 @@
                         <div class="col-3">
                             <div class="input-group container justify-content-center">
                                 <a class="btn border-0  p-0" type="button" style="width:32px;" v-on:click="ReductCount(item)">
-                                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16"><path d="M400 288h-352c-17.69 0-32-14.32-32-32.01s14.31-31.99 32-31.99h352c17.69 0 32 14.3 32 31.99S417.7 288 400 288z"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16"><path d="M400 288h-352c-17.69 0-32-14.32-32-32.01s14.31-31.99 32-31.99h352c17.69 0 32 14.3 32 31.99S417.7 288 400 288z" /></svg>
                                 </a>
                                 <input type="text" style="width: 40px; font-size: 5px; text-align: center;" :value="item.count" v-on:change="ChangeCount($event,index)">
                                 <a class="btn border-0 p-0" type="button" style="width:32px;" v-on:click="AddCount(item)">
-                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16"><path d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16"><path d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z" /></svg>
                                 </a>
                             </div>
                         </div>
@@ -591,6 +591,17 @@
             timer: 1000
         })
     };
+    function ErrorMailRegister() {
+        swal({
+            title: '註冊失敗',
+            text: '帳號格式不正確',
+            type: 'error',
+            closeOnClickOutside: false,
+            icon: "error",
+            button: false,
+            timer: 1000
+        })
+    };
     function SuccessLogin() {
         swal({
             title: '登入成功',
@@ -629,6 +640,12 @@
             MemRegisterHandle: function() {
                 if (this.Account.length == 0 || this.Password.length == 0) {
                     ErrorRegister();
+                    return;
+                }
+                var emailRule = /^\w+((-\w+)|(\.\w+))*\@@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+                console.log(this.Account.search(emailRule));
+                if (this.Account.search(emailRule) == -1) {
+                    ErrorMailRegister();
                     return;
                 }
                 var MemRegistdata = {
@@ -692,7 +709,7 @@
         }
     }).$mount("#modalUserSignin");
     @*廠商註冊*@
-                                                            var ComRst = new Vue({
+                                                                    var ComRst = new Vue({
         data: {
             CompanyId: '',
             CompanyName: '',
@@ -897,6 +914,11 @@
                 },
                 AddCount: function(item) {
                     item.count += 1;
+                    if (item.count > item.unitsInStock) {
+                        item.count--;
+                        OverStockWarn();
+                        return;
+                    }
                     this.NewCount = {
                         ProductId: item.shopCarId,
                         Count: item.count
@@ -914,16 +936,22 @@
                     this.SaveShopCarCount();
                 },
                 ChangeCount: function(e, index) {
-                    if (parseInt(e.target.value) > 1) {
-                        this.ShopCarList[index].count = parseInt(e.target.value);
-                    } else {
-                        this.ShopCarList[index].count = 1;
+                    var PurCount = e.target.value;
+                    if (PurCount < 1) {
+                        PurCount = 1;
+                    } else if (isNaN(PurCount)) {
+                        e.target.value = this.ShopCarList[index].count;
+                        return;
+                    } else if (PurCount > this.ShopCarList[index].unitsInStock) {
+                        PurCount = this.ShopCarList[index].unitsInStock;
+                        OverStockWarn();
                     }
                     this.NewCount = {
                         ProductId: this.ShopCarList[index].shopCarId,
-                        Count: this.ShopCarList[index].count
+                        Count: PurCount
                     };
                     this.SaveShopCarCount();
+                    this.reLoadData();
                 },
                 SaveShopCarCount: function() {
                     var self = this;
@@ -945,6 +973,16 @@
             }
         })
     }
+    function OverStockWarn() {
+        swal({
+            title: '商品庫存量不足',
+            type: 'warning',
+            closeOnClickOutside: false,
+            icon: "warning",
+            button: false,
+            timer: 1000
+        })
+    };
 </script>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
