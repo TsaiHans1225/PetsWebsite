@@ -61,7 +61,7 @@ namespace PetsWebsite.Controllers.API
             if (center == null) return Enumerable.Empty<RestaurantViewModel>();
             if (!center.Longitude.HasValue && !center.Latitude.HasValue) return Enumerable.Empty<RestaurantViewModel>();
             var coord = new GeoCoordinate(center.Latitude.Value, center.Longitude.Value);
-            var allRestaurants = _PetsDB.Restaurants.Where(x => x.Latitude != null && x.Longitude != null).ToList();
+            var allRestaurants = _PetsDB.Restaurants.Where(x => x.Latitude != null && x.Longitude != null).Where(x=>x.State==true).ToList();
             var temp = allRestaurants.Select(x => new RestaurantViewModel
             {
                 PhotoPath = x.PhotoPath,
