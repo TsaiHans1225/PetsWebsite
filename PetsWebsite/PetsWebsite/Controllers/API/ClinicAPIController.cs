@@ -20,12 +20,12 @@ namespace PetsWebsite.Controllers.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Clinic>>> GetAll()
         {
-            var ClinicList = _PetsDB.Clinics.ToList();
+            
             if (_PetsDB.Clinics == null)
             {
                 return NotFound();
             }
-            return await _PetsDB.Clinics.ToListAsync();
+            return await _PetsDB.Clinics.Where(c=>c.State==true).ToListAsync();
         }
         [HttpGet]
         [Route("{City}/{Region?}")]
@@ -33,7 +33,7 @@ namespace PetsWebsite.Controllers.API
         {
             if (Region == null)
             {
-                return await _PetsDB.Clinics.Where(c => c.City == City).ToListAsync();
+                return await _PetsDB.Clinics.Where(c => c.City == City).Where(c=>c.State==true).ToListAsync();
             }
             else
             {
@@ -44,7 +44,7 @@ namespace PetsWebsite.Controllers.API
         [Route("{id}")]
         public async Task<ActionResult<IEnumerable<Clinic>>> GetInfo([FromRoute(Name = "id")] int Id)
         {
-            return await _PetsDB.Clinics.Where(i => i.ClinicId == Id).ToListAsync();
+            return await _PetsDB.Clinics.Where(i => i.ClinicId == Id && i.State==true).ToListAsync();
         }
         [HttpGet]
         public IEnumerable<Product> GetProductInfo()
@@ -83,7 +83,7 @@ namespace PetsWebsite.Controllers.API
         [Route("{Key}")]
         public async Task<ActionResult<IEnumerable<Clinic>>> Searchstr([FromRoute(Name ="Key")] string Key)
         {
-            return await _PetsDB.Clinics.Where(c => c.ClinicName.Contains(Key) || c.Region.Contains(Key) || c.City.Contains(Key)||c.Address.Contains(Key)  || c.Service.Contains(Key)).ToListAsync();
+            return await _PetsDB.Clinics.Where(c => c.ClinicName.Contains(Key) || c.Region.Contains(Key) || c.City.Contains(Key)||c.Address.Contains(Key)  || c.Service.Contains(Key)).Where(c=>c.State==true).ToListAsync();
         }
     }
 }
