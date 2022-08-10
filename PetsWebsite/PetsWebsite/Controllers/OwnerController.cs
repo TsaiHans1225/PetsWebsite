@@ -134,7 +134,7 @@ namespace PetsWebsite.Controllers
             // 儲存資料
             query.ProductName = editedProduct.ProductName.Trim();
             query.UnitPrice = editedProduct.UnitPrice;
-            query.Describe = editedProduct.Describe.Trim();
+            query.Describe = editedProduct.Describe?.Trim();
             query.LaunchDate = DateTime.Now;
             try
             {
@@ -177,10 +177,10 @@ namespace PetsWebsite.Controllers
             newRestaurant.CompanyId = User.GetId();
             newRestaurant.RestaurantName = newRestaurant.RestaurantName.Trim();
             newRestaurant.Address = newRestaurant.Address.Trim();
-            newRestaurant.Introduction = newRestaurant.Introduction.Trim();
+            newRestaurant.Introduction = newRestaurant.Introduction?.Trim();
             newRestaurant.Reserve = newRestaurant.Reserve?.Trim();
-            newRestaurant.BusyTime = newRestaurant.BusyTime.Trim();
-            newRestaurant.Phone = newRestaurant.Phone.Trim();
+            newRestaurant.BusyTime = newRestaurant.BusyTime?.Trim();
+            newRestaurant.Phone = newRestaurant.Phone?.Trim();
             newRestaurant.State = false;
 
             //GoogleMapService googleMapService = new GoogleMapService();
@@ -254,13 +254,13 @@ namespace PetsWebsite.Controllers
             var result = _googleMapService.GetLatLngByAddr($"{editedRestaurant.City}{editedRestaurant.Region}{editedRestaurant.Address}");
 
             query.RestaurantName = editedRestaurant.RestaurantName.Trim();
-            query.Phone = editedRestaurant.Phone.Trim();
+            query.Phone = editedRestaurant.Phone?.Trim();
             query.City = editedRestaurant.City;
             query.Region = editedRestaurant.Region;
             query.Address = editedRestaurant.Address.Trim();
-            query.Reserve = editedRestaurant.Reserve.Trim();
-            query.BusyTime = editedRestaurant.BusyTime.Trim();
-            query.Introduction = editedRestaurant.Introduction.Trim();
+            query.Reserve = editedRestaurant.Reserve?.Trim();
+            query.BusyTime = editedRestaurant.BusyTime?.Trim();
+            query.Introduction = editedRestaurant.Introduction?.Trim();
             query.Latitude = Convert.ToDouble(result.lat);
             query.Longitude = Convert.ToDouble(result.lng);
             await _dBContext.SaveChangesAsync();
@@ -272,9 +272,11 @@ namespace PetsWebsite.Controllers
         public bool DeleteRestaurant(int RestaurantId)
         {
             var query = _dBContext.Restaurants.First(r => r.RestaurantId == RestaurantId);
+            var arti = _dBContext.Articles.Where(a => a.RestaurantId == RestaurantId).Select(a => a).ToList();
             try
             {
                 var OldPhoto = query.PhotoPath;
+                _dBContext.RemoveRange(arti);
                 _dBContext.Remove(query);
                 _dBContext.SaveChanges();
                 if (!string.IsNullOrEmpty(OldPhoto))
