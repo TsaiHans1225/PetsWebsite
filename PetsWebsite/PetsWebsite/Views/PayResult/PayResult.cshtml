@@ -78,8 +78,11 @@
                             <div style="font-weight: 900;">
                                 支付方式
                             </div>
-                            <span class="fw-bold">
+                            <span class="fw-bold" v-if="OrderInfo.paymentWay=='CREDIT'">
                                 信用卡一次付清(信用卡)
+                            </span>
+                            <span class="fw-bold" v-if="OrderInfo.paymentWay=='WEBATM'">
+                                WebATM
                             </span>
                         </div>
                         <div class="d-flex justify-content-between mt-3">
@@ -133,7 +136,9 @@
                         </div>
                     </div>
                 </div>
+                <div class=" d-flex justify-content-center">
                 <a class="btn btn-primary  btn-lg mt-3" href="/Home/Index" role="button">返回首頁</a>
+                </div>
             </div>
         </div>
     </div>

@@ -13,7 +13,7 @@ namespace PetsWebsite.Controllers
     {
         private readonly PetsDBContext _petsDB;
         private readonly Setting _setting;
-        public PaymentFlowController(PetsDBContext petsDB,Setting setting)
+        public PaymentFlowController(PetsDBContext petsDB, Setting setting)
         {
             _petsDB = petsDB;
             _setting = setting;
@@ -21,7 +21,7 @@ namespace PetsWebsite.Controllers
         [HttpPost]
         public async Task<IActionResult> GetPayFlowData(OrderInfo orderInfo)
         {
-            var DeleteCollect = _petsDB.ShoppingCars.Where(p => orderInfo.OrderList.Select(o => o.ProductId).ToList().Contains(p.ProductId)&&p.UserId==User.GetId()).ToList();
+            var DeleteCollect = _petsDB.ShoppingCars.Where(p => orderInfo.OrderList.Select(o => o.ProductId).ToList().Contains(p.ProductId) && p.UserId == User.GetId()).ToList();
             _petsDB.RemoveRange(DeleteCollect);
             string OrderNo = $"T{User.GetId()}_{DateTime.Now.ToString("yyyyMMddHHmm")}";
             _petsDB.Orders.Add(new Order()
@@ -30,15 +30,15 @@ namespace PetsWebsite.Controllers
                 UserId = User.GetId(),
                 OrderDate = DateTime.Now,
                 Email = User.GetMail(),
-                OrderStatusNumber=0,
-                Amount=orderInfo.OrderSum,
-                PaymentWay=orderInfo.Payment,
-                Address=orderInfo.Address,
-                Phone=orderInfo.Phone,
+                OrderStatusNumber = 0,
+                Amount = orderInfo.OrderSum,
+                PaymentWay = orderInfo.Payment,
+                Address = orderInfo.Address,
+                Phone = orderInfo.Phone,
             });
             foreach (var item in orderInfo.OrderList)
             {
-               await _petsDB.OrderDetails.AddAsync(new OrderDetail()
+                await _petsDB.OrderDetails.AddAsync(new OrderDetail()
                 {
                     OrderId = OrderNo,
                     ProductId = item.ProductId,
@@ -46,7 +46,14 @@ namespace PetsWebsite.Controllers
                     Counts = item.Count,
                 });
             }
-            _petsDB.SaveChanges();
+            try
+            {
+                _petsDB.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+            }
             TradeInfo tradeInfo = new TradeInfo()
             {
                 MerchantID = _setting.MerchantID,
@@ -57,7 +64,7 @@ namespace PetsWebsite.Controllers
                 Amt = orderInfo.OrderSum,
                 ItemDesc = orderInfo.OrderDesc,
                 ExpireDate = null,
-                ReturnURL = new StringBuilder().Append(HttpContext.Request.Scheme).Append("://").Append(HttpContext.Request.Host).ToString()+_setting.ReturnURL,
+                ReturnURL = new StringBuilder().Append(HttpContext.Request.Scheme).Append("://").Append(HttpContext.Request.Host).ToString() + _setting.ReturnURL,
                 NotifyURL = _setting.NotifyURL,
                 CustomerURL = _setting.CustomerURL,
                 ClientBackURL = null,
@@ -74,18 +81,19 @@ namespace PetsWebsite.Controllers
                     break;
                 default:
                     break;
-            }           
+            }
             var tradeQueryPara = string.Join("&", tradeInfo.ToKvpList<TradeInfo>().Select(x => $"{x.Key}={x.Value}"));
             // AES 加密
-            var TradeInfo = CryptoUtil.EncryptAESHex(tradeQueryPara,_setting.HashKey , _setting.HashIV);
+            var TradeInfo = CryptoUtil.EncryptAESHex(tradeQueryPara, _setting.HashKey, _setting.HashIV);
             // SHA256 加密
             var TradeSha = CryptoUtil.EncryptSHA256($"HashKey={_setting.HashKey}&{TradeInfo}&HashIV={_setting.HashIV}");
-            NewebPayModel NewebPayData = new NewebPayModel() {
+            NewebPayModel NewebPayData = new NewebPayModel()
+            {
                 MerchantID = _setting.MerchantID,
                 TradeInfo = TradeInfo,
                 TradeSha = TradeSha,
                 Version = _setting.Version
-            };         
+            };
             // 將model 轉換為List<KeyValuePair<string, string>>, null值不轉
             return Json(NewebPayData);
         }
@@ -97,10 +105,10 @@ namespace PetsWebsite.Controllers
             var Status = decryptTradeCollection["Status"];
             var Amt = decryptTradeCollection["Amt"];
             var OrderID = decryptTradeCollection["MerchantOrderNo"];
-            var TradeNo= decryptTradeCollection["TradeNo"]; 
+            var TradeNo = decryptTradeCollection["TradeNo"];
             var PayTime = decryptTradeCollection["PayTime"];
             HttpContext.Session.SetString("TraderOrderNo", OrderID);
-            var MemberOrder=_petsDB.Orders.Find(OrderID);
+            var MemberOrder = _petsDB.Orders.Find(OrderID);
             MemberOrder.MerchantId = TradeNo;
             if (Status != "SUCCESS")
             {
