@@ -37,7 +37,7 @@ namespace PetsWebsite.Controllers.API
             }
             else
             {
-                return await _PetsDB.Clinics.Where(c => c.City == City && c.Region == Region).ToListAsync();
+                return await _PetsDB.Clinics.Where(c => c.City == City && c.Region == Region).Where(c => c.State == true).ToListAsync();
             }
         }
         [HttpGet]
