@@ -35,7 +35,7 @@
 
 
 
-<div class="containers " id="Clinic">
+<div class="containers " id="Clinic" v-cloak>
    
     <!--jumbotron-->
     <div class="container mt-2">
@@ -213,6 +213,7 @@
                 },
                 pageChange: function(currentPage) {
                     this.currentPage = currentPage;
+                    document.documentElement.scrollTop = 0;
                 },
                 Searchresult: function() {
                     let self = this;
