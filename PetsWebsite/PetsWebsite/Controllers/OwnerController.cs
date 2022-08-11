@@ -38,7 +38,7 @@ namespace PetsWebsite.Controllers
         }
 
         // 新增商品
-        public IActionResult NewProduct(ProductViewModel newProduct)
+        public bool NewProduct(ProductViewModel newProduct)
         {
             // 整理資料
             Product product = new Product();
@@ -74,7 +74,7 @@ namespace PetsWebsite.Controllers
             }
             _dBContext.Products.AddAsync(product);
             _dBContext.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return true;
         }
 
         // 帶資料跳轉修改商品頁面
@@ -170,7 +170,7 @@ namespace PetsWebsite.Controllers
             return true;
         }
 
-        public async Task<IActionResult> NewRestaurant(Restaurant newRestaurant)
+        public async Task<bool> NewRestaurant(Restaurant newRestaurant)
         {
             // 整理資料
             //newRestaurant.CategoryId = 2;
@@ -208,7 +208,7 @@ namespace PetsWebsite.Controllers
             }
             _dBContext.Restaurants.Add(newRestaurant);
             _dBContext.SaveChanges();
-            return RedirectToAction("Index");
+            return true;
         }
 
         [Route("Owner/EditRestaurant/{RestaurantId}")]

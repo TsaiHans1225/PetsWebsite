@@ -18,7 +18,7 @@
         </div>
     </div>
     <div class="contanier">
-        <form id="productForm" action="@Url.Action("NewProduct","Owner")" method="post" enctype="multipart/form-data">
+        <form id="productForm">
             <div class="row mt-4 justify-content-center">
                 <div class="col col-6">
                     <div class="row g-3 bg-light rounded mb-3">
@@ -89,18 +89,53 @@
     </div>
 </section>
 
-<script>
 
-    //預覽上傳圖片
-    function previewPic(e) {
-        maxSize_2MB = 1 * 1024 * 1024;
+@section Scripts{
+    <script>
+        $('#productForm').submit(function(e) {
+            e.preventDefault();
+            var formdata = new FormData(this);
+            console.log(e);
+            $.ajax({
+                url: "/Owner/NewProduct",
+                type: "POST",
+                data: formdata,
+                async: false,
+                cache: false,
+                contentType: false,
+                enctype: "multipart/form-data",
+                process: false,
+                processData: false
+            })
+                .done(function(resp) {
+                    console.log("resp", resp)
+                    if (resp) {
+                        swal({
+                            title: '新增成功',
+                            type: 'success',
+                            closeOnClickOutside: false,
+                            icon: "success",
+                            timer: 1000,
+                            button: false,
+                        }).then(() => { window.location.href = "/Owner/Index"; });
+                    }
+                })
+                .fail(function(err) {
+                    console.log("err", err);
+                    CreateFalse();
+                })
+        })
+        //預覽上傳圖片
+        function previewPic(e) {
+            maxSize_2MB = 1 * 1024 * 1024;
 
-        if (e.files[0].size > maxSize_2MB) {
-            alert('圖片大小超過2MB！無法上傳');
-            e.value = "";
+            if (e.files[0].size > maxSize_2MB) {
+                alert('圖片大小超過2MB！無法上傳');
+                e.value = "";
+            }
+            else {
+                pic.src = URL.createObjectURL(e.files[0]) // 讀取圖檔
+            }
         }
-        else {
-            pic.src = URL.createObjectURL(e.files[0]) // 讀取圖檔
-        }
-    }
-</script>
+    </script>
+}
