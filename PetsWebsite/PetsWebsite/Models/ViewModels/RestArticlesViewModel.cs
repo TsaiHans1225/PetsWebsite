@@ -12,8 +12,8 @@
         public string RestAddress { get; set; }
         public string RestTime { get; set; }
         public string RestReserve { get; set; }
-        public string Title { get; set; }
-        public string Contents { get; set; }
-        public string FromPlace { get; set; }
+        public string? Title { get; set; }
+        public string? Contents { get; set; }
+        public string? FromPlace { get; set; }
     }
 }

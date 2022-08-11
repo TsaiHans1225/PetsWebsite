@@ -77,13 +77,12 @@ namespace PetsWebsite.Controllers.API
         [Route("Details/rawdata/{id}")]
         public IEnumerable<RestArticlesViewModel> DetailPage([FromRoute(Name = "id")] int id)
         {
-            if(_petsDBContext.Articles.Where(x=>x.ArticleId.ToString() == null) != null)
+            if(_petsDBContext.Articles.Where(x=>x.RestaurantId == id).Count() == 0)
             {
                 return _petsDBContext.Restaurants
                     .Where(x => x.RestaurantId == id)
                     .Where(x => x.State == true)
-                    .Select(x => new RestArticlesViewModel
-                    {
+                    .Select(x => new RestArticlesViewModel {
                         RestID = x.RestaurantId,
                         RestName = x.RestaurantName,
                         RestPhone = x.Phone,
