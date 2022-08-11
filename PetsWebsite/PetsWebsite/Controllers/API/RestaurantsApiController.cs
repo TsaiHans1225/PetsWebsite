@@ -77,25 +77,44 @@ namespace PetsWebsite.Controllers.API
         [Route("Details/rawdata/{id}")]
         public IEnumerable<RestArticlesViewModel> DetailPage([FromRoute(Name = "id")] int id)
         {
+            if(_petsDBContext.Articles.Where(x=>x.ArticleId.ToString() == null) != null)
+            {
+                return _petsDBContext.Restaurants
+                    .Where(x => x.RestaurantId == id)
+                    .Where(x => x.State == true)
+                    .Select(x => new RestArticlesViewModel
+                    {
+                        RestID = x.RestaurantId,
+                        RestName = x.RestaurantName,
+                        RestPhone = x.Phone,
+                        RestPhotoPath = x.PhotoPath,
+                        RestIntroduction = x.Introduction,
+                        RestCity = x.City,
+                        RestRegion = x.Region,
+                        RestAddress = x.Address,
+                        RestTime = x.BusyTime,
+                        RestReserve = x.Reserve,
+                    });
+            }
             return _petsDBContext.Articles.Include("Restaurant")
                 .Where(x=>x.RestaurantId == id)
                 .Where(x=>x.Restaurant.State==true)
                 .Select(x=>new RestArticlesViewModel
                 {
-                RestID = x.Restaurant.RestaurantId,
-                RestName = x.Restaurant.RestaurantName,
-                RestPhone = x.Restaurant.Phone,
-                RestPhotoPath = x.Restaurant.PhotoPath,
-                RestIntroduction = x.Restaurant.Introduction,
-                RestCity = x.Restaurant.City,
-                RestRegion = x.Restaurant.Region,
-                RestAddress = x.Restaurant.Address,
-                RestTime = x.Restaurant.BusyTime,
-                RestReserve = x.Restaurant.Reserve,
-                Title = x.Title,
-                Contents = x.Contents,
-                FromPlace = x.FromPlace
-                 });
+                    RestID = x.Restaurant.RestaurantId,
+                    RestName = x.Restaurant.RestaurantName,
+                    RestPhone = x.Restaurant.Phone,
+                    RestPhotoPath = x.Restaurant.PhotoPath,
+                    RestIntroduction = x.Restaurant.Introduction,
+                    RestCity = x.Restaurant.City,
+                    RestRegion = x.Restaurant.Region,
+                    RestAddress = x.Restaurant.Address,
+                    RestTime = x.Restaurant.BusyTime,
+                    RestReserve = x.Restaurant.Reserve,
+                    Title = x.Title,
+                    Contents = x.Contents,
+                    FromPlace = x.FromPlace
+                });
         }
 
     }
