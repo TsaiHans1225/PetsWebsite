@@ -69,11 +69,11 @@ namespace PetsWebsite.Controllers
 
                 InputFilePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Product", product.PhotoPath);
                 FileStream fs = new FileStream(InputFilePath, FileMode.Create);
-                InputFile.CopyToAsync(fs); // 將圖片放入指定位置
+                InputFile.CopyTo(fs); // 將圖片放入指定位置
                 fs.Close();
             }
-            _dBContext.Products.AddAsync(product);
-            _dBContext.SaveChangesAsync();
+            _dBContext.Products.Add(product);
+            _dBContext.SaveChanges();
             return true;
         }
 
